@@ -6,10 +6,10 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import BookSectionHome from "./components/BookSectionHome.jsx";
-import AddBook from "./components/AddBook.jsx";
-import ModifyBook from "./components/ModifyBook.jsx";
-import DeleteBook from "./components/DeleteBook.jsx";
+import BookSectionHome from "./components/BookSectionHome/BookSectionHome.jsx";
+import AddBook from "./components/AddBook/AddBook.jsx";
+import ModifyBook from "./components/modifyBook/ModifyBook.jsx";
+import DeleteBook from "./components/DeleteBook/DeleteBook.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 const router = createBrowserRouter([
