@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-function AddBook() {
+function AddNewBook() {
     let CategoryID = "EDU";
     const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState('');
@@ -234,4 +234,4 @@ function AddBook() {
     )
 }
 
-export default AddBook;
+export default AddNewBook;
