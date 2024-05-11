@@ -8,6 +8,7 @@ function AddExistingBookQty(){
     const [isbnMessage, setIsbnMessage] = useState({});
     const [data, setData] = useState({});
     const [nextBookID, setNextBookID] = useState('');
+    const [categoryList, setCategoryList] = useState([]);
     const handleChange = (e) => {
         if (e.target.name=="isbnNumber"){
             getISBNData({[e.target.name]:e.target.value});
@@ -80,7 +81,15 @@ function AddExistingBookQty(){
         setIsbnMessage(message);
         //console.log(message.ISBN_Number)
     }
-
+    useEffect(() => {
+        axios.get('http://localhost:8081/project_01/BookManagement.php')
+            .then(response => {
+                setCategoryList(response.data);
+            })
+            .catch(error => {
+                console.log(error.message);
+            });
+    }, []);
     function inputEnable_disable(feedback){
         let inputFields = document.querySelector(".feildDisabled");
             inputFields.disabled=feedback;
@@ -149,9 +158,9 @@ function AddExistingBookQty(){
                     <select className="form-select feildDisabled" id="validationCustom04" required name="category"
                             value={inputs.category || isbnMessage.Category || ""} onChange={handleChange}>
                         <option value="" disabled> select Category</option>
-                        <option value="Science">Science</option>
-                        <option value="Romance">Romance</option>
-                        <option value="IT">IT</option>
+                        {categoryList.map((category, index) => (
+                            <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
+                        ))}
                     </select>
                     <div className="valid-feedback">
                         Looks good!

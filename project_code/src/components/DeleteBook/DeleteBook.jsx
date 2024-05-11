@@ -1,5 +1,6 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 function DeleteBook(){
 
@@ -8,7 +9,7 @@ function DeleteBook(){
     const [isbnMessage, setIsbnMessage] = useState({});
     const [data, setData] = useState({});
     const [nextBookID, setNextBookID] = useState('');
-
+    const [categoryList, setCategoryList] = useState([]);
 
     const handleChange = (e) => {
         if (e.target.name=="isbnNumber"){
@@ -79,7 +80,15 @@ function DeleteBook(){
         setIsbnMessage(message);
         //console.log(message.ISBN_Number)
     }
-
+    useEffect(() => {
+        axios.get('http://localhost:8081/project_01/BookManagement.php')
+            .then(response => {
+                setCategoryList(response.data);
+            })
+            .catch(error => {
+                console.log(error.message);
+            });
+    }, []);
     function inputEnable_disable(feedback){
         let inputFields = document.querySelector(".feildDisabled");
         inputFields.disabled=feedback;
@@ -129,17 +138,19 @@ function DeleteBook(){
         })()
     }
 
-        const getBookID = async () => {
+
+        const deleteBook = async () => {
+            console.log(data)
             const res = await axios.post(
-                'http://localhost:8081/project_01/getBookID.php',
-                inputs.isbnNumber,
+                'http://localhost:8081/project_01/deleteBook.php',
+                data,
                 {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
             const message = await res.data.resultMessage;
-            setNextBookID(message);
+            setMessage(message);
             //console.log(message.ISBN_Number)
         }
 
@@ -159,7 +170,23 @@ function DeleteBook(){
                                placeholder="Auto fill" aria-describedby="inputGroupPrepend" value={nextBookID || ""} disabled required />
                     </div>
                 </div>
-
+                <div className="col-md-3">
+                    <label htmlFor="validationCustom04" className="form-label">Category</label>
+                    <select className="form-select feildDisabled" id="validationCustom04" required name="category"
+                            value={inputs.category || isbnMessage.Category || ""} onChange={handleChange}>
+                        <option value="" disabled> select Category</option>
+                        {categoryList.map((category, index) => (
+                            <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
+                        ))}
+                    </select>
+                    <div className="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div className="invalid-feedback">
+                        Please select a valid Category.
+                    </div>
+                    <button id="addCategory" type="button" className="btn btn-secondary"><Link to="/addBook/addCategory"> Add Book Category</Link></button>
+                </div>
                 <div className="col-md-4">
                     <label htmlFor="validationCustomUsername" className="form-label" >ISBN Number</label>
                     <div className="input-group has-validation">
@@ -185,7 +212,7 @@ function DeleteBook(){
                     </div>
                 </div>
 
-                <button>Delete Book</button>
+                <button type="button" onClick={deleteBook}>Delete Book</button>
 
                 <div className="col-12">
                     <button className="btn btn-primary feildDisabled" type="submit" onClick={submit}>Submit form</button>
