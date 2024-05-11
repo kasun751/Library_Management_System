@@ -1,0 +1,10 @@
+.replyBoxComponent {
+    border:1px solid black;
+    margin:5px;
+    padding:0px;
+    border-radius: 10px;
+    text-align: left;
+}
+.replyBoxComponent p{
+    margin-left:10px;
+}
