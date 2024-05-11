@@ -2,16 +2,17 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 
 function AddNewBook() {
-    let CategoryID = "EDU";
+   // let CategoryID = "EDU";
     const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState('');
     const [isbnMessage, setIsbnMessage] = useState({});
-    const [previousBookID, setPreviousBookID] = useState('');
+    const [categoryList, setCategoryList] = useState([]);
+
    // const y="enabled";
 
     const handleChange = (e) => {
-        if (e.target.name=="isbnNumber"){
-            getISBNData({[e.target.name]:e.target.value});
+        if (e.target.name=="isbnNumber") {
+            getISBNData({[e.target.name]: e.target.value});
         }
 
         const name = e.target.name;
@@ -32,17 +33,6 @@ function AddNewBook() {
         const message = await res.data.resultMessage;
         setMessage(message);
     }
-    //get ID
-    useEffect(() => {
-        axios.get('http://localhost:8081/project_01/BookManagement.php')
-            .then(response => {
-                console.log(response.data)
-                setPreviousBookID(parseInt(response.data.BookID)+1); // Update state with the fetched data
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    }, []);
 
     //check isbn exists or not
     const getISBNData = async (isbnNumber) => {
@@ -55,12 +45,16 @@ function AddNewBook() {
                 }
             })
         const message = await res.data;
-        if (parseInt(message.ISBN_Number)>0 ){
-            inputEnable_disable(true,"red");
-        }else {
-            inputEnable_disable(false,"#dee2e6");
-
-        }
+        switch (message.ISBN_Number) {
+            case undefined:
+                inputEnable_disable(false,"#dee2e6");
+                break;
+            case (message.ISBN_Number).length>0:
+                inputEnable_disable(true,"red");
+                    break;
+            default:
+                inputEnable_disable(true,"red");
+            }
         setIsbnMessage(message);
         //console.log(message.ISBN_Number)
     }
@@ -76,9 +70,16 @@ function AddNewBook() {
         //inputFields.disabled=feedback;
 
     }
-    // useEffect(() => {
-    //     getISBNData();
-    // }, [isbnNumber]);
+
+    useEffect(() => {
+       axios.get('http://localhost:8081/project_01/BookManagement.php')
+            .then(response => {
+                setCategoryList(response.data);
+            })
+            .catch(error => {
+                console.log(error.message);
+            });
+    }, []);
 
     function submit() {
         (async () => {
@@ -110,7 +111,7 @@ function AddNewBook() {
             }).then(res => {
                 if (res) {
                     updateDatabase();
-                    location.reload();
+                   // location.reload();
                     console.log(inputs);
                 } else {
                     console.log('validateError');
@@ -128,14 +129,7 @@ function AddNewBook() {
                 <img src="" alt=""/>
             </div>
             <form className="row g-3 needs-validation" noValidate>
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label">Book ID</label>
-                    <div className="input-group has-validation">
-                        <span className="input-group-text" id="inputGroupPrepend">{CategoryID + " - "}</span>
-                        <input type="text" className="form-control" id="validationCustomUsername"
-                               aria-describedby="inputGroupPrepend" value={previousBookID} disabled required />
-                    </div>
-                </div>
+
                 <div className="col-md-4">
                     <label htmlFor="validationCustomUsername" className="form-label" >ISBN Number</label>
                     <div className="input-group has-validation">
@@ -187,11 +181,11 @@ function AddNewBook() {
                 <div className="col-md-3">
                     <label htmlFor="validationCustom04" className="form-label">Category</label>
                     <select className="form-select feildDisabled" id="validationCustom04" required name="category"
-                             value={inputs.category || ""||isbnMessage.Category} onChange={handleChange}>
+                             value={inputs.category || isbnMessage.Category || ""} onChange={handleChange}>
                         <option value="" disabled> select Category</option>
-                        <option value="Science">Science</option>
-                        <option value="Romance">Romance</option>
-                        <option value="IT">IT</option>
+                        {categoryList.map((category, index) => (
+                            <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
+                        ))}
                     </select>
                     <div className="valid-feedback">
                         Looks good!
@@ -205,7 +199,7 @@ function AddNewBook() {
                     <label htmlFor="validationCustomUsername" className="form-label">QTY</label>
                     <div className="input-group has-validation ">
                         <input type="number" className="form-control feildDisabled" id="validationCustomUsername"
-                               placeholder={isbnMessage.Qty} aria-describedby="inputGroupPrepend" name="number" onChange={handleChange} required/>
+                               placeholder={isbnMessage.AllBookQty} aria-describedby="inputGroupPrepend" name="number" onChange={handleChange} required/>
                         <div className="valid-feedback">
                             Looks good!
                         </div>

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import axios from "axios";
 
 function AddExistingBookQty(){
@@ -6,10 +6,15 @@ function AddExistingBookQty(){
     const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState('');
     const [isbnMessage, setIsbnMessage] = useState({});
-
+    const [data, setData] = useState({});
+    const [nextBookID, setNextBookID] = useState('');
     const handleChange = (e) => {
         if (e.target.name=="isbnNumber"){
             getISBNData({[e.target.name]:e.target.value});
+            setData(preValues => ({...preValues, [e.target.name]:e.target.value }));
+        }
+        if (e.target.name=="category" ){
+            setData(preValues => ({...preValues, [e.target.name]:e.target.value}));
         }
 
         const name = e.target.name;
@@ -30,9 +35,25 @@ function AddExistingBookQty(){
         const message = await res.data.resultMessage;
         setMessage(message);
     }
+// get ID
+    const getBookID = async () => {
+        const res = await axios.post(
+            'http://localhost:8081/project_01/getBookID.php',
+            data,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        const message = await res.data.resultMessage;
+        setNextBookID(message);
+        //console.log(message.ISBN_Number)
+    }
+    useEffect(() => {
+        getBookID();
+    }, [data]);
 
-
-    //check isbn exists or not
+    //check isbn exists or not        check this
     const getISBNData = async (isbnNumber) => {
         const res = await axios.post(
             'http://localhost:8081/project_01/ISBN_Data.php',
@@ -43,11 +64,29 @@ function AddExistingBookQty(){
                 }
             })
         const message = await res.data;
+        if(message && message.Category && message.Category.length >0){
+            setData(preValues => ({...preValues, ["category"]:message.Category}));
+        }
+        switch (message.ISBN_Number) {
+            case undefined:
+                inputEnable_disable(false,"#dee2e6");
+                break;
+            case (message.ISBN_Number).length>0:
+                inputEnable_disable(true);
+                break;
+            default:
+                inputEnable_disable(true);
+        }
         setIsbnMessage(message);
         //console.log(message.ISBN_Number)
     }
 
+    function inputEnable_disable(feedback){
+        let inputFields = document.querySelector(".feildDisabled");
+            inputFields.disabled=feedback;
 
+
+    }
 
     function submit() {
         (async () => {
@@ -79,7 +118,7 @@ function AddExistingBookQty(){
             }).then(res => {
                 if (res) {
                     updateDatabase();
-                    location.reload();
+                    //location.reload();
                     console.log(inputs);
                 } else {
                     console.log('validateError');
@@ -97,7 +136,30 @@ function AddExistingBookQty(){
                 <img src="" alt=""/>
             </div>
             <form className="row g-3 needs-validation" noValidate>
-
+                <div className="col-md-4">
+                    <label htmlFor="validationCustomUsername" className="form-label">Next Book ID</label>
+                    <div className="input-group has-validation">
+                        {/*<span className="input-group-text" id="inputGroupPrepend">{CategoryID + " - "}</span>*/}
+                        <input type="text" className="form-control" id="validationCustomUsername"
+                               placeholder="Auto fill" aria-describedby="inputGroupPrepend" value={nextBookID || ""} disabled required />
+                    </div>
+                </div>
+                <div className="col-md-3">
+                    <label htmlFor="validationCustom04" className="form-label">Category</label>
+                    <select className="form-select feildDisabled" id="validationCustom04" required name="category"
+                            value={inputs.category || isbnMessage.Category || ""} onChange={handleChange}>
+                        <option value="" disabled> select Category</option>
+                        <option value="Science">Science</option>
+                        <option value="Romance">Romance</option>
+                        <option value="IT">IT</option>
+                    </select>
+                    <div className="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div className="invalid-feedback">
+                        Please select a valid Category.
+                    </div>
+                </div>
                 <div className="col-md-4">
                     <label htmlFor="validationCustomUsername" className="form-label" >ISBN Number</label>
                     <div className="input-group has-validation">
@@ -113,7 +175,7 @@ function AddExistingBookQty(){
                 </div>
                 <div className="col-md-4">
                     <label htmlFor="validationCustom01" className="form-label">Book Name</label>
-                    <input type="text" className="form-control feildDisabled" id="validationCustom01" name="bookName"
+                    <input type="text" className="form-control " id="validationCustom01" name="bookName"
                            placeholder={isbnMessage.BookName} onChange={handleChange} disabled required />
                     <div className="valid-feedback">
                         Looks good!
@@ -127,7 +189,7 @@ function AddExistingBookQty(){
                     <label htmlFor="validationCustomUsername" className="form-label">Add More QTY</label>
                     <div className="input-group has-validation ">
                         <input type="number" className="form-control feildDisabled" id="validationCustomUsername"
-                               placeholder={isbnMessage.Qty} aria-describedby="inputGroupPrepend" name="number" onChange={handleChange} required/>
+                               placeholder={isbnMessage.Qty} aria-describedby="inputGroupPrepend" name="addNewQty" onChange={handleChange} required/>
                         <div className="valid-feedback">
                             Looks good!
                         </div>

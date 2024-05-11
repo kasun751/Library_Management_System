@@ -3,14 +3,10 @@ import axios from "axios";
 
 function AddCategory(){
 
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState("");
     const [message, setMessage] = useState('');
-    const [isbnMessage, setIsbnMessage] = useState({});
 
     const handleChange = (e) => {
-        if (e.target.name=="isbnNumber"){
-            getISBNData({[e.target.name]:e.target.value});
-        }
 
         const name = e.target.name;
         const value = e.target.value;
@@ -20,7 +16,7 @@ function AddCategory(){
 
     const updateDatabase = async () => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/QtyUpdate.php',
+            'http://localhost:8081/project_01/categoryCreation.php',
             inputs,
             {
                 headers: {
@@ -30,24 +26,6 @@ function AddCategory(){
         const message = await res.data.resultMessage;
         setMessage(message);
     }
-
-
-    //check isbn exists or not
-    const getISBNData = async (isbnNumber) => {
-        const res = await axios.post(
-            'http://localhost:8081/project_01/ISBN_Data.php',
-            isbnNumber,
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-        const message = await res.data;
-        setIsbnMessage(message);
-        //console.log(message.ISBN_Number)
-    }
-
-
 
     function submit() {
         (async () => {
@@ -79,7 +57,7 @@ function AddCategory(){
             }).then(res => {
                 if (res) {
                     updateDatabase();
-                    location.reload();
+                    //location.reload();
                     console.log(inputs);
                 } else {
                     console.log('validateError');
@@ -118,7 +96,6 @@ function AddCategory(){
             </form>
             <div>
                 <p>Response from PHP script: {message}</p>
-                <p>ISBN Response from PHP script: {isbnMessage.ISBN_Number}</p>
             </div>
         </>
     )
