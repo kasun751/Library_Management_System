@@ -13,15 +13,16 @@ switch ($method) {
 
     case "POST":
         //Access the object key properties
-        $isbnNumber = $data['isbnNumber'];
-        $qty = $data['addNewQty'];
-        if (strlen($isbnNumber)>0 && $qty>0 ) {
+        $newCategory = $data['addCategory'];
+
+        if (strlen($newCategory)>0) {
             $getData = new SqlQuery();
-            $result = $getData->addMoreQty($qty,$isbnNumber);
-            if ($result > 0) {
+            $result = $getData->createNewCategoryTable($newCategory);
+            list($result1,$result3)=$getData->CategoryTableUpdate($newCategory);
+            if ($result > 0 && $result1 > 0 && $result3 > 0) {
                 $data = array('resultMessage' => 'true');
                 echo json_encode($data);
-            } else if ($result == 0) {
+            } else if ($result == 0 || $result1 == 0 || $result3 == 0) {
                 $data = array('resultMessage' => 'false');
                 echo json_encode($data);
             }
@@ -32,3 +33,5 @@ switch ($method) {
 
 
 }
+
+?>

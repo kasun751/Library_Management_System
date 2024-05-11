@@ -1,8 +1,9 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 function AddNewBook() {
-   // let CategoryID = "EDU";
+
     const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState('');
     const [isbnMessage, setIsbnMessage] = useState({});
@@ -193,6 +194,7 @@ function AddNewBook() {
                     <div className="invalid-feedback">
                         Please select a valid Category.
                     </div>
+                    <button id="addCategory" type="button" className="btn btn-secondary"><Link to="/addBook/addCategory"> Add Book Category</Link></button>
                 </div>
 
                 <div className="col-md-4">

@@ -1,4 +1,5 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
@@ -12,23 +13,25 @@ switch ($method) {
 
 
     case "POST":
-        //Access the object key properties
         $isbnNumber = $data['isbnNumber'];
-        $qty = $data['addNewQty'];
-        if (strlen($isbnNumber)>0 && $qty>0 ) {
+        $category = $data['category'];
+        $book_No=1;
+
+        if ( strlen($isbnNumber) > 0 && strlen($category) > 0 ) {
             $getData = new SqlQuery();
-            $result = $getData->addMoreQty($qty,$isbnNumber);
-            if ($result > 0) {
-                $data = array('resultMessage' => 'true');
+            $result=$getData->getLastBook_No($category,$isbnNumber);
+            $uppercaseString = strtoupper($category);
+            $charArray = str_split($uppercaseString);
+            $final_ID=$charArray[0].$charArray[1].$charArray[2]."/".$isbnNumber."/".($result+1);
+            $data = array('resultMessage' => $final_ID);
                 echo json_encode($data);
-            } else if ($result == 0) {
-                $data = array('resultMessage' => 'false');
-                echo json_encode($data);
-            }
-        } else {
+            } else {
             $data = array('resultMessage' => 'false');
             echo json_encode($data);
         }
 
 
+
 }
+
+?>

@@ -9,14 +9,11 @@ include 'SqlQuery.php';
 $data = json_decode(file_get_contents('php://input'), true);
 $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
+
     case "GET":
-        $getID = new SqlQuery();
-        $result = $getID->getLastBookId();
-        $row = $result->fetch_assoc();
-
-
-       echo json_encode($row);
-break;
+        $getData = new SqlQuery();
+        $getData->getCategoryList();
+        break;
 
     case "POST":
         //Access the object key properties
@@ -27,15 +24,16 @@ break;
         $category = $data['category'];
         $qty = $data['number'];
         $description = $data['description'];
+        $book_No=1;
 
         if (strlen($bookName) > 0 && strlen($authorName) > 0 && strlen($publisherName) > 0 && strlen($isbnNumber) > 0
             && strlen($category) > 0 && strlen($qty) > 0 && strlen($description) > 0) {
             $insertData = new SqlQuery();
-            $result = $insertData->runSqlInsertQuery($bookName, $authorName, $publisherName, $isbnNumber, $category, $qty, $description);
-            if ($result > 0) {
+            list($result1,$result2) = $insertData->InsertBookSTableDetails($bookName, $authorName, $publisherName, $isbnNumber, $category,$qty, $description,$book_No);
+            if ($result1 > 0 && $result2 > 0) {
                 $data = array('resultMessage' => 'true');
                 echo json_encode($data);
-            } else if ($result == 0) {
+            } else if ($result1 == 0 || $result2 == 0) {
                 $data = array('resultMessage' => 'false');
                 echo json_encode($data);
             }
