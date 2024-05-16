@@ -1,0 +1,12 @@
+.linksContainer{
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 10px;
+    transition: all 400ms ease-in;
+}
+
+.linksContainer:hover{
+    cursor: pointer;
+    font-size: medium;
+}
