@@ -12,6 +12,19 @@ function PostComponent(props) {
 
     const viewImage = visible? "src/Images/look.svg":"src/Images/not-see.svg";
 
+    const getReplyMsgFromDB = async () => {
+        axios.post('')
+        .then(res=>{
+            setReplyBulk(res.data.msg)
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
+
+    const sendReplyMsgToDB = async () => {
+        
+    }
+
     const handleSendReply = () => {
         if(reply.length!=0){
             setReplyBulk(pre =>[...pre, { msg: reply }]);
