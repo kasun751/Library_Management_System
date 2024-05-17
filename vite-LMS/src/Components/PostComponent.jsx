@@ -5,15 +5,15 @@ import ReplyBoxComponent from './ReplyBoxComponent';
 
 
 function PostComponent(props) {
-    const[reply,setReply]=useState("");
-    const[replyBulk,setReplyBulk] = useState([]);
+    const[reply,setReply]=useState(""); // use to save current reply msg
+    const[replyBulk,setReplyBulk] = useState([]); //use to store previous reply msgs
 
-    const[visible,setVisible]=useState(true);
+    const[visible,setVisible]=useState(true); //use to eye button
 
-    const viewImage = visible? "src/Images/look.svg":"src/Images/not-see.svg";
+    const viewImage = visible? "src/Images/look.svg":"src/Images/not-see.svg"; //use to change eye button image
 
     const getReplyMsgFromDB = async () => {
-        axios.post('')
+        axios.get('')
         .then(res=>{
             setReplyBulk(res.data.msg)
         }).catch(err=>{
