@@ -1,13 +1,42 @@
-.postImageBtnPannel img{
-    width: 30px;
-    margin-left: 10px;
+.postComponent {
+    margin: 20px;
+    width: 75%;
+    padding: 20px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .postComponent h2 {
+    margin-bottom: 10px;
+  }
+  
+  .postComponent p {
+    margin-bottom: 20px;
+  }
+  
+  .postComponent input[type="text"] {
+    width: calc(100% - 80px);
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .postComponent button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-} 
-.postComponent{
-    margin:10px;
-    width:75%;
-    padding:10px;
-    text-align: center;
-    border:3px solid black;
-    border-radius: 20px;
-}
+    transition: background-color 0.3s ease;
+  }
+  
+  .postComponent button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .replyBox {
+    margin-top: 20px;
+  }

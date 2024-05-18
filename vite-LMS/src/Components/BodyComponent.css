@@ -1,5 +1,27 @@
-.bodyComponent{
-    display: block;
-    align-items: center;
-
-}
+.bodyComponent {
+    margin: 20px;
+    padding: 20px; 
+    background-color: #f0f0f0;
+  }
+  
+  .bodyComponent button {
+    margin-bottom: 10px; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    background-color: #007bff; 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    margin-left: 5px;
+  }
+  
+  .bodyComponent button:hover {
+    background-color: #0056b3;
+    
+  }
+  
+  .bodyComponent button:focus {
+    outline: none;
+  }
+  
