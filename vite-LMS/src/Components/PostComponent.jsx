@@ -25,17 +25,12 @@ function PostComponent({ post }) {
   async function setReplyMsgToDB() {
     try {
       setLoading(true);
-      await axios.post(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`, {
+      const response = await axios.post(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`, {
         post_id: post.post_id,
         member_id: "A12",
         reply_msg: reply
-      }).then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log("kasun")
-        console.log(error);
       });
+      console.log(response.data);
       getReplyMsgFromDB();
       setReply('');
     } catch (err) {
