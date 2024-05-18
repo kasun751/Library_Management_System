@@ -13,7 +13,6 @@ function BodyComponent() {
   async function getPost() {
     try {
       const res = await axios.get('http://localhost:80/project_1/AskFromCommunity/PostManager.php');
-      console.log(res.data);
       setPosts(res.data);
     } catch (err) {
       console.error(err);
@@ -22,8 +21,8 @@ function BodyComponent() {
   
   return (
     <div className='bodyComponent'>
-      {posts.map((item, index) => (
-        <PostComponent title={item.title} description={item.description} key={index} />
+      {posts.map((item) => (
+        <PostComponent key={item.post_id} post={item} />
       ))}
     </div>
   );
