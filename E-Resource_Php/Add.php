@@ -16,6 +16,8 @@ if (
     isset($data['category']) &&
     isset($data['description'])
 ) {
+
+
     // Proceed with assigning values to variables
     $id = $data['id'];
     $isbn = $data['isbn'];
