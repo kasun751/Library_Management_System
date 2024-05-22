@@ -3,9 +3,12 @@ import PostComponent from './PostComponent';
 import './BodyComponent.css';
 import axios from 'axios';
 
-function BodyComponent() {
+function BodyComponent(props) {
   const [posts, setPosts] = useState([]);
   const [refresh,setRefresh] = useState(true)
+
+  const member_id = props.member_id //member id
+  const user_type = props.user_type //user type
 
   const handleRefresh=()=>{
     setRefresh(refresh? false:true)

@@ -22,6 +22,20 @@ function PostComponent({ post }) {
     }
   }
 
+  async function handleReport(){
+    try{
+        const response = await axios.put(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`,{
+            reply_id : post.reply_id,
+            report_status : 1
+        });
+        console.log(post);
+        console.log(response);
+        
+    }catch(err){
+        console.error(err);
+    }
+  }
+
   async function setReplyMsgToDB() {
     try {
       setLoading(true);
@@ -31,7 +45,7 @@ function PostComponent({ post }) {
         reply_msg: reply
       });
       console.log(response.data);
-      getReplyMsgFromDB();
+      setReplyBulk([...replyBulk, { post_id: post.post_id, reply_msg: reply }]);
       setReply('');
     } catch (err) {
       console.error(err);
@@ -52,6 +66,8 @@ function PostComponent({ post }) {
 
   return (
     <div className='postComponent'>
+        <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
+        <label className='reportBtn'  onClick={handleReport}>Report</label>
       <h2>{post.title}</h2>
       <p>{post.description}</p>
       <div className='postImageBtnPannel'>
@@ -67,7 +83,7 @@ function PostComponent({ post }) {
       <div className='replyBox'>
         {visible &&
           replyBulk.map((item, index) => (
-            <ReplyBoxComponent key={index} post_id={item.post_id} post_id2={post.post_id} msg={item.reply_msg} />
+            <ReplyBoxComponent  key={index} post_id2={post.post_id} item = {item}/>
           ))}
       </div>
     </div>

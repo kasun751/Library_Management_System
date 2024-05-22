@@ -11,4 +11,11 @@
     margin-left: 10px; 
     margin-bottom: 5px; 
   }
-  
+  .reportBtn{
+    float: right;
+    cursor: pointer;
+    color: gray;
+  }
+  .reportBtn:hover{
+    color: red;
+  }
