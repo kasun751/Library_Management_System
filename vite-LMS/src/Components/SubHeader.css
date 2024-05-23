@@ -5,10 +5,14 @@
   border: 2px solid black;
   background-color: red;
   align-items: center;
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 .subHeaderImageBtnPannel>img{
-    width:30px;     
+    width:30px;  
+    cursor: pointer;  
 }
 .headerTitle{
     width:60%;

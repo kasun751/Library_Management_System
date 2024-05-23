@@ -29,12 +29,15 @@ function BodyComponent(props) {
   }
   
   return (
-    <div className='bodyComponent'>
-      <button onClick={handleRefresh}>Refresh</button>
-      {posts.map((item) => (
-        <PostComponent key={item.post_id} post={item} />
-      ))}
-    </div>
+    <>
+      <button id='btnRefresh' onClick={handleRefresh}>Refresh</button>
+      <div className='bodyComponent'>
+      
+        {posts.map((item) => (
+          <PostComponent key={item.post_id} post={item} />
+        ))}
+      </div>
+    </>
   );
 }
 

@@ -70,7 +70,7 @@ function SubmitPost() {
         return (
             <div className='submitPostBox'>
                 
-                    <table>
+                    <table style={{width:'100%'}}>
                         <tbody>
                             <tr>
                                 <td colSpan={3}>
@@ -79,13 +79,15 @@ function SubmitPost() {
                             </tr>
                             <tr>
                                 <td>
-                                    belong to any unique category?
-                                </td>
-                                <td>
+                                    <b>Belong to any unique category?</b>
                                     <input type="radio" name="category" value="true" onChange={handleOnOption} /> Yes
+                                    <input type="radio" name="category" value="false" onChange={handleOnOption} /> NO
                                 </td>
                                 <td>
-                                    <input type="radio" name="category" value="false" onChange={handleOnOption} /> NO
+                                    
+                                </td>
+                                <td>
+                                    
                                 </td>
                             </tr>
                             <tr>

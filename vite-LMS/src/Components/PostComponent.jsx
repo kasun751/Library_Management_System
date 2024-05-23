@@ -8,6 +8,7 @@ function PostComponent({ post }) {
   const [replyBulk, setReplyBulk] = useState([]);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [savePost, setSavePost] = useState(false);
 
   useEffect(() => {
     getReplyMsgFromDB();
@@ -64,10 +65,18 @@ function PostComponent({ post }) {
     setVisible(prevVisible => !prevVisible);
   };
 
+  const handleSaveBtn = () =>{
+    setSavePost(savePost? false:true);
+  }
+
+  const img = savePost? 'src/Images/save.svg':'src/Images/unSave.svg';
+
   return (
     <div className='postComponent'>
         <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
         <label className='reportBtn'  onClick={handleReport}>Report</label>
+        <label className='editBtn'>Edit</label>
+        <img id="savePostBtn" src={img} onClick={handleSaveBtn} />
       <h2>{post.title}</h2>
       <p>{post.description}</p>
       <div className='postImageBtnPannel'>
@@ -77,6 +86,7 @@ function PostComponent({ post }) {
           placeholder='enter your reply'
           onChange={(e) => setReply(e.target.value)}
         />
+        <br /><br />
         <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
         <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
       </div>
