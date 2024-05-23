@@ -1,10 +1,9 @@
 .subHeadeContainer{
     display: flex;
   justify-content: space-between;
-  height:50px;
+  height:150px;
   border: 2px solid black;
   background-color: red;
-  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -26,5 +25,9 @@
     margin-left: auto;
     height:55px;
     z-index: 100;
+}
+
+.headerTitle img{
+    width:100px;
 }
 

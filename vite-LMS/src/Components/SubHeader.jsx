@@ -7,13 +7,14 @@ const mySavedPost = () =>{
 
 }
 const myPost =()=>{
-  
+
 }
 
   return (
     <>
         <div className='subHeadeContainer'>
         <div className='headerTitle'>
+            <img src='src\Images\community.svg' />
             <h3>Ask From Community</h3>
         </div>
         <div className='subHeaderImageBtnPannel'>
