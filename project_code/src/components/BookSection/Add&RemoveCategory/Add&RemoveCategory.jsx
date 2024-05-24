@@ -1,9 +1,9 @@
 import {useState} from "react";
 import axios from "axios";
 
-function AddCategory(){
+function AddRemoveCategory(){
 
-    const [inputs, setInputs] = useState("");
+    const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState('');
 
     const handleChange = (e) => {
@@ -14,10 +14,14 @@ function AddCategory(){
         setInputs(preValues => ({...preValues, [name]: value}))
     }
 
-    const updateDatabase = async () => {
+    const updateDatabase = async (access) => {
+        const extendedData = {
+            ... inputs,
+            access_parameter:access
+        };
         const res = await axios.post(
             'http://localhost:8081/project_01/categoryCreation.php',
-            inputs,
+            extendedData,
             {
                 headers: {
                     'Content-Type': 'application/json'
@@ -27,7 +31,8 @@ function AddCategory(){
         setMessage(message);
     }
 
-    function submit() {
+
+    function submit(access) {
         (async () => {
             'use strict'
 
@@ -56,7 +61,7 @@ function AddCategory(){
                 })
             }).then(res => {
                 if (res) {
-                    updateDatabase();
+                    updateDatabase(access);
                     //location.reload();
                     console.log(inputs);
                 } else {
@@ -91,7 +96,8 @@ function AddCategory(){
                 </div>
 
                 <div className="col-12">
-                    <button className="btn btn-primary feildDisabled" type="submit" onClick={submit}>Submit form</button>
+                    <button className="btn btn-primary feildDisabled" type="submit" onClick={() => submit("add")}>Add Category</button>
+                    <button className="btn btn-primary feildDisabled" type="submit" onClick={() => submit("remove")}>Remove Category</button>
                 </div>
             </form>
             <div>
@@ -100,4 +106,4 @@ function AddCategory(){
         </>
     )
 }
-export default AddCategory;
+export default AddRemoveCategory;

@@ -32,7 +32,8 @@ function AddNewBook() {
                 }
             })
         const message = await res.data.resultMessage;
-        setMessage(message);
+        console.log(res.data)
+        await setMessage(message);
     }
 
     //check isbn exists or not
@@ -75,6 +76,7 @@ function AddNewBook() {
     useEffect(() => {
        axios.get('http://localhost:8081/project_01/BookManagement.php')
             .then(response => {
+                console.log(response.data)
                 setCategoryList(response.data);
             })
             .catch(error => {
@@ -207,6 +209,20 @@ function AddNewBook() {
                         </div>
                         <div className="invalid-feedback">
                             Please choose a valid quantity.
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-md-4">
+                    <label htmlFor="validationCustomUsername" className="form-label" >Book Location</label>
+                    <div className="input-group has-validation">
+                        <input type="text" className="form-control" id="validationCustomUsername"
+                               placeholder={isbnMessage.BookLocation} aria-describedby="inputGroupPrepend" name="bookLocation"  onChange={handleChange}  required/>
+                        <div className="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div className="invalid-feedback">
+                            Please choose a valid Book Location.
                         </div>
                     </div>
                 </div>

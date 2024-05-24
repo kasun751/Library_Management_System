@@ -14,7 +14,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import AddExistingBookQty from "./components/BookSection/AddExistingBookQty/AddExistingBookQty.jsx";
 import SelectMethod from "./components/BookSection/SelectMethod/SelectMethod.jsx";
-import AddCategory from "./components/BookSection/AddCategory/AddCategory.jsx";
+import AddRemoveCategory from "./components/BookSection/Add&RemoveCategory/Add&RemoveCategory.jsx";
+import ViewBookDetails from "./components/BookSection/ViewBookDetails/ViewBookDetails.jsx";
+import DeleteSomeBook from "./components/DeleteBook/DeleteSomeBooks.jsx";
+import DeleteAllBook from "./components/DeleteBook/DeleteAllBooks.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -34,16 +37,28 @@ const router = createBrowserRouter([
     },
     {
         path: "/addBook/addCategory",
-        element:<AddCategory/>
+        element:<AddRemoveCategory/>
     },
     {
         path: "/deleteBook",
         element:<DeleteBook/>
     },
     {
+        path: "/deleteAllBook",
+        element:<DeleteAllBook/>
+    },
+    {
+        path: "/deleteSomeBook",
+        element:<DeleteSomeBook/>
+    },
+    {
+        path: "/viewBook",
+        element:<ViewBookDetails/>
+    },
+    {
         path: "/modifyBook",
         element:<ModifyBook/>
-    },
+    }
 
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(

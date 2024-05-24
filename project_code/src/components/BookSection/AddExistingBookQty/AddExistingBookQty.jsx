@@ -38,9 +38,13 @@ function AddExistingBookQty(){
     }
 // get ID
     const getBookID = async () => {
+        const extendedData = {
+            ...data,
+            dataGetting_parameter:0
+        };
         const res = await axios.post(
             'http://localhost:8081/project_01/getBookID.php',
-            data,
+            extendedData,
             {
                 headers: {
                     'Content-Type': 'application/json'
