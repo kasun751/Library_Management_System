@@ -1,6 +1,7 @@
 import {useEffect,useState} from "react";
 import axios from "axios";
 import './ViewBookDetails.css'
+import {Link} from "react-router-dom";
 function ViewBookDetails() {
 
     const [booksList, setBooksList] = useState([]);
@@ -77,8 +78,8 @@ function ViewBookDetails() {
                                 <td className="booDetails">{book.AuthorName}</td>
                                 <td className="booDetails">{book.PublisherName}</td>
                                 <td className="booDetails">
-                                    <button type="button" className="btn btn-success">Availability {book.AllBookQty}</button>
-                                    <button type="button" className="btn btn-danger">View Details</button>
+                                    <button id="availabilityDetails" className="btn btn-success"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>Available Books </Link></button>
+                                    <button id="availabilityDetails" className="btn btn-danger"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link></button>
                                 </td>
                             </tr>
                         ))
@@ -90,8 +91,8 @@ function ViewBookDetails() {
                                 <td>{book.AuthorName}</td>
                                 <td>{book.PublisherName}</td>
                                 <td >
-                                    <button type="button" className="btn btn-success">Availability {book.AllBookQty}</button>
-                                    <button type="button" className="btn btn-danger">View Details</button>
+                                    <button id="availabilityDetails" className="btn btn-success"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>Available Books </Link></button>
+                                    <button id="availabilityDetails" className="btn btn-danger"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link></button>
                                 </td>
                             </tr>
                         ))

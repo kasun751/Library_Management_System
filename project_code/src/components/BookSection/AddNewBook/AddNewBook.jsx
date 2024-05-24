@@ -76,7 +76,6 @@ function AddNewBook() {
     useEffect(() => {
        axios.get('http://localhost:8081/project_01/BookManagement.php')
             .then(response => {
-                console.log(response.data)
                 setCategoryList(response.data);
             })
             .catch(error => {
@@ -226,7 +225,20 @@ function AddNewBook() {
                         </div>
                     </div>
                 </div>
-
+                <div className="col-md-3">
+                    <label htmlFor="validationCustom04" className="form-label">Set Availability</label>
+                    <select className="form-select" id="validationCustom04" required name="setAvailability" onChange={handleChange}>
+                        <option value=""> Chose...</option>
+                        <option value="available">Available</option>
+                        <option value="notAvailable">Not Available</option>
+                    </select>
+                    <div className="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div className="invalid-feedback">
+                        Please select a valid Category.
+                    </div>
+                </div>
                 <div className="col-md-6">
                     <label htmlFor="validationCustom03" className="form-label ">Description</label>
                     <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50" name="description"
