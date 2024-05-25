@@ -78,7 +78,7 @@ function ViewBookDetails() {
                                 <td className="booDetails">{book.AuthorName}</td>
                                 <td className="booDetails">{book.PublisherName}</td>
                                 <td className="booDetails">
-                                    <button id="availabilityDetails" className="btn btn-success"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>Available Books </Link></button>
+                                    <button id="availabilityDetails" className="btn btn-success"><Link to={`/viewBook/bookAvailabilityDetails/${book.ISBN_Number}`}>Available Books </Link></button>
                                     <button id="availabilityDetails" className="btn btn-danger"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link></button>
                                 </td>
                             </tr>
@@ -91,7 +91,7 @@ function ViewBookDetails() {
                                 <td>{book.AuthorName}</td>
                                 <td>{book.PublisherName}</td>
                                 <td >
-                                    <button id="availabilityDetails" className="btn btn-success"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>Available Books </Link></button>
+                                    <button id="availabilityDetails" className="btn btn-success"><Link to={`/viewBook/bookAvailabilityDetails/${book.ISBN_Number}`}>Available Books </Link></button>
                                     <button id="availabilityDetails" className="btn btn-danger"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link></button>
                                 </td>
                             </tr>

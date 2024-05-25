@@ -145,9 +145,9 @@ function IssueBook(){
                         <select className="form-select feildDisabled" id="validationCustom04" required name="category"
                                 value={inputs.category || bookIdDetails.Category || ""} onChange={handleChange}>
                             <option value="" disabled> select Category</option>
-                            {categoryList.map((category, index) => (
+                            {Array.isArray(categoryList)?(categoryList.map((category, index) => (
                                 <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
-                            ))}
+                            ))):""}
                         </select>
                         <div className="valid-feedback">
                             Looks good!

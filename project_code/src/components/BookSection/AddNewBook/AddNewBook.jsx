@@ -76,6 +76,7 @@ function AddNewBook() {
     useEffect(() => {
        axios.get('http://localhost:8081/project_01/BookManagement.php')
             .then(response => {
+                console.log(response.data)
                 setCategoryList(response.data);
             })
             .catch(error => {
@@ -185,9 +186,9 @@ function AddNewBook() {
                     <select className="form-select feildDisabled" id="validationCustom04" required name="category"
                              value={inputs.category || isbnMessage.Category || ""} onChange={handleChange}>
                         <option value="" disabled> select Category</option>
-                        {categoryList.map((category, index) => (
+                        {Array.isArray(categoryList)?(categoryList.map((category, index) => (
                             <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
-                        ))}
+                        ))):""}
                     </select>
                     <div className="valid-feedback">
                         Looks good!
@@ -242,7 +243,7 @@ function AddNewBook() {
                 <div className="col-md-6">
                     <label htmlFor="validationCustom03" className="form-label ">Description</label>
                     <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50" name="description"
-                              placeholder={isbnMessage.Description}   onChange={handleChange}/>
+                              placeholder={isbnMessage.Description}   onChange={handleChange} required/>
                 </div>
 
 

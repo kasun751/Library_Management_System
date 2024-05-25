@@ -1,18 +1,16 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
-function DeleteSomeBook() {
-
+function IssueBook(){
     const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState('');
-    const [isbnMessage, setIsbnMessage] = useState({});
+    const [bookIdDetails, setBookIdDetails] = useState({});
     const [data, setData] = useState({});
-    const [nextBookID, setNextBookID] = useState('');
     const [categoryList, setCategoryList] = useState([]);
     const handleChange = (e) => {
-        if (e.target.name == "isbnNumber") {
-            getISBNData({[e.target.name]: e.target.value});
+        if (e.target.name == "bookID") {
+            getBookIdDetails({[e.target.name]: e.target.value});
             setData(preValues => ({...preValues, [e.target.name]: e.target.value}));
         }
 
@@ -22,34 +20,13 @@ function DeleteSomeBook() {
         setInputs(preValues => ({...preValues, [name]: value}))
     }
 
-// get ID
-    const getBookID = async () => {
-        const extendedData = {
-            ...data,
-            dataGetting_parameter:1
-        };
 
-        const res = await axios.post(
-            'http://localhost:8081/project_01/getBookID.php',
-            extendedData,
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-        const message = await res.data.resultMessage;
-        setNextBookID(message);
-        //console.log(message.ISBN_Number)
-    }
-    useEffect(() => {
-        getBookID();
-    }, [data]);
 
     //check isbn exists or not        check this
-    const getISBNData = async (isbnNumber) => {
+    const getBookIdDetails = async (bookID) => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/ISBN_Data.php',
-            isbnNumber,
+            'http://localhost:8081/project_01/bookIdData.php',
+            bookID,
             {
                 headers: {
                     'Content-Type': 'application/json'
@@ -69,7 +46,8 @@ function DeleteSomeBook() {
             default:
                 inputEnable_disable(true);
         }
-        setIsbnMessage(message);
+        console.log(message)
+        setBookIdDetails(message);
         //console.log(message.ISBN_Number)
     }
     useEffect(() => {
@@ -86,14 +64,11 @@ function DeleteSomeBook() {
         let inputFields = document.querySelector(".feildDisabled");
         inputFields.disabled = feedback;
 
-
     }
 
     function submit() {
         (async () => {
             'use strict'
-
-
             const forms = document.querySelectorAll('.needs-validation')
 
             // Loop over them and prevent submission
@@ -120,7 +95,7 @@ function DeleteSomeBook() {
                 if (res) {
                     deleteBook();
                     //location.reload();
-                    //console.log(inputs);
+                    console.log(inputs);
                 } else {
                     console.log('validateError');
                 }
@@ -132,10 +107,10 @@ function DeleteSomeBook() {
     }
     const deleteBook = async () => {
         const extendedData = {
-            ...data,...inputs,
-            delete_parameter:1
+            ...data,
+            delete_parameter: 1
         };
-        console.log(extendedData);
+        console.log(extendedData)
         const res = await axios.post(
             'http://localhost:8081/project_01/deleteBook.php',
             extendedData,
@@ -143,8 +118,9 @@ function DeleteSomeBook() {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            });
+            })
         const message = await res.data.resultMessage;
+        console.log(message)
         setMessage(message);
         //console.log(message.ISBN_Number)
     }
@@ -155,27 +131,25 @@ function DeleteSomeBook() {
             <div id="singleBooksDelete">
                 <div id="progress">
                     <img src="" alt=""/>
-                    <h1>Delete Some Books Details</h1>
+                    <h1>Delete Some Books </h1>
                 </div>
                 <form className="row g-3 needs-validation" noValidate>
                     <div className="col-md-4">
-                        <label htmlFor="validationCustomUsername" className="form-label">Book Name ID</label>
+                        <label htmlFor="validationCustomUsername" className="form-label">Book ID</label>
                         <div className="input-group has-validation">
                             {/*<span className="input-group-text" id="inputGroupPrepend">{CategoryID + " - "}</span>*/}
-                            <input type="text" className="form-control" id="validationCustomUsername"
-                                   placeholder="Auto fill" aria-describedby="inputGroupPrepend" value={nextBookID || ""}
-                                   disabled required/>
-                           <input type="number" name="book_no"  onChange={handleChange}/>
+                            <input type="text" className="form-control" id="validationCustomUsername" name="bookID"
+                                   placeholder="Auto fill" aria-describedby="inputGroupPrepend" required onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="col-md-3">
                         <label htmlFor="validationCustom04" className="form-label">Category</label>
                         <select className="form-select feildDisabled" id="validationCustom04" required name="category"
-                                value={inputs.category || isbnMessage.Category || ""} onChange={handleChange}>
+                                value={inputs.category || bookIdDetails.Category || ""} onChange={handleChange}>
                             <option value="" disabled> select Category</option>
-                            {categoryList.map((category, index) => (
+                            {Array.isArray(categoryList)?(categoryList.map((category, index) => (
                                 <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
-                            ))}
+                            ))):""}
                         </select>
                         <div className="valid-feedback">
                             Looks good!
@@ -186,24 +160,11 @@ function DeleteSomeBook() {
                         <button id="addCategory" type="button" className="btn btn-secondary"><Link
                             to="/addBook/addCategory"> Add Book Category</Link></button>
                     </div>
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustomUsername" className="form-label">ISBN Number</label>
-                        <div className="input-group has-validation">
-                            <input type="text" className="form-control" id="validationCustomUsername"
-                                   aria-describedby="inputGroupPrepend" name="isbnNumber" onChange={handleChange}
-                                   required/>
-                            <div className="valid-feedback">
-                                Looks good!
-                            </div>
-                            <div className="invalid-feedback">
-                                Please choose a valid ISBN Number.
-                            </div>
-                        </div>
-                    </div>
+
                     <div className="col-md-4">
                         <label htmlFor="validationCustom01" className="form-label">Book Name</label>
                         <input type="text" className="form-control " id="validationCustom01" name="bookName"
-                               placeholder={isbnMessage.BookName} onChange={handleChange} disabled required/>
+                               placeholder={bookIdDetails.BookName} onChange={handleChange} disabled required/>
                         <div className="valid-feedback">
                             Looks good!
                         </div>
@@ -221,11 +182,11 @@ function DeleteSomeBook() {
                 </form>
                 <div>
                     <p>Response from PHP script: {message}</p>
-                    <p>ISBN Response from PHP script: {isbnMessage.ISBN_Number}</p>
+                    <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>
                 </div>
             </div>
         </>
     )
 }
 
-export default DeleteSomeBook;
+export default IssueBook;

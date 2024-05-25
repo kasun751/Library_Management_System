@@ -162,9 +162,9 @@ function AddExistingBookQty(){
                     <select className="form-select feildDisabled" id="validationCustom04" required name="category"
                             value={inputs.category || isbnMessage.Category || ""} onChange={handleChange}>
                         <option value="" disabled> select Category</option>
-                        {categoryList.map((category, index) => (
+                        {Array.isArray(categoryList)?(categoryList.map((category, index) => (
                             <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
-                        ))}
+                        ))):""}
                     </select>
                     <div className="valid-feedback">
                         Looks good!
@@ -212,6 +212,20 @@ function AddExistingBookQty(){
                     </div>
                 </div>
 
+                <div className="col-md-3">
+                    <label htmlFor="validationCustom04" className="form-label">Set Availability</label>
+                    <select className="form-select" id="validationCustom04" required name="setAvailability" onChange={handleChange}>
+                        <option value=""> Chose...</option>
+                        <option value="available">Available</option>
+                        <option value="notAvailable">Not Available</option>
+                    </select>
+                    <div className="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div className="invalid-feedback">
+                        Please select a valid Category.
+                    </div>
+                </div>
                 <div className="col-12">
                     <button className="btn btn-primary feildDisabled" type="submit" onClick={submit}>Submit form</button>
                 </div>
