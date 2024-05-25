@@ -9,10 +9,7 @@ function ReplyBoxComponent({post_id2,item }) {
         const response = await axios.put(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`,{
             reply_id :item.reply_id,
             report_status : 1
-        });
-        console.log(item);
-        console.log(response);
-        
+        });        
     }catch(err){
         console.error(err);
     }

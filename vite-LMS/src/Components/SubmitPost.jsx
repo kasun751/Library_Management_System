@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './SubmitPost.css';
 import axios from 'axios';
 
-function SubmitPost() {
-    const [formAvailable, setFormAvailable] = useState(false);
+function SubmitPost({ category: initialCategory = 'none', title: initialTitle = '', description: initialDescription = '', formAvailable: initialformAvailable = false, btn_value: initialbtn_value= 'Send Post' ,post_id }) {
+    const [formAvailable, setFormAvailable] = useState(initialformAvailable);
     const [option, setOption] = useState(false);
-    const [category, setCategory] = useState("none");
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
+    const [category, setCategory] = useState(initialCategory);
+    const [title, setTitle] = useState(initialTitle);
+    const [description, setDescription] = useState(initialDescription);
 
     const handleToCreatePost = () => {
         setFormAvailable(true);
@@ -27,12 +27,29 @@ function SubmitPost() {
                 category:category,
                 title:title,
                 description:description,
-                member_id : "A12"
+                user_id : "A12"
             });
             setCategory("none");
             setTitle("");
             setDescription("");
-            console.log(response);
+            setFormAvailable(false);
+        }catch(err){
+            console.error(err);
+        }
+    }
+
+    async function editPostfromDB(){
+        try{
+            const response = await axios.put(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
+                category:category,
+                title:title,
+                description:description,
+                post_id: post_id
+            });
+            setCategory("none");
+            setTitle("");
+            setDescription("");
+            setFormAvailable(false);
         }catch(err){
             console.error(err);
         }
@@ -112,7 +129,9 @@ function SubmitPost() {
                             </tr>
                         </tbody>
                     </table>
-                    <input type='submit' value="Post" onClick={savePostonDB} />
+                    <input type='submit' value={initialbtn_value} onClick={
+                       initialbtn_value==="Send Post" ? savePostonDB : editPostfromDB
+                    } />
                 
             </div>
         );

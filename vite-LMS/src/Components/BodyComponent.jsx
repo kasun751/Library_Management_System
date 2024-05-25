@@ -7,7 +7,7 @@ function BodyComponent(props) {
   const [posts, setPosts] = useState([]);
   const [refresh,setRefresh] = useState(true)
 
-  const member_id = props.member_id //member id
+  const user_id = props.user_id //member id
   const user_type = props.user_type //user type
 
   const handleRefresh=()=>{
@@ -15,13 +15,12 @@ function BodyComponent(props) {
   }
 
   useEffect(() => {
-    console.log("kasun")
-    getPost();
+    getPost('');
   }, [refresh]);
 
-  async function getPost() {
+  async function getPost($category) {
     try {
-      const res = await axios.get('http://localhost:80/project_1/AskFromCommunity/PostManager.php');
+      const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/PostManager.php?category=${$category}`);
       setPosts(res.data);
     } catch (err) {
       console.error(err);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './PostComponent.css';
 import ReplyBoxComponent from './ReplyBoxComponent';
 import axios from 'axios';
+import SubmitPost from './SubmitPost';
 
 function PostComponent({ post }) {
   const [reply, setReply] = useState('');
@@ -9,6 +10,7 @@ function PostComponent({ post }) {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [savePost, setSavePost] = useState(false);
+  const [editedPost, setEditedPost] = useState(null);
 
   useEffect(() => {
     getReplyMsgFromDB();
@@ -42,7 +44,7 @@ function PostComponent({ post }) {
       setLoading(true);
       const response = await axios.post(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`, {
         post_id: post.post_id,
-        member_id: "A12",
+        user_id: "A12",
         reply_msg: reply
       });
       console.log(response.data);
@@ -54,6 +56,28 @@ function PostComponent({ post }) {
       setLoading(false);
     }
   }
+  async function handleEdit(){
+    try{
+      const response = await axios.get(`http://localhost:80/project_1/AskFromCommunity/PostManager.php?post_id=${post.post_id}`); 
+      setEditedPost(response.data[0]);
+    }catch(err){
+      console.error(err);
+    }
+  }
+
+  // const handleEditPost = ($data) => {
+  //   console.log($data.title);
+  //   console.log($data.description);
+  //   console.log($data.category);
+  //   return (
+  //     <SubmitPost 
+  //       category={$data.category} 
+  //       title={$data.title} 
+  //       description={$data.description} 
+  //       formAvailable={false} 
+  //     />
+  //   );
+  // }
 
   const handleSendReply = () => {
     if (reply.trim().length !== 0) {
@@ -75,7 +99,7 @@ function PostComponent({ post }) {
     <div className='postComponent'>
         <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
         <label className='reportBtn'  onClick={handleReport}>Report</label>
-        <label className='editBtn'>Edit</label>
+        <label className='editBtn' onClick={handleEdit}>Edit</label>
         <img id="savePostBtn" src={img} onClick={handleSaveBtn} />
       <h2>{post.title}</h2>
       <p>{post.description}</p>
@@ -95,6 +119,16 @@ function PostComponent({ post }) {
           replyBulk.map((item, index) => (
             <ReplyBoxComponent  key={index} post_id2={post.post_id} item = {item}/>
           ))}
+          {editedPost && (
+        <SubmitPost
+          category={editedPost.category}
+          title={editedPost.title}
+          description={editedPost.description}
+          formAvailable={true}
+          post_id={post.post_id}
+          btn_value = "Edit Post"
+        />
+      )}
       </div>
     </div>
   );
