@@ -21,13 +21,13 @@ switch ($method) {
 
     case "POST":
         $requestData = json_decode(file_get_contents('php://input'), true);
-        if (isset($requestData['reply_msg']) && isset($requestData['member_id']) && isset($requestData['post_id'])) {
+        if (isset($requestData['reply_msg']) && isset($requestData['user_id']) && isset($requestData['post_id'])) {
             $reply_msg =  $requestData['reply_msg'];
-            $member_id = $requestData['member_id'];
+            $user_id = $requestData['user_id'];
             $post_id = $requestData['post_id'];
 
             $obj = new DatabaseHandler();
-            $success = $obj->insertReply($post_id, $member_id, $reply_msg);
+            $success = $obj->insertReply($post_id, $user_id, $reply_msg);
 
             $response = array('success' => $success, 'message' => $success ? 'Reply sent successfully' : 'Failed to send reply');
             header('Content-Type: application/json');
@@ -45,9 +45,8 @@ switch ($method) {
             $report_status = $requestData['report_status'];
 
             $obj = new DatabaseHandler();
-            $sql = "UPDATE reply_table SET report_status='$report_status' WHERE reply_id='$reply_id'";
 
-            $success = $obj->updateMsg($sql);
+            $success = $obj->updateTable($report_status, $reply_id);
 
             $response = array('success' => $success, 'message' => $success ? 'Report successfully' : 'Failed to Report reply');
             header('Content-Type: application/json');
