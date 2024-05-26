@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
 import Add from './Components/Pages/Add/Add.jsx'
-import Remove from './Components/Pages/Remove.jsx'
+import Remove from './Components/Pages/Remove/Remove.jsx'
 import Buy from './Components/Pages/Buy.jsx'
 import View from './Components/Pages/View.jsx'
 import Search from './Components/Pages/Search.jsx'

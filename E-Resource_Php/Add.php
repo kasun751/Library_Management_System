@@ -6,49 +6,58 @@ header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 
 include 'database.php';
 
-$data = json_decode(file_get_contents('php://input'), true);
-
 if (
-    isset($data['id']) &&
-    isset($data['isbn']) &&
-    isset($data['title']) &&
-    isset($data['author']) &&
-    isset($data['category']) &&
-    isset($data['description'])
+    isset($_POST['id']) &&
+    isset($_POST['isbn']) &&
+    isset($_POST['title']) &&
+    isset($_POST['author']) &&
+    isset($_POST['category']) &&
+    isset($_POST['description']) &&
+    isset($_FILES['pdf'])
 ) {
+    $id = $_POST['id'];
+    $isbn = $_POST['isbn'];
+    $title = $_POST['title'];
+    $author = $_POST['author'];
+    $category = $_POST['category'];
+    $description = $_POST['description'];
+    $pdf = $_FILES['pdf'];
 
+    if ($pdf['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $pdf['tmp_name'];
+        $fileContent = file_get_contents($fileTmpPath);
 
-    // Proceed with assigning values to variables
-    $id = $data['id'];
-    $isbn = $data['isbn'];
-    $title = $data['title'];
-    $author = $data['author'];
-    $category = $data['category'];
-    $description = $data['description'];
+        $dbCon = new database();
+        $conn = $dbCon->dbConnect();
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "INSERT INTO ebook (id, isbn, title, author, category, description, pdf) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            die("Prepare failed: " . htmlspecialchars($conn->error));
+        }
+
+        $null = NULL;
+        $stmt->bind_param('ssssssb', $id, $isbn, $title, $author, $category, $description, $null);
+        $stmt->send_long_data(6, $fileContent);
+
+        if ($stmt->execute()) {
+            echo json_encode(['resultMessage' => 'true']);
+        } else {
+            echo json_encode(['resultMessage' => 'false', 'error' => $stmt->error]);
+        }
+
+        $stmt->close();
+        $conn->close();
+    } else {
+        echo json_encode(['resultMessage' => 'File upload error.']);
+    }
 } else {
-    // Handle missing keys
-    die("Required keys are missing in the JSON data.");
+    echo json_encode(['resultMessage' => 'Required fields are missing.']);
 }
-
-$dbCon = new database();
-$conn = $dbCon->dbConnect();
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "INSERT INTO eBook (id, isbn, title, author, category, description) 
-        VALUES ('$id', '$isbn', '$title', '$author', '$category', '$description')";
-
-$result = $conn->query($sql);
-
-if ($result === TRUE) {
-    $data = array('resultMessage' => 'true');
-    echo json_encode($data);
-} else {
-    $data = array('resultMessage' => 'false', 'error' => $conn->error);
-    echo json_encode($data);
-}
-
-$conn->close();
 ?>
