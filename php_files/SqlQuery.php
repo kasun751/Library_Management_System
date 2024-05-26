@@ -12,16 +12,22 @@ class SqlQuery
         $this->con = $DBobj->dbConnect();
     }
 
-    public function InsertBookSTableDetails($bookName, $authorName, $publisherName, $isbnNumber, $category, $qty, $description, $book_No)
+    public function InsertBookSTableDetails($bookName, $authorName, $publisherName, $isbnNumber, $category, $qty, $bookLocation, $bookAvailability, $description, $bookName_ID, $book_No)
     {
 
-        $query1 = "INSERT INTO books (ISBN_Number,BookName, AuthorName, PublisherName,Category,AllBookQty,Description) VALUES ('$isbnNumber', '$bookName', '$authorName', '$publisherName ','$category','$qty', '$description')";
+
+        $query1 = "INSERT INTO books (ISBN_Number,BookName, AuthorName, PublisherName,Category,AllBookQty,BookLocation,Description) VALUES ('$isbnNumber', '$bookName', '$authorName', '$publisherName ', '$category','$qty','$bookLocation', '$description')";
         $result1 = $this->con->query($query1);
         $uppercaseString = strtoupper($category);
         $charArray = str_split($uppercaseString);
         for ($i = 1; $i <= $qty; $i++) {
-            $final_ID = $charArray[0] . $charArray[1] . $charArray[2] . "/" . $isbnNumber . "/" . $book_No;
-            $query2 = "INSERT INTO $category (ISBN_Number,Book_No,Final_ID) VALUES ('$isbnNumber', '$book_No','$final_ID')";
+            if (count($charArray) >= 3) {
+                $final_ID = $charArray[0] . $charArray[1] . $charArray[2] . "/" . $bookName_ID . "/" . $book_No;
+            } else {
+                $final_ID = $charArray[0] . $charArray[1] . "/" . $bookName_ID . "/" . $book_No;
+
+            }
+            $query2 = "INSERT INTO $category (ISBN_Number,BookName_ID,Book_No,Availability,Final_ID) VALUES ('$isbnNumber', '$bookName_ID','$book_No','$bookAvailability','$final_ID')";
             $result2 = $this->con->query($query2);
             $book_No++;
         }
@@ -36,7 +42,21 @@ class SqlQuery
         return $result;
     }
 
-    public function addMoreQty($Qty, $ISBN_Number)
+    public function getBookList()
+    {
+        $query = "SELECT * FROM books ORDER BY AllBookQty DESC LIMIT 10";
+        $result = $this->con->query($query);
+        return $result;
+    }
+
+    public function getBookDetails($bookDetails)
+    {
+        $query = "SELECT * FROM books WHERE BookName='$bookDetails'";
+        $result = $this->con->query($query);
+        return $result;
+    }
+
+    public function addMoreQty($Qty, $ISBN_Number, $bookAvailability)
     {
         $getData = new SqlQuery();
         $result = $getData->getISBNData($ISBN_Number);
@@ -45,18 +65,20 @@ class SqlQuery
         $category = $raw['Category'];
         $uppercaseString = strtoupper($category);
         $charArray = str_split($uppercaseString);
-        $book_No = $getData->getLastBook_No($category, $isbnNumber) + 1;
+        $bookDetails = $getData->getLastBook_No($category, $isbnNumber);
+        $book_No = $bookDetails['Book_No'] + 1;
+        $bookName_ID = $bookDetails['BookName_ID'];
 
         for ($i = 1; $i <= $Qty; $i++) {
-            $final_ID = $charArray[0] . $charArray[1] . $charArray[2] . "/" . $isbnNumber . "/" . $book_No;
-            $query2 = "INSERT INTO $category (ISBN_Number,Book_No,Final_ID) VALUES ('$isbnNumber', '$book_No','$final_ID')";
+            $final_ID = $charArray[0] . $charArray[1] . $charArray[2] . "/" . $bookName_ID . "/" . $book_No;
+            $query2 = "INSERT INTO $category (ISBN_Number,BookName_ID,Book_No,Availability,Final_ID) VALUES ('$isbnNumber', '$bookName_ID','$book_No','$bookAvailability','$final_ID')";
             $result2 = $this->con->query($query2);
             $book_No++;
         }
-        $query="SELECT COUNT(*) AS count FROM $category WHERE ISBN_Number='$isbnNumber'";
+        $query = "SELECT COUNT(*) AS count FROM $category WHERE ISBN_Number='$isbnNumber'";
         $result = $this->con->query($query);
         $count = $result->fetch_assoc()['count'];
-        $queryNext="UPDATE books SET AllBookQty ='$count'  WHERE ISBN_NUmber='$isbnNumber'";
+        $queryNext = "UPDATE books SET AllBookQty ='$count'  WHERE ISBN_NUmber='$isbnNumber'";
         $this->con->query($queryNext);
         return $result2;
     }
@@ -64,18 +86,77 @@ class SqlQuery
     public function getLastBook_No($category, $isbnNumber)
     {
 
-        $query = "SELECT Book_No FROM $category WHERE ISBN_Number='$isbnNumber' ORDER BY Book_No DESC LIMIT 1";
+        $query = "SELECT BookName_ID,Book_No FROM $category WHERE ISBN_Number='$isbnNumber' ORDER BY Book_No DESC LIMIT 1";
         $result = mysqli_query($this->con, $query);
         $row = mysqli_fetch_assoc($result);
-        return $row['Book_No'];
+        return $row;
+
+    }
+
+    public function getLastBookName_ID($category)
+    {
+
+        $query = "SELECT BookName_ID FROM $category ORDER BY BookName_ID DESC LIMIT 1";
+        $result = mysqli_query($this->con, $query);
+        $row = mysqli_fetch_assoc($result);
+        return $row;
 
     }
 
     public function getISBNData($isbnNumber)
     {
-
         $query = "SELECT * FROM books WHERE ISBN_Number='$isbnNumber'";
         $result = mysqli_query($this->con, $query);
+        return $result;
+    }
+
+    public function getBookIdCategory($bookId)
+    {
+        $parts = explode("/", $bookId);
+        $part1 = $parts[0];
+        $lowercaseString = strtolower($part1);
+        $categoryTableQuery = "SELECT Category_Name FROM category";
+        $result = mysqli_query($this->con, $categoryTableQuery);
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $categoryName = $row['Category_Name'];
+                $charArray = str_split($categoryName);
+                if (count($charArray) >= 3) {
+                    $part1Fromdatabase = $charArray[0] . $charArray[1] . $charArray[2];
+                } else {
+                    $part1Fromdatabase = $charArray[0] . $charArray[1];
+
+                }
+                if ($lowercaseString === $part1Fromdatabase) {
+                    return $categoryName;
+                }
+            }
+        } else {
+            return null;
+        }
+        return null;
+    }
+
+    public function getBookIdData($category, $bookId)
+    {
+        $query = "SELECT ISBN_Number FROM $category WHERE Final_ID='$bookId' ORDER BY Book_No DESC LIMIT 1";
+        $result = $this->con->query($query);
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    }
+
+    public function setBookAvailability($category, $bookID, $availability)
+    {
+        $query = "UPDATE $category SET Availability='$availability' WHERE Final_ID='$bookID'";
+        $this->con->query($query);
+        return $this->con->affected_rows;
+    }
+
+    public function getAvailableBooksList($category, $isbnNumber)
+    {
+
+        $query = "SELECT Final_ID FROM $category WHERE ISBN_Number='$isbnNumber' AND Availability='available'";
+        $result = $this->con->query($query);
         return $result;
     }
 
@@ -89,28 +170,76 @@ class SqlQuery
     public function createNewCategoryTable($newCategory)
     {
         $query = "CREATE TABLE $newCategory (
-    Final_ID varchar(255) ,
-    ISBN_Number varchar(255) NOT NULL ,
-    Book_No int(20) NOT NULL , 
-    PRIMARY KEY (Final_ID)
+    Final_ID VARCHAR(255) PRIMARY KEY,
+    ISBN_Number VARCHAR(255),
+    BookName_ID INT DEFAULT 0,
+    Book_No INT NOT NULL,
+    Availability VARCHAR(255),
+    FOREIGN KEY (ISBN_Number) REFERENCES Books(ISBN_Number)
 )";
+        $result = mysqli_query($this->con, $query);
+        return $result;
+    }
+
+    public function categoryLetterCheck($category1)
+    {
+        $charArray1 = str_split(strtoupper($category1));
+        if (count($charArray1) >= 3) {
+            $firstThreeLetters1 = $charArray1[0] . $charArray1[1] . $charArray1[2];
+        } else {
+            $firstThreeLetters1 = $charArray1[0] . $charArray1[1];
+        }
+
+        $getCategoryList = new SqlQuery();
+        $categoryList = $getCategoryList->getCategoryList();
+        $newArray = [];
+        foreach ($categoryList as $item) {
+            $newArray[] = $item['Category_Name'];
+        }
+        foreach ($newArray as $category) {
+            if (is_string($category)) {
+                $charArray2 = str_split(strtoupper($category));
+                if (count($charArray2) >= 3) {
+                    $firstThreeLetters2 = $charArray2[0] . $charArray2[1] . $charArray2[2];
+                } else {
+                    $firstThreeLetters2 = $charArray2[0] . $charArray2[1];
+                }
+                if ($firstThreeLetters1 === $firstThreeLetters2) {
+                    $firstFourLetters = $charArray1[0] . $charArray1[1] . $charArray1[2] . $charArray1[3];
+                    return $firstFourLetters;
+                }
+            }
+        }
+        return $firstThreeLetters1;
+    }
+
+    public function dropCategoryTable($Category)
+    {
+        $query = "DROP TABLE $Category";
+        $result = mysqli_query($this->con, $query);
+        return $result;
+    }
+
+    public function dropCategoryDetails($Category)
+    {
+        $query = "DELETE FROM category WHERE Category_Name='$Category'";
         $result = mysqli_query($this->con, $query);
         return $result;
     }
 
     public function CategoryTableUpdate($category)
     {
+        $getCategoryFirstLetters = new SqlQuery();
+        $categoryFirstLetters = $getCategoryFirstLetters->categoryLetterCheck($category);
         $query1 = "INSERT INTO category (Category_Name) VALUES ('$category')";
-        $result1 = $this->con->query($query1);
+        $this->con->query($query1);
         $query2 = "SELECT Category_No FROM category WHERE Category_Name='$category'";
         $result2 = $this->con->query($query2);
         $row = mysqli_fetch_assoc($result2);
-        $uppercaseString = strtoupper($category);
-        $charArray = str_split($uppercaseString);
-        $final_ID = $charArray[0] . $charArray[1] . $charArray[2] . "/" . $row['Category_No'];
+        $final_ID = $categoryFirstLetters . "/" . $row['Category_No'];
         $query3 = "UPDATE category SET Category_ID ='$final_ID'  WHERE Category_Name='$category'";
         $result3 = $this->con->query($query3);
-        return array($result1, $result3);
+        return $result3;
     }
 
     public function getCategoryList()
@@ -121,10 +250,46 @@ class SqlQuery
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $categoryList[] = $row;
+            }
+            return $categoryList;
         }
-            echo json_encode($categoryList);
-        }else {
-            echo json_encode(array('error' => 'Failed to fetch categories'));
+    }
+
+    public function deleteAllBook($isbnNumber, $category)
+    {
+        $query1 = "DELETE FROM books WHERE ISBN_Number='$isbnNumber'";
+        $query2 = "DELETE FROM $category WHERE ISBN_Number='$isbnNumber'";
+        $result2 = mysqli_query($this->con, $query2);
+        $result1 = mysqli_query($this->con, $query1);
+        return array($result1, $result2);
+    }
+
+    public function updateBookDetails($isbnNumber, $bookName, $authorName, $publisherName, $bookLocation, $description)
+    {
+        $query = "UPDATE books SET
+    BookName = '$bookName',
+    AuthorName = '$authorName',
+    PublisherName = '$publisherName',
+    BookLocation = '$bookLocation',
+    Description = '$description'
+    WHERE
+    ISBN_Number= '$isbnNumber'";
+        $result = mysqli_query($this->con, $query);
+        return $result;
+    }
+
+    public function deleteSomeBook($category, $bookID)
+    {
+        $query = "DELETE FROM $category WHERE Final_ID='$bookID'";
+        $result = mysqli_query($this->con, $query);
+        if ($result !== false) {
+            if (mysqli_affected_rows($this->con) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
@@ -157,6 +322,78 @@ class SqlQuery
 
         }
     }
-}
 
+
+    //===============================================================================================
+    public function InsertLibraryUserDetails($userID,$firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password)
+    {
+        $getData = new SqlQuery();
+        $resultCheckExistsOrNot =$getData->checkExistsOrNot($nic,$phoneNumber);
+        if ($resultCheckExistsOrNot== "NicExist"){
+            $data = array('resultMessage' => 'NicExist');
+            echo json_encode($data);
+        }elseif ($resultCheckExistsOrNot== "PhoneNumberExist"){
+            $data = array('resultMessage' => 'PhoneNumberExist');
+            echo json_encode($data);
+        }elseif ($resultCheckExistsOrNot=="queryError"){
+            $data = array('resultMessage' => 'QueryFailed');
+            echo json_encode($data);
+        }
+        else{
+            $query1 = "INSERT INTO libraryusersdetails (UserID,FirstName,LastName,NIC,Address,PhoneNumber,BirthDay,Gender,Email,Password) VALUES ('$userID','$firstName', '$lastName', '$nic', '$address', '$phoneNumber','$birthDay','$gender', '$email','$password')";
+            if ($this->con->query($query1)) {
+                $data = array('resultMessage' => 'registered');
+                echo json_encode($data);
+            }else{
+                $data = array('resultMessage' => 'QueryFailed');
+                echo json_encode($data);
+            }
+        }
+
+    }
+
+    public function getLastUser_No()
+    {
+        $query = "SELECT * FROM libraryusersdetails ORDER BY User_No DESC LIMIT 1";
+        $result = mysqli_query($this->con, $query);
+        return mysqli_fetch_assoc($result);
+    }
+    public function createNextUserID()
+    {
+        $getData = new SqlQuery();
+        $lastUserNo = $getData->getLastUser_No();
+        if ($lastUserNo === null || !isset($lastUserNo['User_No'])) {
+            $user_No = 1;
+        } else {
+            $PreUser_No =$getData->getLastUser_No()['User_No'];
+            $user_No = $PreUser_No + 1;
+        }
+        $lastTwoDigit=substr(date("Y"), -2);
+        $NextUserID = "SLMS/" . $lastTwoDigit . "/" . $user_No;
+        return $NextUserID;
+    }
+    public function checkExistsOrNot($nic,$phoneNumber)
+    {
+        $query1 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE NIC = '$nic'";
+        $query2 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE PhoneNumber = '$phoneNumber'";
+        $result1=mysqli_query($this->con, $query1);
+        $result2=mysqli_query($this->con, $query2);
+
+        if ($result1 && $result2) {
+            $row1 = mysqli_fetch_assoc($result1);
+            $row2 = mysqli_fetch_assoc($result2);
+
+            if ($row1['count'] > 0) {
+                return "NicExist";
+            } elseif ($row2['count'] > 0) {
+                return "PhoneNumberExist";
+            } else {
+                return "validData";
+            }
+        } else {
+            return "queryError";
+        }
+
+    }
+}
 ?>
