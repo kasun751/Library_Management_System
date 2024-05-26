@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'; 
 import './SubHeader.css'
-function SubHeader() {
+import SidePanel from './SidePanel';
+function SubHeader(props) {
 
+  const [savePostVisible,setSavePostVisible] = useState(false);
+  const [myPostVisible,setMyPostVisible] = useState(false);
 const mySavedPost = () =>{
-
+  setSavePostVisible(savePostVisible? false:true);
+  setMyPostVisible(false);
 }
 const myPost =()=>{
-
+  setMyPostVisible(myPostVisible? false:true);
+  setSavePostVisible(false);
 }
 
   return (
@@ -23,6 +28,8 @@ const myPost =()=>{
         </div>       
 
     </div>
+    {savePostVisible && <SidePanel user_id={props.user_id} state={true} />}
+    {myPostVisible && <SidePanel user_id={props.user_id} state={false} />}
     </>
   )
 }

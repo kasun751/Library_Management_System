@@ -12,9 +12,11 @@ function PostComponent({ post,user_id }) {
   const [savePost, setSavePost] = useState(false);
   const [editedPost, setEditedPost] = useState(null);
   const [savePostList,setSavePostList] = useState({});
+  const [isAvailable,setIsAvailable] = useState(false);
 
   useEffect(() => {
     getReplyMsgFromDB();
+    setIsAvailable(post.user_id==user_id ? true:false);
   }, [post]);
 
   useEffect(()=>{
@@ -45,7 +47,7 @@ function PostComponent({ post,user_id }) {
 
   async function handleRemoveSavePost(){
     try{
-      const response = await axios.delete(`http://localhost:80/project_1/AskFromCommunity/User-postManager.php`,{
+      await axios.delete(`http://localhost:80/project_1/AskFromCommunity/User-postManager.php`,{
         data:{
           user_id:user_id,
           post_id:post.post_id
@@ -62,7 +64,6 @@ function PostComponent({ post,user_id }) {
         user_id:user_id,
         post_id:post.post_id
       });
-      console.log("add");
     }catch(err){
       console.error(err);
     }
@@ -125,8 +126,8 @@ function PostComponent({ post,user_id }) {
   return (
     <div className='postComponent'>
         <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
-        <label className='reportBtn'  onClick={handleReport}>Report</label>
-        <label className='editBtn' onClick={handleEdit}>Edit</label>
+        {!isAvailable && <label className='reportBtn'  onClick={handleReport}>Report</label>}
+        {isAvailable && <label className='editBtn' onClick={handleEdit}>Edit</label>}
         <img id="savePostBtn" src={img} onClick={handleSaveBtn} />
       <h2>{post.title}</h2>
       <p>{post.description}</p>
