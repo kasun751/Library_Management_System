@@ -21,7 +21,12 @@ import DeleteAllBook from "./components/BookSection/DeleteBook/DeleteAllBooks.js
 import ShowAllBookDetails from "./components/BookSection/ViewBookDetails/ShowAllBookDetails.jsx";
 import BookAvailabilityDetails from "./components/BookSection/ViewBookDetails/BookAvailabilityDetails.jsx";
 import IssueBook from "./components/BookSection/IssueBook/IssueBook.jsx";
+import GuestUser from "./components/LogginSection/GuestUser.jsx";
+import Dashboard from "./components/DashBoad/Dashboard.jsx";
+import Register from "./components/LogginSection/Register.jsx";
+import Login from "./components/LogginSection/Login.jsx";
 const router = createBrowserRouter([
+
     {
         path: "/",
         element: <BookSectionHome/>,
@@ -73,7 +78,23 @@ const router = createBrowserRouter([
     {
         path: "/issueBook",
         element:<IssueBook/>
-    }
+    },
+    {
+        path: "/guestUser",
+        element: <GuestUser/>,
+    },
+    {
+        path: "/register",
+        element: <Register/>,
+    },
+    {
+        path: "/login",
+        element: <Login/>,
+    },
+    {
+        path: "/dashboard/:id",
+        element: <Dashboard/>,
+    },
 
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
