@@ -7,9 +7,6 @@ function BodyComponent(props) {
   const [posts, setPosts] = useState([]);
   const [refresh,setRefresh] = useState(true)
 
-  const user_id = props.user_id //member id
-  const user_type = props.user_type //user type
-
   const handleRefresh=()=>{
     setRefresh(refresh? false:true)
   }
@@ -33,7 +30,7 @@ function BodyComponent(props) {
       <div className='bodyComponent'>
       
         {posts.map((item) => (
-          <PostComponent key={item.post_id} post={item} />
+          <PostComponent key={item.post_id} post={item} user_id={props.user_id} />
         ))}
       </div>
     </>

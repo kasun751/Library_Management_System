@@ -9,9 +9,9 @@ function App(props) {
 
   return (
     <>
-      <SubHeader member_id={props.member_id} user_type={props.user_type} />
-      <BodyComponent member_id={props.member_id} user_type={props.user_type}   />
-      <SubmitPost member_id={props.member_id} user_type={props.user_type} />
+      <SubHeader user_id={props.user_id} user_type={props.user_type} />
+      <BodyComponent user_id={props.user_id} user_type={props.user_type}   />
+      <SubmitPost user_id={props.user_id} user_type={props.user_type} />
     </>
   )
 }

@@ -4,17 +4,22 @@ import ReplyBoxComponent from './ReplyBoxComponent';
 import axios from 'axios';
 import SubmitPost from './SubmitPost';
 
-function PostComponent({ post }) {
+function PostComponent({ post,user_id }) {
   const [reply, setReply] = useState('');
   const [replyBulk, setReplyBulk] = useState([]);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [savePost, setSavePost] = useState(false);
   const [editedPost, setEditedPost] = useState(null);
+  const [savePostList,setSavePostList] = useState({});
 
   useEffect(() => {
     getReplyMsgFromDB();
   }, [post]);
+
+  useEffect(()=>{
+    handleLoadSavePost();
+  },[savePost])
 
   async function getReplyMsgFromDB() {
     try {
@@ -25,14 +30,55 @@ function PostComponent({ post }) {
     }
   }
 
+  async function handleLoadSavePost(){
+    try{
+      const response = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-postManager.php?user_id=${user_id}`)
+      response.data.map((item)=>{
+          if(item.post_id==post.post_id){
+            setSavePost(true);
+          }
+        })
+    }catch(err){
+      console.error(err);
+    }
+  }
+
+  async function handleRemoveSavePost(){
+    try{
+      const response = await axios.delete(`http://localhost:80/project_1/AskFromCommunity/User-postManager.php`,{
+        data:{
+          user_id:user_id,
+          post_id:post.post_id
+        }
+      })
+    }catch(err){
+      console.error(err);
+    }
+  }
+
+  async function handleSetSavePost(){
+    try{
+      await axios.post(`http://localhost:80/project_1/AskFromCommunity/User-postManager.php`,{
+        user_id:user_id,
+        post_id:post.post_id
+      });
+      console.log("add");
+    }catch(err){
+      console.error(err);
+    }
+  }
+
+  const handleSaveBtn = () =>{
+    savePost? handleRemoveSavePost():handleSetSavePost();
+    setSavePost(savePost? false:true);
+  }
+
   async function handleReport(){
     try{
-        const response = await axios.put(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`,{
+        await axios.put(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`,{
             reply_id : post.reply_id,
             report_status : 1
         });
-        console.log(post);
-        console.log(response);
         
     }catch(err){
         console.error(err);
@@ -42,12 +88,11 @@ function PostComponent({ post }) {
   async function setReplyMsgToDB() {
     try {
       setLoading(true);
-      const response = await axios.post(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`, {
+      await axios.post(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`, {
         post_id: post.post_id,
-        user_id: "A12",
+        user_id: user_id,
         reply_msg: reply
       });
-      console.log(response.data);
       setReplyBulk([...replyBulk, { post_id: post.post_id, reply_msg: reply }]);
       setReply('');
     } catch (err) {
@@ -65,20 +110,6 @@ function PostComponent({ post }) {
     }
   }
 
-  // const handleEditPost = ($data) => {
-  //   console.log($data.title);
-  //   console.log($data.description);
-  //   console.log($data.category);
-  //   return (
-  //     <SubmitPost 
-  //       category={$data.category} 
-  //       title={$data.title} 
-  //       description={$data.description} 
-  //       formAvailable={false} 
-  //     />
-  //   );
-  // }
-
   const handleSendReply = () => {
     if (reply.trim().length !== 0) {
       setReplyMsgToDB();
@@ -88,10 +119,6 @@ function PostComponent({ post }) {
   const handleVisibility = () => {
     setVisible(prevVisible => !prevVisible);
   };
-
-  const handleSaveBtn = () =>{
-    setSavePost(savePost? false:true);
-  }
 
   const img = savePost? 'src/Images/save.svg':'src/Images/unSave.svg';
 
