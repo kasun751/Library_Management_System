@@ -13,9 +13,11 @@ switch ($method) {
     case "GET":
         $category = isset($_GET['category']) ? $_GET['category'] : '';
         $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : '';
+        $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : '';
+        $user_id1 = isset($_GET['user_id1']) ? $_GET['user_id1'] : '';
 
         $obj = new DatabaseHandler();
-        $data = $obj->getPostData($category, $post_id);
+        $data = $obj->getPostData($category, $post_id, $user_id, $user_id1);
 
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -62,5 +64,24 @@ switch ($method) {
             header('Content-Type: application/json');
             echo json_encode($response);
         }
+        break;
+    case "DELETE":
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (isset($data['post_id'])) {
+            $post_id = $data['post_id'];
+
+            $obj = new DatabaseHandler();
+            $success = $obj->removePosts($post_id);
+
+            $response = array('success' => $success, 'message' => $success ? 'Save successfully' : 'Failed to save post');
+            header('Content-Type: application/json');
+            echo json_encode($response);
+        } else {
+            $response = array('success' => false, 'message' => 'Missing required fields in the request');
+            header('Content-Type: application/json');
+            echo json_encode($response);
+        }
+
         break;
 }
