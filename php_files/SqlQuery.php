@@ -139,7 +139,7 @@ class SqlQuery
 
     public function getBookIdData($category, $bookId)
     {
-        $query = "SELECT ISBN_Number FROM $category WHERE Final_ID='$bookId' ORDER BY Book_No DESC LIMIT 1";
+        $query = "SELECT * FROM $category WHERE Final_ID='$bookId' ORDER BY Book_No DESC LIMIT 1";
         $result = $this->con->query($query);
         $row = mysqli_fetch_assoc($result);
         return $row;
@@ -150,6 +150,24 @@ class SqlQuery
         $query = "UPDATE $category SET Availability='$availability' WHERE Final_ID='$bookID'";
         $this->con->query($query);
         return $this->con->affected_rows;
+    }
+
+    public function updateIsueBooksTable($bookID, $userID, $dateTime, $availability)
+    {
+        switch ($availability) {
+            case "available":
+
+                $query = "DELETE FROM issuebooks WHERE BookID='$bookID' AND UserID='$userID'";
+                $this->con->query($query);
+                return $this->con->affected_rows;
+
+            case "notAvailable":
+                $query = "INSERT INTO issuebooks (BookID,UserID,IssueDateAndTime) VALUES ('$bookID', '$userID','$dateTime')";
+                $this->con->query($query);
+                return $this->con->affected_rows;
+
+
+        }
     }
 
     public function getAvailableBooksList($category, $isbnNumber)
@@ -325,26 +343,27 @@ class SqlQuery
 
 
     //===============================================================================================
-    public function InsertLibraryUserDetails($userID,$firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password)
+    public function InsertLibraryUserDetails($userID, $firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password, $verificationCode)
     {
         $getData = new SqlQuery();
-        $resultCheckExistsOrNot =$getData->checkExistsOrNot($nic,$phoneNumber);
-        if ($resultCheckExistsOrNot== "NicExist"){
+        $resultCheckExistsOrNot = $getData->checkExistsOrNot($nic, $phoneNumber, $email);
+        if ($resultCheckExistsOrNot == "NicExist") {
             $data = array('resultMessage' => 'NicExist');
             echo json_encode($data);
-        }elseif ($resultCheckExistsOrNot== "PhoneNumberExist"){
+        } elseif ($resultCheckExistsOrNot == "PhoneNumberExist") {
             $data = array('resultMessage' => 'PhoneNumberExist');
             echo json_encode($data);
-        }elseif ($resultCheckExistsOrNot=="queryError"){
+        } elseif ($resultCheckExistsOrNot == "EmailExist") {
+            $data = array('resultMessage' => 'EmailExist');
+            echo json_encode($data);
+        } elseif ($resultCheckExistsOrNot == "queryError") {
             $data = array('resultMessage' => 'QueryFailed');
             echo json_encode($data);
-        }
-        else{
-            $query1 = "INSERT INTO libraryusersdetails (UserID,FirstName,LastName,NIC,Address,PhoneNumber,BirthDay,Gender,Email,Password) VALUES ('$userID','$firstName', '$lastName', '$nic', '$address', '$phoneNumber','$birthDay','$gender', '$email','$password')";
+        } else {
+            $query1 = "INSERT INTO libraryusersdetails (UserID,FirstName,LastName,NIC,Address,PhoneNumber,BirthDay,Gender,Email,Password,Verification_Code,Is_Active) VALUES ('$userID','$firstName', '$lastName', '$nic', '$address', '$phoneNumber','$birthDay','$gender', '$email','$password','$verificationCode',false)";
             if ($this->con->query($query1)) {
-                $data = array('resultMessage' => 'registered');
-                echo json_encode($data);
-            }else{
+                return "success!";
+            } else {
                 $data = array('resultMessage' => 'QueryFailed');
                 echo json_encode($data);
             }
@@ -358,6 +377,7 @@ class SqlQuery
         $result = mysqli_query($this->con, $query);
         return mysqli_fetch_assoc($result);
     }
+
     public function createNextUserID()
     {
         $getData = new SqlQuery();
@@ -365,28 +385,34 @@ class SqlQuery
         if ($lastUserNo === null || !isset($lastUserNo['User_No'])) {
             $user_No = 1;
         } else {
-            $PreUser_No =$getData->getLastUser_No()['User_No'];
+            $PreUser_No = $getData->getLastUser_No()['User_No'];
             $user_No = $PreUser_No + 1;
         }
-        $lastTwoDigit=substr(date("Y"), -2);
+        $lastTwoDigit = substr(date("Y"), -2);
         $NextUserID = "SLMS/" . $lastTwoDigit . "/" . $user_No;
         return $NextUserID;
     }
-    public function checkExistsOrNot($nic,$phoneNumber)
+
+    public function checkExistsOrNot($nic, $phoneNumber, $email)
     {
         $query1 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE NIC = '$nic'";
         $query2 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE PhoneNumber = '$phoneNumber'";
-        $result1=mysqli_query($this->con, $query1);
-        $result2=mysqli_query($this->con, $query2);
+        $query3 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE Email = '$email'";
+        $result1 = $this->con->query($query1);
+        $result2 = $this->con->query($query2);
+        $result3 = $this->con->query($query3);
 
-        if ($result1 && $result2) {
-            $row1 = mysqli_fetch_assoc($result1);
-            $row2 = mysqli_fetch_assoc($result2);
+        if ($result1 && $result2 && $result3) {
+            $row1 = $result1->fetch_assoc();
+            $row2 = $result2->fetch_assoc();
+            $row3 = $result3->fetch_assoc();
 
             if ($row1['count'] > 0) {
                 return "NicExist";
             } elseif ($row2['count'] > 0) {
                 return "PhoneNumberExist";
+            } elseif ($row3['count'] > 0) {
+                return "EmailExist";
             } else {
                 return "validData";
             }
@@ -395,5 +421,111 @@ class SqlQuery
         }
 
     }
+
+    public function loginDetailsValidate($userIDOrEmail, $password)
+    {
+        $getData = new SqlQuery();
+        if (strpos($userIDOrEmail, '@gmail.com') !== false) {
+            $resultOfVerification = $getData->checkVerification($userIDOrEmail, 1);
+            $query = "SELECT * FROM libraryusersdetails WHERE Email = '$userIDOrEmail'";
+            $result1 = $this->con->query($query);
+            $row = $result1->fetch_assoc();
+            $userID = $row['UserID'];
+
+        } else {
+            $resultOfVerification = $getData->checkVerification($userIDOrEmail, 0);
+            $query = "SELECT * FROM libraryusersdetails WHERE UserID = '$userIDOrEmail'";
+            $userID = $userIDOrEmail;
+        }
+
+
+        $result = $this->con->query($query);
+        if ($this->con->affected_rows > 0) {
+            $row = $result->fetch_assoc();
+            if ($row['Password'] == $password) {
+                if ($resultOfVerification) {
+                    $data = array(
+                        'resultMessage' => 'Login_Success',
+                        'userID' => $userID
+
+                    );
+                    echo json_encode($data);
+                } else {
+                    $data = array('resultMessage' => 'NotVerifiedAccount',
+                        'userID' => $userID
+                    );
+                    echo json_encode($data);
+                }
+
+
+            } else {
+                $data = array('resultMessage' => 'Login details not matched',
+                    'userID' => $userID);
+                echo json_encode($data);
+            }
+        } else {
+            $data = array('resultMessage' => 'Login details not matched',
+                'userID' => $userID);
+            echo json_encode($data);
+        }
+
+    }
+
+    public function verifyAccount($verificationCode)
+    {
+        $query = "SELECT * FROM libraryusersdetails WHERE Verification_Code = '$verificationCode'";
+        $result = $this->con->query($query);
+        $row = $result->fetch_assoc();
+        $numOfRaw = $this->con->affected_rows;
+        if ($numOfRaw == 1) {
+            $query2 = "UPDATE libraryusersdetails SET Is_Active = true, Verification_Code=NULL WHERE Verification_Code = '$verificationCode' LIMIT 1";
+            $result2 = $this->con->query($query2);
+            $numOfRaw2 = $this->con->affected_rows;
+            if ($numOfRaw2 == 1) {
+                echo "Email Verified Successfully...";
+            } else {
+                echo "Email Not Verified...";
+            }
+        } else {
+            echo "Invalid Verification...";
+        }
+
+    }
+
+    public function checkVerification($userID, $checkParaForIDOrEmail)
+    {
+
+        switch ($checkParaForIDOrEmail) {
+            case 0:
+                $query = "SELECT * FROM libraryusersdetails WHERE UserID = '$userID'";
+                break;
+            case 1:
+                $query = "SELECT * FROM libraryusersdetails WHERE Email = '$userID'";
+                break;
+        }
+
+        $result = $this->con->query($query);
+        $row = $result->fetch_assoc();
+        if ($row['Is_Active']) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUserIDDetails($userID)
+    {
+        $query = "SELECT * FROM libraryusersdetails WHERE UserID='$userID'";
+        $result = $this->con->query($query);
+        $raw = $result->fetch_assoc();
+        $userFirstname = isset($raw['FirstName']) ? $raw['FirstName'] : '';
+        $userLastname = isset($raw['LastName']) ? $raw['LastName'] : '';
+
+        $fullName = $userFirstname . " " . $userLastname;
+        $data = array('userName' => $fullName);
+        echo json_encode($data);
+    }
 }
+
+
 ?>

@@ -38,15 +38,15 @@ function Register() {
             .then(response => {
                 console.log(response.data);
                 setRegisterStatus(response.data)
-                if(response.data.resultMessage == "registered"){
-                    navigate(`/dashboard/${inputs.registeredUserUserID}`);
+                if(response.data.resultMessage == "verificationProcessRunning"){
+                    const encodedId = encodeURIComponent(nextUserID.nextUserID);
+                    navigate(`/verificationPage/${encodedId}`);
                 }
 
             })
             .catch(error => {
                 console.log(error.message);
             });
-
     }
     function submit() {
         (async () => {

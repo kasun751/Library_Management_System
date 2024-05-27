@@ -10,29 +10,32 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
 
     case "GET":
-
+        break;
 
     case "POST":
-
+        $updateData = new SqlQuery();
         $bookID = $data['bookID'];
         $category = $data['category'];
-        $availability=$data['setAvailability'];
-        if(strlen($bookID)>0 && strlen($category)>0 && strlen($availability)>0){
-            $updateData = new SqlQuery();
-            $result = $updateData-> setBookAvailability($category,$bookID,$availability);
-            if ($result > 0) {
+        $availability = $data['setAvailability'];
+        $userID = $data['userID'];
+        $dateTime = $data['dateTime'];
+
+        if (strlen($bookID) > 0 && strlen($category) > 0 && strlen($availability) > 0 && strlen($userID) > 0) {
+
+            $result1 = $updateData->setBookAvailability($category, $bookID, $availability);
+            $result2 = $updateData->updateIsueBooksTable($bookID, $userID, $dateTime, $availability);
+            if ($result1 > 0 && $result2 > 0) {
                 $data = array('resultMessage' => 'true');
                 echo json_encode($data);
-            } else if ($result == 0 ) {
+            } else if ($result1 == 0 || $result2 == 0) {
                 $data = array('resultMessage' => 'false');
                 echo json_encode($data);
             }
-        }else {
+        } else {
             $data = array('resultMessage' => 'false');
             echo json_encode($data);
         }
-
-
+        break;
 }
 
 ?>

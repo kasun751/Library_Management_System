@@ -1,10 +1,11 @@
-
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { useNavigate} from "react-router-dom";
+import axios from "axios";
 function Login() {
 
     //development mode ekedi deparak useEffect eka run wena hinda eya nawathweemata useRef hook eka use kara athaa
     const [inputs, setInputs] = useState({});
+    const [loginStatus, setLoginStatus] = useState({});
     const navigate = useNavigate();
     const handleChange = (e) => {
         const name = e.target.name;
@@ -12,6 +13,34 @@ function Login() {
         setInputs(preValues => ({...preValues, [name]: value}))
     }
 
+    const UserLogin = async () => {
+
+        await axios.post(
+            'http://localhost:8081/project_01/libraryUserLogin.php',
+            inputs,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                console.log(response.data);
+                setLoginStatus(response.data)
+                if(response.data.resultMessage == "Login_Success"){
+                    const encodedId = encodeURIComponent(response.data.userID);
+                    navigate(`/dashboard/${encodedId}`);
+                }else if (response.data.resultMessage == "NotVerifiedAccount"){
+                    console.log(response.data.userID);
+                    const encodedId = encodeURIComponent(response.data.userID);
+                    navigate(`/verificationPage/${encodedId}`);
+                }
+
+            })
+            .catch(error => {
+                console.log(error.message);
+            });
+
+    }
     function submit() {
         (async () => {
             'use strict'
@@ -38,8 +67,7 @@ function Login() {
             }).then(res => {
                 if (res) {
                     console.log(inputs);
-                    // navigate(`/dashboard/${inputs.guestUserName}`);
-
+                    UserLogin();
                 } else {
                     console.log('validateError');
                 }
@@ -55,8 +83,8 @@ function Login() {
                 <div className="col-md-4">
                     <label htmlFor="validationCustomUsername" className="form-label"> Email Or User_ID</label>
                     <div className="input-group has-validation">
-                        <input type="email" className="form-control" id="validationCustomUsername1"
-                               aria-describedby="inputGroupPrepend" name="loginUserEmail" onChange={handleChange}
+                        <input type="text" className="form-control" id="validationCustomUsername01"
+                               aria-describedby="inputGroupPrepend" name="loginUserEmailOrUser_ID" onChange={handleChange}
                                required/>
                         <div className="valid-feedback">
                             Looks good!
@@ -70,7 +98,7 @@ function Login() {
                 <div className="col-md-4">
                     <label htmlFor="validationCustomUsername" className="form-label"> password</label>
                     <div className="input-group has-validation">
-                        <input type="password" className="form-control" id="validationCustomUsername2"
+                        <input type="password" className="form-control" id="validationCustomUsername02"
                                aria-describedby="inputGroupPrepend" name="loginUserPassword"
                                onChange={handleChange}
                                required/>
@@ -88,7 +116,9 @@ function Login() {
                     </button>
                 </div>
             </form>
-
+            <div>
+                <p>Response from PHP script: {loginStatus.resultMessage}</p>
+            </div>
         </>
     )
 }

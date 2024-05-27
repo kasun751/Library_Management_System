@@ -18,6 +18,7 @@ switch ($method) {
 
         $category = $data['category'];
         $delete_Parameter=$data['delete_parameter'];
+        $isbnNumber=$data['isbnNumber'];
 
 
         switch ($delete_Parameter){

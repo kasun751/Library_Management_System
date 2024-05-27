@@ -23,7 +23,11 @@ switch ($method) {
                 $isbnNumber = $bookDetails['ISBN_Number'];
                 $result = $getData->getISBNData($isbnNumber);
                 if ( mysqli_num_rows($result) > 0) {
-                    echo json_encode($result->fetch_assoc());
+                    $currentAvailability=$bookDetails['Availability'];
+                    $data = array('successMessage' => $result->fetch_assoc(),
+                                  'Availability' => $currentAvailability
+                    );
+                    echo json_encode($data);
                 } else if (mysqli_num_rows($result) == 0) {
                     $data = array('successMessage' => 'not have book1');
                     echo json_encode($data);

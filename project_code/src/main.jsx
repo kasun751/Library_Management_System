@@ -25,6 +25,7 @@ import GuestUser from "./components/LogginSection/GuestUser.jsx";
 import Dashboard from "./components/DashBoad/Dashboard.jsx";
 import Register from "./components/LogginSection/Register.jsx";
 import Login from "./components/LogginSection/Login.jsx";
+import VerificationPage from "./components/LogginSection/VerificationPage.jsx";
 const router = createBrowserRouter([
 
     {
@@ -95,6 +96,11 @@ const router = createBrowserRouter([
         path: "/dashboard/:id",
         element: <Dashboard/>,
     },
+    {
+        path: "/verificationPage/:id",
+        element: <VerificationPage/>,
+    },
+
 
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(

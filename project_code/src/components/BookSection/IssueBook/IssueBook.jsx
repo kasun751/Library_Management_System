@@ -8,10 +8,15 @@ function IssueBook(){
     const [bookIdDetails, setBookIdDetails] = useState({});
     const [data, setData] = useState({});
     const [categoryList, setCategoryList] = useState([]);
+    const [currentAvailability, setCurrentAvailability] = useState([]);
+    const [userIDDetails, setUserIDDetails] = useState({});
     const handleChange = (e) => {
         if (e.target.name == "bookID") {
             getBookIdDetails({[e.target.name]: e.target.value});
             setData(preValues => ({...preValues, [e.target.name]: e.target.value}));
+        }
+        if (e.target.name == "userID") {
+            getUserIDDetails({[e.target.name]: e.target.value});
         }
 
         const name = e.target.name;
@@ -33,23 +38,43 @@ function IssueBook(){
                 }
             })
         const message = await res.data;
-        if (message && message.Category && message.Category.length > 0) {
-            setData(preValues => ({...preValues, ["category"]: message.Category}));
+        console.log(res.data);
+        if (message.successMessage && message.successMessage.Category && message.successMessage.Category.length > 0) {
+            setData(preValues => ({...preValues, ["category"]: message.successMessage.Category}));
         }
-        switch (message.ISBN_Number) {
+        switch (message.successMessage.ISBN_Number) {
             case undefined:
                 inputEnable_disable(false, "#dee2e6");
                 break;
-            case (message.ISBN_Number).length > 0:
+            case (message.successMessage.ISBN_Number).length > 0:
                 inputEnable_disable(true);
                 break;
             default:
                 inputEnable_disable(true);
         }
         console.log(message)
-        setBookIdDetails(message);
+        setBookIdDetails(message.successMessage);
+        setCurrentAvailability(message.Availability);
         //console.log(message.ISBN_Number)
     }
+
+
+    const getUserIDDetails = async (userID) => {
+        console.log(userID)
+        const res = await axios.post(
+            'http://localhost:8081/project_01/getRegLibraryUserDetails.php',
+            userID,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        console.log(res.data);
+        const message = await res.data;
+        setUserIDDetails(message)
+
+    }
+
     useEffect(() => {
         axios.get('http://localhost:8081/project_01/BookManagement.php')
             .then(response => {
@@ -105,9 +130,22 @@ function IssueBook(){
 
         })()
     }
+
+    function getCurrentDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+
     const issueBook = async () => {
         const extendedData = {
-            ...data,...inputs
+            ...data,...inputs,dateTime: getCurrentDateTime()
         };
         console.log(extendedData);
         const res = await axios.post(
@@ -119,6 +157,7 @@ function IssueBook(){
                 }
             });
         const message = await res.data.resultMessage;
+        console.log(await res.data.resultMessage)
         setMessage(message);
         //console.log(message.ISBN_Number)
     }
@@ -171,6 +210,15 @@ function IssueBook(){
                         </div>
                     </div>
 
+                    <div className="col-md-4">
+                        <label htmlFor="validationCustom01" className="form-label">Current availability</label>
+                        <input type="text" className="form-control " id="validationCustom01" name="currentAvailability"
+                               placeholder={currentAvailability} onChange={handleChange} disabled required/>
+                        <div className="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+
                     <div className="col-md-3">
                         <label htmlFor="validationCustom04" className="form-label">Set Availability</label>
                         <select className="form-select" id="validationCustom04" required name="setAvailability" onChange={handleChange}>
@@ -178,11 +226,27 @@ function IssueBook(){
                             <option value="available">Available</option>
                             <option value="notAvailable">Not Available</option>
                         </select>
+
+                    </div>
+
+                    <div className="col-md-4">
+                        <label htmlFor="validationCustom01" className="form-label">User ID</label>
+                        <input type="text" className="form-control " id="validationCustom01" name="userID"
+                               onChange={handleChange}  required/>
                         <div className="valid-feedback">
                             Looks good!
                         </div>
                         <div className="invalid-feedback">
-                            Please select a valid Category.
+                            Please choose a valid Member ID.
+                        </div>
+                    </div>
+
+                    <div className="col-md-4">
+                        <label htmlFor="validationCustom01" className="form-label">Member Name</label>
+                        <input type="text" className="form-control " id="validationCustom01" name="userName"
+                            value={userIDDetails.userName || ""}   onChange={handleChange}  disabled required/>
+                        <div className="valid-feedback">
+                            Looks good!
                         </div>
                     </div>
                     {/*<button type="button" onClick={deleteBook}>Delete Book</button>*/}
