@@ -37,7 +37,7 @@ function Add() {
                     }
                 }
             );
-            setResMessage(res.data.resultMessage);
+            setResMessage(res.data.resultMessage && 'operation success');
         } catch (error) {
             console.error('Error uploading file:', error);
             setResMessage('File upload failed.');
