@@ -1,0 +1,90 @@
+.postComponent {
+    margin: 20px;
+    width: 75%;
+    height:550px;
+    padding: 20px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ccc;
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-template-rows: auto;
+  }
+
+  .postComponent img{
+    width:25%;
+  }
+
+  .postComponent td{
+    text-align: center;
+  }
+  
+  .postComponent h2 {
+    margin-bottom: 10px;
+  }
+  
+  .postComponent p {
+    margin-bottom: 20px;
+  }
+  
+  .postComponent input[type="text"] {
+    width: calc(100% - 80px);
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .postComponent button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .postComponent button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .replyBox {
+    margin-top: 20px;
+    height:500px;
+    width:100%;
+    overflow-y: scroll;
+  }
+
+  .contentBox{
+    width: 100%;
+  }
+
+  .reportBtn{
+    float: right;
+    cursor: pointer;
+    color: gray;
+  }
+  .reportBtn:hover{
+    color: red;
+  }
+
+  .buttonPanel{
+    float: right;
+    cursor: pointer;
+    color: gray;
+    margin-right: 20px;
+  }
+  .buttonPanel:hover{
+    color: rgb(12, 77, 198);
+  }
+
+  #savePostBtn{
+    width:30px;
+    float:right;
+    margin-right: 20px;
+  }
+  #savePostBtn:hover{
+    cursor: pointer;
+  }

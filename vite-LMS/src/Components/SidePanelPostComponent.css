@@ -1,4 +1,4 @@
-.postComponent {
+.sidePanelPostComponent {
     margin: 20px;
     width: 75%;
     padding: 20px;
@@ -6,17 +6,23 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ccc;
+    color: black;
+  }
+
+  .sidePanelPostComponent img{
+    width:50%;
   }
   
-  .postComponent h2 {
+  .sidePanelPostComponent h2 {
     margin-bottom: 10px;
   }
   
-  .postComponent p {
+  .sidePanelPostComponent p {
     margin-bottom: 20px;
   }
   
-  .postComponent input[type="text"] {
+  .sidePanelPostComponent input[type="text"] {
     width: calc(100% - 80px);
     padding: 10px;
     margin-right: 10px;
@@ -25,7 +31,7 @@
     box-sizing: border-box;
   }
   
-  .postComponent button {
+  .sidePanelPostComponent button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -33,14 +39,14 @@
     transition: background-color 0.3s ease;
   }
   
-  .postComponent button:hover {
+  .sidePanelPostComponent button:hover {
     background-color: #f0f0f0;
   }
   
-  .replyBox {
+  .sidePanelPostComponent-replyBox {
     margin-top: 20px;
   }
-  .reportBtn{
+  .sidePanelPostComponent-reportBtn{
     float: right;
     cursor: pointer;
     color: gray;
@@ -49,13 +55,13 @@
     color: red;
   }
 
-  .buttonPanel{
+  .sidePanelPostComponent-buttonPanel{
     float: right;
     cursor: pointer;
     color: gray;
     margin-right: 20px;
   }
-  .buttonPanel:hover{
+  .sidePanelPostComponent-buttonPanel:hover{
     color: rgb(12, 77, 198);
   }
 

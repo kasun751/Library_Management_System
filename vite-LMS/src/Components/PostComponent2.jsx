@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import './PostComponent.css';
+import './PostComponent2.css';
 import ReplyBoxComponent from './ReplyBoxComponent';
 import axios from 'axios';
 import SubmitPost from './SubmitPost';
 
-function PostComponent({ post,user_id }) {
+function PostComponent2({ post,user_id }) {
   const [reply, setReply] = useState('');
   const [replyBulk, setReplyBulk] = useState([]);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [savePost, setSavePost] = useState(false);
   const [editedPost, setEditedPost] = useState(null);
-  const [savePostList,setSavePostList] = useState({});
+  const [editForm, setEditForm] = useState(false);
   const [isAvailable,setIsAvailable] = useState(false);
   const [isDelete,setIsDelete] = useState(false);
 
@@ -104,6 +104,7 @@ function PostComponent({ post,user_id }) {
     }
   }
   async function handleEdit(){
+    setEditForm(editForm? false:true);
     try{
       const response = await axios.get(`http://localhost:80/project_1/AskFromCommunity/PostManager.php?post_id=${post.post_id}`); 
       setEditedPost(response.data[0]);
@@ -140,43 +141,64 @@ function PostComponent({ post,user_id }) {
   return (
     <>
       {!isDelete && <div className='postComponent'>
-          <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
-          {!isAvailable && <label className='reportBtn'  onClick={handleReport}>Report</label>}
-          {isAvailable && <label className='buttonPanel' onClick={handleEdit}>Edit</label>}
-          {!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}
-          {isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}
-        <h2>{post.title}</h2>
-        <p>{post.description}</p>
-        <div className='postImageBtnPannel'>
-          <input
-            type='text'
-            value={reply}
-            placeholder='enter your reply'
-            onChange={(e) => setReply(e.target.value)}
-          />
-          <br /><br />
-          <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
-          <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
+        <div className='contentBox'>
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label style={{color:'gray',fontStyle:'italic'}}>user_name</label></td>
+                        <td>{!isAvailable && <label className='reportBtn'  onClick={handleReport}>Report</label>}</td>
+                        <td>{isAvailable && <label className='buttonPanel' onClick={handleEdit}>Edit</label>}</td>
+                        <td>{!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}</td>
+                        <td>{isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}</td>
+                    </tr>
+                    <tr>
+                        <td colSpan={5}>
+                            <img src='src\Images\message-line.svg' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={5}>
+                        <h2>{post.title}</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={5}>
+                        <p>{post.description}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className='postImageBtnPannel' colSpan={5}>
+                            <input
+                                type='text'
+                                value={reply}
+                                placeholder='enter your reply'
+                                onChange={(e) => setReply(e.target.value)}
+                            />
+                            <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
+                            <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div className='replyBox'>
-          {visible &&
-            replyBulk.map((item, index) => (
-              <ReplyBoxComponent  key={index} post_id2={post.post_id} item = {item}/>
+            {visible && replyBulk.map((item, index) => (
+                <ReplyBoxComponent  key={index} post_id2={post.post_id} item = {item}/>
             ))}
-            {editedPost && (
-          <SubmitPost
-            category={editedPost.category}
-            title={editedPost.title}
-            description={editedPost.description}
-            formAvailable={true}
-            post_id={post.post_id}
-            btn_value = "Edit Post"
-          />
-        )}
+            {editedPost && editForm && (
+                <SubmitPost
+                    category={editedPost.category}
+                    title={editedPost.title}
+                    description={editedPost.description}
+                    formAvailable={true}
+                    post_id={post.post_id}
+                    btn_value = "Edit Post"
+                />
+            )}
         </div>
       </div>}
     </>
   );
 }
 
-export default PostComponent;
+export default PostComponent2;

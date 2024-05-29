@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PostComponent from './PostComponent';
+import PostComponent2 from './PostComponent2';
 import './BodyComponent.css';
 import axios from 'axios';
 
@@ -30,7 +30,7 @@ function BodyComponent(props) {
       <div className='bodyComponent'>
       
         {posts.map((item) => (
-          <PostComponent key={item.post_id} post={item} user_id={props.user_id} />
+          <PostComponent2 key={item.post_id} post={item} user_id={props.user_id} />
         ))}
       </div>
     </>

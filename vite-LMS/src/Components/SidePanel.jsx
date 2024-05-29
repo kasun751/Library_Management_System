@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './SidePanel.css';
 import axios from 'axios';
-import PostComponent from './PostComponent';
+import SidePanelPostComponent from './SidePanelPostComponent';
 
 function SidePanel(props) {
     const [mySaveposts, setmySaveposts] = useState([]);
@@ -34,11 +34,11 @@ function SidePanel(props) {
         {props.state && <h2>Save Posts</h2>}
         {!props.state && <h2>My Posts</h2>}
       {props.state && mySaveposts.map((item) => (
-          <PostComponent key={item.post_id} post={item} user_id={props.user_id} />
+          <SidePanelPostComponent key={item.post_id} post={item} user_id={props.user_id} />
         ))}
 
         {!props.state && myposts.map((item) => (
-          <PostComponent key={item.post_id} post={item} user_id={props.user_id} />
+          <SidePanelPostComponent key={item.post_id} post={item} user_id={props.user_id} />
         ))}
     </div>
   );
