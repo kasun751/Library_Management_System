@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './SidePanelPostComponent.css';
-import ReplyBoxComponent from './ReplyBoxComponent';
+import './PanelPost.css';
+import ReplyBox from '../ReplyBoxComponent/ReplyBox';
 import axios from 'axios';
-import SubmitPost from './SubmitPost';
-//ok
-function SidePanelPostComponent({ post,user_id }) {
+import SubmitPostForm from '../FormComponents/SubmitPostForm';
+
+function PanelPost({ post,user_id }) {
   const [reply, setReply] = useState('');
   const [replyBulk, setReplyBulk] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -162,10 +162,10 @@ function SidePanelPostComponent({ post,user_id }) {
         <div className='sidePanelPostComponent-replyBox'>
           {visible &&
             replyBulk.map((item, index) => (
-              <ReplyBoxComponent  key={index} post_id2={post.post_id} item = {item}/>
+              <ReplyBox  key={index} post_id2={post.post_id} item = {item}/>
             ))}
             {editedPost && (
-          <SubmitPost
+          <SubmitPostForm
             category={editedPost.category}
             title={editedPost.title}
             description={editedPost.description}
@@ -180,4 +180,4 @@ function SidePanelPostComponent({ post,user_id }) {
   );
 }
 
-export default SidePanelPostComponent;
+export default PanelPost;

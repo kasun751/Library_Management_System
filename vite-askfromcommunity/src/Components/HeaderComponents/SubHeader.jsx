@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'; 
+import React, { useState } from 'react';
 import './SubHeader.css'
-import SidePanel from './SidePanel';
+import SidePanel from '../SidePanelComponent/SidePanel';
 function SubHeader(props) {
-//ok
+
   const [savePostVisible,setSavePostVisible] = useState(false);
   const [myPostVisible,setMyPostVisible] = useState(false);
 const mySavedPost = () =>{

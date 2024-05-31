@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import './SidePanelPostComponent.css';
-import ReplyBoxComponent from './ReplyBoxComponent';
+import './BodyPost.css';
+import ReplyBox from '../ReplyBoxComponent/ReplyBox';
 import axios from 'axios';
-import SubmitPost from './SubmitPost';
-//ok
-function SidePanelPostComponent({ post,user_id }) {
+import SubmitPostForm from '../FormComponents/SubmitPostForm';
+import ImageSlider from '../ImageSliderComponent/ImageSlider';
+import DescriptionBox from '../PostComponents/DescriptionBox'
+
+function BodyPost({ post,user_id }) {
   const [reply, setReply] = useState('');
   const [replyBulk, setReplyBulk] = useState([]);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [savePost, setSavePost] = useState(false);
   const [editedPost, setEditedPost] = useState(null);
+  const [editForm, setEditForm] = useState(false);
   const [isAvailable,setIsAvailable] = useState(false);
   const [isDelete,setIsDelete] = useState(false);
 
@@ -103,6 +106,7 @@ function SidePanelPostComponent({ post,user_id }) {
     }
   }
   async function handleEdit(){
+    setEditForm(editForm? false:true);
     try{
       const response = await axios.get(`http://localhost:80/project_1/AskFromCommunity/PostManager.php?post_id=${post.post_id}`); 
       setEditedPost(response.data[0]);
@@ -138,46 +142,70 @@ function SidePanelPostComponent({ post,user_id }) {
 
   return (
     <>
-      {!isDelete && <div className='sidePanelPostComponent'>
-          <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
-          {!isAvailable && <label className='reportBtn'  onClick={handleReport}>Report</label>}
-          {isAvailable && <label className='buttonPanel' onClick={handleEdit}>Edit</label>}
-          {!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}
-          {isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}
-          <br />
-          <img src='src\Images\message-line.svg' />
-        <h2>{post.title}</h2>
-        <p>{post.description}</p>
-        <div className='sidePanelPostComponent-postImageBtnPannel'>
-          <input
-            type='text'
-            value={reply}
-            placeholder='enter your reply'
-            onChange={(e) => setReply(e.target.value)}
-          />
-          <br /><br />
-          <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
-          <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
+      {!isDelete && <div className='postComponent'>
+        <div className='contentBox'>
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label style={{color:'gray',fontStyle:'italic'}}>user_name</label></td>
+                        <td>{!isAvailable && <label className='reportBtn'  onClick={handleReport}>Report</label>}</td>
+                        <td>{isAvailable && <label className='buttonPanel' onClick={handleEdit}>Edit</label>}</td>
+                        <td>{!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}</td>
+                        <td>{isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}</td>
+                    </tr>
+                </tbody>
+              </table>
+              <table className='image-box'>
+                <tbody>
+                  <tr>
+                      <td colSpan={2}>
+                        { /*<img src='src\Images\message-line.svg' />*/}
+                        <ImageSlider />
+                      </td>                            
+                  </tr>
+                  <tr>
+                      <td colSpan={5}>
+                        <h2>{post.title}</h2>
+                      </td>                        
+                      <td className='description-box' colSpan={2}>
+                        {/*<p>{post.description}</p>*/}
+                        <DescriptionBox description={post.description} />
+                      </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}></td>
+                    <td className='postImageBtnPannel' colSpan={2}>
+                      <input
+                            type='text'
+                            value={reply}
+                            placeholder='enter your reply'
+                            onChange={(e) => setReply(e.target.value)}
+                      />
+                      <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
+                      <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
         </div>
-        <div className='sidePanelPostComponent-replyBox'>
-          {visible &&
-            replyBulk.map((item, index) => (
-              <ReplyBoxComponent  key={index} post_id2={post.post_id} item = {item}/>
+        <div className='replyBox'>
+            {visible && replyBulk.map((item, index) => (
+                <ReplyBox  key={index} post_id2={post.post_id} item = {item}/>
             ))}
-            {editedPost && (
-          <SubmitPost
-            category={editedPost.category}
-            title={editedPost.title}
-            description={editedPost.description}
-            formAvailable={true}
-            post_id={post.post_id}
-            btn_value = "Edit Post"
-          />
-        )}
+            {editedPost && editForm && (
+                <SubmitPostForm
+                    category={editedPost.category}
+                    title={editedPost.title}
+                    description={editedPost.description}
+                    formAvailable={true}
+                    post_id={post.post_id}
+                    btn_value = "Edit Post"
+                />
+            )}
         </div>
       </div>}
     </>
   );
 }
 
-export default SidePanelPostComponent;
+export default BodyPost;

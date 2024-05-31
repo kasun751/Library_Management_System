@@ -3,7 +3,9 @@ import './PostComponent2.css';
 import ReplyBoxComponent from './ReplyBoxComponent';
 import axios from 'axios';
 import SubmitPost from './SubmitPost';
-
+import ImageSlider from './ImageSlider';
+import DescriptionBoxComponent from './DescriptionBoxComponent';
+//ok
 function PostComponent2({ post,user_id }) {
   const [reply, setReply] = useState('');
   const [replyBulk, setReplyBulk] = useState([]);
@@ -151,35 +153,40 @@ function PostComponent2({ post,user_id }) {
                         <td>{!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}</td>
                         <td>{isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}</td>
                     </tr>
-                    <tr>
-                        <td colSpan={5}>
-                            <img src='src\Images\message-line.svg' />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={5}>
-                        <h2>{post.title}</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan={5}>
-                        <p>{post.description}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className='postImageBtnPannel' colSpan={5}>
-                            <input
-                                type='text'
-                                value={reply}
-                                placeholder='enter your reply'
-                                onChange={(e) => setReply(e.target.value)}
-                            />
-                            <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
-                            <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
-                        </td>
-                    </tr>
                 </tbody>
-            </table>
+              </table>
+              <table className='image-box'>
+                <tbody>
+                  <tr>
+                      <td colSpan={2}>
+                        { /*<img src='src\Images\message-line.svg' />*/}
+                        <ImageSlider />
+                      </td>                            
+                  </tr>
+                  <tr>
+                      <td colSpan={5}>
+                        <h2>{post.title}</h2>
+                      </td>                        
+                      <td className='description-box' colSpan={2}>
+                        {/*<p>{post.description}</p>*/}
+                        <DescriptionBoxComponent description={post.description} />
+                      </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}></td>
+                    <td className='postImageBtnPannel' colSpan={2}>
+                      <input
+                            type='text'
+                            value={reply}
+                            placeholder='enter your reply'
+                            onChange={(e) => setReply(e.target.value)}
+                      />
+                      <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
+                      <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
         </div>
         <div className='replyBox'>
             {visible && replyBulk.map((item, index) => (

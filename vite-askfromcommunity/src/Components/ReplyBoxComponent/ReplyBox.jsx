@@ -1,8 +1,8 @@
 import React from 'react';
-import './ReplyBoxComponent.css';
+import './ReplyBox.css';
 import axios from 'axios';
-//ok
-function ReplyBoxComponent({post_id2,item }) {
+
+function ReplyBox({post_id2,item }) {
 
   async function handleReport(){
     try{
@@ -26,4 +26,4 @@ function ReplyBoxComponent({post_id2,item }) {
   );
 }
 
-export default ReplyBoxComponent;
+export default ReplyBox;

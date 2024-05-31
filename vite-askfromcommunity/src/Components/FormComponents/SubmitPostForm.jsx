@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import './SubmitPost.css';
+import './SubmitPostForm.css';
 import axios from 'axios';
-//ok
-function SubmitPost({ category: initialCategory = 'none', title: initialTitle = '', description: initialDescription = '', formAvailable: initialformAvailable = false, btn_value: initialbtn_value = 'Send Post', post_id }) {
+
+function SubmitPostForm({ category: initialCategory = 'none', title: initialTitle = '', description: initialDescription = '', formAvailable: initialformAvailable = false, btn_value: initialbtn_value = 'Send Post', post_id }) {
     const [formAvailable, setFormAvailable] = useState(initialformAvailable);
     const [option, setOption] = useState(false);
 
@@ -70,7 +70,7 @@ function SubmitPost({ category: initialCategory = 'none', title: initialTitle = 
     return (
         <>
             {formAvailable && (
-                <div className='submitPostBox'>
+                <div className='submitPostFormBox'>
                     <table style={{ width: '100%' }}>
                         <tbody>
                             <tr>
@@ -112,11 +112,11 @@ function SubmitPost({ category: initialCategory = 'none', title: initialTitle = 
                 </div>
             )}
 
-            <div className='submitPostBtn'>
+            <div className='submitPostFormBtn'>
                 {!formAvailable && (initialbtn_value==='Send Post'? true:false) && <img src="src/Images/submit-post.svg" alt="submit Post" onClick={handleToCreatePost} />}
             </div>
         </>
     );
 }
 
-export default SubmitPost;
+export default SubmitPostForm;
