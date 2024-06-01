@@ -6,8 +6,6 @@ function ViewBookDetails() {
 
     const [booksList, setBooksList] = useState([]);
     const [booksdetails, setBooksdetails] = useState([]);
-    const [availableNum, setAvailableNum] = useState(0);
-    // const [inputs, setInputs] = useState({});
 
     const handleChange = (e) => {
 
@@ -18,7 +16,7 @@ function ViewBookDetails() {
 
     useEffect(() => {
         const fetchBooks = async () => {
-            await axios.get('http://localhost:8081/project_01/viewBookListAndDetails.php')
+            await axios.get('http://localhost:8081/project_01/controllers/ViewBookListAndDetailsController.php')
                 .then(response => {
                     setBooksList(response.data);
                 })
@@ -31,7 +29,7 @@ function ViewBookDetails() {
 
     const getBookDetails = async (bookDetails) => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/viewBookListAndDetails.php',
+            'http://localhost:8081/project_01/controllers/ViewBookListAndDetailsController.php',
             bookDetails,
             {
                 headers: {

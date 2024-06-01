@@ -25,13 +25,14 @@ function IssueBook(){
     //check isbn exists or not        check this
     const getBookIdDetails = async (bookID) => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/bookIdData.php',
+            'http://localhost:8081/project_01/controllers/BookIDDataController.php',
             bookID,
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
+
         const message = await res.data;
         if (message && message.Category && message.Category.length > 0) {
             setData(preValues => ({...preValues, ["category"]: message.Category}));
@@ -51,7 +52,7 @@ function IssueBook(){
         //console.log(message.ISBN_Number)
     }
     useEffect(() => {
-        axios.get('http://localhost:8081/project_01/BookManagement.php')
+        axios.get('http://localhost:8081/project_01/controllers/CategoryController.php')
             .then(response => {
                 setCategoryList(response.data);
             })
@@ -112,7 +113,7 @@ function IssueBook(){
         };
         console.log(extendedData)
         const res = await axios.post(
-            'http://localhost:8081/project_01/deleteBook.php',
+            'http://localhost:8081/project_01/controllers/DeleteBookController.php',
             extendedData,
             {
                 headers: {

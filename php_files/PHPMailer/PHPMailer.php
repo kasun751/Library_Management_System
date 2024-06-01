@@ -1467,7 +1467,7 @@ class PHPMailer
      */
     public function punyencodeAddress($address)
     {
-        //Verify we have required functions, CharSet, and at-sign.
+        //VerifyEmail we have required functions, CharSet, and at-sign.
         $pos = strrpos($address, '@');
         if (
             !empty($this->CharSet) &&
@@ -1475,7 +1475,7 @@ class PHPMailer
             static::idnSupported()
         ) {
             $domain = substr($address, ++$pos);
-            //Verify CharSet string is a valid one, and domain properly encoded in this CharSet.
+            //VerifyEmail CharSet string is a valid one, and domain properly encoded in this CharSet.
             if ($this->has8bitChars($domain) && @mb_check_encoding($domain, $this->CharSet)) {
                 //Convert the domain from whatever charset it's in to UTF-8
                 $domain = mb_convert_encoding($domain, self::CHARSET_UTF8, $this->CharSet);

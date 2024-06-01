@@ -8,7 +8,7 @@ function DeleteAllBook() {
     const [message, setMessage] = useState('');
     const [isbnMessage, setIsbnMessage] = useState({});
     const [data, setData] = useState({});
-    const [nextBookID, setNextBookID] = useState('');
+    const [bookNameID, setNextBookID] = useState('');
     const [categoryList, setCategoryList] = useState([]);
     const handleChange = (e) => {
         if (e.target.name == "isbnNumber") {
@@ -28,13 +28,14 @@ function DeleteAllBook() {
             dataGetting_parameter: 1
         };
         const res = await axios.post(
-            'http://localhost:8081/project_01/getBookID.php',
+            'http://localhost:8081/project_01/controllers/GetBookIDController.php',
             extendedData,
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
+        console.log(res.data)
         const message = await res.data.resultMessage;
         setNextBookID(message);
         //console.log(message.ISBN_Number)
@@ -46,7 +47,7 @@ function DeleteAllBook() {
     //check isbn exists or not        check this
     const getISBNData = async (isbnNumber) => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/ISBN_Data.php',
+            'http://localhost:8081/project_01/controllers/GetIsbnDataController.php',
             isbnNumber,
             {
                 headers: {
@@ -71,7 +72,7 @@ function DeleteAllBook() {
         //console.log(message.ISBN_Number)
     }
     useEffect(() => {
-        axios.get('http://localhost:8081/project_01/BookManagement.php')
+        axios.get('http://localhost:8081/project_01/controllers/CategoryController.php')
             .then(response => {
                 setCategoryList(response.data);
             })
@@ -134,13 +135,14 @@ function DeleteAllBook() {
         };
         console.log(extendedData)
         const res = await axios.post(
-            'http://localhost:8081/project_01/deleteBook.php',
+            'http://localhost:8081/project_01/controllers/DeleteBookController.php',
             extendedData,
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
+        console.log(res.data)
         const message = await res.data.resultMessage;
         setMessage(message);
         //console.log(message.ISBN_Number)
@@ -160,7 +162,7 @@ function DeleteAllBook() {
                         <div className="input-group has-validation">
                             {/*<span className="input-group-text" id="inputGroupPrepend">{CategoryID + " - "}</span>*/}
                             <input type="text" className="form-control" id="validationCustomUsername"
-                                   placeholder="Auto fill" aria-describedby="inputGroupPrepend" value={nextBookID || ""}
+                                   placeholder="Auto fill" aria-describedby="inputGroupPrepend" value={bookNameID || ""}
                                    disabled required/>
                         </div>
                     </div>

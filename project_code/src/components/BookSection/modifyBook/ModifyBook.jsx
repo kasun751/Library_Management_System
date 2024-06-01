@@ -8,8 +8,7 @@ function ModifyBook() {
     const [message, setMessage] = useState('');
     const [isbnMessage, setIsbnMessage] = useState({});
     const [data, setData] = useState({});
-    const [nextBookID, setNextBookID] = useState('');
-    const [categoryList, setCategoryList] = useState([]);
+    const [bookNameID, setNextBookID] = useState('');
     const handleChange = (e) => {
         if (e.target.name === "isbnNumber") {
             getISBNData({[e.target.name]: e.target.value});
@@ -26,14 +25,16 @@ function ModifyBook() {
             ...data,
             dataGetting_parameter: 1
         };
+        console.log(extendedData)
         const res = await axios.post(
-            'http://localhost:8081/project_01/getBookID.php',
+            'http://localhost:8081/project_01/controllers/GetBookIDController.php',
             extendedData,
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
+        console.log(res.data)
         const message = await res.data.resultMessage;
         setNextBookID(message);
         //console.log(message.ISBN_Number)
@@ -45,7 +46,7 @@ function ModifyBook() {
     //check isbn exists or not        check this
     const getISBNData = async (isbnNumber) => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/ISBN_Data.php',
+            'http://localhost:8081/project_01/controllers/GetIsbnDataController.php',
             isbnNumber,
             {
                 headers: {
@@ -60,21 +61,12 @@ function ModifyBook() {
                 ["publisherName"]: message.PublisherName,
                 ["bookLocation"]: message.BookLocation,
                 ["description"]: message.Description,
+                ["category"]: message.Category,
             }));
         }
         setIsbnMessage(message);
         //console.log(message.ISBN_Number)
     }
-    useEffect(() => {
-        axios.get('http://localhost:8081/project_01/BookManagement.php')
-            .then(response => {
-                setCategoryList(response.data);
-            })
-            .catch(error => {
-                console.log(error.message);
-            });
-    }, []);
-
 
     function submit() {
         (async () => {
@@ -122,13 +114,14 @@ function ModifyBook() {
             ...data,...inputs
         };
         const res = await axios.post(
-            'http://localhost:8081/project_01/updateBookDetails.php',
+            'http://localhost:8081/project_01/controllers/UpdateBookDetailsController.php',
             extendedData,
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
+        console.log(res.data)
         const message = await res.data.resultMessage;
         await setMessage(message);
     }
@@ -146,7 +139,7 @@ function ModifyBook() {
                         <div className="input-group has-validation">
                             {/*<span className="input-group-text" id="inputGroupPrepend">{CategoryID + " - "}</span>*/}
                             <input type="text" className="form-control" id="validationCustomUsername"
-                                   placeholder="Auto fill" aria-describedby="inputGroupPrepend" value={nextBookID || ""}
+                                   placeholder="Auto fill" aria-describedby="inputGroupPrepend" value={bookNameID || ""}
                                    disabled required/>
                         </div>
                     </div>

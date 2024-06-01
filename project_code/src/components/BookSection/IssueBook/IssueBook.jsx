@@ -8,7 +8,6 @@ function IssueBook(){
     const [bookIdDetails, setBookIdDetails] = useState({});
     const [data, setData] = useState({});
     const [categoryList, setCategoryList] = useState([]);
-    const [currentAvailability, setCurrentAvailability] = useState([]);
     const [userIDDetails, setUserIDDetails] = useState({});
     const handleChange = (e) => {
         if (e.target.name == "bookID") {
@@ -30,7 +29,7 @@ function IssueBook(){
     //check isbn exists or not        check this
     const getBookIdDetails = async (bookID) => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/bookIdData.php',
+            'http://localhost:8081/project_01/controllers/BookIDDataController.php',
             bookID,
             {
                 headers: {
@@ -38,23 +37,21 @@ function IssueBook(){
                 }
             })
         const message = await res.data;
-        console.log(res.data);
-        if (message.successMessage && message.successMessage.Category && message.successMessage.Category.length > 0) {
-            setData(preValues => ({...preValues, ["category"]: message.successMessage.Category}));
+        if (message && message.Category && message.Category.length > 0) {
+            setData(preValues => ({...preValues, ["category"]: message.Category}));
         }
-        switch (message.successMessage.ISBN_Number) {
+        switch (message.ISBN_Number) {
             case undefined:
                 inputEnable_disable(false, "#dee2e6");
                 break;
-            case (message.successMessage.ISBN_Number).length > 0:
+            case (message.ISBN_Number).length > 0:
                 inputEnable_disable(true);
                 break;
             default:
                 inputEnable_disable(true);
         }
         console.log(message)
-        setBookIdDetails(message.successMessage);
-        setCurrentAvailability(message.Availability);
+        setBookIdDetails(message);
         //console.log(message.ISBN_Number)
     }
 
@@ -62,21 +59,20 @@ function IssueBook(){
     const getUserIDDetails = async (userID) => {
         console.log(userID)
         const res = await axios.post(
-            'http://localhost:8081/project_01/getRegLibraryUserDetails.php',
+            'http://localhost:8081/project_01/controllers/GetRegLibraryUserDetailsController.php',
             userID,
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-        console.log(res.data);
         const message = await res.data;
         setUserIDDetails(message)
 
     }
 
     useEffect(() => {
-        axios.get('http://localhost:8081/project_01/BookManagement.php')
+        axios.get('http://localhost:8081/project_01/controllers/CategoryController.php')
             .then(response => {
                 setCategoryList(response.data);
             })
@@ -120,7 +116,7 @@ function IssueBook(){
                 if (res) {
                     issueBook();
                     //location.reload();
-                    console.log(inputs);
+                    // console.log(inputs);
                 } else {
                     console.log('validateError');
                 }
@@ -149,20 +145,20 @@ function IssueBook(){
         };
         console.log(extendedData);
         const res = await axios.post(
-            'http://localhost:8081/project_01/issueBook.php',
+            'http://localhost:8081/project_01/controllers/IssueBookController.php',
             extendedData,
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
+        // console.log(res.data.resultMessage)
         const message = await res.data.resultMessage;
-        console.log(await res.data.resultMessage)
         setMessage(message);
         //console.log(message.ISBN_Number)
     }
 
-
+    // console.log(bookIdDetails);
     return (
         <>
             <div id="singleBooksDelete">
@@ -212,8 +208,8 @@ function IssueBook(){
 
                     <div className="col-md-4">
                         <label htmlFor="validationCustom01" className="form-label">Current availability</label>
-                        <input type="text" className="form-control " id="validationCustom01" name="currentAvailability"
-                               placeholder={currentAvailability} onChange={handleChange} disabled required/>
+                        <input type="text" className="form-control " id="validationCustom01" name="Availability"
+                               placeholder={bookIdDetails.Availability} onChange={handleChange} disabled required/>
                         <div className="valid-feedback">
                             Looks good!
                         </div>
@@ -221,7 +217,7 @@ function IssueBook(){
 
                     <div className="col-md-3">
                         <label htmlFor="validationCustom04" className="form-label">Set Availability</label>
-                        <select className="form-select" id="validationCustom04" required name="setAvailability" onChange={handleChange}>
+                        <select className="form-select" id="validationCustom04" required name="currentAvailability" onChange={handleChange}>
                             <option value=""> Chose...</option>
                             <option value="available">Available</option>
                             <option value="notAvailable">Not Available</option>

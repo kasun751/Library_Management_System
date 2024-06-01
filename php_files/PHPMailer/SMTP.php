@@ -430,7 +430,7 @@ class SMTP
         }
         restore_error_handler();
 
-        //Verify we connected properly
+        //VerifyEmail we connected properly
         if (!is_resource($connection)) {
             $this->setError(
                 'Failed to connect to server',

@@ -1,5 +1,6 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
+import login from "../../LogginSection/Login.jsx";
 
 function AddExistingBookQty(){
 
@@ -26,7 +27,7 @@ function AddExistingBookQty(){
 
     const updateDatabase = async () => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/QtyUpdate.php',
+            'http://localhost:8081/project_01/controllers/UpdateExistingBookQtyController.php',
             inputs,
             {
                 headers: {
@@ -42,14 +43,16 @@ function AddExistingBookQty(){
             ...data,
             dataGetting_parameter:0
         };
+        console.log(extendedData)
         const res = await axios.post(
-            'http://localhost:8081/project_01/getBookID.php',
+            'http://localhost:8081/project_01/controllers/GetBookIDController.php',
             extendedData,
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
+        console.log(res.data)
         const message = await res.data.resultMessage;
         setNextBookID(message);
         //console.log(message.ISBN_Number)
@@ -61,7 +64,7 @@ function AddExistingBookQty(){
     //check isbn exists or not        check this
     const getISBNData = async (isbnNumber) => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/ISBN_Data.php',
+            'http://localhost:8081/project_01/controllers/GetIsbnDataController.php',
             isbnNumber,
             {
                 headers: {
@@ -86,7 +89,7 @@ function AddExistingBookQty(){
         //console.log(message.ISBN_Number)
     }
     useEffect(() => {
-        axios.get('http://localhost:8081/project_01/BookManagement.php')
+        axios.get('http://localhost:8081/project_01/controllers/CategoryController.php')
             .then(response => {
                 setCategoryList(response.data);
             })

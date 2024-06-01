@@ -12,8 +12,9 @@ function ShowAllBookDetails() {
         }, [id]);
 
         const fetchBookDetails = async (id) => {
-                await axios.get(`http://localhost:8081/project_01/showBookAllDetails.php?id=${id}`)
+                await axios.get(`http://localhost:8081/project_01/controllers/ShowBookAllDetailsController.php?id=${id}`)
                     .then(response => {
+                        console.log(response.data)
                         setBookDetails(response.data);
                     })
                     .catch(error => {

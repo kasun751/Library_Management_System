@@ -7,7 +7,7 @@ function VerificationPage() {
     const {id} = useParams();
     const navigate = useNavigate();
     const decodedId = decodeURIComponent(id);
-    useEffect(() => {axios.get(`http://localhost:8081/project_01/isVerification.php?id=${decodedId}`)
+    useEffect(() => {axios.get(`http://localhost:8081/project_01/controllers/IsVerifyController.php?id=${decodedId}`)
         .then(response => {
             console.log(response.data)
 

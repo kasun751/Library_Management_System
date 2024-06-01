@@ -13,7 +13,7 @@ function Register() {
         setInputs(preValues => ({...preValues, [name]: value}))
     }
 
-    useEffect(() => {axios.get('http://localhost:8081/project_01/libraryUserRegistration.php')
+    useEffect(() => {axios.get('http://localhost:8081/project_01/controllers/LibraryUserRegistrationController.php')
             .then(response => {
                 console.log(response.data)
                 setNextUserID(response.data);
@@ -28,7 +28,7 @@ function Register() {
             ...inputs,...nextUserID
         };
         await axios.post(
-            'http://localhost:8081/project_01/libraryUserRegistration.php',
+            'http://localhost:8081/project_01/controllers/LibraryUserRegistrationController.php',
             extendedData,
             {
                 headers: {

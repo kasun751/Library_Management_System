@@ -24,7 +24,7 @@ function AddNewBook() {
 
     const updateDatabase = async () => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/BookManagement.php',
+            'http://localhost:8081/project_01/controllers/AddNewBookController.php',
             inputs,
             {
                 headers: {
@@ -39,7 +39,7 @@ function AddNewBook() {
     //check isbn exists or not
     const getISBNData = async (isbnNumber) => {
         const res = await axios.post(
-            'http://localhost:8081/project_01/ISBN_Data.php',
+            'http://localhost:8081/project_01/controllers/GetIsbnDataController.php',
             isbnNumber,
             {
                 headers: {
@@ -74,7 +74,7 @@ function AddNewBook() {
     }
 
     useEffect(() => {
-       axios.get('http://localhost:8081/project_01/BookManagement.php')
+       axios.get('http://localhost:8081/project_01/controllers/CategoryController.php')
             .then(response => {
                 console.log(response.data)
                 setCategoryList(response.data);
@@ -203,7 +203,7 @@ function AddNewBook() {
                     <label htmlFor="validationCustomUsername" className="form-label">QTY</label>
                     <div className="input-group has-validation ">
                         <input type="number" className="form-control feildDisabled" id="validationCustomUsername"
-                               placeholder={isbnMessage.AllBookQty} aria-describedby="inputGroupPrepend" name="number" onChange={handleChange} required/>
+                               placeholder={isbnMessage.AllBookQty} aria-describedby="inputGroupPrepend" name="qty" onChange={handleChange} required/>
                         <div className="valid-feedback">
                             Looks good!
                         </div>

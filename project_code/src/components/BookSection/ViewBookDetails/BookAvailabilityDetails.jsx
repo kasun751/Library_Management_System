@@ -11,7 +11,7 @@ function BookAvailabilityDetails() {
     }, [id]);
 
     const fetchBookDetails = async (id) => {
-        await axios.get(`http://localhost:8081/project_01/bookAvailabilityDetails.php?id=${id}`)
+        await axios.get(`http://localhost:8081/project_01/controllers/BookAvailabilityDetailsController.php?id=${id}`)
             .then(response => {
                 console.log(response.data)
                 setAvailableBookList(response.data);

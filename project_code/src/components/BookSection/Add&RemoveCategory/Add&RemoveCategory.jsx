@@ -20,7 +20,7 @@ function AddRemoveCategory(){
             access_parameter:access
         };
         const res = await axios.post(
-            'http://localhost:8081/project_01/categoryCreation.php',
+            'http://localhost:8081/project_01/controllers/CategoryController.php',
             extendedData,
             {
                 headers: {
