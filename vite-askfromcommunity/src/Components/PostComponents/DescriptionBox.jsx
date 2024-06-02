@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
+import './DescriptionBox.css'
 
 function DescriptionBox(props) {
     const [openDescription, setOpenDescription] = useState(false);
 
-    const handleOpenDescription =()=>{
-        setOpenDescription(openDescription? false:true);
+    const handleOpenDescription = () => {
+        setOpenDescription(prevState => !prevState);
     }
-  return (
-    <div>
-        <div className='descriptionBoxComponent'>
-            <p onClick={handleOpenDescription}>Description</p>
+
+    return (
+        <div>
+            <div className='descriptionBox' onClick={handleOpenDescription}>
+                <h4>Description</h4>
+            </div>
+            <div className={`descriptionBox ${openDescription ? 'show' : 'hide'}`}>
+                <p>{props.description}</p>
+            </div>
         </div>
-        {openDescription&&<div className='descriptionBoxComponent-2'>
-            <p>{props.description}</p>
-        </div>}
-    </div>
-  )
+    )
 }
 
 export default DescriptionBox

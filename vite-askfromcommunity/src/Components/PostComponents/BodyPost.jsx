@@ -79,8 +79,8 @@ function BodyPost({ post,user_id }) {
 
   async function handleReport(){
     try{
-        await axios.put(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`,{
-            reply_id : post.reply_id,
+        await axios.put(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
+            post_id : post.post_id,
             report_status : 1
         });
         
@@ -113,6 +113,7 @@ function BodyPost({ post,user_id }) {
     }catch(err){
       console.error(err);
     }
+    
   }
 
   async function handleDelete(){
@@ -122,6 +123,7 @@ function BodyPost({ post,user_id }) {
         post_id:post.post_id
       }
     });
+    console.log(post.post_id);
     setIsDelete(true);
     }catch(err){
       console.error(err);
@@ -144,46 +146,39 @@ function BodyPost({ post,user_id }) {
     <>
       {!isDelete && <div className='postComponent'>
         <div className='contentBox'>
-            <table>
-                <tbody>
-                    <tr>
-                        <td><label style={{color:'gray',fontStyle:'italic'}}>user_name</label></td>
-                        <td>{!isAvailable && <label className='reportBtn'  onClick={handleReport}>Report</label>}</td>
-                        <td>{isAvailable && <label className='buttonPanel' onClick={handleEdit}>Edit</label>}</td>
-                        <td>{!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}</td>
-                        <td>{isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}</td>
-                    </tr>
-                </tbody>
-              </table>
+            <div >
+                <table>
+                    <tbody>
+                        <tr className='button-set'>
+                            <td><label style={{color:'gray',fontStyle:'italic'}}>user_name</label></td>
+                            <td>{!isAvailable && <label className='reportBtn'  onClick={handleReport}>Report</label>}</td>
+                            <td>{isAvailable && <label className='buttonPanel' onClick={handleEdit}>Edit</label>}</td>
+                            <td>{!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}</td>
+                            <td>{isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
               <table className='image-box'>
                 <tbody>
                   <tr>
                       <td colSpan={2}>
-                        { /*<img src='src\Images\message-line.svg' />*/}
                         <ImageSlider />
-                      </td>                            
-                  </tr>
-                  <tr>
-                      <td colSpan={5}>
-                        <h2>{post.title}</h2>
-                      </td>                        
-                      <td className='description-box' colSpan={2}>
-                        {/*<p>{post.description}</p>*/}
-                        <DescriptionBox description={post.description} />
                       </td>
-                  </tr>
-                  <tr>
-                    <td colSpan={2}></td>
-                    <td className='postImageBtnPannel' colSpan={2}>
-                      <input
-                            type='text'
-                            value={reply}
-                            placeholder='enter your reply'
-                            onChange={(e) => setReply(e.target.value)}
-                      />
-                      <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
-                      <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
-                    </td>
+                      <td colSpan={2}>
+                        <h1>{post.title}</h1>
+                        <DescriptionBox description={post.description} />
+                        <div className='postImageBtnPannel'>
+                            <input
+                                type='text'
+                                value={reply}
+                                placeholder='enter your reply'
+                                onChange={(e) => setReply(e.target.value)}
+                            />
+                            <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
+                            <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
+                        </div>
+                      </td>
                   </tr>
                 </tbody>
               </table>
@@ -192,7 +187,8 @@ function BodyPost({ post,user_id }) {
             {visible && replyBulk.map((item, index) => (
                 <ReplyBox  key={index} post_id2={post.post_id} item = {item}/>
             ))}
-            {editedPost && editForm && (
+        </div>
+        {editedPost && editForm && (
                 <SubmitPostForm
                     category={editedPost.category}
                     title={editedPost.title}
@@ -200,9 +196,9 @@ function BodyPost({ post,user_id }) {
                     formAvailable={true}
                     post_id={post.post_id}
                     btn_value = "Edit Post"
+                    user_id = {user_id}
                 />
             )}
-        </div>
       </div>}
     </>
   );

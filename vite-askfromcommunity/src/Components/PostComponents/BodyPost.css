@@ -1,7 +1,7 @@
 .postComponent {
     margin: 20px;
     width: 75%;
-    height:550px;
+    height:400px;
     padding: 20px;
     text-align: left;
     border: 1px solid #ccc;
@@ -52,9 +52,10 @@
   
   .replyBox {
     margin-top: 20px;
-    height:500px;
+    height:400px;
     width:100%;
     overflow-y: scroll;
+    
   }
 
   .contentBox{
@@ -89,5 +90,8 @@
     cursor: pointer;
   }
 .image-box img{
-  width:30%
+  width:10%
+}
+.button-set td{
+    padding-left: 10px;
 }

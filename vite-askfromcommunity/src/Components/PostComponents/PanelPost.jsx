@@ -3,6 +3,7 @@ import './PanelPost.css';
 import ReplyBox from '../ReplyBoxComponent/ReplyBox';
 import axios from 'axios';
 import SubmitPostForm from '../FormComponents/SubmitPostForm';
+import DescriptionBox from '../PostComponents/DescriptionBox'
 
 function PanelPost({ post,user_id }) {
   const [reply, setReply] = useState('');
@@ -147,7 +148,7 @@ function PanelPost({ post,user_id }) {
           <br />
           <img src='src\Images\message-line.svg' />
         <h2>{post.title}</h2>
-        <p>{post.description}</p>
+        <DescriptionBox description={post.description} />
         <div className='sidePanelPostComponent-postImageBtnPannel'>
           <input
             type='text'
@@ -172,6 +173,7 @@ function PanelPost({ post,user_id }) {
             formAvailable={true}
             post_id={post.post_id}
             btn_value = "Edit Post"
+            user_id={user_id }
           />
         )}
         </div>

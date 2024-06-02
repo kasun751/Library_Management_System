@@ -11,7 +11,11 @@
 }
 .subHeaderImageBtnPannel>img{
     width:30px;  
-    cursor: pointer;  
+    cursor: pointer; 
+    margin:5px; 
+}
+.subHeaderImageBtnPannel>img:hover{
+    background-color: aliceblue; 
 }
 .headerTitle{
     width:60%;

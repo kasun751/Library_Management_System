@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import './SubmitPostForm.css';
 import axios from 'axios';
 
-function SubmitPostForm({ category: initialCategory = 'none', title: initialTitle = '', description: initialDescription = '', formAvailable: initialformAvailable = false, btn_value: initialbtn_value = 'Send Post', post_id }) {
+function SubmitPostForm({ category: initialCategory = 'none', title: initialTitle = '', description: initialDescription = '', formAvailable: initialformAvailable = false, btn_value: initialbtn_value = 'Send Post', post_id , user_id }) {
     const [formAvailable, setFormAvailable] = useState(initialformAvailable);
     const [option, setOption] = useState(false);
 
@@ -47,7 +47,7 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
         try {
             await axios.post(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`, {
                 ...formData,
-                user_id: "A12"
+                user_id: user_id
             });
             setFormAvailable(false);
         } catch (err) {
@@ -89,19 +89,20 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
                             </tr>
                             <tr>
                                 <td colSpan={3}>
-                                    {option && <input type="text" ref={categoryRef} defaultValue={initialCategory} />}
+                                    {option && <input type="text" placeholder='enter category' ref={categoryRef} defaultValue={initialCategory} />}
                                 </td>
                             </tr>
                             <tr>
                                 <td colSpan={3}>
-                                    <input type="text" ref={titleRef} defaultValue={initialTitle} />
+                                    <input type="text" ref={titleRef} placeholder='enter post title' defaultValue={initialTitle} />
                                 </td>
                             </tr>
                             <tr>
                                 <td colSpan={3}>
-                                    <input
-                                        type="text"
+                                    <textarea
+                                        rows="4" cols="50"
                                         ref={descriptionRef}
+                                        placeholder='enter post description'
                                         defaultValue={initialDescription}
                                     />
                                 </td>
