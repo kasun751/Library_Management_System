@@ -1,12 +1,28 @@
 import Navigation from "../../HeaderContent/Navigation.jsx";
 import './remove.css';
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import axios from "axios";
 
 const Remove = () => {
     const [deleteBook, setDeleteBook] = useState({});
     const [resMessage, setResMessage] = useState('');
     const [deleteBookDetails, setDeleteBookDetails] = useState({});
+    // const [bookList, setBookList] = useState([]);
+
+    // Function to fetch the list of books
+    // const fetchBookList = async () => {
+    //     try {
+    //         const res = await axios.post('http://localhost/Lbrary%20Management%20System/E-Resource_Php/ListBooks.php');
+    //         setBookList(res.data);
+    //     } catch (error) {
+    //         console.error('Error fetching book list:', error);
+    //     }
+    // };
+    //
+    // // Fetch the book list when the component mounts
+    // useEffect(() => {
+    //     fetchBookList();
+    // }, []);
 
 
     const deleteHandle = (e) => {
@@ -38,10 +54,10 @@ const Remove = () => {
         }
     }
 
-    const getdeleteBookDetails = async (id) => {
+    const getdeleteBookDetails = async (id,title) => {
         const res = await axios.post(
             'http://localhost/Lbrary Management System/E-Resource_Php/DeleteBookDetails.php',
-            id,
+            id,title,
             {
                 headers: {
                     'Content-Type': 'application/json'
@@ -119,8 +135,17 @@ const Remove = () => {
                     <div className="col-md-4">
                         <label htmlFor="validationCustomUsername" className="form-label">Title</label>
                         <div className="input-group has-validation">
-                            <input type="text" className="form-control" id="validationCustomUsername" name="title"
-                                   onChange={deleteHandle} value={deleteBookDetails.title || ""}  disabled required />
+                            <input type="text" className="form-control" id="validationCustom03" name="author"
+                                   onChange={deleteHandle} value={deleteBookDetails.title || ""} disabled required />
+
+                            {/*<select className="form-select" name="title" onChange={deleteHandle} required>*/}
+                            {/*    <option value=""></option>*/}
+                            {/*    {bookList.map((book, index) => (*/}
+                            {/*        <option key={index} value={book.title}>*/}
+                            {/*            {book.title}*/}
+                            {/*        </option>*/}
+                            {/*    ))}*/}
+                            {/*</select>*/}
                             <div className="invalid-feedback">
                                 Please enter a Book Title.
                             </div>

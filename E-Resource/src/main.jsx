@@ -7,11 +7,9 @@ import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
+import Home from './Components/Pages/Home/Home.jsx'
 import Add from './Components/Pages/Add/Add.jsx'
 import Remove from './Components/Pages/Remove/Remove.jsx'
-import Buy from './Components/Pages/Buy.jsx'
-import View from './Components/Pages/View.jsx'
-import Search from './Components/Pages/Search.jsx'
 
 
 import {
@@ -22,7 +20,12 @@ import {
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />,
+        element: <Home />, // Define route for root URL
+    },
+
+    {
+        path: "/home",
+        element: <Home/>,
     },
     {
         path: "/add",
@@ -32,18 +35,7 @@ const router = createBrowserRouter([
         path: "/remove",
         element: <Remove/>,
     },
-    {
-        path: "/buy",
-        element: <Buy/>,
-    },
-    {
-        path: "/view",
-        element: <View/>,
-    },
-    {
-        path: "/search",
-        element: <Search/>,
-    },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

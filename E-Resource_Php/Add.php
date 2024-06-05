@@ -25,35 +25,43 @@ if (
 
     if ($pdf['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $pdf['tmp_name'];
-        $fileContent = file_get_contents($fileTmpPath);
+        $fileName = $pdf['name'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $newFileName = $fileName.$isbn . '.' . $fileExtension;
 
-        $dbCon = new database();
-        $conn = $dbCon->dbConnect();
+        // Directory where the file will be stored
+        $uploadFileDir = 'C:/xampp1/htdocs/Lbrary Management System/PDF/'; // directory on  PC
+        $dest_path = $uploadFileDir . $newFileName;
 
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        if (move_uploaded_file($fileTmpPath, $dest_path)) {
+            $dbCon = new database();
+            $conn = $dbCon->dbConnect();
 
-        $sql = "INSERT INTO ebook (id, isbn, title, author, category, description, pdf) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
 
-        $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die("Prepare failed: " . htmlspecialchars($conn->error));
-        }
+            $sql = "INSERT INTO ebook (id, isbn, title, author, category, description, pdf_path) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        $null = NULL;
-        $stmt->bind_param('ssssssb', $id, $isbn, $title, $author, $category, $description, $null);
-        $stmt->send_long_data(6, $fileContent);
+            $stmt = $conn->prepare($sql);
+            if ($stmt === false) {
+                die("Prepare failed: " . htmlspecialchars($conn->error));
+            }
 
-        if ($stmt->execute()) {
-            echo json_encode(['resultMessage' => 'true']);
+            $stmt->bind_param('sssssss', $id, $isbn, $title, $author, $category, $description, $dest_path);
+
+            if ($stmt->execute()) {
+                echo json_encode(['resultMessage' => 'true']);
+            } else {
+                echo json_encode(['resultMessage' => 'false', 'error' => $stmt->error]);
+            }
+
+            $stmt->close();
+            $conn->close();
         } else {
-            echo json_encode(['resultMessage' => 'false', 'error' => $stmt->error]);
+            echo json_encode(['resultMessage' => 'Error moving the file to the upload directory.']);
         }
-
-        $stmt->close();
-        $conn->close();
     } else {
         echo json_encode(['resultMessage' => 'File upload error.']);
     }
