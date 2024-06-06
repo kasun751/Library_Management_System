@@ -1,7 +1,31 @@
 import Navigation from "../../HeaderContent/Navigation.jsx";
 import './Home.css';
 import Card from './Card/Card.jsx';
+import {useEffect, useState} from "react";
+import axios from "axios";
 function Home(){
+    const [getBookDetails,setGetBookDetails]=useState([]);
+
+    useEffect(() => {
+        const getViewBookDetails = async ()=>{
+            try{
+                const res= await axios.get(
+                    'http://localhost/Lbrary%20Management%20System/E-Resource_Php/viewBookDetails.php',
+                    {
+                        headers:{
+                            'content-Type':'application/json'
+                        }
+                    }
+                )
+                console.log(res.data);
+                setGetBookDetails(res.data);
+            }catch (error){
+                console.error("Error fetching data",error);
+            }
+        }
+
+        getViewBookDetails();
+    }, []);
 
     return(
         <>
@@ -18,14 +42,17 @@ function Home(){
                 </form>
             </div>
             <div className="card-container">
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
+                {getBookDetails.map((book, index) => (
+
+                    <Card
+                        key={index}
+                        title={book.title}
+                        author={book.author}
+                        category={book.category}
+                        description={book.description}
+                        image_path={`http://localhost/Lbrary%20Management%20System/IMAGES/${book.image_path}`}
+                    />
+                ))}
 
             </div>
 

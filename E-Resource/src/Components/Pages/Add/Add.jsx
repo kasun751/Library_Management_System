@@ -11,13 +11,19 @@ function Add() {
         author: '',
         category: '',
         description: '',
+        image:null,
         pdf: null
     });
     const [resMessage, setResMessage] = useState('');
 
     const handleChange = (e) => {
         const name = e.target.name;
-        const value = name === 'pdf' ? e.target.files[0] : e.target.value;
+        let value;
+        if (name === 'image' || name === 'pdf') {
+            value = e.target.files[0];
+        } else {
+            value = e.target.value;
+        }
         setFormData({ ...formData, [name]: value });
     };
 
@@ -133,6 +139,16 @@ function Add() {
                             Looks good!
                         </div>
                     </div>
+                    <div className="mb-3">
+                        <label htmlFor="validationCustom06" className="form-label">Choose cover image to upload</label>
+                        <input type="file" className="form-control" aria-label="file example" name="image"
+                               onChange={handleChange} accept="image/jpeg,image/png" required />
+                        <div className="invalid-feedback">Please upload a Cover Image file.</div>
+                        <div className="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+
                     <div className="mb-3">
                         <label htmlFor="validationCustom06" className="form-label">Choose PDF to upload</label>
                         <input type="file" className="form-control" aria-label="file example" name="pdf"
