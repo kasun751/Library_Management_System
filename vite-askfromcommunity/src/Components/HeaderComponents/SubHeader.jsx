@@ -8,15 +8,19 @@ function SubHeader(props) {
   const [reportPostsVisible,setReportPostVisible] = useState(false);
 const mySavedPost = () =>{
   setSavePostVisible(savePostVisible? false:true);
+  setReportPostVisible(false);
   setMyPostVisible(false);
 }
 const myPost =()=>{
   setMyPostVisible(myPostVisible? false:true);
   setSavePostVisible(false);
+  setReportPostVisible(false);
 }
 
 const showReportedPost=()=>{
   setReportPostVisible(reportPostsVisible? false:true);
+  setSavePostVisible(false);
+  setMyPostVisible(false);
 }
 
   return (

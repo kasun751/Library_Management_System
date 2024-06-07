@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import './SubmitPostForm.css';
 import axios from 'axios';
+import BodyPost from '../PostComponents/BodyPost';
 
 function SubmitPostForm({ category: initialCategory = 'none', title: initialTitle = '', description: initialDescription = '', formAvailable: initialformAvailable = false, btn_value: initialbtn_value = 'Send Post', post_id , user_id }) {
     const [formAvailable, setFormAvailable] = useState(initialformAvailable);

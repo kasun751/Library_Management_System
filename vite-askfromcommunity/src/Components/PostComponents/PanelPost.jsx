@@ -4,6 +4,7 @@ import ReplyBox from '../ReplyBoxComponent/ReplyBox';
 import axios from 'axios';
 import SubmitPostForm from '../FormComponents/SubmitPostForm';
 import DescriptionBox from '../PostComponents/DescriptionBox'
+import ImageSlider from '../ImageSliderComponent/ImageSlider';
 
 function PanelPost({ post,user_id }) {
   const [reply, setReply] = useState('');
@@ -146,7 +147,7 @@ function PanelPost({ post,user_id }) {
           {!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}
           {isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}
           <br />
-          <img src='src\Images\message-line.svg' />
+          <ImageSlider />
         <h2>{post.title}</h2>
         <DescriptionBox description={post.description} />
         <div className='sidePanelPostComponent-postImageBtnPannel'>

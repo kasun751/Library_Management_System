@@ -5,6 +5,7 @@ import axios from 'axios';
 import SubmitPostForm from '../FormComponents/SubmitPostForm';
 import ImageSlider from '../ImageSliderComponent/ImageSlider';
 import DescriptionBox from '../PostComponents/DescriptionBox'
+import ReportComponent from '../ReportComponent/ReportComponent';
 
 function BodyPost({ post,user_id }) {
   const [reply, setReply] = useState('');
@@ -16,6 +17,8 @@ function BodyPost({ post,user_id }) {
   const [editForm, setEditForm] = useState(false);
   const [isAvailable,setIsAvailable] = useState(false);
   const [isDelete,setIsDelete] = useState(false);
+  const [isReportOpen, setIsReportOpen] = useState(false);
+
 
   useEffect(() => {
     getReplyMsgFromDB();
@@ -78,15 +81,16 @@ function BodyPost({ post,user_id }) {
   }
 
   async function handleReport(){
-    try{
-        await axios.put(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
-            post_id : post.post_id,
-            report_status : 1
-        });
+    setIsReportOpen(isReportOpen?false:true);
+    // try{
+    //     await axios.put(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
+    //         post_id : post.post_id,
+    //         report_status : 1
+    //     });
         
-    }catch(err){
-        console.error(err);
-    }
+    // }catch(err){
+    //     console.error(err);
+    // }
   }
 
   async function setReplyMsgToDB() {
@@ -200,6 +204,10 @@ function BodyPost({ post,user_id }) {
                 />
             )}
       </div>}
+      {isReportOpen &&
+          <ReportComponent onClose={() => setIsReportOpen(isReportOpen?false:true)} openFeild1={isReportOpen} user_id={user_id} post_id={post.post_id} />
+      }
+
     </>
   );
 }

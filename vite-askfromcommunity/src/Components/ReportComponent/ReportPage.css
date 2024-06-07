@@ -1,0 +1,30 @@
+.report-page-container{
+    position: fixed;
+    top: 15%;
+    left: 0;
+    width: 55%;
+    height:80%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    overflow: auto;
+}
+.report-page-container button{
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+}
+#rejectBtn{
+    background-color:rgb(83, 94, 197);
+}
+#deleteBtn{
+    background-color:rgb(210, 72, 88);
+}
+#rejectBtn:hover{
+    background-color:rgb(46, 58, 161);
+}
+#deleteBtn:hover{
+    background-color:rgb(164, 40, 54);
+}

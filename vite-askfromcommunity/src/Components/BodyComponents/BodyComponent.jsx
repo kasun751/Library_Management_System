@@ -12,7 +12,7 @@ function BodyComponent(props) {
   }
 
   useEffect(() => {
-    getPost('');
+    getPost("");
   }, [refresh]);
 
   async function getPost($category) {
