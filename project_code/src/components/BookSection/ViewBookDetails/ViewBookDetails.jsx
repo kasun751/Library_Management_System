@@ -2,6 +2,7 @@ import {useEffect,useState} from "react";
 import axios from "axios";
 import './ViewBookDetails.css'
 import {Link} from "react-router-dom";
+import InputField from "../../SubComponents/InputFields.jsx";
 function ViewBookDetails() {
 
     const [booksList, setBooksList] = useState([]);
@@ -41,18 +42,8 @@ function ViewBookDetails() {
 
     return (
         <>
-
-            <div className="col-md-3">
-                <label htmlFor="validationCustom05" className="form-label ">Publisher Name</label>
-                <input type="text" className="form-control feildDisabled" id="validationCustom05" required name="bookDetails"
-                      onChange={handleChange}/>
-                <div className="valid-feedback">
-                    Looks good!
-                </div>
-                <div className="invalid-feedback">
-                    Please provide a valid Publisher Name.
-                </div>
-            </div>
+            <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookDetails"}
+                        type={"text"} handleChange={handleChange} feedback={"Book Name."}/>
 
             <div className="container">
                 <br/>

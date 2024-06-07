@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import InputField from "../../SubComponents/InputFields.jsx";
+import Button from "../../SubComponents/Button.jsx";
 
 function ModifyBook() {
 
@@ -134,90 +136,32 @@ function ModifyBook() {
                     <h1>Update Book Details</h1>
                 </div>
                 <form className="row g-3 needs-validation" noValidate>
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustomUsername" className="form-label">Book Name ID</label>
-                        <div className="input-group has-validation">
-                            {/*<span className="input-group-text" id="inputGroupPrepend">{CategoryID + " - "}</span>*/}
-                            <input type="text" className="form-control" id="validationCustomUsername"
-                                   placeholder="Auto fill" aria-describedby="inputGroupPrepend" value={bookNameID || ""}
-                                   disabled required/>
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustomUsername" className="form-label">ISBN Number</label>
-                        <div className="input-group has-validation">
-                            <input type="text" className="form-control" id="validationCustomUsername"
-                                   aria-describedby="inputGroupPrepend" name="isbnNumber" onChange={handleChange}
-                                   required/>
-                            <div className="valid-feedback">
-                                Looks good!
-                            </div>
-                            <div className="invalid-feedback">
-                                Please choose a valid ISBN Number.
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustom01" className="form-label">Book Name</label>
-                        <input type="text" className="form-control " id="validationCustom01" name="bookName"
-                               value={inputs.bookName !== undefined ? inputs.bookName: isbnMessage.BookName || ""} onChange={handleChange}  required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid Book Name.
-                        </div>
-                    </div>
+                    <InputField label={"Book Name ID"} id={"validationBookNameID"} className={"form-control"}
+                                name={"bookNameID"} placeholder="Auto fill" type={"text"} value={bookNameID || ""}
+                                disabled={true} handleChange={handleChange} feedback={"Book Name ID."}/>
+                    <InputField label={"ISBN Number"} id={"validationIsbnNumber"} className={"form-control"}
+                                name={"isbnNumber"} type={"text"} handleChange={handleChange} feedback={"ISBN Number."}/>
+                    <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
+                                value={inputs.bookName !== undefined ? inputs.bookName: isbnMessage.BookName || ""}
+                                type={"text"} handleChange={handleChange}  feedback={"Book Name."}/>
+                    <InputField label={"Author Name"} id={"validationCustom02"} className={"form-control"} name={"authorName"}
+                                value={inputs.authorName!== undefined ? inputs.authorName: isbnMessage.AuthorName || ""}
+                                type={"text"} handleChange={handleChange} feedback={"Author Name."}/>
 
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustom02" className="form-label ">Author Name</label>
-                        <input type="text" className="form-control feildDisabled" id="validationCustom02" name="authorName"
-                              value={inputs.authorName!== undefined ? inputs.authorName: isbnMessage.AuthorName || ""} onChange={handleChange} required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid Author Name.
-                        </div>
-                    </div>
+                    <InputField label={"Publisher Name"} id={"validationCustom05"} className={"form-control"} name={"publisherName"}
+                                value={inputs.publisherName !== undefined ?inputs.publisherName: isbnMessage.PublisherName || ""} type={"text"} handleChange={handleChange}
+                                feedback={"Publisher Name."}/>
 
-                    <div className="col-md-3">
-                        <label htmlFor="validationCustom05" className="form-label ">Publisher Name</label>
-                        <input type="text" className="form-control feildDisabled" id="validationCustom05" required name="publisherName"
-                               value={inputs.publisherName !== undefined ?inputs.publisherName: isbnMessage.PublisherName || ""} onChange={handleChange}/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please provide a valid Publisher Name.
-                        </div>
-                    </div>
-
-
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustomUsername" className="form-label" >Book Location</label>
-                        <div className="input-group has-validation">
-                            <input type="text" className="form-control" id="validationCustomUsername"
-                                   value={inputs.bookLocation !== undefined ? inputs.bookLocation : isbnMessage.BookLocation || ""} aria-describedby="inputGroupPrepend" name="bookLocation"  onChange={handleChange}  required/>
-                            <div className="valid-feedback">
-                                Looks good!
-                            </div>
-                            <div className="invalid-feedback">
-                                Please choose a valid Book Location.
-                            </div>
-                        </div>
-                    </div>
+                    <InputField label={"Book Location"} id={"validationLocation"} className={"form-control"} name={"bookLocation"}
+                                value={inputs.bookLocation !== undefined ? inputs.bookLocation : isbnMessage.BookLocation || ""}
+                                type={"text"} handleChange={handleChange} feedback={"Book Location."}/>
 
                     <div className="col-md-6">
                         <label htmlFor="validationCustom03" className="form-label ">Description</label>
                         <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50" name="description"
                                   value={inputs.description !== undefined ? inputs.description: isbnMessage.Description || ""}   onChange={handleChange} required/>
                     </div>
-
-                    <div className="col-12">
-                        <button className="btn btn-primary feildDisabled" type="submit" onClick={submit}>Submit form
-                        </button>
-                    </div>
+                    <Button keyword={"Modify Book"} submit={submit}/>
                 </form>
                 <div>
                     <p>Response from PHP script: {message}</p>

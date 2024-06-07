@@ -1,5 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
+import InputField from "../../SubComponents/InputFields.jsx";
 
 function AddRemoveCategory(){
 
@@ -81,20 +82,9 @@ function AddRemoveCategory(){
             </div>
             <form className="row g-3 needs-validation" noValidate>
 
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label" >Add Category</label>
-                    <div className="input-group has-validation">
-                        <input type="text" className="form-control" id="validationCustomUsername"
-                               aria-describedby="inputGroupPrepend" name="addCategory"  onChange={handleChange}  required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid ISBN Number.
-                        </div>
-                    </div>
-                </div>
-
+                <InputField type={"text"} className={"form-control"} label="Add Category" id="validationCustomUsername" name="addCategory"
+                            value={inputs.addCategory || ""} handleChange={handleChange} required={true}
+                            feedback="Please choose a valid ISBN Number."/>
                 <div className="col-12">
                     <button className="btn btn-primary feildDisabled" type="submit" onClick={() => submit("add")}>Add Category</button>
                     <button className="btn btn-primary feildDisabled" type="submit" onClick={() => submit("remove")}>Remove Category</button>

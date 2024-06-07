@@ -1,6 +1,9 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
-import login from "../../LogginSection/Login.jsx";
+import Button from "../../SubComponents/Button.jsx";
+import InputField from "../../SubComponents/InputFields.jsx";
+import CategoryList from "../../SubComponents/CategoryList.jsx";
+import SetAvailability from "../../SubComponents/SetAvailability.jsx";
 
 function AddExistingBookQty(){
 
@@ -152,86 +155,21 @@ function AddExistingBookQty(){
                 <img src="" alt=""/>
             </div>
             <form className="row g-3 needs-validation" noValidate>
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label">Next Book ID</label>
-                    <div className="input-group has-validation">
-                        {/*<span className="input-group-text" id="inputGroupPrepend">{CategoryID + " - "}</span>*/}
-                        <input type="text" className="form-control" id="validationCustomUsername"
-                               placeholder="Auto fill" aria-describedby="inputGroupPrepend" value={nextBookID || ""} disabled required />
-                    </div>
-                </div>
-                <div className="col-md-3">
-                    <label htmlFor="validationCustom04" className="form-label">Category</label>
-                    <select className="form-select feildDisabled" id="validationCustom04" required name="category"
-                            value={inputs.category || isbnMessage.Category || ""} onChange={handleChange}>
-                        <option value="" disabled> select Category</option>
-                        {Array.isArray(categoryList)?(categoryList.map((category, index) => (
-                            <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
-                        ))):""}
-                    </select>
-                    <div className="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div className="invalid-feedback">
-                        Please select a valid Category.
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label" >ISBN Number</label>
-                    <div className="input-group has-validation">
-                        <input type="text" className="form-control" id="validationCustomUsername"
-                               aria-describedby="inputGroupPrepend" name="isbnNumber"  onChange={handleChange}  required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid ISBN Number.
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <label htmlFor="validationCustom01" className="form-label">Book Name</label>
-                    <input type="text" className="form-control " id="validationCustom01" name="bookName"
-                           placeholder={isbnMessage.BookName} onChange={handleChange} disabled required />
-                    <div className="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div className="invalid-feedback">
-                        Please choose a valid Book Name.
-                    </div>
-                </div>
+                <InputField label={"Next Book ID"} type={"text"} id={"validationCustomUsername"} className={"form-control"}
+                            value={nextBookID || ""} placeholder={"Auto fill"} disabled={true}/>
+                <CategoryList value={inputs.category || isbnMessage.Category || ""} categoryList={categoryList}
+                              handleChange={handleChange}/>
+                <InputField label={"ISBN Number"} id={"validationCustomUsername"} className={"form-control"}
+                            name={"isbnNumber"} type={"text"} feedback={"ISBN Number."} handleChange={handleChange}/>
+               <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
+                           placeholder={isbnMessage.BookName} type={"text"} disabled={true} handleChange={handleChange}
+                           feedback={"Book Name."}/>
 
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label">Add More QTY</label>
-                    <div className="input-group has-validation ">
-                        <input type="number" className="form-control feildDisabled" id="validationCustomUsername"
-                               placeholder={isbnMessage.Qty} aria-describedby="inputGroupPrepend" name="addNewQty" onChange={handleChange} required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid quantity.
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-md-3">
-                    <label htmlFor="validationCustom04" className="form-label">Set Availability</label>
-                    <select className="form-select" id="validationCustom04" required name="setAvailability" onChange={handleChange}>
-                        <option value=""> Chose...</option>
-                        <option value="available">Available</option>
-                        <option value="notAvailable">Not Available</option>
-                    </select>
-                    <div className="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div className="invalid-feedback">
-                        Please select a valid Category.
-                    </div>
-                </div>
-                <div className="col-12">
-                    <button className="btn btn-primary feildDisabled" type="submit" onClick={submit}>Submit form</button>
-                </div>
+                <InputField label={"Add More QTY"} type={"number"} className={"form-control feildDisabled"}
+                            name={"addNewQty"} placeholder={isbnMessage.Qty} id={"validationCustomUsername"}
+                            handleChange={handleChange} feedback={"quantity."}/>
+                <SetAvailability handleChange={handleChange}/>
+                <Button keyword={"Add Qty"} submit={submit}/>
             </form>
             <div>
                 <p>Response from PHP script: {message}</p>

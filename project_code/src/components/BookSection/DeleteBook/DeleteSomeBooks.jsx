@@ -1,6 +1,9 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import InputField from "../../SubComponents/InputFields.jsx";
+import CategoryList from "../../SubComponents/CategoryList.jsx";
+import Button from "../../SubComponents/Button.jsx";
 
 function IssueBook(){
     const [inputs, setInputs] = useState({});
@@ -134,52 +137,16 @@ function IssueBook(){
                     <img src="" alt=""/>
                     <h1>Delete Some Books </h1>
                 </div>
+
                 <form className="row g-3 needs-validation" noValidate>
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustomUsername" className="form-label">Book ID</label>
-                        <div className="input-group has-validation">
-                            {/*<span className="input-group-text" id="inputGroupPrepend">{CategoryID + " - "}</span>*/}
-                            <input type="text" className="form-control" id="validationCustomUsername" name="bookID"
-                                   placeholder="Auto fill" aria-describedby="inputGroupPrepend" required onChange={handleChange}/>
-                        </div>
-                    </div>
-                    <div className="col-md-3">
-                        <label htmlFor="validationCustom04" className="form-label">Category</label>
-                        <select className="form-select feildDisabled" id="validationCustom04" required name="category"
-                                value={inputs.category || bookIdDetails.Category || ""} onChange={handleChange}>
-                            <option value="" disabled> select Category</option>
-                            {Array.isArray(categoryList)?(categoryList.map((category, index) => (
-                                <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
-                            ))):""}
-                        </select>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please select a valid Category.
-                        </div>
-                        <button id="addCategory" type="button" className="btn btn-secondary"><Link
-                            to="/addBook/addCategory"> Add Book Category</Link></button>
-                    </div>
-
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustom01" className="form-label">Book Name</label>
-                        <input type="text" className="form-control " id="validationCustom01" name="bookName"
-                               placeholder={bookIdDetails.BookName} onChange={handleChange} disabled required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid Book Name.
-                        </div>
-                    </div>
-
-                    {/*<button type="button" onClick={deleteBook}>Delete Book</button>*/}
-
-                    <div className="col-12">
-                        <button className="btn btn-primary feildDisabled" type="submit" onClick={submit}>Submit form
-                        </button>
-                    </div>
+                    <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"} placeholder="Auto fill"
+                                name={"bookID"} type={"text"} handleChange={handleChange} feedback={"Book ID."}/>
+                    <CategoryList value={inputs.category || bookIdDetails.Category || ""} categoryList={categoryList}
+                                  handleChange={handleChange}/>
+                    <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
+                                placeholder={bookIdDetails.BookName} type={"text"} handleChange={handleChange} disabled={true}
+                                feedback={"Book Name."}/>
+                    <Button keyword={"Delete Book"} submit={submit}/>
                 </form>
                 <div>
                     <p>Response from PHP script: {message}</p>

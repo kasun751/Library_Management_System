@@ -1,7 +1,11 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
-
+import './AddNewBook.css'
+import InputField from "../../SubComponents/InputFields.jsx";
+import CategoryList from "../../SubComponents/CategoryList.jsx";
+import SetAvailability from "../../SubComponents/SetAvailability.jsx";
+import Button from "../../SubComponents/Button.jsx";
 function AddNewBook() {
 
     const [inputs, setInputs] = useState({});
@@ -127,135 +131,51 @@ function AddNewBook() {
     }
 
     return (
-        <>
+
+        <div id="addNewBook">
             <div id="progress">
                 <img src="" alt=""/>
             </div>
             <form className="row g-3 needs-validation" noValidate>
+                <InputField label={"ISBN Number"} id={"validationIsbnNumber"} className={"form-control"}
+                            name={"isbnNumber"}
+                            type={"text"} handleChange={handleChange} feedback={"ISBN Number."}/>
+                <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
+                            placeholder={isbnMessage.BookName} type={"text"} handleChange={handleChange}
+                            feedback={"Book Name."}/>
+                <InputField label={"Author Name"} id={"validationCustom02"} className={"form-control"}
+                            name={"authorName"}
+                            placeholder={isbnMessage.AuthorName} type={"text"} handleChange={handleChange}
+                            feedback={"Author Name."}/>
+                <InputField label={"Publisher Name"} id={"validationCustom05"} className={"form-control"}
+                            name={"publisherName"}
+                            placeholder={isbnMessage.PublisherName} type={"text"} handleChange={handleChange}
+                            feedback={"Publisher Name."}/>
 
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label" >ISBN Number</label>
-                    <div className="input-group has-validation">
-                        <input type="text" className="form-control" id="validationCustomUsername"
-                               aria-describedby="inputGroupPrepend" name="isbnNumber"  onChange={handleChange}  required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid ISBN Number.
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <label htmlFor="validationCustom01" className="form-label">Book Name</label>
-                    <input type="text" className="form-control feildDisabled" id="validationCustom01" name="bookName"
-                           placeholder={isbnMessage.BookName} onChange={handleChange}  required />
-                    <div className="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div className="invalid-feedback">
-                        Please choose a valid Book Name.
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <label htmlFor="validationCustom02" className="form-label ">Author Name</label>
-                    <input type="text" className="form-control feildDisabled" id="validationCustom02" name="authorName"
-                           placeholder={isbnMessage.AuthorName} onChange={handleChange} required/>
-                    <div className="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div className="invalid-feedback">
-                        Please choose a valid Author Name.
-                    </div>
-                </div>
-
-                <div className="col-md-3">
-                    <label htmlFor="validationCustom05" className="form-label ">Publisher Name</label>
-                    <input type="text" className="form-control feildDisabled" id="validationCustom05" required name="publisherName"
-                           placeholder={isbnMessage.PublisherName} onChange={handleChange}/>
-                    <div className="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div className="invalid-feedback">
-                        Please provide a valid Publisher Name.
-                    </div>
-                </div>
-
-                <div className="col-md-3">
-                    <label htmlFor="validationCustom04" className="form-label">Category</label>
-                    <select className="form-select feildDisabled" id="validationCustom04" required name="category"
-                             value={inputs.category || isbnMessage.Category || ""} onChange={handleChange}>
-                        <option value="" disabled> select Category</option>
-                        {Array.isArray(categoryList)?(categoryList.map((category, index) => (
-                            <option key={index} value={category.Category_Name}>{category.Category_Name}</option>
-                        ))):""}
-                    </select>
-                    <div className="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div className="invalid-feedback">
-                        Please select a valid Category.
-                    </div>
-                    <button id="addCategory" type="button" className="btn btn-secondary"><Link to="/addBook/addCategory"> Add Book Category</Link></button>
-                </div>
-
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label">QTY</label>
-                    <div className="input-group has-validation ">
-                        <input type="number" className="form-control feildDisabled" id="validationCustomUsername"
-                               placeholder={isbnMessage.AllBookQty} aria-describedby="inputGroupPrepend" name="qty" onChange={handleChange} required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid quantity.
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label" >Book Location</label>
-                    <div className="input-group has-validation">
-                        <input type="text" className="form-control" id="validationCustomUsername"
-                               placeholder={isbnMessage.BookLocation} aria-describedby="inputGroupPrepend" name="bookLocation"  onChange={handleChange}  required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid Book Location.
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-3">
-                    <label htmlFor="validationCustom04" className="form-label">Set Availability</label>
-                    <select className="form-select" id="validationCustom04" required name="setAvailability" onChange={handleChange}>
-                        <option value=""> Chose...</option>
-                        <option value="available">Available</option>
-                        <option value="notAvailable">Not Available</option>
-                    </select>
-                    <div className="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div className="invalid-feedback">
-                        Please select a valid Category.
-                    </div>
-                </div>
+                <CategoryList value={inputs.category || isbnMessage.Category || ""} categoryList={categoryList}
+                              handleChange={handleChange}/>
+                <button id="addCategory" type="button" className="btn btn-secondary"><Link
+                    to="/addBook/addCategory"> Add Book Category</Link></button>
+                <InputField label={"QTY"} type={"number"} className={"form-control feildDisabled"} handleChange={handleChange}
+                            name={"qty"} placeholder={isbnMessage.AllBookQty} id={"validationQty"}
+                            feedback={"quantity."}/>
+                <InputField label={"Book Location"} id={"validationLocation"} className={"form-control"} name={"bookLocation"}
+                            placeholder={isbnMessage.BookLocation} type={"text"} handleChange={handleChange}
+                            feedback={"Book Location."}/>
+                <SetAvailability handleChange={handleChange}/>
                 <div className="col-md-6">
                     <label htmlFor="validationCustom03" className="form-label ">Description</label>
-                    <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50" name="description"
-                              placeholder={isbnMessage.Description}   onChange={handleChange} required/>
+                    <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50"
+                              name="description"
+                              placeholder={isbnMessage.Description} onChange={handleChange} required/>
                 </div>
-
-
-                <div className="col-12">
-                    <button className="btn btn-primary feildDisabled" type="submit" onClick={submit}>Submit form</button>
-                </div>
+                <Button keyword={"Add Book"} submit={submit}/>
             </form>
             <div>
                 <p>Response from PHP script: {message}</p>
                 <p>ISBN Response from PHP script: {isbnMessage.ISBN_Number}</p>
             </div>
-        </>
+        </div>
     )
 }
 
