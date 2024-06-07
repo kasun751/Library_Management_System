@@ -29,9 +29,21 @@ function ImageSlider() {
   return (
     <div>
         <div className='imageSlider'>
-            <img src={imageArray[count] } alt={`image ${count}` }/><br/>
-            <button onClick={handleBack}>{"<"}</button>
-            <button onClick={handleForword}>{">"}</button>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src={imageArray[count] } alt={`image ${count}` }/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button onClick={handleBack}>{"<"}</button>
+                            <button onClick={handleForword}>{">"}</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
   )

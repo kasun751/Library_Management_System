@@ -28,3 +28,6 @@
 #deleteBtn:hover{
     background-color:rgb(164, 40, 54);
 }
+#imageSlider-container{
+    width: 50%;
+}

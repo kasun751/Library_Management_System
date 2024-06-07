@@ -6,21 +6,31 @@ function SubHeader(props) {
   const [savePostVisible,setSavePostVisible] = useState(false);
   const [myPostVisible,setMyPostVisible] = useState(false);
   const [reportPostsVisible,setReportPostVisible] = useState(false);
+  const [reportMsgVisible,setReportMsgVisible] = useState(false);
 const mySavedPost = () =>{
   setSavePostVisible(savePostVisible? false:true);
   setReportPostVisible(false);
   setMyPostVisible(false);
+  setReportMsgVisible(false);
 }
 const myPost =()=>{
   setMyPostVisible(myPostVisible? false:true);
   setSavePostVisible(false);
   setReportPostVisible(false);
+  setReportMsgVisible(false);
 }
 
 const showReportedPost=()=>{
   setReportPostVisible(reportPostsVisible? false:true);
   setSavePostVisible(false);
   setMyPostVisible(false);
+  setReportMsgVisible(false);
+}
+const showReportedMsg=()=>{
+  setReportMsgVisible(reportMsgVisible? false:true);
+  setSavePostVisible(false);
+  setMyPostVisible(false);
+  setReportPostVisible(false);
 }
 
   return (
@@ -33,13 +43,15 @@ const showReportedPost=()=>{
         <div className='subHeaderImageBtnPannel'>
             <img src='src\Images\message-white-heart.svg' alt="Reacted Posts" onClick={mySavedPost}/>
             <img src='src\Images\message-line.svg' alt="My posts" onClick={myPost}/>
-            <img src='src\Images\reported-msg.svg' alt='Reported Post' onClick={showReportedPost} />
+            <img src='src\Images\report-post.svg' alt='Reported Post' onClick={showReportedPost} />
+            <img src='src\Images\reported-msg.svg' alt='Reported Msg' onClick={showReportedMsg} />
         </div>       
 
     </div>
     {savePostVisible && <SidePanel user_id={props.user_id} user_type={"reg"} state={"savePost"} />}
     {myPostVisible && <SidePanel user_id={props.user_id} user_type={"reg"} state={"myPost"} />}
-    {reportPostsVisible && <SidePanel user_id={props.user_id} user_type={"staff"} state={false} />}
+    {reportPostsVisible && <SidePanel user_id={props.user_id} user_type={"staff"} state={"reportPost"} />}
+    {reportMsgVisible && <SidePanel user_id={props.user_id} user_type={"staff"} state={"reportMsg"} />}
     </>
   )
 }

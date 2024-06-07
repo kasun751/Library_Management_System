@@ -4,21 +4,26 @@ import './SidePanel.css';
 import axios from 'axios';
 import PanelPost from '../PostComponents/PanelPost';
 import ReportPost from '../PostComponents/ReportPost';
+import ReplyBox from '../ReplyBoxComponent/ReplyBox';
 
 function SidePanel(props) {
     const [mySaveposts, setmySaveposts] = useState([]);
     const [myposts, setmyPosts] = useState([]);
     const [reportPosts, setReportPosts] = useState([]);
+    const [reportMsg, setReportMsg] = useState([]);
 
     useEffect(() => {
         if(props.state=="myPost"){
           getmyPost(props.user_id);
         }
-        if(props.state=="savePost"){
+        else if(props.state=="savePost"){
           getmySavePost(props.user_id);
-        }      
+        } 
+        else if(props.state=="reportMsg"){
+          getReportedMsg(props.user_id);
+        }   
         
-        if(props.user_type=="staff"){
+        else if(props.state=="reportPost"){
           getReportedPost();
         }
       }, []);
@@ -42,8 +47,17 @@ function SidePanel(props) {
 
       async function getReportedPost() {
         try {
-          const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportManager.php`);
+          const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportPostManager.php`);
           setReportPosts(res.data);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      async function getReportedMsg() {
+        try {
+          const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportReplyManager.php`);
+          setReportMsg(res.data);
         } catch (err) {
           console.error(err);
         }
@@ -53,7 +67,8 @@ function SidePanel(props) {
     <div className='sidePanel_container'>
         {(props.state=="savePost"? true:false) && <h2>Save Posts</h2>}
         {(props.state=="myPost"? true:false) && <h2>My Posts</h2>}
-        {(props.user_type=="staff"? true:false) && <h2>Report Posts</h2>}
+        {(props.state=="reportPost"? true:false) && <h2>Report Posts</h2>}
+        {(props.state=="reportMsg"? true:false) && <h2>Report Messages</h2>}
       {(props.state=="savePost"? true:false) && mySaveposts?.map((item) => (
           <PanelPost key={item.post_id} post={item} user_id={props.user_id} />
         ))}
@@ -62,8 +77,12 @@ function SidePanel(props) {
           <PanelPost key={item.post_id} post={item} user_id={props.user_id} />
         ))}
 
-        {(props.user_type=="staff"? true:false) && reportPosts?.map((item, index) => (
+        {(props.state=="reportPost"? true:false) && reportPosts?.map((item, index) => (
           <ReportPost key={index} post={item} />
+        ))}
+        {(props.state=="reportMsg"? true:false) && reportMsg?.map((item, index) => (
+          <ReplyBox  key={index} post_id2={item.post_id} item = {item}/>
+          
         ))}
     </div>
   );

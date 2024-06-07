@@ -1,3 +1,12 @@
 .imageSlider img{
     width:50%;
 }
+.imageSlider button{
+    background-color: blueviolet;
+    padding: 5px;
+    border-radius: 50px;
+    margin-right: 5px;
+}
+.imageSlider td{
+    text-align: center;
+}

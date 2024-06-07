@@ -101,6 +101,9 @@ function BodyPost({ post,user_id }) {
         user_id: user_id,
         reply_msg: reply
       });
+      console.log(post.post_id)
+      console.log(user_id)
+      console.log(reply)
       setReplyBulk([...replyBulk, { post_id: post.post_id, reply_msg: reply }]);
       setReply('');
     } catch (err) {
@@ -205,7 +208,7 @@ function BodyPost({ post,user_id }) {
             )}
       </div>}
       {isReportOpen &&
-          <ReportComponent onClose={() => setIsReportOpen(isReportOpen?false:true)} openFeild1={isReportOpen} user_id={user_id} post_id={post.post_id} />
+          <ReportComponent onClose={() => setIsReportOpen(isReportOpen?false:true)} openFeild1={isReportOpen} user_id={user_id} post_id={post.post_id} reportType={"post"} reply_id={""}/>
       }
 
     </>

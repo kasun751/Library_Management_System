@@ -11,7 +11,7 @@ function ReportTable(props) {
 
     async function getPostRecords(){
         try{
-            const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportManager.php?post_id=${props.post_id}`);
+            const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportPostManager.php?post_id=${props.post_id}`);
             setRecords(res.data);
         }catch (err) {
             console.error(err);

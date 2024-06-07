@@ -3,7 +3,7 @@ import './ReportComponent.css';
 import closeBtn from '../../Images/close-btn.svg';
 import axios from 'axios';
 
-function ReportComponent({ onClose, post_id, user_id, openFeild1  } ) {
+function ReportComponent({ onClose, post_id, user_id, openFeild1, reportType, reply_id  } ) {
   const [reason, setReason] = useState('');
   const selectRef = useRef('');
   const [submit, setSubmit] = useState(false);
@@ -16,11 +16,20 @@ function ReportComponent({ onClose, post_id, user_id, openFeild1  } ) {
 
   async function handleRecordReportData(reportReason){
     try{
-      await axios.post(`http://localhost:80/project_1/AskFromCommunity/User-reportManager.php`,{
-        user_id:user_id,
-        post_id:post_id,
-        reason:reportReason,
-      });
+      if(reportType=="post"){
+        await axios.post(`http://localhost:80/project_1/AskFromCommunity/User-reportPostManager.php`,{
+          user_id:user_id,
+          post_id:post_id,
+          reason:reportReason,
+        });
+      }else{
+        await axios.post(`http://localhost:80/project_1/AskFromCommunity/User-reportReplyManager.php`,{
+          user_id:user_id,
+          post_id:post_id,
+          reply_id:reply_id,
+          reason:reportReason,
+        });
+      }
     }catch(err){
       console.error(err);
     }
