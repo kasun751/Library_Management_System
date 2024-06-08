@@ -2,36 +2,28 @@ import Navigation from "../../HeaderContent/Navigation.jsx";
 import './remove.css';
 import { useState ,useEffect } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const Remove = () => {
-    const [deleteBook, setDeleteBook] = useState({});
+    const location = useLocation();
+    const { isbn = '', title = '', author = '' } = location.state || {};
+    const [deleteBook, setDeleteBook] = useState({ isbn, title, author });
     const [resMessage, setResMessage] = useState('');
-    const [deleteBookDetails, setDeleteBookDetails] = useState({});
-    // const [bookList, setBookList] = useState([]);
 
-    // Function to fetch the list of books
-    // const fetchBookList = async () => {
-    //     try {
-    //         const res = await axios.post('http://localhost/Lbrary%20Management%20System/E-Resource_Php/ListBooks.php');
-    //         setBookList(res.data);
-    //     } catch (error) {
-    //         console.error('Error fetching book list:', error);
-    //     }
-    // };
-    //
-    // // Fetch the book list when the component mounts
-    // useEffect(() => {
-    //     fetchBookList();
-    // }, []);
+
+
+
+    useEffect(() => {
+        if (isbn) {
+            setDeleteBook({ isbn, title, author });
+        }
+    }, [isbn, title, author]);
 
 
     const deleteHandle = (e) => {
         const { name, value } = e.target;
         setDeleteBook({ ...deleteBook, [name]: value });
 
-        if(name === 'id' && value){
-            getdeleteBookDetails({id: value});
-        }
     }
 
     const updateDatabase = async () => {
@@ -52,22 +44,6 @@ const Remove = () => {
             console.error('error: ', error);
             setResMessage('error');
         }
-    }
-
-    const getdeleteBookDetails = async (id,title) => {
-        const res = await axios.post(
-            'http://localhost/Lbrary Management System/E-Resource_Php/DeleteBookDetails.php',
-            id,title,
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-        console.log(res.data);
-        const message = await res.data;
-        setDeleteBookDetails(message)
-
     }
 
 
@@ -122,9 +98,9 @@ const Remove = () => {
                 <h2>Remove E-Book</h2>
                 <form className="row g-3 needs-validation" noValidate onSubmit={submit}>
                     <div className="col-md-4">
-                        <label htmlFor="validationCustom01" className="form-label">ID</label>
-                        <input type="text" className="form-control" id="validationCustom01" name="id"
-                               onChange={deleteHandle} required />
+                        <label htmlFor="validationCustom01" className="form-label">ISBN</label>
+                        <input type="text" className="form-control" id="validationCustom01" name="isbn"
+                               onChange={deleteHandle}  value={deleteBook.isbn || ""} required />
                         <div className="valid-feedback">
                             Looks good!
                         </div>
@@ -136,16 +112,8 @@ const Remove = () => {
                         <label htmlFor="validationCustomUsername" className="form-label">Title</label>
                         <div className="input-group has-validation">
                             <input type="text" className="form-control" id="validationCustom03" name="author"
-                                   onChange={deleteHandle} value={deleteBookDetails.title || ""} disabled required />
+                                   onChange={deleteHandle} value={deleteBook.title || ""} required />
 
-                            {/*<select className="form-select" name="title" onChange={deleteHandle} required>*/}
-                            {/*    <option value=""></option>*/}
-                            {/*    {bookList.map((book, index) => (*/}
-                            {/*        <option key={index} value={book.title}>*/}
-                            {/*            {book.title}*/}
-                            {/*        </option>*/}
-                            {/*    ))}*/}
-                            {/*</select>*/}
                             <div className="invalid-feedback">
                                 Please enter a Book Title.
                             </div>
@@ -157,7 +125,7 @@ const Remove = () => {
                     <div className="col-md-4">
                         <label htmlFor="validationCustom03" className="form-label">Author</label>
                         <input type="text" className="form-control" id="validationCustom03" name="author"
-                                onChange={deleteHandle} value={deleteBookDetails.author || ""} disabled required />
+                                onChange={deleteHandle} value={deleteBook.author || ""}  required />
                         <div className="invalid-feedback">
                             Please provide a Author name.
                         </div>

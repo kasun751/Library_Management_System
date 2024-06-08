@@ -14,8 +14,8 @@ switch ($method){
         break;
 
     case "POST":
-        if (isset($data['id'])) {
-            $id = $data['id'];
+        if (isset($data['isbn'])) {
+            $isbn = $data['isbn'];
 
             $dbCon = new database();
             $conn = $dbCon->dbConnect();
@@ -26,13 +26,13 @@ switch ($method){
                 exit();
             }
 
-            $sql2 = "SELECT * FROM ebook WHERE id=?";
+            $sql2 = "SELECT * FROM ebook WHERE isbn=?";
             $stmt = $conn->prepare($sql2);
             if (!$stmt) {
                 echo json_encode(['resultMessage' => 'Prepare failed', 'error' => $conn->error]);
                 exit();
             }
-            $stmt->bind_param('i', $id);
+            $stmt->bind_param('i', $isbn);
             $stmt->execute();
             $result = $stmt->get_result();
 
@@ -43,7 +43,7 @@ switch ($method){
                     echo json_encode(['resultMessage' => 'Prepare failed', 'error' => $conn->error]);
                     exit();
                 }
-                $stmt->bind_param('i', $id);
+                $stmt->bind_param('i', $isbn);
                 $stmt->execute();
 
                 echo json_encode(['resultMessage' => 'affected rows are deleted']);

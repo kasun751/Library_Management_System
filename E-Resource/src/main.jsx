@@ -10,6 +10,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import Home from './Components/Pages/Home/Home.jsx'
 import Add from './Components/Pages/Add/Add.jsx'
 import Remove from './Components/Pages/Remove/Remove.jsx'
+import Update from './Components/Pages/Update/Update.jsx'
 
 
 import {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
     {
         path: "/remove",
         element: <Remove/>,
+    },
+    {
+        path: "/update",
+        element: <Update/>,
     },
 
 ]);

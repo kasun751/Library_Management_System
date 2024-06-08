@@ -5,6 +5,8 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 function Home(){
     const [getBookDetails,setGetBookDetails]=useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+
 
     useEffect(() => {
         const getViewBookDetails = async ()=>{
@@ -47,6 +49,10 @@ function Home(){
         loadPayHereScript();
     }, []);
 
+    const filteredBooks = getBookDetails.filter(book =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return(
         <>
             <Navigation/>
@@ -56,13 +62,15 @@ function Home(){
                 <form>
                     <div className="input-group mb-4">
                         <input type="search" className="form-control" placeholder="Search your Book Here"
-                               aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                               aria-label="Recipient's username" aria-describedby="basic-addon2"
+                               onChange={(e) => setSearchQuery(e.target.value)}
+                        />
                         <span className="input-group-text" id="basic-addon2">search icon</span>
                     </div>
                 </form>
             </div>
             <div className="card-container">
-                {getBookDetails.map((book, index) => (
+                {filteredBooks.map((book, index) => (
 
                     <Card
                         key={index}

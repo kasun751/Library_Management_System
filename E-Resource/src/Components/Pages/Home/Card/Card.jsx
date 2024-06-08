@@ -1,10 +1,12 @@
 import './Card.css';
 import { Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
-function Card({ title, isbn, author, price, description, image_path }) {
+function Card({ title, isbn, author, price, description, image_path ,category}) {
     const [buyBookDetails, setBuyBookDetails] = useState(null);
+    const navigate = useNavigate();
 
     const buyNow = async () => {
         try {
@@ -31,35 +33,31 @@ function Card({ title, isbn, author, price, description, image_path }) {
 
     useEffect(() => {
         if (buyBookDetails) {
-            const { isbn,title, price,hash} = buyBookDetails;
+            const { isbn, title, price, hash } = buyBookDetails;
 
-            // Payment completed. It can be a successful failure.
             payhere.onCompleted = function onCompleted(orderId) {
                 alert("Payment completed");
             };
 
-            // Payment window closed
             payhere.onDismissed = function onDismissed() {
                 alert("Payment dismissed");
             };
 
-            // Error occurred
             payhere.onError = function onError(error) {
                 alert("Invalid details");
             };
 
-            // Put the payment variables here
             var payment = {
                 "sandbox": true,
-                "merchant_id": "1227044", // Replace your Merchant ID
-                "return_url": undefined, // Important
-                "cancel_url": undefined, // Important
+                "merchant_id": "1227044",
+                "return_url": undefined,
+                "cancel_url": undefined,
                 "notify_url": "http://sample.com/notify",
                 "order_id": isbn,
                 "items": title,
                 "amount": price,
                 "currency": "LKR",
-                "hash": hash, // Replace with generated hash retrieved from backend
+                "hash": hash,
                 "first_name": "Saman",
                 "last_name": "Perera",
                 "email": "samanp@gmail.com",
@@ -74,25 +72,29 @@ function Card({ title, isbn, author, price, description, image_path }) {
                 "custom_2": ""
             };
 
-            // Show the payhere.js popup, when "PayHere Pay" is clicked
             payhere.startPayment(payment);
         }
     }, [buyBookDetails]);
 
+    const handleDelete = () => {
+        navigate('/remove', { state: { isbn, title, author } });
+        navigate('/update', { state: { isbn, title, author,price,description,category } });
+    };
+
     return (
-        <>
-            <div className="card">
-                <img src={image_path} className="card-img-top" alt="Book Cover" />
-                <div className="card-body">
-                    <h4 className="card-title">{title}</h4>
-                    <h6 className="card-title">ISBN: {isbn}</h6>
-                    <h5 className="card-title">Author: {author}</h5>
-                    <h6 className="card-title">Rs: {price}</h6>
-                    <p className="card-text">{description}</p>
-                    <Button onClick={buyNow} className="btn btn-primary">Buy Now</Button>
-                </div>
+        <div className="card">
+            <img src={image_path} className="card-img-top" alt="Book Cover" />
+            <div className="card-body">
+                <h4 className="card-title">{title}</h4>
+                <h6 className="card-title">ISBN: {isbn}</h6>
+                <h5 className="card-title">Author: {author}</h5>
+                <h6 className="card-title">Rs: {price}</h6>
+                <p className="card-text">{description}</p>
+                <Button onClick={buyNow} className="btn btn-primary">Buy Now</Button>&nbsp;
+                <Button onClick={handleDelete} className="btn btn-primary">Delete Book</Button>&nbsp;
+                <Button onClick={handleDelete} className="btn btn-primary">Update Book</Button>
             </div>
-        </>
+        </div>
     );
 }
 
