@@ -27,6 +27,26 @@ function Home(){
         getViewBookDetails();
     }, []);
 
+    useEffect(() => {
+        const loadPayHereScript = () => {
+            const script = document.createElement("script");
+            script.src = "https://www.payhere.lk/lib/payhere.js";
+            script.type = "text/javascript";
+            script.async = true;
+            document.head.appendChild(script);
+
+            script.onload = () => {
+                console.log("PayHere script loaded successfully");
+            };
+
+            script.onerror = () => {
+                console.error("Error loading PayHere script");
+            };
+        };
+
+        loadPayHereScript();
+    }, []);
+
     return(
         <>
             <Navigation/>
@@ -47,8 +67,9 @@ function Home(){
                     <Card
                         key={index}
                         title={book.title}
+                        isbn={book.isbn}
                         author={book.author}
-                        category={book.category}
+                        price={book.price}
                         description={book.description}
                         image_path={`http://localhost/Lbrary%20Management%20System/IMAGES/${book.image_path}`}
                     />

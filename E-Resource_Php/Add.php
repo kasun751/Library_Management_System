@@ -7,18 +7,18 @@ header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 include 'database.php';
 
 if (
-    isset($_POST['id']) &&
     isset($_POST['isbn']) &&
     isset($_POST['title']) &&
+    isset($_POST['price']) &&
     isset($_POST['author']) &&
     isset($_POST['category']) &&
     isset($_POST['description']) &&
     isset($_FILES['image']) &&
     isset($_FILES['pdf'])
 ) {
-    $id = $_POST['id'];
     $isbn = $_POST['isbn'];
     $title = $_POST['title'];
+    $price = $_POST['price'];
     $author = $_POST['author'];
     $category = $_POST['category'];
     $description = $_POST['description'];
@@ -55,7 +55,7 @@ if (
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            $sql = "INSERT INTO ebook (id, isbn, title, author, category, description, pdf_path,image_path) 
+            $sql = "INSERT INTO ebook (isbn, title,price,author, category, description, pdf_path,image_path) 
                     VALUES (?, ?, ?, ?, ?, ?, ?,?)";
 
             $stmt = $conn->prepare($sql);
@@ -63,7 +63,7 @@ if (
                 die("Prepare failed: " . htmlspecialchars($conn->error));
             }
 
-            $stmt->bind_param('ssssssss', $id, $isbn, $title, $author, $category, $description, $newFileName,$newFileName1);
+            $stmt->bind_param('ssssssss',  $isbn, $title, $price,$author, $category, $description, $newFileName,$newFileName1);
 
 
             if ($stmt->execute()) {

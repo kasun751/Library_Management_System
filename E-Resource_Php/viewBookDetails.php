@@ -13,7 +13,7 @@ if($conn->connect_error){
     echo json_encode(['resultMessage' => 'Connection failed', 'error' => $conn->connect_error]);
     exit();
 }
-$sql = "SELECT title,author,category,description,image_path FROM ebook";
+$sql = "SELECT isbn,title,price,author,description,image_path FROM ebook";
 $result=$conn->query($sql);
 
 $details=array();

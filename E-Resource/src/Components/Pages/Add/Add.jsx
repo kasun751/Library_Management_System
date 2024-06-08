@@ -5,9 +5,9 @@ import axios from "axios";
 
 function Add() {
     const [formData, setFormData] = useState({
-        id: '',
         isbn: '',
         title: '',
+        price: '',
         author: '',
         category: '',
         description: '',
@@ -68,17 +68,6 @@ function Add() {
                 <h2>Add E-Book</h2>
                 <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
                     <div className="col-md-4">
-                        <label htmlFor="validationCustom01" className="form-label">ID</label>
-                        <input type="text" className="form-control" id="validationCustom01" name="id"
-                               value={formData.id} onChange={handleChange} required />
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please enter a valid ID.
-                        </div>
-                    </div>
-                    <div className="col-md-4">
                         <label htmlFor="validationCustom02" className="form-label">ISBN Number</label>
                         <input type="text" className="form-control" id="validationCustom02" name="isbn"
                                value={formData.isbn} onChange={handleChange} required />
@@ -102,6 +91,21 @@ function Add() {
                             </div>
                         </div>
                     </div>
+                    <div className="col-md-4">
+                        <label htmlFor="validationCustomUsername" className="form-label">Price</label>
+                        <div className="input-group has-validation">
+                            <span className="input-group-text" id="inputGroupPrepend">Rs:</span>
+                            <input type="text" className="form-control" id="validationCustomUsername" placeholder="1500.00"
+                                   name="price" value={formData.price} onChange={handleChange} required/>
+                                <div className="valid-feedback">
+                                       Looks good!
+                                </div>
+                                <div className="invalid-feedback">
+                                    Please enter a price.
+                                </div>
+                        </div>
+                    </div>
+
                     <div className="col-md-6">
                         <label htmlFor="validationCustom03" className="form-label">Author</label>
                         <input type="text" className="form-control" id="validationCustom03" name="author"
