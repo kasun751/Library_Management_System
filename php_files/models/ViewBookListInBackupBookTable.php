@@ -1,6 +1,6 @@
 <?php
 require_once '../dbConnection/DBConnection.php';
-class ViewBookListAndDetails
+class ViewBookListInBackupBookTable
 {
     private $con;
     public function __construct()
@@ -10,15 +10,14 @@ class ViewBookListAndDetails
     }
     public function getBookList()
     {
-        $query = "SELECT * FROM books ORDER BY AllBookQty DESC LIMIT 10";
+        $query = "SELECT * FROM backupbook ORDER BY BookName_ID DESC LIMIT 10";
         $result = $this->con->query($query);
         return $result;
     }
 
-    public function getBookDetails($bookDetails)
+    public function getBookDetails($isbnNumber)
     {
-        $searchPattern="%".$bookDetails."%";
-        $query = "SELECT * FROM books WHERE BookName LIKE '$searchPattern'";
+        $query = "SELECT * FROM backupbook WHERE ISBN_Number='$isbnNumber'";
         $result = $this->con->query($query);
         return $result;
     }

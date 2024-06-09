@@ -146,7 +146,9 @@ function IssueBook(){
                     <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
                                 placeholder={bookIdDetails.BookName} type={"text"} handleChange={handleChange} disabled={true}
                                 feedback={"Book Name."}/>
-                    <Button keyword={"Delete Book"} submit={submit}/>
+                    <InputField label={"Current Availability"} id={"validationCustom01"} className={"form-control"} name={"currentAvailability"}
+                                placeholder={bookIdDetails.Availability} type={"text"} disabled={true}/>
+                    <Button keyword2={"Delete Book"} submit={submit}/>
                 </form>
                 <div>
                     <p>Response from PHP script: {message}</p>

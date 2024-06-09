@@ -164,14 +164,14 @@ function AddNewBook() {
                 <InputField label={"Book Location"} id={"validationLocation"} className={"form-control"} name={"bookLocation"}
                             placeholder={isbnMessage.BookLocation} type={"text"} handleChange={handleChange}
                             feedback={"Book Location."}/>
-                <SetAvailability handleChange={handleChange} parameter="addBook"/>
+                <SetAvailability handleChange={handleChange} parameter="addBook" keyword1={"Available Now"} keyword2={"Still Not Added To Library"}/>
                 <div className="col-md-6">
                     <label htmlFor="validationCustom03" className="form-label ">Description</label>
                     <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50"
                               name="description"
                               placeholder={isbnMessage.Description} onChange={handleChange} required/>
                 </div>
-                <Button keyword={"Add Book"} submit={submit}/>
+                <Button keyword2={"Add Book"} submit={submit}/>
             </form>
             <div>
                 <p>Response from PHP script: {message}</p>

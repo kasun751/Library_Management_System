@@ -30,6 +30,7 @@ class BookAvailabilityDetailsController
                         $result2 = $this->bookAvailabilityDetails->getAvailableBooksList($category, $isbnNumber);
                         $books = array();
                         while ($row = $result2->fetch_assoc()) {
+                            $row['category'] = $category;
                             $books[] = $row;
                         }
                         echo json_encode($books);

@@ -26,7 +26,7 @@ class IssueBook
                 $this->con->query($query);
                 return $this->con->affected_rows;
 
-            case "notAvailable":
+            case "bookIssued":
                 $query = "INSERT INTO issuebooks (BookID,UserID,IssueDateAndTime) VALUES ('$bookID', '$userID','$dateTime')";
                 $this->con->query($query);
                 return $this->con->affected_rows;

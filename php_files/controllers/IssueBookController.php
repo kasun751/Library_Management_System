@@ -22,9 +22,9 @@ class IssueBookController
 
             case "POST":
                 extract($data);
-                if (!empty($bookID) && !empty($category) && !empty($currentAvailability) && !empty($userID)) {
-                    $result1 =$this->issueBookControllerObj->setBookAvailability($category, $bookID, $currentAvailability);
-                    $result2 =$this->issueBookControllerObj->updateIsueBooksTable($bookID, $userID, $dateTime, $currentAvailability);
+                if (!empty($bookID) && !empty($category) && !empty($setAvailability) && !empty($userID)) {
+                    $result1 =$this->issueBookControllerObj->setBookAvailability($category, $bookID, $setAvailability);
+                    $result2 =$this->issueBookControllerObj->updateIsueBooksTable($bookID, $userID, $dateTime, $setAvailability);
                     if ($result1 > 0 && $result2 > 0) {
                         $data = array('resultMessage' => 'true');
                         echo json_encode($data);

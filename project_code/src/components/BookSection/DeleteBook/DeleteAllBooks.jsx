@@ -173,7 +173,7 @@ function DeleteAllBook() {
                     <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
                                 placeholder={isbnMessage.BookName} type={"text"} handleChange={handleChange} disabled={true}
                                 feedback={"Book Name."}/>
-                    <Button keyword={"Delete Book"} submit={submit}/>
+                    <Button keyword2={"Delete Book"} submit={submit}/>
                 </form>
                 <div>
                     <p>Response from PHP script: {message}</p>

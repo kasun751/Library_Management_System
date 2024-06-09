@@ -29,8 +29,8 @@ class DeleteBookController
                 switch ($delete_parameter) {
                     case 0:
                         if (!empty($category)  && !empty($isbnNumber)) {
-                            list($result1, $result2) = $this->deleteBookObj->deleteAllBook($isbnNumber, $category);
-                            $this->handleResult($result1, $result2);
+                            list($result1, $result2,$result3) = $this->deleteBookObj->deleteAllBook($isbnNumber, $category);
+                            $this->handleResult($result1, $result2,$result3);
                         } else {
                             $this->respondWithError();
                         }
@@ -38,8 +38,8 @@ class DeleteBookController
 
                     case 1:
                         if (strlen($bookID) > 0 && strlen($category) > 0) {
-                            $result = $this->deleteBookObj->deleteSomeBook($category, $bookID);
-                            if ($result === true) {
+                            list($result1, $result2) = $this->deleteBookObj->deleteSomeBook($category, $bookID);
+                            if (($result1 && $result2)=== true) {
                                 $this->respondWithSuccess();
                             } else {
                                 $this->respondWithError();
@@ -48,12 +48,36 @@ class DeleteBookController
                             $this->respondWithError();
                         }
                         break;
+                    case 2:
+                        switch ($restorePara){
+                            case "RestoreAll":
+                                if (!empty($category)  && !empty($isbnNumber)) {
+                                    list($result1, $result2,$result3) = $this->deleteBookObj->restoreAllBook($isbnNumber, $category);
+                                    $this->handleResult($result1, $result2,$result3);
+                                } else {
+                                    $this->respondWithError();
+                                }
+                                break;
+                            case "RestoreOnce":
+                                if (!empty($category)  && !empty($BookIDForrestoreOnce)) {
+                                    list($result1, $result2) = $this->deleteBookObj->restoreSomeBook($category, $BookIDForrestoreOnce);
+                                    if (($result1 && $result2) === true) {
+                                        $this->respondWithSuccess();
+                                    } else {
+                                        $this->respondWithError();
+                                    }
+                                    break;
+                                }
+                        }
+
+                        break;
+                    case 3:
                 }
         }
     }
-    private function handleResult($result1, $result2)
+    private function handleResult($result1, $result2,$result3)
     {
-        if ($result1 > 0 && $result2 > 0) {
+        if ($result1 > 0 && $result2 > 0 && $result3>0) {
             $this->respondWithSuccess();
         } else {
             $this->respondWithError();

@@ -28,21 +28,38 @@ class GetIsbnDataController
             case "POST":
 
                 $isbnNumber = $data['isbnNumber'];
-
-                if (strlen($isbnNumber) > 0) {
-                    $result = $this->getIsbnDataObj->getISBNData($isbnNumber);
-                    if ($result->num_rows > 0) {
-                        echo json_encode($result->fetch_assoc());
-                    } else if ($result->num_rows == 0) {
-                        $data = array('successMessage' => 'not have book');
-                        echo json_encode($data);
-                    }
-                } else {
-                    $data = array('successMessage' => 'not have book');
-                    echo json_encode($data);
+                $id=$data['id'];
+                switch ($id){
+                    case "normalBook":
+                        if (strlen($isbnNumber) > 0) {
+                            $result = $this->getIsbnDataObj->getISBNData($isbnNumber);
+                            if ($result->num_rows > 0) {
+                                echo json_encode($result->fetch_assoc());
+                            } else if ($result->num_rows == 0) {
+                                $data = array('successMessage' => 'not have book');
+                                echo json_encode($data);
+                            }
+                        } else {
+                            $data = array('successMessage' => 'not have book');
+                            echo json_encode($data);
+                        }
+                        break;
+                    case "restoreBook":
+                        if (strlen($isbnNumber) > 0) {
+                            $result = $this->getIsbnDataObj->getISBNDataFromBackupTable($isbnNumber);
+                            if ($result->num_rows > 0) {
+                                echo json_encode($result->fetch_assoc());
+                            } else if ($result->num_rows == 0) {
+                                $data = array('successMessage' => 'not have book');
+                                echo json_encode($data);
+                            }
+                        } else {
+                            $data = array('successMessage' => 'not have book');
+                            echo json_encode($data);
+                        }
+                        break;
                 }
                 break;
-
         }
     }
 }

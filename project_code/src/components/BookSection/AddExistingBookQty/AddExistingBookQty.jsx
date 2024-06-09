@@ -171,8 +171,8 @@ function AddExistingBookQty(){
                 <InputField label={"Add More QTY"} type={"number"} className={"form-control feildDisabled"}
                             name={"addNewQty"} placeholder={isbnMessage.Qty} id={"validationCustomUsername"}
                             handleChange={handleChange} feedback={"quantity."}/>
-                <SetAvailability handleChange={handleChange}  parameter="addBook"/>
-                <Button keyword={"Add Qty"} submit={submit}/>
+                <SetAvailability handleChange={handleChange}  parameter="addBook" keyword1={"Available Now"} keyword2={"Still Not Added To Library"}/>
+                <Button keyword2={"Add Qty"} submit={submit} />
             </form>
             <div>
                 <p>Response from PHP script: {message}</p>

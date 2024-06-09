@@ -37,8 +37,8 @@ function BookAvailabilityDetails() {
                     'Content-Type': 'application/json'
                 }
             })
-        console.log(res.data.resultMessage)
-        setMessage(res.data.resultMessage);
+        console.log(res.data)
+        setMessage(res.data);
     }
     return (
         <>
@@ -62,7 +62,7 @@ function BookAvailabilityDetails() {
                 </tbody>
             </table>
 <div>
-    <p>Response message:{message}</p>
+    <p>Response message:{message.resultMessage}</p>
 </div>
         </>
     )

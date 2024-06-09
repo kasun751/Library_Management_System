@@ -6,10 +6,12 @@ import SetAvailability from "../../SubComponents/SetAvailability.jsx";
 import Button from "../../SubComponents/Button.jsx";
 import {Link} from "react-router-dom";
 
-function IssueBook(){
+function IssueBook() {
     const [inputs, setInputs] = useState({});
+    const [returnBookInputs, setReturnBookInputs] = useState({});
     const [message, setMessage] = useState('');
     const [bookIdDetails, setBookIdDetails] = useState({});
+    const [returnBookIdDetails, setReturnBookIdDetails] = useState({});
     const [data, setData] = useState({});
     const [categoryList, setCategoryList] = useState([]);
     const [userIDDetails, setUserIDDetails] = useState({});
@@ -28,7 +30,33 @@ function IssueBook(){
         setInputs(preValues => ({...preValues, [name]: value}))
     }
 
+    const returnHandleChange = (e) => {
+        if (e.target.name == "returnBookID") {
+            getReturnBookIdDetails({[e.target.name]: e.target.value});
+            //setData(preValues => ({...preValues, [e.target.name]: e.target.value}));
+        }
 
+        const name = e.target.name;
+        const value = e.target.value;
+
+        setReturnBookInputs(preValues => ({...preValues, [name]: value}))
+    }
+
+    const getReturnBookIdDetails = async (bookID) => {
+        console.log(bookID.returnBookID)
+        await axios.get('http://localhost:8081/project_01/controllers/ReturnBookController.php', {
+            params: {
+                bookID: bookID.returnBookID
+            }
+        })
+            .then(response => {
+                console.log(response.data);
+                setReturnBookIdDetails(response.data);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }
 
     //check isbn exists or not        check this
     const getBookIdDetails = async (bookID) => {
@@ -44,6 +72,21 @@ function IssueBook(){
         if (message && message.Category && message.Category.length > 0) {
             setData(preValues => ({...preValues, ["category"]: message.Category}));
         }
+
+
+        let submitButton = document.getElementById("submitButton");
+        let validationCurrentAvailability1 = document.getElementById("validationCurrentAvailability1");
+        if(message.Availability!=="available"){
+            submitButton.disabled = true;
+            validationCurrentAvailability1.style.borderColor = "red";
+            validationCurrentAvailability1.style.boxShadow = "2px 2px 2px red";
+        }else{
+            submitButton.disabled = false;
+            validationCurrentAvailability1.style.borderColor = ""; // Reset to default or remove
+            validationCurrentAvailability1.style.boxShadow = "";
+        }
+
+
         switch (message.ISBN_Number) {
             case undefined:
                 inputEnable_disable(false, "#dee2e6");
@@ -131,6 +174,46 @@ function IssueBook(){
         })()
     }
 
+    function returnSubmit() {
+        (async () => {
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            await new Promise((resolve, reject) => {
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        form.classList.add('was-validated');   //was-validated This class is commonly used in Bootstrap forms to indicate that the form has been validated.
+
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            reject(false)
+                            console.log("not complete");
+                        } else {
+                            console.log('validate true')
+                            resolve(true)
+                            event.preventDefault()
+
+                        }
+
+                    })
+                })
+            }).then(res => {
+                if (res) {
+                    returnBook();
+                    //location.reload();
+                    // console.log(inputs);
+                } else {
+                    console.log('validateError');
+                }
+            }).catch(error => {
+                console.error('An error occurred:', error);
+            });
+
+        })()
+    }
+
     function getCurrentDateTime() {
         const now = new Date();
         const year = now.getFullYear();
@@ -145,7 +228,7 @@ function IssueBook(){
 
     const issueBook = async () => {
         const extendedData = {
-            ...data,...inputs,dateTime: getCurrentDateTime()
+            ...data, ...inputs, dateTime: getCurrentDateTime()
         };
         console.log(extendedData);
         const res = await axios.post(
@@ -156,42 +239,109 @@ function IssueBook(){
                     'Content-Type': 'application/json'
                 }
             });
-        // console.log(res.data.resultMessage)
+        console.log(res.data.resultMessage)
         const message = await res.data.resultMessage;
         setMessage(message);
         //console.log(message.ISBN_Number)
     }
 
-    // console.log(bookIdDetails);
+    const returnBook = async () => {
+        const extendedData = {
+            category:returnBookIdDetails.category,
+            userID:returnBookIdDetails.userID,
+            ...returnBookInputs
+        };
+        console.log(extendedData)
+        const res = await axios.post(
+            'http://localhost:8081/project_01/controllers/ReturnBookController.php',
+            extendedData,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        console.log(res.data.resultMessage)
+        const message = await res.data.resultMessage;
+        setMessage(message);
+
+    }
     return (
         <>
             <div id="singleBooksDelete">
                 <div id="progress">
                     <img src="" alt=""/>
-                    <h1>Issue Books </h1>
+                    <h1>Issue Books To Customer</h1>
                 </div>
                 <form className="row g-3 needs-validation" noValidate>
-                    <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"}
+                    <InputField label={"Book ID"} id={"validationBookID1"} className={"form-control"}
                                 name={"bookID"} type={"text"} handleChange={handleChange} feedback={"Book ID."}/>
                     <CategoryList value={inputs.category || bookIdDetails.Category || ""} categoryList={categoryList}
                                   handleChange={handleChange}/>
-                    <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"}
-                                name={"bookName"}
-                                placeholder={bookIdDetails.BookName} type={"text"} handleChange={handleChange}
+                    <InputField label={"Book Name"} id={"validationBookName1"} className={"form-control"}
+                                handleChange={handleChange}
+                                name={"bookName"} placeholder={bookIdDetails.BookName} type={"text"}
                                 feedback={"Book Name."} disabled={true}/>
-                    <InputField label={"Current availability"} id={"validationCurrentAvailability"}
-                                className={"form-control"} name={"Availability"}
-                                placeholder={bookIdDetails.Availability} type={"text"} handleChange={handleChange}
+                    <InputField label={"Current availability"} id={"validationCurrentAvailability1"}
+                                className={"form-control"} name={"Availability"} handleChange={handleChange}
+                                placeholder={bookIdDetails.Availability} type={"text"}
                                 feedback={"Current availability."} disabled={true}/>
-                    <SetAvailability handleChange={handleChange} parameter="issueBook"/>
-                    <InputField label={"User ID"} id={"validationUserID"} className={"form-control"} name={"userID"}
-                                type={"text"} handleChange={handleChange} feedback={"User ID."}/>
-                    <InputField label={"Member Name"} id={"validationMemberName"} className={"form-control"}
+                    <InputField label={"User ID"} id={"validationUserID1"} className={"form-control"} name={"userID"}
+                                type={"text"} feedback={"User ID."} handleChange={handleChange}/>
+                    <InputField label={"Member Name"} id={"validationMemberName1"} className={"form-control"}
                                 name={"userName"} disabled={true} value={userIDDetails.userName || ""} type={"text"}
-                                handleChange={handleChange} feedback={"Member Name."}/>
+                                feedback={"Member Name."} handleChange={handleChange}/>
+                    <SetAvailability keyword1={""} keyword2={"Issue to customer"} parameter="issueBook"
+                                     handleChange={handleChange}  disabled={true}/>
+                    <Button id="submitButton" keyword2={"Issue Book"} submit={submit}/>
+                    <Link className="btn btn-success" to={"/issueBook/requestList"}>Books Requests </Link>
+                </form>
+                <div>
+                    <p>Response from PHP script: {message}</p>
+                    <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>
+                </div>
+            </div>
+            <hr/>
 
-                    <Button keyword={"Issue Book"} submit={submit}/>
-                   <Link className="btn btn-success" to={"/issueBook/requestList"}>Books Requests </Link>
+            <div id="singleBooksDelete">
+                <div id="progress">
+                    <img src="" alt=""/>
+                    <h1>Return Book</h1>
+                </div>
+                <form className="row g-3 needs-validation" noValidate>
+                    <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"}
+                                name={"returnBookID"} type={"text"} handleChange={returnHandleChange}
+                                feedback={"Book ID."}/>
+                    <SetAvailability keyword1={"Return Book"} keyword2={""} parameter="issueBook" disabled2={true}
+                                     handleChange={returnHandleChange}/>
+                    <InputField label={"Book Name"} id={"validationBookName"} className={"form-control"}
+                                value={returnBookIdDetails.bookName || ""} name={"returnBookName"} type={"text"}
+                                feedback={"Book Name."} disabled={true}/>
+                    <CategoryList value={returnBookIdDetails.category || ""} categoryList={categoryList}
+                                  disabled1={true} handleChange={returnHandleChange}/>
+                    <InputField label={"Current availability"} id={"validationCurrentAvailability"}
+                                value={returnBookIdDetails.availability || ""} className={"form-control"}
+                                name={"returnAvailability"}
+                                type={"text"} feedback={"Current availability."} disabled={true}/>
+                    <InputField label={"User ID"} id={"validationUserID"} className={"form-control"}
+                                name={"returnUserID"} handleChange={returnHandleChange}
+                                value={returnBookIdDetails.userID || ""} type={"text"} feedback={"User ID."}
+                                disabled={true}/>
+                    <InputField label={"Member Name"} id={"validationMemberName"} className={"form-control"}
+                                value={returnBookIdDetails.fullName || ""} name={"returnUserName"} disabled={true}
+                                type={"text"} feedback={"Member Name."}/>
+                    <p>Fine Calculation:{returnBookIdDetails.fine}</p>
+                    <div className="col-12">
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" value="" id="invalidCheck" required/>
+                            <label className="form-check-label" htmlFor="invalidCheck">
+                                Confirm: Getting the fine amount correctly.
+                            </label>
+                            <div className="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+                        </div>
+                    </div>
+                    <Button keyword2={"Return Book"} submit={returnSubmit}/>
                 </form>
                 <div>
                     <p>Response from PHP script: {message}</p>

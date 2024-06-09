@@ -76,7 +76,7 @@ class LibraryUserRegistrationController
                                 $mail->send();
 
                             } catch (Exception $e) {
-                                $paragraph_content = "Message could not be sent. ";
+                                $message = "Message could not be sent. ";
                             }
                             $data = array('resultMessage' => 'verificationProcessRunning');
                             echo json_encode($data);

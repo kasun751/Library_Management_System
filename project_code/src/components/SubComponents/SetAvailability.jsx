@@ -1,4 +1,4 @@
-function SetAvailability({handleChange,parameter}) {
+function SetAvailability({handleChange,parameter,disabled=false,disabled2=false,keyword1,keyword2}) {
     let notAvailable;
     switch(parameter) {
         case "addBook":
@@ -14,8 +14,8 @@ function SetAvailability({handleChange,parameter}) {
             <input type="hidden" name="parameter" value={parameter || ""}/>
             <select className="form-select" id="validationAvailability" required name="setAvailability" onChange={handleChange}>
                 <option value=""> Chose...</option>
-                <option value="available">Available</option>
-                <option value={notAvailable}>Not Available</option>
+                <option disabled={disabled} value="available">{keyword1}</option>
+                <option disabled={disabled2} value={notAvailable}>{keyword2}</option>
             </select>
             <div className="valid-feedback">
                 Looks good!

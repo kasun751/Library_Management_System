@@ -19,4 +19,12 @@ class GetIsbnData
         return $result;
     }
 
+    public function getISBNDataFromBackupTable($isbnNumber)
+    {
+        $query = "SELECT * FROM backupbookdetails WHERE ISBN_Number='$isbnNumber'";
+        $result = mysqli_query($this->con, $query);
+        return $result;
+    }
+
+
 }

@@ -20,14 +20,20 @@ private $addNewBookObj;
         $raw = $result->fetch_assoc();
         $isbnNumber = $ISBN_Number;
         $category = $raw['Category'];
-        $uppercaseString = strtoupper($category);
-        $charArray = str_split($uppercaseString);
+        $query3= "SELECT Category_ID From category WHERE Category_Name='$category'";
+        $result3 = $this->con->query($query3);
+        $row =$result3->fetch_assoc();
+        $categoryID=$row['Category_ID'];
+        $categoryElements=explode("/", $categoryID);
+        $firstElement = $categoryElements[0];
+//        $uppercaseString = strtoupper($category);
+//        $charArray = str_split($uppercaseString);
         $bookDetails = $this->getLastBook_No($category, $isbnNumber);
         $book_No = $bookDetails['Book_No'] + 1;
         $bookName_ID = $bookDetails['BookName_ID'];
 
         for ($i = 1; $i <= $Qty; $i++) {
-            $final_ID = $charArray[0] . $charArray[1] . $charArray[2] . "/" . $bookName_ID . "/" . $book_No;
+            $final_ID = $firstElement . "/" . $bookName_ID . "/" . $book_No;
             $query2 = "INSERT INTO $category (ISBN_Number,BookName_ID,Book_No,Availability,Final_ID) VALUES ('$isbnNumber', '$bookName_ID','$book_No','$bookAvailability','$final_ID')";
             $result2 = $this->con->query($query2);
             $book_No++;

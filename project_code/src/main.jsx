@@ -28,6 +28,7 @@ import Login from "./components/LogginSection/Login.jsx";
 import VerificationPage from "./components/LogginSection/VerificationPage.jsx";
 import RestoreAllBooksReleventToIsbn from "./components/BookSection/DeleteBook/RestoreAllBooksReleventToIsbn.jsx";
 import ViewBookRequests from "./components/BookSection/IssueBook/ViewBookRequests.jsx";
+import AvailableNow from "./components/BookSection/AvailableNow/AvailableNow.jsx";
 const router = createBrowserRouter([
 
     {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
     {
         path: "/addBook/addCategory",
         element:<AddRemoveCategory/>
+    },
+    {
+        path: "/addBook/availableNow",
+        element:<AvailableNow/>
     },
     {
         path: "/deleteBook",

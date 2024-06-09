@@ -164,7 +164,7 @@ function ModifyBook() {
                         <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50" name="description"
                                   value={inputs.description !== undefined ? inputs.description: isbnMessage.Description || ""}   onChange={handleChange} required/>
                     </div>
-                    <Button keyword={"Modify Book"} submit={submit}/>
+                    <Button keyword2={"Modify Book"} submit={submit}/>
                 </form>
                 <div>
                     <p>Response from PHP script: {message}</p>
