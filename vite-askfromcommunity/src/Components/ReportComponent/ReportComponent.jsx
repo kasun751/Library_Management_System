@@ -23,12 +23,14 @@ function ReportComponent({ onClose, post_id, user_id, openFeild1, reportType, re
           reason:reportReason,
         });
       }else{
-        await axios.post(`http://localhost:80/project_1/AskFromCommunity/User-reportReplyManager.php`,{
+        console.log("reply")
+        const res = await axios.post(`http://localhost:80/project_1/AskFromCommunity/User-reportReplyManager.php`,{
           user_id:user_id,
           post_id:post_id,
           reply_id:reply_id,
           reason:reportReason,
         });
+        console.log(res);
       }
     }catch(err){
       console.error(err);

@@ -6,6 +6,7 @@ import BodyPost from '../PostComponents/BodyPost';
 function SubmitPostForm({ category: initialCategory = 'none', title: initialTitle = '', description: initialDescription = '', formAvailable: initialformAvailable = false, btn_value: initialbtn_value = 'Send Post', post_id , user_id }) {
     const [formAvailable, setFormAvailable] = useState(initialformAvailable);
     const [option, setOption] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const categoryRef = useRef();
     const titleRef = useRef();
@@ -23,32 +24,59 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
         setOption(e.target.value === "true");
     };
 
-    const handleSubmit = () => {
-        let cate="";
-        try{
-            cate=categoryRef.current.value;
-        }catch(err){
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    };
+
+    const handleSubmit = async () => {
+        let cate = "";
+        try {
+            cate = categoryRef.current.value;
+        } catch (err) {
             cate = "none";
         }
-        const formData = {
-            category: cate,
-            title: titleRef.current.value,
-            description: descriptionRef.current.value
-        };
-        console.log(formData.category);
+        
+        const formData = new FormData();
+        formData.append('category', cate);
+        formData.append('title', titleRef.current.value);
+        formData.append('description', descriptionRef.current.value);
+        formData.append('user_id', user_id);
+
+        if (selectedFile) {
+            formData.append('file', selectedFile);
+        }
 
         if (initialbtn_value === "Send Post") {
-            savePostonDB(formData);
+            formData.append('editPost',"no");
+            await savePostonDB(formData);
         } else {
-            editPostfromDB(formData);
+            //handleDelete();
+            formData.append('post_id', post_id);
+            formData.append('editPost',"ok");
+            await savePostonDB(formData);
         }
-    }
+    };
+
+    // async function handleDelete(){
+    //     try{
+    //       const res = await axios.delete(`http://localhost:80/project_1/AskFromCommunity/Upload.php`,{
+    //       data:{
+    //         post_id:post_id,
+    //         status:"deletePost"
+    //       }
+    //     });
+    //     console.log(res)
+    //     }catch(err){
+    //       console.error(err);
+    //     }
+    //   }  
 
     async function savePostonDB(formData) {
         try {
-            await axios.post(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`, {
-                ...formData,
-                user_id: user_id
+            const res = await axios.post('http://localhost:80/project_1/AskFromCommunity/UploadHandler.php', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             });
             setFormAvailable(false);
         } catch (err) {
@@ -56,17 +84,18 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
         }
     }
 
-    async function editPostfromDB(formData) {
-        try {
-            await axios.put(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`, {
-                ...formData,
-                post_id: post_id
-            });
-            setFormAvailable(false);
-        } catch (err) {
-            console.error(err);
-        }
-    }
+    // async function editPostfromDB(formData) {
+    //     for (let [key, value] of formData.entries()) {
+    //         console.log(`${key}: ${value}`);
+    //     }
+    //     try {
+    //         const res = await axios.post('http://localhost:80/project_1/AskFromCommunity/Upload.php', formData);
+    //         console.log(res)
+    //         setFormAvailable(false);
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }
 
     return (
         <>
@@ -80,13 +109,17 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td colSpan={3}>
                                     <b>Belong to any unique category?</b>
                                     <input type="radio" name="category" value="true" onChange={handleOnOption} /> Yes
                                     <input type="radio" name="category" value="false" onChange={handleOnOption} /> NO
                                 </td>
-                                <td></td>
-                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Upload Image/Images</td>
+                                <td>
+                                    <input type="file" name="file" onChange={handleFileChange} />
+                                </td>
                             </tr>
                             <tr>
                                 <td colSpan={3}>
@@ -115,7 +148,7 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
             )}
 
             <div className='submitPostFormBtn'>
-                {!formAvailable && (initialbtn_value==='Send Post'? true:false) && <img src="src/Images/submit-post.svg" alt="submit Post" onClick={handleToCreatePost} />}
+                {!formAvailable && initialbtn_value === 'Send Post' && <img src="src/Images/submit-post.svg" alt="submit Post" onClick={handleToCreatePost} />}
             </div>
         </>
     );

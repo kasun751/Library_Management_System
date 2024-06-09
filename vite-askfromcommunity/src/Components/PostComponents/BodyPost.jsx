@@ -104,7 +104,7 @@ function BodyPost({ post,user_id }) {
       console.log(post.post_id)
       console.log(user_id)
       console.log(reply)
-      setReplyBulk([...replyBulk, { post_id: post.post_id, reply_msg: reply }]);
+      setReplyBulk([...replyBulk, { post_id: post.post_id, reply_msg: reply, user_id:user_id }]);
       setReply('');
     } catch (err) {
       console.error(err);
@@ -125,12 +125,13 @@ function BodyPost({ post,user_id }) {
 
   async function handleDelete(){
     try{
-      await axios.delete(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
+      const res = await axios.delete(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
       data:{
-        post_id:post.post_id
+        post_id:post.post_id,
+        status:"deletePost"
       }
     });
-    console.log(post.post_id);
+    console.log(res);
     setIsDelete(true);
     }catch(err){
       console.error(err);
@@ -170,7 +171,7 @@ function BodyPost({ post,user_id }) {
                 <tbody>
                   <tr>
                       <td colSpan={2}>
-                        <ImageSlider />
+                        <ImageSlider post_id={post.post_id}/>
                       </td>
                       <td colSpan={2}>
                         <h1>{post.title}</h1>
@@ -192,7 +193,7 @@ function BodyPost({ post,user_id }) {
         </div>
         <div className='replyBox'>
             {visible && replyBulk.map((item, index) => (
-                <ReplyBox  key={index} post_id2={post.post_id} item = {item}/>
+                <ReplyBox  key={index} post_id2={post.post_id} user_id={user_id} item = {item}/>
             ))}
         </div>
         {editedPost && editForm && (

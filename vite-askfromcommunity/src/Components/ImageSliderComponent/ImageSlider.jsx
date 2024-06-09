@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './ImageSlider.css'
+import axios from 'axios';
 
-function ImageSlider() {
-    const [imageArray, setImageArray]=useState(["src/Images/black-heart.svg","src/Images/community.svg","src/Images/read-white-book.svg"]);
+function ImageSlider({post_id}) {
+    const [imageArray, setImageArray]=useState([]);
     const [count,setCount] = useState(0);
     
-    // useEffect(()=>{
-    //     setImageArray(prevImageArray => [
-    //         ...prevImageArray,
-    //         "../Images/black-heart.svg",
-    //         "../Images/community.svg",
-    //         "../Images/read-white-book.svg"
-    //     ]);
+    useEffect(()=>{
+        getPostImages(post_id)
         
-    // },[])
+    },[])
 
     const handleBack=()=>{
         if(count>0){
@@ -25,7 +21,15 @@ function ImageSlider() {
             setCount(count+1);
         }
     }
-    
+
+    async function getPostImages($post_id){
+        try {
+            const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/UploadHandler.php?post_id=${$post_id}`);
+            setImageArray(res.data);
+          } catch (err) {
+            console.error(err);
+          }
+    }
   return (
     <div>
         <div className='imageSlider'>
@@ -33,7 +37,7 @@ function ImageSlider() {
                 <tbody>
                     <tr>
                         <td>
-                            <img src={imageArray[count] } alt={`image ${count}` }/>
+                            <img src={imageArray[count]?"src/postImages/"+imageArray[count].image_url:"" } alt={`image ${count}` }/>
                         </td>
                     </tr>
                     <tr>

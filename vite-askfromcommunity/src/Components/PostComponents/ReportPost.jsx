@@ -15,7 +15,7 @@ function ReportPost({ post }) {
               {showDescription && <p>{post.description}</p>}
             </div>
         </div>
-        {openReportPage&&<ReportPage item={post}/>}
+        {openReportPage&&<ReportPage item={post} status={"post"}/>}
     </>    
   )
 }

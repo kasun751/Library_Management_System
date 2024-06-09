@@ -8,11 +8,17 @@ function ReportTable(props) {
     useEffect(()=>{
         getPostRecords()
     },[]);
-
     async function getPostRecords(){
+        
         try{
-            const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportPostManager.php?post_id=${props.post_id}`);
-            setRecords(res.data);
+            if(props.status=="post"){
+                const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportPostManager.php?post_id=${props.post_id}`);
+                setRecords(res.data);
+            }else{
+                const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportReplyManager.php?post_id=${props.post_id}&reply_id=${props.reply_id}&table_data=ok`);
+                setRecords(res.data);
+            }            
+            
         }catch (err) {
             console.error(err);
         }
@@ -25,17 +31,17 @@ function ReportTable(props) {
                     <thead>
                         <tr>
                             <th>Report ID</th>
-                            <th>Post ID</th>
+                            <th>{props.status=="post"?"Post ID":"Reply ID"}</th>
                             <th>Reported User</th>
                             <th>Reason for Reporting</th>
                             <th>Reported TimeSlap</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {records.map((item,index)=>(
-                            <tr key={item.report_post_id}>
-                                <td>{item.report_post_id}</td>
-                                <td>{item.post_id}</td>
+                        {records.map((item)=>(
+                            <tr key={props.status=="post"?item.report_post_id:item.report_reply_id}>
+                                <td>{props.status=="post"?item.report_post_id:item.report_reply_id}</td>
+                                <td>{props.status=="post"?item.post_id:item.reply_id}</td>
                                 <td>{item.reported_user}</td>
                                 <td>{item.reason_reported}</td>
                                 <td>{item.report_create_time}</td>

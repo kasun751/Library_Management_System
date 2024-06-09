@@ -7,7 +7,6 @@ function App(props) {
 
   return (
     <>
-      <SubHeader user_id={props.user_id} user_type={props.user_type} />
       <BodyComponent user_id={props.user_id} user_type={props.user_type}   />
       <SubmitPostForm user_id={props.user_id} user_type={props.user_type} />
     </>

@@ -4,7 +4,8 @@ import './SidePanel.css';
 import axios from 'axios';
 import PanelPost from '../PostComponents/PanelPost';
 import ReportPost from '../PostComponents/ReportPost';
-import ReplyBox from '../ReplyBoxComponent/ReplyBox';
+import ReportReplyBox from '../ReplyBoxComponent/ReportReplyBox';
+
 
 function SidePanel(props) {
     const [mySaveposts, setmySaveposts] = useState([]);
@@ -81,8 +82,7 @@ function SidePanel(props) {
           <ReportPost key={index} post={item} />
         ))}
         {(props.state=="reportMsg"? true:false) && reportMsg?.map((item, index) => (
-          <ReplyBox  key={index} post_id2={item.post_id} item = {item}/>
-          
+          <ReportReplyBox key={index} post_id2={item.post_id} item = {item}/>          
         ))}
     </div>
   );
