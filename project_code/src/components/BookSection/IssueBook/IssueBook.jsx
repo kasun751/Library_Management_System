@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
 import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
 import SetAvailability from "../../SubComponents/SetAvailability.jsx";
 import Button from "../../SubComponents/Button.jsx";
+import {Link} from "react-router-dom";
 
 function IssueBook(){
     const [inputs, setInputs] = useState({});
@@ -171,24 +171,27 @@ function IssueBook(){
                     <h1>Issue Books </h1>
                 </div>
                 <form className="row g-3 needs-validation" noValidate>
-                    <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"} placeholder="Auto fill"
+                    <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"}
                                 name={"bookID"} type={"text"} handleChange={handleChange} feedback={"Book ID."}/>
                     <CategoryList value={inputs.category || bookIdDetails.Category || ""} categoryList={categoryList}
                                   handleChange={handleChange}/>
-                    <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
+                    <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"}
+                                name={"bookName"}
                                 placeholder={bookIdDetails.BookName} type={"text"} handleChange={handleChange}
                                 feedback={"Book Name."} disabled={true}/>
-                    <InputField label={"Current availability"} id={"validationCurrentAvailability"} className={"form-control"} name={"Availability"}
+                    <InputField label={"Current availability"} id={"validationCurrentAvailability"}
+                                className={"form-control"} name={"Availability"}
                                 placeholder={bookIdDetails.Availability} type={"text"} handleChange={handleChange}
                                 feedback={"Current availability."} disabled={true}/>
-                    <SetAvailability handleChange={handleChange}/>
+                    <SetAvailability handleChange={handleChange} parameter="issueBook"/>
                     <InputField label={"User ID"} id={"validationUserID"} className={"form-control"} name={"userID"}
-                               type={"text"} handleChange={handleChange} feedback={"User ID."}/>
+                                type={"text"} handleChange={handleChange} feedback={"User ID."}/>
                     <InputField label={"Member Name"} id={"validationMemberName"} className={"form-control"}
                                 name={"userName"} disabled={true} value={userIDDetails.userName || ""} type={"text"}
                                 handleChange={handleChange} feedback={"Member Name."}/>
 
                     <Button keyword={"Issue Book"} submit={submit}/>
+                   <Link className="btn btn-success" to={"/issueBook/requestList"}>Books Requests </Link>
                 </form>
                 <div>
                     <p>Response from PHP script: {message}</p>

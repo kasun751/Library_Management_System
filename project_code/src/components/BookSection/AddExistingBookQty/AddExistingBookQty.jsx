@@ -15,7 +15,10 @@ function AddExistingBookQty(){
     const [categoryList, setCategoryList] = useState([]);
     const handleChange = (e) => {
         if (e.target.name=="isbnNumber"){
-            getISBNData({[e.target.name]:e.target.value});
+            getISBNData({
+                [e.target.name]: e.target.value,
+                id:e.target.id}
+            );
             setData(preValues => ({...preValues, [e.target.name]:e.target.value }));
         }
         if (e.target.name=="category" ){
@@ -159,7 +162,7 @@ function AddExistingBookQty(){
                             value={nextBookID || ""} placeholder={"Auto fill"} disabled={true}/>
                 <CategoryList value={inputs.category || isbnMessage.Category || ""} categoryList={categoryList}
                               handleChange={handleChange}/>
-                <InputField label={"ISBN Number"} id={"validationCustomUsername"} className={"form-control"}
+                <InputField label={"ISBN Number"} id={"normalBook"} className={"form-control"}
                             name={"isbnNumber"} type={"text"} feedback={"ISBN Number."} handleChange={handleChange}/>
                <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
                            placeholder={isbnMessage.BookName} type={"text"} disabled={true} handleChange={handleChange}
@@ -168,7 +171,7 @@ function AddExistingBookQty(){
                 <InputField label={"Add More QTY"} type={"number"} className={"form-control feildDisabled"}
                             name={"addNewQty"} placeholder={isbnMessage.Qty} id={"validationCustomUsername"}
                             handleChange={handleChange} feedback={"quantity."}/>
-                <SetAvailability handleChange={handleChange}/>
+                <SetAvailability handleChange={handleChange}  parameter="addBook"/>
                 <Button keyword={"Add Qty"} submit={submit}/>
             </form>
             <div>

@@ -3,9 +3,10 @@ import axios from "axios";
 import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
 import Button from "../../SubComponents/Button.jsx";
+import ShowDeletedBooksReleventToIsbn from "./ShowDeletedBooksReleventToIsbn.jsx";
 
 
-function DeleteAllBook() {
+function RestoreAllBooksReleventToIsbn() {
 
     const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState('');
@@ -61,6 +62,7 @@ function DeleteAllBook() {
                 }
             })
         const message = await res.data;
+        console.log(message)
         if (message && message.Category && message.Category.length > 0) {
             setData(preValues => ({...preValues, ["category"]: message.Category}));
         }
@@ -92,7 +94,7 @@ function DeleteAllBook() {
         inputFields.disabled = feedback;
     }
 
-    function submit() {
+    function submit(restorePara,BookIDForrestoreOnce) {
         (async () => {
             'use strict'
 
@@ -121,7 +123,7 @@ function DeleteAllBook() {
                 })
             }).then(res => {
                 if (res) {
-                    deleteBook();
+                    restore(restorePara,BookIDForrestoreOnce);
                     //location.reload();
                 } else {
                     console.log('validateError');
@@ -134,10 +136,12 @@ function DeleteAllBook() {
     }
 
 
-    const deleteBook = async () => {
+    const restore = async (restorePara,BookIDForrestoreOnce) => {
         const extendedData = {
             ...data,
-            delete_parameter: 0
+            restorePara: restorePara,
+            BookIDForrestoreOnce:BookIDForrestoreOnce,
+            delete_parameter: 2
         };
         console.log(extendedData)
         const res = await axios.post(
@@ -160,28 +164,26 @@ function DeleteAllBook() {
             <div id="allBooksDelete">
                 <div id="progress">
                     <img src="" alt=""/>
-                    <h1>Delete All Book Details</h1>
+                    <h1>restore Book Details</h1>
+
                 </div>
                 <form className="row g-3 needs-validation" noValidate>
-                    <InputField label={"Book Name ID"} id={"validationBookNameID"} className={"form-control"}
-                                name={"bookNameID"} placeholder="Auto fill" type={"text"} value={bookNameID || ""}
-                                disabled={true} handleChange={handleChange} feedback={"Book Name ID."}/>
-                    <CategoryList value={inputs.category || isbnMessage.Category || ""} categoryList={categoryList}
-                                  handleChange={handleChange}/>
-                    <InputField label={"ISBN Number"} id={"normalBook"} className={"form-control"}
+                    <InputField label={"ISBN Number"} id={"restoreBook"} className={"form-control"}
                                 name={"isbnNumber"} type={"text"} handleChange={handleChange} feedback={"ISBN Number."}/>
                     <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
                                 placeholder={isbnMessage.BookName} type={"text"} handleChange={handleChange} disabled={true}
                                 feedback={"Book Name."}/>
-                    <Button keyword={"Delete Book"} submit={submit}/>
+                    <CategoryList value={inputs.category || isbnMessage.Category || ""} categoryList={categoryList}
+                                  disabled={true} handleChange={handleChange}/>
+                    <ShowDeletedBooksReleventToIsbn value={inputs.isbnNumber} category={isbnMessage.Category} submit={submit}/>
                 </form>
                 <div>
                     <p>Response from PHP script: {message}</p>
-                    <p>ISBN Response from PHP script: {isbnMessage.ISBN_Number}</p>
+                    <p>ISBN Response from PHP script: {isbnMessage.successMessage !== undefined ? isbnMessage.successMessage : ''}
+                        {isbnMessage.ISBN_Number !== undefined ? "Have Book": ''}</p>
                 </div>
             </div>
         </>
     )
 }
-
-export default DeleteAllBook;
+export default RestoreAllBooksReleventToIsbn;

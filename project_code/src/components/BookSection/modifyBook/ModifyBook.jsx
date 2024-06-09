@@ -13,7 +13,10 @@ function ModifyBook() {
     const [bookNameID, setNextBookID] = useState('');
     const handleChange = (e) => {
         if (e.target.name === "isbnNumber") {
-            getISBNData({[e.target.name]: e.target.value});
+            getISBNData({
+                [e.target.name]: e.target.value,
+                id:e.target.id}
+            );
             setData(preValues => ({...preValues, [e.target.name]: e.target.value}));
         }
 
@@ -139,7 +142,7 @@ function ModifyBook() {
                     <InputField label={"Book Name ID"} id={"validationBookNameID"} className={"form-control"}
                                 name={"bookNameID"} placeholder="Auto fill" type={"text"} value={bookNameID || ""}
                                 disabled={true} handleChange={handleChange} feedback={"Book Name ID."}/>
-                    <InputField label={"ISBN Number"} id={"validationIsbnNumber"} className={"form-control"}
+                    <InputField label={"ISBN Number"} id={"normalBook"} className={"form-control"}
                                 name={"isbnNumber"} type={"text"} handleChange={handleChange} feedback={"ISBN Number."}/>
                     <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
                                 value={inputs.bookName !== undefined ? inputs.bookName: isbnMessage.BookName || ""}

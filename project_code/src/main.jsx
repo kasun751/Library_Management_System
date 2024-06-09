@@ -26,6 +26,8 @@ import Dashboard from "./components/DashBoad/Dashboard.jsx";
 import Register from "./components/LogginSection/Register.jsx";
 import Login from "./components/LogginSection/Login.jsx";
 import VerificationPage from "./components/LogginSection/VerificationPage.jsx";
+import RestoreAllBooksReleventToIsbn from "./components/BookSection/DeleteBook/RestoreAllBooksReleventToIsbn.jsx";
+import ViewBookRequests from "./components/BookSection/IssueBook/ViewBookRequests.jsx";
 const router = createBrowserRouter([
 
     {
@@ -61,6 +63,10 @@ const router = createBrowserRouter([
         element:<DeleteSomeBook/>
     },
     {
+        path: "/restoreBook",
+        element:<RestoreAllBooksReleventToIsbn/>
+    },
+    {
         path: "/viewBook",
         element:<ViewBookDetails/>
     },
@@ -79,6 +85,10 @@ const router = createBrowserRouter([
     {
         path: "/issueBook",
         element:<IssueBook/>
+    },
+    {
+        path: "/issueBook/requestList",
+        element:<ViewBookRequests/>
     },
     {
         path: "/guestUser",

@@ -17,7 +17,10 @@ function AddNewBook() {
 
     const handleChange = (e) => {
         if (e.target.name=="isbnNumber") {
-            getISBNData({[e.target.name]: e.target.value});
+            getISBNData({
+                [e.target.name]: e.target.value,
+                id:e.target.id}
+            );
         }
 
         const name = e.target.name;
@@ -137,9 +140,8 @@ function AddNewBook() {
                 <img src="" alt=""/>
             </div>
             <form className="row g-3 needs-validation" noValidate>
-                <InputField label={"ISBN Number"} id={"validationIsbnNumber"} className={"form-control"}
-                            name={"isbnNumber"}
-                            type={"text"} handleChange={handleChange} feedback={"ISBN Number."}/>
+                <InputField label={"ISBN Number"} id={"normalBook"} className={"form-control"}
+                            name={"isbnNumber"} type={"text"} handleChange={handleChange} feedback={"ISBN Number."}/>
                 <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
                             placeholder={isbnMessage.BookName} type={"text"} handleChange={handleChange}
                             feedback={"Book Name."}/>
@@ -162,7 +164,7 @@ function AddNewBook() {
                 <InputField label={"Book Location"} id={"validationLocation"} className={"form-control"} name={"bookLocation"}
                             placeholder={isbnMessage.BookLocation} type={"text"} handleChange={handleChange}
                             feedback={"Book Location."}/>
-                <SetAvailability handleChange={handleChange}/>
+                <SetAvailability handleChange={handleChange} parameter="addBook"/>
                 <div className="col-md-6">
                     <label htmlFor="validationCustom03" className="form-label ">Description</label>
                     <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50"
