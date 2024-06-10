@@ -1,10 +1,12 @@
+import './InputFields.css'
+
 const InputField = ({ type,className,label, id, name,placeholder, value,disabled = false, handleChange,feedback }) => {
     return (
-        <div className="col-md-4">
+        <div className="col-sm-12">
             <label htmlFor={id} className="form-label">{label}</label>
                 <input
                     type={type}
-                    className={className}
+                    className={className }
                     id={id}
                     aria-describedby="inputGroupPrepend"
                     name={name}
@@ -13,7 +15,6 @@ const InputField = ({ type,className,label, id, name,placeholder, value,disabled
                     onChange={handleChange}
                     disabled={disabled}
                     required
-
                 />
                 <div className="valid-feedback">
                     Looks good!
