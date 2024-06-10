@@ -11,6 +11,7 @@ import Home from './Components/Pages/Home/Home.jsx'
 import Add from './Components/Pages/Add/Add.jsx'
 import Remove from './Components/Pages/Remove/Remove.jsx'
 import Update from './Components/Pages/Update/Update.jsx'
+import MyBooks from './Components/Pages/MyBooks/MyBooks.jsx'
 
 
 import {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
     {
         path: "/update",
         element: <Update/>,
+    },
+    {
+        path: "/my_books",
+        element: <MyBooks/>,
     },
 
 ]);

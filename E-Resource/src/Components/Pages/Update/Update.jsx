@@ -1,24 +1,69 @@
 import Navigation from "../../HeaderContent/Navigation.jsx";
 import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
+import './Update.css';
+import axios from "axios";
 
-const Update = () =>{
+const Update = () => {
 
     const location = useLocation();
-    const { isbn = '', title = '', author = '',price='',description='' ,category=''} = location.state || {};
+    const { isbn = '', title = '', author = '', price = '',
+        description = '', category = '', image_path = '', pdf_path = '' } = location.state || {};
 
-    const [updateBook, setUpdateBook]=useState({isbn,title,author,price,description,category});
+    const [updateBook, setUpdateBook] = useState({ isbn, title, author, price, description, category, image_path, pdf_path });
+    const [imageFile, setImageFile] = useState(null);
+    const [pdfFile, setPdfFile] = useState(null);
+    const [resMessage, setResMessage] = useState('');
 
     useEffect(() => {
-        if (isbn || title || author || price || description || category) {
-            setUpdateBook({ isbn, title, author ,price,description,category});
+        if (isbn || title || author || price || description || category || image_path || pdf_path) {
+            setUpdateBook({ isbn, title, author, price, description, category, image_path, pdf_path });
         }
-    }, [isbn, title, author,price,description,category]);
+    }, [isbn, title, author, price, description, category, image_path, pdf_path]);
 
     const updateHandle = (e) => {
         const { name, value } = e.target;
         setUpdateBook({ ...updateBook, [name]: value });
+    }
 
+    const handleFileChange = (e) => {
+        const { name, files } = e.target;
+        if (name === 'image') {
+            setImageFile(files[0]);
+        } else if (name === 'pdf') {
+            setPdfFile(files[0]);
+        }
+    }
+
+    const updateDatabase = async () => {
+        const formData = new FormData();
+        for (const key in updateBook) {
+            formData.append(key, updateBook[key]);
+        }
+        if (imageFile) {
+            formData.append('image', imageFile);
+        }
+        if (pdfFile) {
+            formData.append('pdf', pdfFile);
+        }
+
+        try {
+            const res = await axios.post(
+                'http://localhost/Lbrary Management System/E-Resource_Php/Update.php',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            );
+
+            setResMessage(res.data.resultMessage && 'operation success');
+            console.log(res.data);
+        } catch (error) {
+            console.error('error: ', error);
+            setResMessage('Error updating the book');
+        }
     }
 
     const handleSubmit = async (e) => {
@@ -32,16 +77,16 @@ const Update = () =>{
         form.classList.add('was-validated');
     };
 
-    return(
+    return (
         <>
             <Navigation />
             <div className="formContainer">
-                <h2>Add E-Book</h2>
+                <h2>Update E-Book</h2>
                 <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
                     <div className="col-md-4">
                         <label htmlFor="validationCustom02" className="form-label">ISBN Number</label>
                         <input type="text" className="form-control" id="validationCustom02" name="isbn"
-                               value={updateBook.isbn || ""} onChange={updateHandle} required />
+                               value={updateBook.isbn || ""} onChange={updateHandle} disabled required />
                         <div className="valid-feedback">
                             Looks good!
                         </div>
@@ -67,7 +112,7 @@ const Update = () =>{
                         <div className="input-group has-validation">
                             <span className="input-group-text" id="inputGroupPrepend">Rs:</span>
                             <input type="text" className="form-control" id="validationCustomUsername" placeholder="1500.00"
-                                   name="price" value={updateBook.price || ""} onChange={updateHandle} required/>
+                                   name="price" value={updateBook.price || ""} onChange={updateHandle} required />
                             <div className="valid-feedback">
                                 Looks good!
                             </div>
@@ -82,7 +127,7 @@ const Update = () =>{
                         <input type="text" className="form-control" id="validationCustom03" name="author"
                                value={updateBook.author || ""} onChange={updateHandle} required />
                         <div className="invalid-feedback">
-                            Please provide a Author name.
+                            Please provide an Author name.
                         </div>
                         <div className="valid-feedback">
                             Looks good!
@@ -115,9 +160,10 @@ const Update = () =>{
                         </div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="validationCustom06" className="form-label">Choose cover image to upload</label>
+                        <label htmlFor="validationCustom06" className="form-label">Choose cover image to upload<br /> <small>Here Is the link for check the already uploaded cover image =></small></label>
+                        {updateBook.image_path && <a href={updateBook.image_path} target="_blank" > View Existing Cover Image</a>}
                         <input type="file" className="form-control" aria-label="file example" name="image"
-                               onChange={updateHandle} accept="image/jpeg,image/png" required />
+                               onChange={handleFileChange} accept="image/jpeg,image/png" />
                         <div className="invalid-feedback">Please upload a Cover Image file.</div>
                         <div className="valid-feedback">
                             Looks good!
@@ -125,21 +171,22 @@ const Update = () =>{
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="validationCustom06" className="form-label">Choose PDF to upload</label>
+                        <label htmlFor="validationCustom06" className="form-label">Choose PDF to upload<br /> <small>Here Is the link for check the already uploaded file =></small></label>
+                        {updateBook.pdf_path && <a href={updateBook.pdf_path} target="_blank">View Existing PDF</a>}
                         <input type="file" className="form-control" aria-label="file example" name="pdf"
-                               onChange={updateHandle} accept="application/pdf" required />
+                               onChange={handleFileChange} accept="application/pdf" />
                         <div className="invalid-feedback">Please upload a PDF file.</div>
                         <div className="valid-feedback">
                             Looks good!
                         </div>
                     </div>
                     <div className="col-12">
-                        <button className="btn btn-primary" type="submit">Add Book</button>
+                        <button className="btn btn-primary" type="submit">Update Book</button>
                     </div>
                 </form>
             </div>
             <div>
-                <p>Response from PHP script: {}</p>
+                <p>Response from PHP script: {resMessage}</p>
             </div>
         </>
     )

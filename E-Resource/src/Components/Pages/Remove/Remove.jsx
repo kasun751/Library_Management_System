@@ -39,7 +39,7 @@ const Remove = () => {
                 }
             );
 
-            setResMessage(res.data.resultMessage);
+            setResMessage(res.data.resultMessage) ;
         } catch (error) {
             console.error('error: ', error);
             setResMessage('error');

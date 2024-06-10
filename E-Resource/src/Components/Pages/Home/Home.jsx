@@ -76,10 +76,13 @@ function Home(){
                         key={index}
                         title={book.title}
                         isbn={book.isbn}
+                        category={book.category}
                         author={book.author}
                         price={book.price}
                         description={book.description}
                         image_path={`http://localhost/Lbrary%20Management%20System/IMAGES/${book.image_path}`}
+                        pdf_path={`http://localhost/Lbrary%20Management%20System/PDF /${book.pdf_path}`}
+
                     />
                 ))}
 

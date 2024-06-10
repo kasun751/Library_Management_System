@@ -31,6 +31,7 @@ function Add() {
         const formDataToSend = new FormData();
         for (const key in formData) {
             formDataToSend.append(key, formData[key]);
+            //File inputs like image and pdf can be added to FormData as File objects, which allows their binary data to be uploaded.
         }
 
         try {

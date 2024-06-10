@@ -55,7 +55,7 @@ if (
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            $sql = "INSERT INTO ebook (isbn, title,price,author, category, description, pdf_path,image_path) 
+            $sql = "INSERT INTO ebook (isbn, title,price,author, category, description, pdf_path,image_path)
                     VALUES (?, ?, ?, ?, ?, ?, ?,?)";
 
             $stmt = $conn->prepare($sql);
