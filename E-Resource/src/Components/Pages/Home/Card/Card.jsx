@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Card({ title, isbn, author, price, description, image_path ,category,pdf_path}) {
     const [buyBookDetails, setBuyBookDetails] = useState(null);
     const navigate = useNavigate();
-    const userId = 'SLMS/24/1'; // getting from session storage
+    const userId = 'SLMS/24/2'; // getting from session storage
 
     const buyNow = async () => {
         try {
@@ -36,8 +36,8 @@ function Card({ title, isbn, author, price, description, image_path ,category,pd
         if (buyBookDetails) {
             const { isbn, title, price, hash } = buyBookDetails;
 
-            payhere.onCompleted = function onCompleted(orderId) {
-                alert("Payment completed");
+            payhere.onCompleted = function onCompleted(isbn) {
+                // alert("Payment completed");
                 navigate('/my_books');
             };
 
