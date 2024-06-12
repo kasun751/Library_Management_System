@@ -53,7 +53,7 @@ function Card({ title, isbn, author, price, description, image_path ,category,pd
                 "sandbox": true,
                 "merchant_id": "1227044",
                 "return_url":'http://localhost/Lbrary Management System/E-Resource/src/Components/Pages/MyBooks/MyBooks.jsx',
-                "cancel_url": 'http://localhost/Lbrary Management System/E-Resource/src/Components/Pages/Home/Home.jsx',
+                "cancel_url": 'http://localhost/Lbrary Management System/E-Resource/src/Components/Pages/E_Book_Home/E_Book_Home.jsx',
                 "notify_url": "http://sample.com/notify",
                 "order_id": isbn,
                 "items": title,
