@@ -23,6 +23,8 @@ import E_NewsPapers_Home from "./Components/E_NewsPapers/Home/E_NewsPapers_Home.
 import E_PastPapers_Home from "./Components/E_PastPapers/Home/E_PastPapers_Home.jsx";
 import Add_NewsPapers from "./Components/E_NewsPapers/Add/Add_NewsPapers.jsx";
 import Update_NewsPapers from "./Components/E_NewsPapers/Update/Update_NewsPapers.jsx";
+import Add_PastPapers from "./Components/E_PastPapers/Add/Add_PastPapers.jsx";
+import Update_PastPapers from "./Components/E_PastPapers/Update/Update_PastPapers.jsx";
 
 const router = createBrowserRouter([
     {
@@ -69,6 +71,14 @@ const router = createBrowserRouter([
     {
         path: "/update_news",
         element: <Update_NewsPapers/>,
+    },
+    {
+        path: "/add_pastPapers",
+        element: <Add_PastPapers/>,
+    },
+    {
+        path: "/update_pastPapers",
+        element: <Update_PastPapers/>,
     },
 
 ]);

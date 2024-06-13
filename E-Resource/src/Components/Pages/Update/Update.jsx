@@ -160,7 +160,7 @@ const Update = () => {
                         </div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="validationCustom06" className="form-label">Choose cover image to upload<br /> <small>Here Is the link for check the already uploaded cover image = </small></label>
+                        <label htmlFor="validationCustom06" className="form-label">Choose cover image to upload<br/> <small>Here Is the link for check the already uploaded cover image = </small></label>
                         {updateBook.image_path && <a href={updateBook.image_path} target="_blank" > View Existing Cover Image</a>}
                         <input type="file" className="form-control" aria-label="file example" name="image"
                                onChange={handleFileChange} accept="image/jpeg,image/png" />
@@ -171,7 +171,7 @@ const Update = () => {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="validationCustom06" className="form-label">Choose PDF to upload<br /> <small>Here Is the link for check the already uploaded file =></small></label>
+                        <label htmlFor="validationCustom06" className="form-label">Choose PDF to upload<br /> <small>Here Is the link for check the already uploaded file = </small></label>
                         {updateBook.pdf_path && <a href={updateBook.pdf_path} target="_blank">View Existing PDF</a>}
                         <input type="file" className="form-control" aria-label="file example" name="pdf"
                                onChange={handleFileChange} accept="application/pdf" />

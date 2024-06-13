@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import Card from "../../Pages/Home/Card/Card.jsx";
 import NewsCard from "./NewsCard.jsx";
 
 function E_NewsPapers_Home(){
