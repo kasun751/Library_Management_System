@@ -1,25 +1,33 @@
 .bodyComponent {
     margin: 0px 10px;
     padding: 40px 10px; 
-    background-color: #9e8383;
+    background-color: rgb(255, 255, 255);;
     /* display: grid;
     grid-template-columns: repeat(1,auto);
     grid-template-rows: auto; */
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
   }
+  #bodyComponent-footer{
+    margin:20px 50px;
+    display: grid;
+    grid-template-columns: repeat(1,auto);
+    grid-template-rows: 1;
+  }
+
+  #bodyComponent-footer>div{
+    text-align: center;
+  }
 
   #selectList-container{
-    margin-top:90px;
+    margin-top:10px;
     display: grid;
-    grid-template-columns: repeat(2,auto);
-    grid-template-rows: auto;
+    grid-template-columns: repeat(3,auto);
+    grid-template-rows: 1;
   }
-  
   #selectList-div>label{
     font-size: large;
     font-weight: bolder;
@@ -61,4 +69,15 @@
   
   .bodyComponent button:focus {
     outline: none;
+  }
+  #post-numbers>p{
+    background-color: #9e8383;
+    width:70px;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: inline;
+  }
+  #post-numbers{
+    vertical-align: top;
   }

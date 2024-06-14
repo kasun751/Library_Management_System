@@ -101,11 +101,11 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
         <>
             {formAvailable && (
                 <div className='submitPostFormBox'>
-                    <table style={{ width: '100%' }}>
+                    {/* <table style={{ width: '100%' }}>
                         <tbody>
                             <tr>
                                 <td colSpan={3}>
-                                    <img src='src/Images/arrow-right.svg' style={{ width: '50px', float: 'right', cursor: 'pointer' }} onClick={handleToHideCreatePostForm} alt="Arrow" />
+                                    <img id='submitForm-back-btn' src='src/Images/arrow-right.svg' onClick={handleToHideCreatePostForm} alt="Arrow" />
                                 </td>
                             </tr>
                             <tr>
@@ -143,8 +143,48 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
                             </tr>
                         </tbody>
                     </table>
+                    <input type='submit' value={initialbtn_value} onClick={handleSubmit} /> */}
+                    <form>
+                    <div className="container">
+                        <div className="row">
+                            <img id='submitForm-back-btn' src='src/Images/arrow-right.svg' onClick={handleToHideCreatePostForm} alt="Arrow" />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Default file input example</label>
+                            <input className="form-control" type="file" id="formFile" name="file" onChange={handleFileChange} />
+                        </div>
+                        <b>Belong to any unique category?</b>
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="category" value="true" onChange={handleOnOption} id="flexRadioDefault1" />
+                            <label className="form-check-label">
+                                Yes
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="category" value="false" onChange={handleOnOption} checked />
+                            <label className="form-check-label">
+                                No
+                            </label>
+                        </div>
+                        {option && <div className="mb-3">
+                            <label className="form-label">Category</label>
+                            <input type="text" className="form-control" placeholder='enter category' ref={categoryRef} defaultValue={initialCategory} id="exampleFormControlInput1"  />
+                        </div>}
+                        <div className="mb-3">
+                            <label className="form-label">Title</label>
+                            <input className="form-control" type="text" ref={titleRef} placeholder='enter post title' defaultValue={initialTitle} id="exampleFormControlInput1"  />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Description</label>
+                            <textarea className="form-control" id="exampleFormControlTextarea1" rows="4" cols="50"
+                            ref={descriptionRef}
+                            placeholder='enter post description'
+                            defaultValue={initialDescription}></textarea>
+                        </div>
                     <input type='submit' value={initialbtn_value} onClick={handleSubmit} />
                 </div>
+                </form>
+            </div>
             )}
 
             <div className='submitPostFormBtn'>

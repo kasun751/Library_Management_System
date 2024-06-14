@@ -14,6 +14,7 @@
     width:50%;
   }
   
+  
   .sidePanelPostComponent h2 {
     margin-bottom: 10px;
   }
@@ -42,7 +43,6 @@
   .sidePanelPostComponent button:hover {
     background-color: #f0f0f0;
   }
-  
   .sidePanelPostComponent-replyBox {
     margin-top: 20px;
   }

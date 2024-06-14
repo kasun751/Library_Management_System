@@ -11,6 +11,7 @@
   .replyBoxComponent p {
     margin-left: 10px; 
     margin-bottom: 5px;
+    word-wrap: break-word;
   }
   .reportBtn{
     float: right;

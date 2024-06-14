@@ -8,7 +8,6 @@ function ReplyBox({post_id2, user_id, item }) {
   const [isDelete, setIsDelete] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
 
-console.log(item);
   async function handleReport(){
     setIsReportOpen(isReportOpen?false:true);
     // try{

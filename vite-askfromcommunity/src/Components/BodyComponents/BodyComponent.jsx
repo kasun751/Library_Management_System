@@ -20,6 +20,7 @@ function BodyComponent(props) {
   const onClickSetOffSet=(val)=>{
     if(offSet==0&&val<0){
     }else{
+      if(posts.length+5>offSet || val<0)
       setOffSet(offSet+val);
     }
   }
@@ -34,6 +35,7 @@ function BodyComponent(props) {
   useEffect(() => {
     getPost("",title, offSet);
   }, [title]);
+
 
   async function getPost($category,$title,$offSet) {
     try {
@@ -70,6 +72,9 @@ function BodyComponent(props) {
             ))} 
             </select>
           </div>
+          <div id='post-numbers'>
+          <p>Posts {offSet+1} to {offSet+5}</p>
+        </div>
           <div id='prev-next-btnSet-div'>
             <button onClick={()=>onClickSetOffSet(-5)}>prev</button>
             <button onClick={()=>onClickSetOffSet(5)}>next</button>
@@ -77,9 +82,14 @@ function BodyComponent(props) {
         </div>
       <div className='bodyComponent'>
         {posts.map((item) => (
-          <BodyPost key={item.post_id} post={item} user_id={props.user_id} />
+          <BodyPost key={item.post_id} post={item} user_id={props.user_id} onClickRefresh={()=>setRefresh(refresh? false:true)} />
         ))}
       </div>
+      <div id='bodyComponent-footer'>
+          <div id='post-numbers'>
+          <label>page: {(offSet+5)/5} </label>
+        </div>
+        </div>
     </>
   );
 }

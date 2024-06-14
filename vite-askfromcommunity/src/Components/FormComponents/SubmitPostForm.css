@@ -9,7 +9,7 @@
     max-width: 600px;
     border: 1px solid black;
     border-radius: 20px;
-    background-color: rgba(193, 182, 228,0.7);
+    background-color: rgba(193, 182, 228,0.9);
   }
   
   .submitPostFormBox textarea {
@@ -76,7 +76,29 @@
     right: 0;
     margin-bottom: 20px;
     margin-right: 40px;
-    width: 100px;
+    width: 95px;
     cursor: pointer;
   }
-  
+  .submitPostFormBtn img:hover{
+    background-color: aliceblue; 
+    border-radius: 40px;
+    width: 100px;
+  }
+  .submitPostFormBtn img:active{
+    background-color:aqua;
+    width: 95px;
+  }
+#submitForm-back-btn{
+  width: 50px;
+  float: right;
+  cursor: pointer;
+}
+
+#submitForm-back-btn:hover{
+  background-color: aliceblue;  
+  border-radius: 50px;
+}
+
+#submitForm-back-btn:active{
+  background-color:aqua;
+}

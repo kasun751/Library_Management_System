@@ -5,6 +5,7 @@ import axios from 'axios';
 import SubmitPostForm from '../FormComponents/SubmitPostForm';
 import DescriptionBox from '../PostComponents/DescriptionBox'
 import ImageSlider from '../ImageSliderComponent/ImageSlider';
+import Accordion from 'react-bootstrap/Accordion';
 
 function PanelPost({ post,user_id }) {
   const [reply, setReply] = useState('');
@@ -141,16 +142,25 @@ function PanelPost({ post,user_id }) {
   return (
     <>
       {!isDelete && <div className='sidePanelPostComponent'>
-          <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
+          {/* <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
           {!isAvailable && <label className='reportBtn'  onClick={handleReport}>Report</label>}
           {isAvailable && <label className='buttonPanel' onClick={handleEdit}>Edit</label>}
           {!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}
           {isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}
-          <br />
+          <br /> */}
+          {/* <ImageSlider post_id={post.post_id}/> */}
+        
+        {/* <DescriptionBox description={post.description} /> */}
+        <Accordion defaultActiveKey="1" >
+        <Accordion.Item eventKey="0" >
+          <Accordion.Header ><h3>{post.title}</h3></Accordion.Header>
+          <Accordion.Body>
+          {post.description}
           <ImageSlider post_id={post.post_id}/>
-        <h2>{post.title}</h2>
-        <DescriptionBox description={post.description} />
-        <div className='sidePanelPostComponent-postImageBtnPannel'>
+          </Accordion.Body>
+        </Accordion.Item>
+        </Accordion>
+        {/* <div className='sidePanelPostComponent-postImageBtnPannel'>
           <input
             type='text'
             value={reply}
@@ -160,8 +170,8 @@ function PanelPost({ post,user_id }) {
           <br /><br />
           <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
           <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
-        </div>
-        <div className='sidePanelPostComponent-replyBox'>
+        </div> */}
+        {/* <div className='sidePanelPostComponent-replyBox'>
           {visible &&
             replyBulk.map((item, index) => (
               <ReplyBox  key={index} post_id2={post.post_id} item = {item}/>
@@ -177,7 +187,7 @@ function PanelPost({ post,user_id }) {
             user_id={user_id }
           />
         )}
-        </div>
+        </div> */}
       </div>}
     </>
   );

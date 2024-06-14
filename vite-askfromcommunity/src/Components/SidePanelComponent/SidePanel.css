@@ -2,11 +2,9 @@
     position: fixed;
     top: 15%;
     right: 0;
-    width: 40%;
-    height:80%;
-    background-color: #333;
+    height:85%;
+    background-color:rgb(30,52,65);
     color: #fff;
     padding: 20px;
     overflow: auto;
   }
-  

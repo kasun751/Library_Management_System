@@ -14,7 +14,6 @@ function ReportPage({item, status}) {
       getPost(item.post_id);
     }
   }, []);
-
   async function handleDelete(){
     setIsDelete(true);
       try{
@@ -28,10 +27,10 @@ function ReportPage({item, status}) {
         });
         }else{
           alert("Reply deleted!!!");
-          await axios.delete(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
+          await axios.delete(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`,{
           data:{
-            post_id:item.post_id,
-            status:"deletePost"
+            reply_id:item.reply_id,
+            status:"deleteReply"
           }
         });
         }
@@ -62,9 +61,9 @@ function ReportPage({item, status}) {
           }
         });
       }else{
-        await axios.delete(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
+        await axios.delete(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`,{
           data:{
-            post_id:item.post_id,
+            reply_id:item.reply_id,
             status:"removeReports"
           }
         });
@@ -78,7 +77,7 @@ function ReportPage({item, status}) {
       <div className='report-page-container'>
         <div className='post-container'>
           <button id='rejectBtn' onClick={handleRemoveReports} disabled={isRemove}>Reject All Reports</button>
-          <button id='deleteBtn' onClick={handleDelete} disabled={isDelete}>Delete Post</button>
+          <button id='deleteBtn' onClick={handleDelete} disabled={isDelete}>{status=="post"?"Delete Post":"Delete Reply"}</button>
           <div id='imageSlider-container'>
           <ImageSlider post_id={item.post_id}/>
           </div>
@@ -94,9 +93,9 @@ function ReportPage({item, status}) {
         <hr />
         <br />
         <div className='report-details-container'>
-        {(status=="post"?true:false)&&<ReportTable status={status} post_id={item.post_id} reply_id={""} />}
+        {(status=="post"?true:false)&&<ReportTable status={status} post_id={item.post_id} reply_id={""} user_id={item.user_id} />}
 
-        {(status=="reply"?true:false)&&<ReportTable status={status} post_id={item.post_id} reply_id={item.reply_id} />}
+        {(status=="reply"?true:false)&&<ReportTable status={status} post_id={item.post_id} reply_id={item.reply_id} user_id={item.user_id} />}
         </div>
       </div>
     </>

@@ -32,6 +32,7 @@ function ReportTable(props) {
                         <tr>
                             <th>Report ID</th>
                             <th>{props.status=="post"?"Post ID":"Reply ID"}</th>
+                            <th>{props.status=="post"?"Post Owner":"Reply Owner"}</th>
                             <th>Reported User</th>
                             <th>Reason for Reporting</th>
                             <th>Reported TimeSlap</th>
@@ -42,6 +43,7 @@ function ReportTable(props) {
                             <tr key={props.status=="post"?item.report_post_id:item.report_reply_id}>
                                 <td>{props.status=="post"?item.report_post_id:item.report_reply_id}</td>
                                 <td>{props.status=="post"?item.post_id:item.reply_id}</td>
+                                <td>{props.user_id}</td>
                                 <td>{item.reported_user}</td>
                                 <td>{item.reason_reported}</td>
                                 <td>{item.report_create_time}</td>
