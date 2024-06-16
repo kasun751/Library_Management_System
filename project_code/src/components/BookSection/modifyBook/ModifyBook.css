@@ -1,23 +1,23 @@
-#addNewBook{
-    background: url('../../../assets/images/AddBook.jpg') 50% / cover no-repeat;
+#modifyBook{
+    background: url('../../../assets/images/ModifyBook.png') 50% / cover no-repeat;
     z-index: 1;
     overflow: hidden;
     position: relative;
     height: 100%;
 }
-#addNewBook::before {
+#modifyBook::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../../../assets/images/AddBook.jpg') 50% / cover no-repeat;
-    filter: blur(3px);
+    background: url('../../../assets/images/ModifyBook.png') 50% / cover no-repeat;
+    filter: blur(1px);
     z-index: -1;
     opacity: 0.8;
 }
-#formDivAddNewBook {
+#formDivModifyBook {
     width: 91%;
     margin: auto;
     padding: 20px 40px;
@@ -27,28 +27,26 @@
     z-index: 2;
     border: white 2px solid;
 }
-#formDivAddNewBook h1{
+#formDivModifyBook h1{
     text-align: center;
 }
-#formDivAddNewBook label{
+#formDivModifyBook label{
     width: 280px;
     font-weight: 600;
     margin-top: 13px;
 }
-#formDivAddNewBook #addCategory{
-    margin-top: 10px;
-}
-#formDivAddNewBook button{
+
+#formDivModifyBook button{
     background-color: #1E3541 !important;
     border: none!important;
     margin-top: 20px;
     width: 220px;
 }
-#formDivAddNewBook button a{
+#formDivModifyBook button a{
     color: white!important;
     text-decoration: none;
 }
-#formDivAddNewBook #submit{
+#formDivModifyBook #submit{
    width: 100%!important;
     margin-top: 40px!important;
     color: yellow;

@@ -1,6 +1,7 @@
+
 function CategoryList({value,handleChange,categoryList,disabled1=false}) {
     return (
-        <div className="col-md-3">
+        <div className="col-12">
             <label htmlFor="validationCustom04" className="form-label">Category</label>
             <select className="form-select feildDisabled" id="validationCustom04" required name="category"
                     value={value} onChange={handleChange} disabled={disabled1}>

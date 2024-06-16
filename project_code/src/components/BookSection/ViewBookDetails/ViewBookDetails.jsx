@@ -1,8 +1,10 @@
-import {useEffect,useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import './ViewBookDetails.css'
 import {Link} from "react-router-dom";
 import InputField from "../../SubComponents/InputFields.jsx";
+import './ViewBookDetails.css';
+
 function ViewBookDetails() {
 
     const [booksList, setBooksList] = useState([]);
@@ -41,21 +43,26 @@ function ViewBookDetails() {
     }
 
     return (
-        <>
-            <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookDetails"}
-                        type={"text"} handleChange={handleChange} feedback={"Book Name."}/>
+        <div id="ViewBookDetails">
+
 
             <div className="container">
                 <br/>
-                <h4>Customer Form</h4>
+                <h2>View Book</h2>
                 <hr/>
+                <br/>
+                <InputField label={"Search Book Name"} id={"validationCustom01"} className={"form-control"}
+                            name={"bookDetails"}
+                            type={"text"} handleChange={handleChange} feedback={"Book Name."}/>
+
                 <table className="table">
                     <thead>
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Book Name</th>
                         <th scope="col">AuthorName</th>
-                        <th scope="col">PublisherName</th>
+                        <th scope="col">Check Available Books</th>
+                        <th scope="col">View details</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -65,23 +72,33 @@ function ViewBookDetails() {
                                 <td className="booDetails">Result {index + 1}</td>
                                 <td className="booDetails">{book.BookName}</td>
                                 <td className="booDetails">{book.AuthorName}</td>
-                                <td className="booDetails">{book.PublisherName}</td>
                                 <td className="booDetails">
-                                    <button id="availabilityDetails" className="btn btn-success"><Link to={`/viewBook/bookAvailabilityDetails/${book.ISBN_Number}`}>Available Books </Link></button>
-                                    <button id="availabilityDetails" className="btn btn-danger"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link></button>
+                                    <button id="availabilityDetails" className="btn btn-success"><Link
+                                        to={`/viewBook/bookAvailabilityDetails/${book.ISBN_Number}`}>Available
+                                        Books </Link></button>
+                                </td>
+                                <td className="booDetails">
+                                    <button id="viewDetails" className="btn btn-danger"><Link
+                                        to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link>
+                                    </button>
                                 </td>
                             </tr>
                         ))
-                    ): (
+                    ) : (
                         booksList.map((book, index) => (
                             <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{book.BookName}</td>
-                                <td>{book.AuthorName}</td>
-                                <td>{book.PublisherName}</td>
-                                <td >
-                                    <button id="availabilityDetails" className="btn btn-success"><Link to={`/viewBook/bookAvailabilityDetails/${book.ISBN_Number}`}>Available Books </Link></button>
-                                    <button id="availabilityDetails" className="btn btn-danger"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link></button>
+                                <td className="booDetails">{index + 1}</td>
+                                <td className="booDetails">{book.BookName}</td>
+                                <td className="booDetails">{book.AuthorName}</td>
+                                <td className="booDetails">
+                                    <button id="availabilityDetails" className="btn btn-success"><Link
+                                        to={`/viewBook/bookAvailabilityDetails/${book.ISBN_Number}`}>Available
+                                        Books </Link></button>
+                                </td>
+                                <td className="booDetails">
+                                    <button id="viewDetails" className="btn btn-danger"><Link
+                                        to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link>
+                                    </button>
                                 </td>
                             </tr>
                         ))
@@ -91,7 +108,7 @@ function ViewBookDetails() {
             </div>
 
 
-        </>
+        </div>
     )
 }
 

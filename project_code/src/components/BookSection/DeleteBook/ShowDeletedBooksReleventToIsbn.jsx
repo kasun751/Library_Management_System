@@ -1,13 +1,14 @@
 import {useEffect,useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
-import InputField from "../../SubComponents/InputFields.jsx";
 import Button from "../../SubComponents/Button.jsx";
+import './ShowDeletedBooksReleventToIsbn.css';
+
 function ShowDeletedBooksReleventToIsbn({value,submit,category}) {
 
     const [booksList, setBooksList] = useState([]);
     const [booksdetails, setBooksdetails] = useState([]);
-    const [message, setMessage] = useState('');
+
     useEffect(() => {
         if(value){
             getBookDetails({[ "isbnNumber"]: value});
@@ -20,6 +21,7 @@ function ShowDeletedBooksReleventToIsbn({value,submit,category}) {
         const fetchBooks = async () => {
             await axios.get('http://localhost:8081/project_01/controllers/ViewBookListInBackupBookTableController.php')
                 .then(response => {
+                    console.log(response.data)
                     setBooksList(response.data);
                 })
                 .catch(error => {
@@ -63,19 +65,19 @@ function ShowDeletedBooksReleventToIsbn({value,submit,category}) {
     //     //console.log(message.ISBN_Number)
     // }
     return (
-        <>
-            <div className="container">
+        <div id="showDeletedBooksRelevantToIsbn">
+            <div className="container" >
                 <br/>
-                <h4>Deleted Books</h4>
                 <hr/>
-                {booksdetails.length !== 0 ? (
-                        <Button keyword1={"RestoreAll"} keyword2={"Restore All Books"} submit={submit}/>
-                    ):""}
+                <br/>
+                <h2>Show Deleted Books</h2>
+                <br/>
                 <table className="table">
                     <thead>
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Book ID</th>
+                        <th scope="col">Restore</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -86,35 +88,31 @@ function ShowDeletedBooksReleventToIsbn({value,submit,category}) {
                                 <td className="booDetails">Result {index + 1}</td>
                                 <td className="booDetails">{book.Final_ID}</td>
                                 <td className="booDetails">
-                                    {/*<button*/}
-                                    {/*    id="availabilityDetails"*/}
-                                    {/*    className="btn btn-success"*/}
-                                    {/*    onClick={() => handleClick("restoreOnce")}*/}
-                                    {/*>*/}
-                                    {/*    Restore This*/}
-                                    {/*</button>*/}
-                                    <Button  keyword1={"RestoreOnce"} keyword2={"Restore This"} keyword3={book.Final_ID} submit={submit}/>
+                                    <Button keyword1={"RestoreOnce"} keyword2={"Restore This"} keyword3={book.Final_ID}
+                                            submit={submit} />
                                 </td>
                             </tr>
                         ))
                     ) : (
                         booksList.map((book, index) => (
                             <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{book.Final_ID}</td>
-                                <td >
-                                    <button id="availabilityDetails" className="btn btn-success"><Link to={`/viewBook/bookAvailabilityDetails/${book.ISBN_Number}`}>Available Books </Link></button>
-                                    <button id="availabilityDetails" className="btn btn-danger"><Link to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link></button>
+                                <td className="booDetails">{index + 1}</td>
+                                <td className="booDetails">{book.Final_ID}</td>
+                                <td className="booDetails">
+                                    <Button keyword1={"RestoreOnce"} keyword2={"Restore This"} keyword3={book.Final_ID}
+                                          submit={submit} />
                                 </td>
                             </tr>
                         ))
                     )}
                     </tbody>
+
                 </table>
+                {booksdetails.length !== 0 ? (
+                    <Button id={"restoreAll"} keyword1={"RestoreAll"} keyword2={"Restore All Books"} submit={submit}/>
+                ) : ""}
             </div>
-
-
-        </>
+        </div>
     )
 }
 export default ShowDeletedBooksReleventToIsbn;

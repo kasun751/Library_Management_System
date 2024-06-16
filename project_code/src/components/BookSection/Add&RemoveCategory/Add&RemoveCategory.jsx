@@ -1,11 +1,15 @@
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import axios from "axios";
 import InputField from "../../SubComponents/InputFields.jsx";
+import './Add&RemoveCategory.css';
+import CategoryList from "../../SubComponents/CategoryList.jsx";
 
 function AddRemoveCategory(){
 
     const [inputs, setInputs] = useState({});
-    const [message, setMessage] = useState('');
+    const [addMessage, setAddMessage] = useState('');
+    const [removeMessage, setRemoveMessage] = useState('');
+    const [categoryList, setCategoryList] = useState([]);
 
     const handleChange = (e) => {
 
@@ -14,12 +18,34 @@ function AddRemoveCategory(){
 
         setInputs(preValues => ({...preValues, [name]: value}))
     }
+    useEffect(() => {
+        axios.get('http://localhost:8081/project_01/controllers/CategoryController.php')
+            .then(response => {
+                console.log(response.data)
+                setCategoryList(response.data);
+            })
+            .catch(error => {
+                console.log(error.message);
+            });
+    }, []);
+    useEffect(() => {
+        const storedAddMessage = localStorage.getItem("categoryAddMessage");
+        const storedRemoveMessage = localStorage.getItem("categoryRemoveMessage");
+        if (storedAddMessage) {
+            setAddMessage(storedAddMessage);
+            localStorage.removeItem("categoryAddMessage");
+        }else if(storedRemoveMessage){
+            setRemoveMessage(storedRemoveMessage);
+            localStorage.removeItem("categoryRemoveMessage");
+        }
+    }, []);
 
     const updateDatabase = async (access) => {
         const extendedData = {
             ... inputs,
             access_parameter:access
         };
+        console.log(extendedData)
         const res = await axios.post(
             'http://localhost:8081/project_01/controllers/CategoryController.php',
             extendedData,
@@ -29,7 +55,20 @@ function AddRemoveCategory(){
                 }
             })
         const message = await res.data.resultMessage;
-        setMessage(message);
+
+        if(message==="add"){
+            localStorage.setItem("categoryAddMessage","Category Added Successfully.");
+        }else if(message==="notAdd"){
+            localStorage.setItem("categoryAddMessage","Category Not Added!");
+        }else if(message==="remove"){
+            localStorage.setItem("categoryRemoveMessage","Category remove Successfully.")
+        }else if (message==="notRemove"){
+            localStorage.setItem("categoryRemoveMessage","category Not Removed");
+        }else if(message==='tableNotEmpty'){
+
+        }
+        console.log(res.data)
+        location.reload();
     }
 
 
@@ -63,8 +102,6 @@ function AddRemoveCategory(){
             }).then(res => {
                 if (res) {
                     updateDatabase(access);
-                    //location.reload();
-                    console.log(inputs);
                 } else {
                     console.log('validateError');
                 }
@@ -76,24 +113,55 @@ function AddRemoveCategory(){
     }
 
     return (
-        <>
+        <div id="categoryAddAndRemove">
             <div id="progress">
                 <img src="" alt=""/>
             </div>
-            <form className="row g-3 needs-validation" noValidate>
+            <div id="formDivCategoryAddAndRemove">
+                <form className="row g-3 needs-validation" noValidate>
 
-                <InputField type={"text"} className={"form-control"} label="Add Category" id="validationCustomUsername" name="addCategory"
-                            value={inputs.addCategory || ""} handleChange={handleChange} required={true}
-                            feedback="Please choose a valid ISBN Number."/>
-                <div className="col-12">
-                    <button className="btn btn-primary feildDisabled" type="submit" onClick={() => submit("add")}>Add Category</button>
-                    <button className="btn btn-primary feildDisabled" type="submit" onClick={() => submit("remove")}>Remove Category</button>
-                </div>
-            </form>
-            <div>
-                <p>Response from PHP script: {message}</p>
+                    <InputField type={"text"} className={"form-control"} label="Add Category"
+                                id="validationCustomUsername" name="addCategory"
+                                value={inputs.addCategory || ""} handleChange={handleChange} required={true}
+                                feedback="Please choose a valid ISBN Number."/>
+
+                    <button id={"submit"} className="btn btn-primary feildDisabled" type="submit"
+                            onClick={() => submit("add")}>Add Category
+                    </button>
+                    <div>
+                        {addMessage && (
+                            <p id="categoryAddingResponse" style={{
+                                display: 'initial',
+                                color: addMessage === "Category Added Successfully." ? 'green' : 'red',
+                            }}>
+                                {addMessage}
+                            </p>
+                        )}
+                    </div>
+                </form>
+                <hr/>
+                <form className="row g-3 needs-validation" noValidate>
+
+                    <CategoryList value={inputs.category || ""} categoryList={categoryList}
+                                  handleChange={handleChange}/>
+                    <button id={"submit"} className="btn btn-primary feildDisabled" type="submit"
+                            onClick={() => submit("remove")}>Remove Category
+                    </button>
+                    <div>
+                        {removeMessage && (
+                            <p id="categoryRemoveResponse" style={{
+                                display: 'initial',
+                                color: removeMessage === "Category remove Successfully." ? 'green' : 'red',
+                            }}>
+                                {removeMessage}
+                            </p>
+                        )}
+                    </div>
+                </form>
             </div>
-        </>
+
+        </div>
     )
 }
+
 export default AddRemoveCategory;

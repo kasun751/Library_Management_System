@@ -1,0 +1,41 @@
+#availableNow{
+    height:100vh;
+    background-image: radial-gradient( circle farthest-corner at 48.4% 47.5%,  rgba(122,183,255,1) 0%, rgba(21,83,161,1) 90% );
+}
+
+
+#availableNow #response{
+    width: 130px;
+}
+#availableNow .container h2{
+    background-color: rgba(30, 53, 63,0.4) !important;
+    color:white;
+    text-align: center;
+    text-decoration: underline;
+    padding: 10px!important;
+    border-radius: 20px;
+}
+
+#availableNow .container input{
+    width: 250px!important;
+    margin-bottom: 20px !important;
+}
+#availableNow .container table td  button{
+    /*margin-top: 0!important;*/
+    /*width: auto!important;*/
+    /*opacity: 0.88;*/
+}
+#availableNow #availableAll{
+    background-color: #1E3541 !important;
+    border: none!important;
+    color: yellow;
+    width: 200px;
+    margin-top: 10px!important;
+    padding: 8px!important;
+
+}
+.input-and-button {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adjust the gap as needed */
+}

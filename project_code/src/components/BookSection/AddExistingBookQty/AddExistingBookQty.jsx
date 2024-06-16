@@ -1,11 +1,12 @@
-import {useState,useEffect} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
+import "./AddExistingBookQty.css"
 import Button from "../../SubComponents/Button.jsx";
 import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
 import SetAvailability from "../../SubComponents/SetAvailability.jsx";
 
-function AddExistingBookQty(){
+function AddExistingBookQty() {
 
     const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState('');
@@ -14,15 +15,16 @@ function AddExistingBookQty(){
     const [nextBookID, setNextBookID] = useState('');
     const [categoryList, setCategoryList] = useState([]);
     const handleChange = (e) => {
-        if (e.target.name=="isbnNumber"){
+        if (e.target.name == "isbnNumber") {
             getISBNData({
-                [e.target.name]: e.target.value,
-                id:e.target.id}
+                    [e.target.name]: e.target.value,
+                    id: e.target.id
+                }
             );
-            setData(preValues => ({...preValues, [e.target.name]:e.target.value }));
+            setData(preValues => ({...preValues, [e.target.name]: e.target.value}));
         }
-        if (e.target.name=="category" ){
-            setData(preValues => ({...preValues, [e.target.name]:e.target.value}));
+        if (e.target.name == "category") {
+            setData(preValues => ({...preValues, [e.target.name]: e.target.value}));
         }
 
         const name = e.target.name;
@@ -30,24 +32,42 @@ function AddExistingBookQty(){
 
         setInputs(preValues => ({...preValues, [name]: value}))
     }
+    useEffect(() => {
+        const storedMessage = localStorage.getItem("message");
+        if (storedMessage) {
+            setMessage(storedMessage);
+        }
+        localStorage.removeItem("message");
+
+    }, []);
 
     const updateDatabase = async () => {
+        const extendData={
+            ...inputs,
+            parameter:0
+        }
+        console.log(extendData)
         const res = await axios.post(
             'http://localhost:8081/project_01/controllers/UpdateExistingBookQtyController.php',
-            inputs,
+            extendData,
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
         const message = await res.data.resultMessage;
-        setMessage(message);
+        if(message==="true"){
+            localStorage.setItem("message","Book Added successfully.");
+        }else {
+            localStorage.setItem("message","Book Not Added!");
+        }
+        location.reload();
     }
 // get ID
     const getBookID = async () => {
         const extendedData = {
             ...data,
-            dataGetting_parameter:0
+            dataGetting_parameter: 0
         };
         console.log(extendedData)
         const res = await axios.post(
@@ -78,14 +98,14 @@ function AddExistingBookQty(){
                 }
             })
         const message = await res.data;
-        if(message && message.Category && message.Category.length >0){
-            setData(preValues => ({...preValues, ["category"]:message.Category}));
+        if (message && message.Category && message.Category.length > 0) {
+            setData(preValues => ({...preValues, ["category"]: message.Category}));
         }
         switch (message.ISBN_Number) {
             case undefined:
-                inputEnable_disable(false,"#dee2e6");
+                inputEnable_disable(false, "#dee2e6");
                 break;
-            case (message.ISBN_Number).length>0:
+            case (message.ISBN_Number).length > 0:
                 inputEnable_disable(true);
                 break;
             default:
@@ -103,9 +123,10 @@ function AddExistingBookQty(){
                 console.log(error.message);
             });
     }, []);
-    function inputEnable_disable(feedback){
+
+    function inputEnable_disable(feedback) {
         let inputFields = document.querySelector(".feildDisabled");
-            inputFields.disabled=feedback;
+        inputFields.disabled = feedback;
 
 
     }
@@ -154,30 +175,57 @@ function AddExistingBookQty(){
 
     return (
         <>
+        <div id="addExistingBook">
             <div id="progress">
                 <img src="" alt=""/>
             </div>
-            <form className="row g-3 needs-validation" noValidate>
-                <InputField label={"Next Book ID"} type={"text"} id={"validationCustomUsername"} className={"form-control"}
-                            value={nextBookID || ""} placeholder={"Auto fill"} disabled={true}/>
-                <CategoryList value={inputs.category || isbnMessage.Category || ""} categoryList={categoryList}
-                              handleChange={handleChange}/>
-                <InputField label={"ISBN Number"} id={"normalBook"} className={"form-control"}
-                            name={"isbnNumber"} type={"text"} feedback={"ISBN Number."} handleChange={handleChange}/>
-               <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
-                           placeholder={isbnMessage.BookName} type={"text"} disabled={true} handleChange={handleChange}
-                           feedback={"Book Name."}/>
+            <div id="formDivAddExistingBook">
+                <form className="row g-3 needs-validation" noValidate>
+                    <h1>Add Existing Book</h1>
+                    <div className="row justify-content-center">
+                        <div className="col-xl-4 col-md-6">
+                            <InputField label={"ISBN Number"} id={"normalBook"} className={"form-control"}
+                                        name={"isbnNumber"} type={"text"} feedback={"ISBN Number."}
+                                        handleChange={handleChange}/>
 
-                <InputField label={"Add More QTY"} type={"number"} className={"form-control feildDisabled"}
-                            name={"addNewQty"} placeholder={isbnMessage.Qty} id={"validationCustomUsername"}
-                            handleChange={handleChange} feedback={"quantity."}/>
-                <SetAvailability handleChange={handleChange}  parameter="addBook" keyword1={"Available Now"} keyword2={"Still Not Added To Library"}/>
-                <Button keyword2={"Add Qty"} submit={submit} />
-            </form>
-            <div>
-                <p>Response from PHP script: {message}</p>
-                <p>ISBN Response from PHP script: {isbnMessage.ISBN_Number}</p>
+                            <InputField label={"Add More QTY"} type={"number"} className={"form-control "}
+                                        name={"addNewQty"} placeholder={isbnMessage.Qty} id={"validationCustomUsername"}
+                                        handleChange={handleChange} feedback={"quantity."}/>
+                            <SetAvailability handleChange={handleChange} parameter="addBook" keyword1={"Available Now"}
+                                             keyword2={"Still Not Added To Library"}/>
+                        </div>
+                        <div className="col-xl-4 col-md-6">
+
+                            <InputField label={"Next Book ID"} type={"text"} id={"validationCustomUsername"}
+                                        className={"form-control"}
+                                        value={nextBookID || ""} placeholder={"Auto fill"} disabled={true}/>
+                            <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"}
+                                        name={"bookName"}
+                                        placeholder={isbnMessage.BookName} type={"text"} disabled={true}
+                                        handleChange={handleChange}
+                                        feedback={"Book Name."}/>
+                            <CategoryList value={inputs.category || isbnMessage.Category || ""}
+                                          categoryList={categoryList}
+                                          handleChange={handleChange}/>
+                        </div>
+                        <div className="col-12 col-xl-8">
+                            <Button id={"submit"} keyword2={"Add Qty"} submit={submit} className="w-100"/>
+                        </div>
+                    </div>
+                    <div>
+                        {message && (
+                            <p id="categoryAddingResponse" style={{
+                                display: 'initial',
+                                color: message === "Book Added successfully." ? 'green' : 'red',
+                            }}>
+                                {message}
+                            </p>
+                        )}
+                    </div>
+                </form>
             </div>
+
+        </div>
         </>
     )
 }

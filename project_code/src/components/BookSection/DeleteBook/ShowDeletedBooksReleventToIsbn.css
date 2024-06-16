@@ -1,0 +1,29 @@
+
+#showDeletedBooksRelevantToIsbn .container h2{
+    background-color: rgba(30, 53, 63,0.4) !important;
+    color:white;
+    text-align: center;
+    text-decoration: underline;
+    padding: 10px!important;
+    border-radius: 20px;
+}
+
+#showDeletedBooksRelevantToIsbn .container table td .col-12 button{
+    margin-top: 0!important;
+    width: auto!important;
+    background-color:  #1E3541!important;
+    /*border: none!important;*/
+    opacity: 0.88;
+}
+#showDeletedBooksRelevantToIsbn .container table td .col-12{
+    width:300px !important;
+    margin-right: -400px!important;
+    /*padding-right: -100px!important;*/
+}
+#showDeletedBooksRelevantToIsbn .container #restoreAll{
+    background-color: #1E3541 !important;
+    width: 100%!important;
+    margin-top: 40px!important;
+    color: yellow;
+    border: none!important;
+}

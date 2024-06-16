@@ -1,3 +1,4 @@
+
 function SetAvailability({handleChange,parameter,disabled=false,disabled2=false,keyword1,keyword2}) {
     let notAvailable;
     switch(parameter) {
@@ -9,7 +10,7 @@ function SetAvailability({handleChange,parameter,disabled=false,disabled2=false,
             break;
     }
     return (
-        <div className="col-md-3 ">
+        <div className="col-12 ">
             <label htmlFor="validationAvailability" className="form-label">Set Availability</label>
             <input type="hidden" name="parameter" value={parameter || ""}/>
             <select className="form-select" id="validationAvailability" required name="setAvailability" onChange={handleChange}>

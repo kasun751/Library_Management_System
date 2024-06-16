@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
 import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
 import Button from "../../SubComponents/Button.jsx";
+import './DeleteSomeBooks.css'
 
-function IssueBook(){
+function IssueBook() {
     const [inputs, setInputs] = useState({});
     const [message, setMessage] = useState('');
     const [bookIdDetails, setBookIdDetails] = useState({});
@@ -23,8 +23,14 @@ function IssueBook(){
         setInputs(preValues => ({...preValues, [name]: value}))
     }
 
+    useEffect(() => {
+        const storedAddMessage = localStorage.getItem("message");
+        if (storedAddMessage) {
+            setMessage(storedAddMessage);
+        }
+        localStorage.removeItem("message");
 
-
+    }, []);
     //check isbn exists or not        check this
     const getBookIdDetails = async (bookID) => {
         const res = await axios.post(
@@ -109,6 +115,7 @@ function IssueBook(){
 
         })()
     }
+
     const deleteBook = async () => {
         const extendedData = {
             ...data,
@@ -124,38 +131,57 @@ function IssueBook(){
                 }
             })
         const message = await res.data.resultMessage;
-        console.log(message)
-        setMessage(message);
-        //console.log(message.ISBN_Number)
+        if (message === "true") {
+            localStorage.setItem("message", "Delete Successfully!");
+        } else {
+            localStorage.setItem("message", "Failed!");
+        }
+        location.reload();
     }
 
 
     return (
-        <>
-            <div id="singleBooksDelete">
-                <div id="progress">
-                    <img src="" alt=""/>
-                    <h1>Delete Some Books </h1>
-                </div>
-
-                <form className="row g-3 needs-validation" noValidate>
-                    <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"} placeholder="Auto fill"
-                                name={"bookID"} type={"text"} handleChange={handleChange} feedback={"Book ID."}/>
-                    <CategoryList value={inputs.category || bookIdDetails.Category || ""} categoryList={categoryList}
-                                  handleChange={handleChange}/>
-                    <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"} name={"bookName"}
-                                placeholder={bookIdDetails.BookName} type={"text"} handleChange={handleChange} disabled={true}
-                                feedback={"Book Name."}/>
-                    <InputField label={"Current Availability"} id={"validationCustom01"} className={"form-control"} name={"currentAvailability"}
-                                placeholder={bookIdDetails.Availability} type={"text"} disabled={true}/>
-                    <Button keyword2={"Delete Book"} submit={submit}/>
-                </form>
-                <div>
-                    <p>Response from PHP script: {message}</p>
-                    <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>
-                </div>
+        <div id="singleBooksDelete">
+            <div id="progress">
+                <img src="" alt=""/>
             </div>
-        </>
+            <div id="formDivSingleBooksDelete">
+                <form className="row g-3 needs-validation" noValidate>
+                    <h1>Delete Single Book</h1>
+                    <p style={{
+                        color: message === "Delete Successfully!" ? 'green' : 'red',
+                    }}>{message}</p>
+                    <div className="row justify-content-center">
+                        <div className="col-xl-4 col-md-6 col-sm-12">
+                            <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"}
+                                        placeholder="Auto fill"
+                                        name={"bookID"} type={"text"} handleChange={handleChange}
+                                        feedback={"Book ID."}/>
+                            <CategoryList value={inputs.category || bookIdDetails.Category || ""}
+                                          categoryList={categoryList}
+                                          handleChange={handleChange}/>
+                        </div>
+                        <div className="col-xl-4 col-md-6 col-sm-12">
+                            <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"}
+                                        name={"bookName"}
+                                        placeholder={bookIdDetails.BookName} type={"text"}
+                                        handleChange={handleChange} disabled={true}
+                                        feedback={"Book Name."}/>
+                            <InputField label={"Current Availability"} id={"validationCustom01"}
+                                        className={"form-control"} name={"currentAvailability"}
+                                        placeholder={bookIdDetails.Availability} type={"text"} disabled={true}/>
+                        </div>
+                        <div className="col-12 col-xl-8">
+                            <Button id={"submit"} keyword2={"Delete Book"} submit={submit}/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {/*<div>*/}
+            {/*    <p>Response from PHP script: {message}</p>*/}
+            {/*    <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>*/}
+            {/*</div>*/}
+        </div>
     )
 }
 

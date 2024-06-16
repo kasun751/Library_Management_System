@@ -5,6 +5,7 @@ import CategoryList from "../../SubComponents/CategoryList.jsx";
 import SetAvailability from "../../SubComponents/SetAvailability.jsx";
 import Button from "../../SubComponents/Button.jsx";
 import {Link} from "react-router-dom";
+import './IsuueBook.css';
 
 function IssueBook() {
     const [inputs, setInputs] = useState({});
@@ -76,11 +77,11 @@ function IssueBook() {
 
         let submitButton = document.getElementById("submitButton");
         let validationCurrentAvailability1 = document.getElementById("validationCurrentAvailability1");
-        if(message.Availability!=="available"){
+        if (message.Availability !== "available") {
             submitButton.disabled = true;
             validationCurrentAvailability1.style.borderColor = "red";
             validationCurrentAvailability1.style.boxShadow = "2px 2px 2px red";
-        }else{
+        } else {
             submitButton.disabled = false;
             validationCurrentAvailability1.style.borderColor = ""; // Reset to default or remove
             validationCurrentAvailability1.style.boxShadow = "";
@@ -247,8 +248,8 @@ function IssueBook() {
 
     const returnBook = async () => {
         const extendedData = {
-            category:returnBookIdDetails.category,
-            userID:returnBookIdDetails.userID,
+            category: returnBookIdDetails.category,
+            userID: returnBookIdDetails.userID,
             ...returnBookInputs
         };
         console.log(extendedData)
@@ -266,35 +267,67 @@ function IssueBook() {
 
     }
     return (
-        <>
-            <div id="singleBooksDelete">
+        <div id="issueAndReturn">
+            <div id="issueBook">
                 <div id="progress">
                     <img src="" alt=""/>
-                    <h1>Issue Books To Customer</h1>
                 </div>
-                <form className="row g-3 needs-validation" noValidate>
-                    <InputField label={"Book ID"} id={"validationBookID1"} className={"form-control"}
-                                name={"bookID"} type={"text"} handleChange={handleChange} feedback={"Book ID."}/>
-                    <CategoryList value={inputs.category || bookIdDetails.Category || ""} categoryList={categoryList}
-                                  handleChange={handleChange}/>
-                    <InputField label={"Book Name"} id={"validationBookName1"} className={"form-control"}
-                                handleChange={handleChange}
-                                name={"bookName"} placeholder={bookIdDetails.BookName} type={"text"}
-                                feedback={"Book Name."} disabled={true}/>
-                    <InputField label={"Current availability"} id={"validationCurrentAvailability1"}
-                                className={"form-control"} name={"Availability"} handleChange={handleChange}
-                                placeholder={bookIdDetails.Availability} type={"text"}
-                                feedback={"Current availability."} disabled={true}/>
-                    <InputField label={"User ID"} id={"validationUserID1"} className={"form-control"} name={"userID"}
-                                type={"text"} feedback={"User ID."} handleChange={handleChange}/>
-                    <InputField label={"Member Name"} id={"validationMemberName1"} className={"form-control"}
-                                name={"userName"} disabled={true} value={userIDDetails.userName || ""} type={"text"}
-                                feedback={"Member Name."} handleChange={handleChange}/>
-                    <SetAvailability keyword1={""} keyword2={"Issue to customer"} parameter="issueBook"
-                                     handleChange={handleChange}  disabled={true}/>
-                    <Button id="submitButton" keyword2={"Issue Book"} submit={submit}/>
-                    <Link className="btn btn-success" to={"/issueBook/requestList"}>Books Requests </Link>
-                </form>
+                <div id="formDivIssueBook">
+                    <form className="row g-3 needs-validation" noValidate>
+                        <h1>Issue Books To Customer</h1>
+                        <br/><br/><br/><br/><br/><br/>
+                        <div className="row justify-content-center">
+                            <h3>Book Details</h3>
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <InputField label={"Book ID"} id={"validationBookID1"} className={"form-control"}
+                                            name={"bookID"} type={"text"} handleChange={handleChange}
+                                            feedback={"Book ID."}/>
+                                <InputField label={"Book Name"} id={"validationBookName1"} className={"form-control"}
+                                            handleChange={handleChange}
+                                            name={"bookName"} placeholder={bookIdDetails.BookName} type={"text"}
+                                            feedback={"Book Name."} disabled={true}/>
+
+                            </div>
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <CategoryList value={inputs.category || bookIdDetails.Category || ""}
+                                              categoryList={categoryList}
+                                              handleChange={handleChange}/>
+                                <InputField label={"Current availability"} id={"validationCurrentAvailability1"}
+                                            className={"form-control"} name={"Availability"} handleChange={handleChange}
+                                            placeholder={bookIdDetails.Availability} type={"text"}
+                                            feedback={"Current availability."} disabled={true}/>
+                            </div>
+                        </div>
+
+                        <div className="row justify-content-center">
+                            <h3>User Details</h3>
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <InputField label={"User ID"} id={"validationUserID1"} className={"form-control"}
+                                            name={"userID"}
+                                            type={"text"} feedback={"User ID."} handleChange={handleChange}/>
+
+                            </div>
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+
+                                <InputField label={"Member Name"} id={"validationMemberName1"}
+                                            className={"form-control"}
+                                            name={"userName"} disabled={true} value={userIDDetails.userName || ""}
+                                            type={"text"}
+                                            feedback={"Member Name."} handleChange={handleChange}/>
+                            </div>
+
+                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+                                <SetAvailability keyword1={""} keyword2={"Issue to customer"} parameter="issueBook"
+                                                 handleChange={handleChange} disabled={true}/>
+                            </div>
+
+                            <Button id="submitButton" keyword2={"Issue Book"} submit={submit}/>
+                            <Link id="requestBook" className="btn btn-success" to={"/issueBook/requestList"}>View Books
+                                Requests </Link>
+                        </div>
+                    </form>
+                </div>
                 <div>
                     <p>Response from PHP script: {message}</p>
                     <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>
@@ -302,53 +335,73 @@ function IssueBook() {
             </div>
             <hr/>
 
-            <div id="singleBooksDelete">
+            <div id="returnBook">
                 <div id="progress">
                     <img src="" alt=""/>
-                    <h1>Return Book</h1>
+
                 </div>
-                <form className="row g-3 needs-validation" noValidate>
-                    <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"}
-                                name={"returnBookID"} type={"text"} handleChange={returnHandleChange}
-                                feedback={"Book ID."}/>
-                    <SetAvailability keyword1={"Return Book"} keyword2={""} parameter="issueBook" disabled2={true}
-                                     handleChange={returnHandleChange}/>
-                    <InputField label={"Book Name"} id={"validationBookName"} className={"form-control"}
-                                value={returnBookIdDetails.bookName || ""} name={"returnBookName"} type={"text"}
-                                feedback={"Book Name."} disabled={true}/>
-                    <CategoryList value={returnBookIdDetails.category || ""} categoryList={categoryList}
-                                  disabled1={true} handleChange={returnHandleChange}/>
-                    <InputField label={"Current availability"} id={"validationCurrentAvailability"}
-                                value={returnBookIdDetails.availability || ""} className={"form-control"}
-                                name={"returnAvailability"}
-                                type={"text"} feedback={"Current availability."} disabled={true}/>
-                    <InputField label={"User ID"} id={"validationUserID"} className={"form-control"}
-                                name={"returnUserID"} handleChange={returnHandleChange}
-                                value={returnBookIdDetails.userID || ""} type={"text"} feedback={"User ID."}
-                                disabled={true}/>
-                    <InputField label={"Member Name"} id={"validationMemberName"} className={"form-control"}
-                                value={returnBookIdDetails.fullName || ""} name={"returnUserName"} disabled={true}
-                                type={"text"} feedback={"Member Name."}/>
-                    <p>Fine Calculation:{returnBookIdDetails.fine}</p>
-                    <div className="col-12">
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" value="" id="invalidCheck" required/>
-                            <label className="form-check-label" htmlFor="invalidCheck">
-                                Confirm: Getting the fine amount correctly.
-                            </label>
-                            <div className="invalid-feedback">
-                                You must agree before submitting.
+                <div id="formDivReturnBook">
+                    <form className="row g-3 needs-validation" noValidate>
+                        <h1>Return Book</h1>
+                        <div className="row justify-content-center">
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"}
+                                            name={"returnBookID"} type={"text"} handleChange={returnHandleChange}
+                                            feedback={"Book ID."}/>
+                                <InputField label={"Member Name"} id={"validationMemberName"} className={"form-control"}
+                                            value={returnBookIdDetails.fullName || ""} name={"returnUserName"}
+                                            disabled={true}
+                                            type={"text"} feedback={"Member Name."}/>
+
+                                <InputField label={"Book Name"} id={"validationBookName"} className={"form-control"}
+                                            value={returnBookIdDetails.bookName || ""} name={"returnBookName"}
+                                            type={"text"}
+                                            feedback={"Book Name."} disabled={true}/>
+                            </div>
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <CategoryList value={returnBookIdDetails.category || ""} categoryList={categoryList}
+                                              disabled1={true} handleChange={returnHandleChange}/>
+                                <InputField label={"Current availability"} id={"validationCurrentAvailability"}
+                                            value={returnBookIdDetails.availability || ""} className={"form-control"}
+                                            name={"returnAvailability"}
+                                            type={"text"} feedback={"Current availability."} disabled={true}/>
+                                <InputField label={"User ID"} id={"validationUserID"} className={"form-control"}
+                                            name={"returnUserID"} handleChange={returnHandleChange}
+                                            value={returnBookIdDetails.userID || ""} type={"text"} feedback={"User ID."}
+                                            disabled={true}/>
+                            </div>
+
+                            <p>Fine Calculation:{returnBookIdDetails.fine}</p>
+
+                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+                                <SetAvailability keyword1={"Return Book"} keyword2={""} parameter="issueBook"
+                                                 disabled2={true}
+                                                 handleChange={returnHandleChange}/>
                             </div>
                         </div>
-                    </div>
-                    <Button keyword2={"Return Book"} submit={returnSubmit}/>
-                </form>
+
+                        <div >
+                            <div className="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="verifyFine"
+                                       required/>
+                                <label className="form-check-label" htmlFor="verifyFine">
+                                    Confirm: Getting the fine amount correctly.
+                                </label>
+                                <div className="invalid-feedback">
+                                    You must agree before submitting.
+                                </div>
+                            </div>
+                        </div>
+                        <Button id={"returnBook"} keyword2={"Return Book"} submit={returnSubmit}/>
+                    </form>
+                </div>
                 <div>
                     <p>Response from PHP script: {message}</p>
                     <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

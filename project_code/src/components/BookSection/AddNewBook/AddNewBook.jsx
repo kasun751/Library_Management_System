@@ -14,7 +14,14 @@ function AddNewBook() {
     const [isbnMessage, setIsbnMessage] = useState({});
     const [categoryList, setCategoryList] = useState([]);
 
-    // const y="enabled";
+    useEffect(() => {
+        const storedAddMessage = localStorage.getItem("message");
+        if (storedAddMessage) {
+            setMessage(storedAddMessage);
+        }
+        localStorage.removeItem("message");
+
+    }, []);
 
     const handleChange = (e) => {
         if (e.target.name == "isbnNumber") {
@@ -41,8 +48,12 @@ function AddNewBook() {
                 }
             })
         const message = await res.data.resultMessage;
-        console.log(res.data)
-        await setMessage(message);
+        if(message==="true"){
+            localStorage.setItem("message","Book Added successfully.");
+        }else {
+            localStorage.setItem("message","Book Not Added!");
+        }
+        location.reload();
     }
 
     //check isbn exists or not
@@ -123,7 +134,6 @@ function AddNewBook() {
             }).then(res => {
                 if (res) {
                     updateDatabase();
-                    // location.reload();
                     console.log(inputs);
                 } else {
                     console.log('validateError');
@@ -141,11 +151,21 @@ function AddNewBook() {
             <div id="progress">
                 <img src="" alt=""/>
             </div>
-            <div id="formDiv">
+            <div id="formDivAddNewBook">
                 <form className="row g-3 needs-validation" noValidate>
                     <h1>Add New Book</h1>
+                    <div>
+                        {message && (
+                            <p id="categoryAddingResponse" style={{
+                                display: 'initial',
+                                color: message === "Book Added successfully." ? 'green' : 'red',
+                            }}>
+                                {message}
+                            </p>
+                        )}
+                    </div>
                     <div className="row">
-                        <div className="col-xl-4 col-md-6" >
+                        <div className="col-xl-4 col-md-6 col-sm-12">
                             <InputField label={"ISBN Number"} id={"normalBook"} className={"form-control"}
                                         name={"isbnNumber"} type={"text"} handleChange={handleChange}
                                         feedback={"ISBN Number."}/>
@@ -192,22 +212,20 @@ function AddNewBook() {
                                              keyword2={"Still Not Added To Library"}/>
                         </div>
 
-                        <div className="col-md-6 col-sm-12">
+                        <div className="col-xl-12 col-lg-6 col-md-6 col-sm-12">
                             <label htmlFor="validationCustom03" className="form-label ">Description</label>
                             <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50"
                                       name="description"
                                       placeholder={isbnMessage.Description} onChange={handleChange} required/>
-                            <Button id={"submit"} keyword2={"Add Book"} submit={submit}/>
+
                         </div>
+
+                        <Button id={"submit"} keyword2={"Add Book"} submit={submit}/>
+
                     </div>
-
-
                 </form>
             </div>
-            <div>
-                <p>Response from PHP script: {message}</p>
-                <p>ISBN Response from PHP script: {isbnMessage.ISBN_Number}</p>
-            </div>
+
         </div>
     )
 }

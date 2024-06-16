@@ -1,0 +1,65 @@
+#issueAndReturn{
+    background: url('../../../assets/images/IssueAndReturnBook.jpg') 50% / cover no-repeat;
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+#issueAndReturn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../../../assets/images/IssueAndReturnBook.jpg') 50% / cover no-repeat;
+    filter: blur(0px);
+    z-index: -1;
+    opacity: 0.8;
+}
+#formDivIssueBook ,#formDivReturnBook{
+    width: 91%;
+    margin: auto;
+    padding: 20px 40px;
+    border-radius: 20px;
+    background-color: rgba(161, 171, 177, 0.88);
+    position: relative;
+    z-index: 2;
+    border: white 2px solid;
+}
+#formDivIssueBook h1 ,#formDivReturnBook h1{
+    text-align: center;
+}
+#formDivIssueBook label ,#formDivReturnBook label{
+    width: 100%;
+    font-weight: 600;
+    margin-top: 13px;
+}
+
+#formDivIssueBook button ,#formDivReturnBook button{
+    background-color: #1E3541 !important;
+    border: none!important;
+    margin-top: 20px;
+    width: 220px;
+}
+#formDivIssueBook button a,#formDivReturnBook button a{
+    color: white!important;
+    text-decoration: none;
+}
+#formDivIssueBook #submitButton ,#formDivReturnBook #returnBook {
+    width: 100%!important;
+
+    margin-top: 40px!important;
+    color: yellow;
+}
+#requestBook{
+    width: 200px;
+    position: absolute;
+    top:100px;
+    right: 80px;
+}
+#verifyFine{
+    width: 20px!important;
+    position: relative;
+    top:13px;
+}

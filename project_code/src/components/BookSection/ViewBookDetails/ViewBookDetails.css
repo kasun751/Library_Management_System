@@ -1,4 +1,28 @@
 .booDetails{
-    background-color: rgba(154, 8, 8, 0.56) !important;
+    background-color: rgba(1, 8, 25, 0.56) !important;
     color: white !important;
+}
+#ViewBookDetails{
+    height:100vh;
+    background-image: radial-gradient( circle farthest-corner at 48.4% 47.5%,  rgba(122,183,255,1) 0%, rgba(21,83,161,1) 90% );
+}
+#ViewBookDetails .container h2{
+    background-color: rgba(30, 53, 63,0.4) !important;
+    color:white;
+    text-align: center;
+    text-decoration: underline;
+    padding: 10px!important;
+    border-radius: 20px;
+}
+#ViewBookDetails .container label{
+    color: white;
+    font-weight: 600;
+}
+#ViewBookDetails .container input{
+    width: 250px!important;
+    margin-bottom: 20px !important;
+}
+#ViewBookDetails button a{
+    color: white;
+    text-decoration: none;
 }
