@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './BodyPost.css';
 import ReplyBox from '../ReplyBoxComponent/ReplyBox';
 import axios from 'axios';
@@ -6,8 +6,10 @@ import SubmitPostForm from '../FormComponents/SubmitPostForm';
 import ImageSlider from '../ImageSliderComponent/ImageSlider';
 import DescriptionBox from '../PostComponents/DescriptionBox'
 import ReportComponent from '../ReportComponent/ReportComponent';
+import { postRefresh } from '../BodyComponents/BodyComponent';
+import { userAuthentication } from '../../App';
 
-function BodyPost({ post,user_id, onClickRefresh }) {
+function BodyPost({ post}) {
   const [reply, setReply] = useState('');
   const [replyBulk, setReplyBulk] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -18,6 +20,9 @@ function BodyPost({ post,user_id, onClickRefresh }) {
   const [isAvailable,setIsAvailable] = useState(false);
   const [isDelete,setIsDelete] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
+
+  const {handleRefresh} = useContext(postRefresh);
+  const {user_id, user_type} = useContext(userAuthentication)
 
 
   useEffect(() => {
@@ -31,7 +36,7 @@ function BodyPost({ post,user_id, onClickRefresh }) {
 
   async function getReplyMsgFromDB() {
     try {
-      const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php?post_id=${post.post_id}`);
+      const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/Controller/replyMsgController.php?post_id=${post.post_id}`);//ok
       setReplyBulk(res.data);
     } catch (err) {
       console.error(err);
@@ -40,7 +45,7 @@ function BodyPost({ post,user_id, onClickRefresh }) {
 
   async function handleLoadSavePost(){
     try{
-      const response = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-postManager.php?user_id=${user_id}`)
+      const response = await axios.get(`http://localhost:80/project_1/AskFromCommunity/Controller/userSavedPostController.php?user_id=${user_id}`)//ok
       response.data.map((item)=>{
           if(item.post_id==post.post_id){
             setSavePost(true);
@@ -52,8 +57,8 @@ function BodyPost({ post,user_id, onClickRefresh }) {
   }
 
   async function handleRemoveSavePost(){
-    try{
-      await axios.delete(`http://localhost:80/project_1/AskFromCommunity/User-postManager.php`,{
+    try{ //ok
+      await axios.delete(`http://localhost:80/project_1/AskFromCommunity/Controller/userSavedPostController.php`,{
         data:{
           user_id:user_id,
           post_id:post.post_id
@@ -65,8 +70,8 @@ function BodyPost({ post,user_id, onClickRefresh }) {
   }
 
   async function handleSetSavePost(){
-    try{
-      await axios.post(`http://localhost:80/project_1/AskFromCommunity/User-postManager.php`,{
+    try{ //ok
+      const res = await axios.post(`http://localhost:80/project_1/AskFromCommunity/Controller/userSavedPostController.php`,{
         user_id:user_id,
         post_id:post.post_id
       });
@@ -82,26 +87,18 @@ function BodyPost({ post,user_id, onClickRefresh }) {
 
   async function handleReport(){
     setIsReportOpen(isReportOpen?false:true);
-    // try{
-    //     await axios.put(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
-    //         post_id : post.post_id,
-    //         report_status : 1
-    //     });
-        
-    // }catch(err){
-    //     console.error(err);
-    // }
   }
 
   async function setReplyMsgToDB() {
     try {
       setLoading(true);
-      await axios.post(`http://localhost:80/project_1/AskFromCommunity/ReplyMsgManager.php`, {
+      await axios.post(`http://localhost:80/project_1/AskFromCommunity/Controller/replyMsgController.php`, {
         post_id: post.post_id,
         user_id: user_id,
         reply_msg: reply
-      });
-      setReplyBulk([...replyBulk, { post_id: post.post_id, reply_msg: reply, user_id:user_id }]);
+      }); //ok
+      getReplyMsgFromDB()
+      //setReplyBulk([...replyBulk, { post_id: post.post_id, reply_msg: reply, user_id:user_id }]);
       setReply('');
     } catch (err) {
       console.error(err);
@@ -111,8 +108,8 @@ function BodyPost({ post,user_id, onClickRefresh }) {
   }
   async function handleEdit(){
     setEditForm(editForm? false:true);
-    try{
-      const response = await axios.get(`http://localhost:80/project_1/AskFromCommunity/PostManager.php?post_id=${post.post_id}`); 
+    try{ //ok
+      const response = await axios.get(`http://localhost:80/project_1/AskFromCommunity/Controller/postController.php?post_id=${post.post_id}`); 
       setEditedPost(response.data[0]);
     }catch(err){
       console.error(err);
@@ -121,15 +118,14 @@ function BodyPost({ post,user_id, onClickRefresh }) {
   }
   
   async function handleDelete(){    
-    try{
-      const res = await axios.delete(`http://localhost:80/project_1/AskFromCommunity/PostManager.php`,{
+    try{ //ok
+      await axios.delete(`http://localhost:80/project_1/AskFromCommunity/Controller/postController.php`,{
       data:{
-        post_id:post.post_id,
-        status:"deletePost"
+        post_id:post.post_id
       }
     });
     setIsDelete(true);
-    onClickRefresh();
+    handleRefresh();
     }catch(err){
       console.error(err);
     }
@@ -149,7 +145,7 @@ function BodyPost({ post,user_id, onClickRefresh }) {
 
   return (
     <>
-      {!isDelete && <div className='postComponent'>
+      {!isDelete && <div className='container  postComponent col-lg-12 col-sm-12'>
         <div className='image-box'>
           <div className='post-btn-panel'>
               <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
@@ -164,26 +160,31 @@ function BodyPost({ post,user_id, onClickRefresh }) {
               </div>                               
             </div>            
         </div>
-        <div className='contentBox'>
+        <div className='contentBox col-lg-10'>
           <div className='title-box'>
               <h1>{post.title}</h1>
               <DescriptionBox description={post.description} />
-                  <input
+                <input
                       type='text'
                       value={reply}
                       placeholder='enter your reply'
                       onChange={(e) => setReply(e.target.value)}
                   />
-                  <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
-                  <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
+                  <div className='post-msg-btn'>
+                    <img src="src\Images\send-reply.svg" alt="" onClick={handleSendReply} />
+                    <img src={visible ? "src/Images/not-see.svg" : "src/Images/look.svg"} alt="" onClick={handleVisibility} />
+                  </div>
+                  {/* <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
+                  <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button> */}
           </div>
           <div className='replyBox'>
             {visible && replyBulk.map((item, index) => (
-                <ReplyBox  key={index} post_id2={post.post_id} user_id={user_id} item = {item}/>
+                <ReplyBox  key={index} post_id2={post.post_id} item = {item}/>
             ))}
           </div>
         </div>
-      </div>}
+      </div>
+      }
       {editedPost && editForm && (
                 <SubmitPostForm
                     category={editedPost.category}
@@ -196,7 +197,7 @@ function BodyPost({ post,user_id, onClickRefresh }) {
                 />
             )}
       {isReportOpen &&
-          <ReportComponent onClose={() => setIsReportOpen(isReportOpen?false:true)} openFeild1={isReportOpen} user_id={user_id} post_id={post.post_id} reportType={"post"} reply_id={""}/>
+          <ReportComponent onClose={() => setIsReportOpen(isReportOpen?false:true)} openFeild1={isReportOpen} post_id={post.post_id} reportType={"post"} reply_id={""}/>
       }
 
     </>

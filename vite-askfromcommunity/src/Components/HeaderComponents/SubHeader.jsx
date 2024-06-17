@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './SubHeader.css'
 import SidePanel from '../SidePanelComponent/SidePanel';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { postRefresh } from '../BodyComponents/BodyComponent';
+import { userAuthentication } from '../../App';
 
-function SubHeader({onClickRefresh, onChangeTitle, user_id, user_type}) {
+function SubHeader({ onChangeTitle}) {
 
   const [savePostVisible,setSavePostVisible] = useState(false);
   const [myPostVisible,setMyPostVisible] = useState(false);
   const [reportPostsVisible,setReportPostVisible] = useState(false);
   const [reportMsgVisible,setReportMsgVisible] = useState(false);
   const [titleField, setTitleField] = useState("");
+
+  const {handleRefresh} = useContext(postRefresh);
+  const {user_id, user_type} = useContext(userAuthentication)
+
 const mySavedPost = () =>{
   setSavePostVisible(savePostVisible? false:true);
   setReportPostVisible(false);
@@ -56,7 +62,7 @@ useEffect(() => {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <Nav.Link><img className='menu-btn' src='src\Images\refresh-btn.svg' alt="Reacted Posts" onClick={onClickRefresh}/>
+                  <Nav.Link><img className='menu-btn' src='src\Images\refresh-btn.svg' alt="Reacted Posts" onClick={handleRefresh}/>
                   </Nav.Link>
                   <Nav.Link>
                       <img className='menu-btn' src='src\Images\message-white-heart.svg' alt="Reacted Posts" onClick={mySavedPost}/>
@@ -77,10 +83,10 @@ useEffect(() => {
           </div>       
         </div>
 
-    {savePostVisible && <SidePanel user_id={user_id} user_type={"reg"} state={"savePost"} />}
-    {myPostVisible && <SidePanel user_id={user_id} user_type={"reg"} state={"myPost"} />}
-    {reportPostsVisible && <SidePanel user_id={user_id} user_type={"staff"} state={"reportPost"} />}
-    {reportMsgVisible && <SidePanel user_id={user_id} user_type={"staff"} state={"reportMsg"} />}
+    {savePostVisible && <SidePanel onClickClose={()=>setSavePostVisible(savePostVisible? false:true)} state={"savePost"} />}
+    {myPostVisible && <SidePanel onClickClose={()=>setMyPostVisible(myPostVisible? false:true)} state={"myPost"} />}
+    {reportPostsVisible && <SidePanel onClickClose={()=>setReportPostVisible(reportPostsVisible? false:true)} state={"reportPost"} />}
+    {reportMsgVisible && <SidePanel onClickClose={()=>setReportMsgVisible(reportMsgVisible? false:true)}  state={"reportMsg"} />}
     </>
   )
 }

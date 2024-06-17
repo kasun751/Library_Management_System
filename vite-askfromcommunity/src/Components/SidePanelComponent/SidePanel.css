@@ -1,10 +1,25 @@
 .sidePanel_container {
     position: fixed;
-    top: 15%;
+    top: 0;
     right: 0;
-    height:85%;
+    height:100%;
     background-color:rgb(30,52,65);
     color: #fff;
     padding: 20px;
     overflow: auto;
+    z-index: 200;
+  }
+
+  #submitForm-back-btn{
+    width: 50px;
+    cursor: pointer;
+  }
+  
+  #submitForm-back-btn:hover{
+    background-color: aliceblue;  
+    border-radius: 50px;
+  }
+  
+  #submitForm-back-btn:active{
+    background-color:aqua;
   }

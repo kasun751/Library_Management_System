@@ -10,12 +10,12 @@ function ReportTable(props) {
     },[]);
     async function getPostRecords(){
         
-        try{
+        try{ //ok
             if(props.status=="post"){
-                const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportPostManager.php?post_id=${props.post_id}`);
+                const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/Controller/reportPostController.php?post_id=${props.post_id}`);
                 setRecords(res.data);
-            }else{
-                const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/User-reportReplyManager.php?post_id=${props.post_id}&reply_id=${props.reply_id}&table_data=ok`);
+            }else{ //ok
+                const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/Controller/reportReplyMsgController.php?post_id=${props.post_id}&reply_id=${props.reply_id}&table_data=ok`);
                 setRecords(res.data);
             }            
             

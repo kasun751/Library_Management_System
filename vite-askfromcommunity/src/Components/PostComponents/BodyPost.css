@@ -1,6 +1,5 @@
 .postComponent {
     margin: 20px;
-    width: 90%;
     height:auto;
     padding: 20px;
     text-align: left;
@@ -36,16 +35,27 @@
     grid-template-rows: 1;
     text-align: center;
     background-color: rgb(222,226,227);
-    margin: 50px;
+    margin: 10px;
     border-radius: 20px;
   }
-
-  .postComponent td{
-    text-align: center;
+  .post-msg-btn>img{
+    width:50px;
+    margin-left: 5px;
+    margin-top: 5px;
+    padding: 5px;
   }
-  
-  .postComponent input[type="text"] {
-    width: 80%;
+  .post-msg-btn>img:hover{
+    background-color:rgb(99, 156, 189);
+    padding: 0;
+    border-radius: 50px;
+    transition: 500.2ms;
+    
+  }
+  .post-msg-btn{
+    display: inline;
+  }
+  .title-box > input[type="text"] {
+    width: 90%;
     padding: 10px;
     margin-right: 10px;
     border: 1px solid #ccc;
@@ -53,16 +63,19 @@
     box-sizing: border-box;
   }
   
-  .postComponent button {
-    padding: 10px 20px;
+  .title-box > button {
+    padding: 5px 10px;
+    color: aliceblue;
+    background-color:rgb(30,52,65);
+    margin-left: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
-  .postComponent button:hover {
-    background-color: #f0f0f0;
+  .title-box > button:hover {
+    background-color:rgb(38, 64, 80);
   }
   .replyBox {
     margin-top: 20px;
@@ -77,9 +90,10 @@
     max-width: 100%;    
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
   }
-
+.title-box{
+  margin: 0 auto;
+}
   .reportBtn{
     cursor: pointer;
     color: black;;
@@ -106,7 +120,9 @@
     cursor: pointer;
   }
 
-
+.asdf{
+  width: 50px;
+}
 .overlay {
   position: fixed;
   top: 0;

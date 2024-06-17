@@ -1,11 +1,10 @@
 /* Styles for Submit Post Form */
 .submitPostFormBox {
     position: fixed;
-    bottom: 5%;
+    bottom: 1%;
     left: 50%;
     transform: translateX(-50%);
-    padding: 20px;
-    width: 50%;
+    padding: 20px;    
     max-width: 600px;
     border: 1px solid black;
     border-radius: 20px;
@@ -76,27 +75,32 @@
     right: 0;
     margin-bottom: 20px;
     margin-right: 40px;
-    width: 95px;
+    width: 105px;
+    padding: 10px;
+    z-index: 100;
     cursor: pointer;
   }
   .submitPostFormBtn img:hover{
-    background-color: aliceblue; 
+    background-color: rgb(99, 156, 189); 
     border-radius: 40px;
-    width: 100px;
+    padding: 0px;
+    transition: 500.2ms;
   }
   .submitPostFormBtn img:active{
     background-color:aqua;
-    width: 95px;
+    padding: 5px;
   }
 #submitForm-back-btn{
-  width: 50px;
-  float: right;
+  width: 55px;
+  padding: 5px;
   cursor: pointer;
 }
 
 #submitForm-back-btn:hover{
-  background-color: aliceblue;  
-  border-radius: 50px;
+  background-color: rgb(99, 156, 189);  
+  padding: 0;
+    border-radius: 50px;
+    transition: 500.2ms;
 }
 
 #submitForm-back-btn:active{

@@ -1,29 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import './ReportComponent.css';
 import closeBtn from '../../Images/close-btn.svg';
 import axios from 'axios';
+import { userAuthentication } from '../../App';
 
-function ReportComponent({ onClose, post_id, user_id, openFeild1, reportType, reply_id  } ) {
+function ReportComponent({ onClose, post_id, openFeild1, reportType, reply_id  } ) {
   const [reason, setReason] = useState('');
   const selectRef = useRef('');
   const [submit, setSubmit] = useState(false);
   const [Select, setSelect] = useState(false);
   const [openFeild, setOpenFeild] = useState(openFeild1);
 
+  const {user_id, user_type} = useContext(userAuthentication)
+
   useEffect(() => {
     selectRef.current.focus();
   }, []);
 
   async function handleRecordReportData(reportReason){
-    try{
+    try{ //ok
       if(reportType=="post"){
-        await axios.post(`http://localhost:80/project_1/AskFromCommunity/User-reportPostManager.php`,{
+        await axios.post(`http://localhost:80/project_1/AskFromCommunity/Controller/reportPostController.php`,{
           user_id:user_id,
           post_id:post_id,
           reason:reportReason,
         });
-      }else{
-        const res = await axios.post(`http://localhost:80/project_1/AskFromCommunity/User-reportReplyManager.php`,{
+      }else{ //ok
+        const res = await axios.post(`http://localhost:80/project_1/AskFromCommunity/Controller/reportReplyMsgController.php`,{
           user_id:user_id,
           post_id:post_id,
           reply_id:reply_id,

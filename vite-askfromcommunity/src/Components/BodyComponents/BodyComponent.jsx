@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import BodyPost from '../PostComponents/BodyPost';
 import './BodyComponent.css';
 import axios from 'axios';
 import SubHeader from '../HeaderComponents/SubHeader';
 
-function BodyComponent(props) {
+export const postRefresh = createContext({});
+
+function BodyComponent() {
   const [posts, setPosts] = useState([]);
   const [refresh,setRefresh] = useState(true)
   const [offSet, setOffSet] = useState(0);
@@ -12,10 +14,15 @@ function BodyComponent(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [title, setTitle] = useState("");
 
+  
+
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
 
+  const handleRefresh =()=>{
+    setRefresh(refresh?false:true)
+  }
   
   const onClickSetOffSet=(val)=>{
     if(offSet==0&&val<0){
@@ -39,7 +46,7 @@ function BodyComponent(props) {
 
   async function getPost($category,$title,$offSet) {
     try {
-      const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/PostManager.php?category=${$category}&title=${$title}&offSet=${$offSet}`);
+      const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/Controller/postController.php?category=${$category}&title=${$title}&offSet=${$offSet}`); //ok
       setPosts(res.data);
     } catch (err) {
       console.error(err);
@@ -48,7 +55,7 @@ function BodyComponent(props) {
 
   async function getCategories() {
     try {
-      const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/PostManager.php?categoryList=ok`);
+      const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/Controller/postController.php?categoryList=ok`); //ok
       setCategoryList(res.data);
     } catch (err) {
       console.error(err);
@@ -60,29 +67,26 @@ function BodyComponent(props) {
 };
   
   return (
-    <>
-      <SubHeader user_id={props.user_id} onClickRefresh={()=>setRefresh(refresh? false:true)} onChangeTitle={handleChangeTitle} user_type={props.user_type} />
+    <postRefresh.Provider value={{refresh, handleRefresh}}>
+      <SubHeader onChangeTitle={handleChangeTitle} />
         <div id='selectList-container'>
           <div id='selectList-div'>
-            <label>Sort by category: </label>
             <select onChange={handleChange}>
-              <option value="">- select category -</option>
+              <option value="">- Sort by category -</option>
               {categoryList.map((item ,index) => (
               <option key={index}>{item.category}</option>
             ))} 
             </select>
           </div>
           <div id='post-numbers'>
-          <p>Posts {offSet+1} to {offSet+5}</p>
-        </div>
-          <div id='prev-next-btnSet-div'>
             <button onClick={()=>onClickSetOffSet(-5)}>prev</button>
+            <p>Posts {offSet+1} to {offSet+5}</p>
             <button onClick={()=>onClickSetOffSet(5)}>next</button>
-          </div>
+        </div>
         </div>
       <div className='bodyComponent'>
         {posts.map((item) => (
-          <BodyPost key={item.post_id} post={item} user_id={props.user_id} onClickRefresh={()=>setRefresh(refresh? false:true)} />
+          <BodyPost key={item.post_id} post={item} />
         ))}
       </div>
       <div id='bodyComponent-footer'>
@@ -90,7 +94,7 @@ function BodyComponent(props) {
           <label>page: {(offSet+5)/5} </label>
         </div>
         </div>
-    </>
+    </postRefresh.Provider>
   );
 }
 

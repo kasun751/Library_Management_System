@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import './ReportReplyBox.css';
 import axios from 'axios';
 import ReportPage from '../ReportComponent/ReportPage';
+import { userAuthentication } from '../../App';
 
 
-function ReportReplyBox({post_id2, user_id, item }) {
+function ReportReplyBox({post_id2, item }) {
 
     const [openReportPage, setOpenReportPage] = useState(false);
-  const [isReportOpen, setIsReportOpen] = useState(false);
+
+    const {user_id, user_type} = useContext(userAuthentication)
+
   return (
     <>
    <div className='replyBoxComponent'>
