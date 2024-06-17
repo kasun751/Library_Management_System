@@ -1,9 +1,8 @@
 import InputField from "../../SubComponents/InputFields.jsx";
-import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import AcceptRequest from "./AcceptRequest.jsx";
-
+import './ViewBookRequests.css';
 function ViewBookRequests() {
 
     const [requestList, setRequestList] = useState([]);
@@ -44,20 +43,23 @@ function ViewBookRequests() {
     }
 
     return (
-       <>
-           <InputField label={"User ID"} id={"validationUser"} className={"form-control"} name={"userID"}
-                       type={"text"} handleChange={handleChange} feedback={"User ID"}/>
+       <div id="ViewBookRequests">
+
 
            <div className="container">
                <br/>
-               <h4>Requests</h4>
+               <h2>Requests</h2>
                <hr/>
+               <br/>
+               <InputField label={"User ID"} id={"validationUser"} className={"form-control"} name={"userID"}
+                           type={"text"} handleChange={handleChange} feedback={"User ID"} placeholder={"EX:SLMS/24/2"}/>
                <table className="table">
                    <thead>
                    <tr>
                        <th scope="col">No</th>
                        <th scope="col">Book ID</th>
                        <th scope="col">User ID</th>
+                       <th scope="col">Accept</th>
                    </tr>
                    </thead>
                    <tbody>
@@ -67,8 +69,9 @@ function ViewBookRequests() {
                                <td className="booDetails">Result {index + 1}</td>
                                <td className="booDetails">{request.Final_ID}</td>
                                <td className="booDetails">{request.UserID}</td>
-                               <td>
-                                   <AcceptRequest bookID={request.Final_ID} userID={request.UserID} category={request.category}/>
+                               <td className="booDetails">
+                                   <AcceptRequest bookID={request.Final_ID} userID={request.UserID}
+                                                  category={request.category}/>
                                </td>
                            </tr>
                        ))
@@ -78,8 +81,9 @@ function ViewBookRequests() {
                                <td className="booDetails">{index + 1}</td>
                                <td className="booDetails">{request.Final_ID}</td>
                                <td className="booDetails">{request.UserID}</td>
-                               <td>
-                                   <AcceptRequest bookID={request.Final_ID} userID={request.UserID} category={request.Category_Name}/>
+                               <td className="booDetails">
+                                   <AcceptRequest bookID={request.Final_ID} userID={request.UserID}
+                                                  category={request.Category_Name}/>
                                </td>
                            </tr>
                        ))
@@ -89,7 +93,7 @@ function ViewBookRequests() {
            </div>
 
 
-       </>
+       </div>
     );
 }
 

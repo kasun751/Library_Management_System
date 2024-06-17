@@ -41,13 +41,13 @@ class ConfirmBookRequestController
 
     private function respondWithSuccess()
     {
-        $data = array('resultMessage' => 'true');
+        $data = array('resultMessage' => 'Successfully Book Issued.');
         echo json_encode($data);
     }
 
     private function respondWithError()
     {
-        $data = array('resultMessage' => 'false');
+        $data = array('resultMessage' => 'Failed!');
         echo json_encode($data);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 require_once '../dbConnection/DBConnection.php';
+require_once '../models/SendMail.php';
 class ReturnBook
 {
     private $con;
@@ -13,7 +14,7 @@ class ReturnBook
     public function getReturnBookData($bookID)
     {
         $returnBookData = [];
-
+//        $query="SELECT UserID FROM issuebooks WHERE issuebooks.BookID='$bookID' AND";
         // get userID from issuebooks table
         $query="SELECT * FROM issuebooks WHERE BookID='$bookID'";
         $result = $this->con->query($query);
@@ -55,8 +56,12 @@ class ReturnBook
         //get calculated fine for relevant book from fineCalculations table
         $query5="SELECT Fine FROM finecalculations WHERE BookID='$bookID'";
         $result5 = $this->con->query($query5);
-        $row5 = $result5->fetch_assoc();
-        $returnBookData['fine']=$row5['Fine'];
+
+        if($result5->num_rows>0){
+            $row5 = $result5->fetch_assoc();
+            $returnBookData['fine']=$row5['Fine'];
+        }
+
 
         return $returnBookData;
     }
@@ -74,7 +79,22 @@ class ReturnBook
         if ($result2){
             $query3="UPDATE $category SET Availability='$setAvailability' WHERE Final_ID='$bookID'";
             $result3 = $this->con->query($query3);
-            return $result3;
+            if ($result3) {
+                $getUserMailQuery = "SELECT Email,FirstName,LastName FROM libraryusersdetails WHERE UserID='$userID'";
+                $resultUserMailQuery = $this->con->query($getUserMailQuery);
+                $row = $resultUserMailQuery->fetch_assoc();
+                $email = $row['Email'];
+                $fName = $row['FirstName'];
+                $lName = $row['LastName'];
+                $fullName = $fName . " " . $lName;
+                $subject = "Book Returned.";
+                $message = "<p>Thank You For Returning Book.</p>";
+                $sendMail = new SendMail();
+                $result = $sendMail->sendMailMessage($email, $fullName, $subject, $message);
+                return $result;
+            }else{
+                return false;
+            }
         }else{
             return false;
         }

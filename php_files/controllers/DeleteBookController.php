@@ -59,8 +59,8 @@ class DeleteBookController
                                 }
                                 break;
                             case "RestoreOnce":
-                                if (!empty($category)  && !empty($BookIDForrestoreOnce)) {
-                                    list($result1, $result2) = $this->deleteBookObj->restoreSomeBook($category, $BookIDForrestoreOnce);
+                                if (!empty($BookIDForrestoreOnce)) {
+                                    list($result1, $result2) = $this->deleteBookObj->restoreSomeBook( $BookIDForrestoreOnce);
                                     if (($result1 && $result2) === true) {
                                         $this->respondWithSuccess();
                                     } else {

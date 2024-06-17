@@ -15,22 +15,43 @@ class UpdateExistingBookQtyController
     {
         $data = json_decode(file_get_contents('php://input'), true);
         $method = $_SERVER['REQUEST_METHOD'];
+
         switch ($method) {
             case "GET":
+                $isbnNumber =$_GET['isbnNumber'] ;
+                if(!empty($isbnNumber)){
+                    $result=$this->updateExistingBookQty->stillNotAddedBooksRelevantToIsbn($isbnNumber);
+                    echo json_encode($result);
+                }
                 break;
 
             case "POST":
+                $isbnNumber='';
+                $bookID='';
                 extract($data);
-                if (!empty($isbnNumber) && $addNewQty > 0) {
-                    $result =  $this->updateExistingBookQty->addMoreQty($addNewQty, $isbnNumber, $setAvailability);
-                    if ($result > 0) {
-                        $this->respondWithSuccess();
-                    } else if ($result == 0) {
-                        $this->respondWithError();
-                    }
-                } else {
-                    $this->respondWithError();
+
+                switch ($parameter){
+                    case 0:
+                        if (!empty($isbnNumber) && $addNewQty > 0) {
+                            $result =  $this->updateExistingBookQty->addMoreQty($addNewQty, $isbnNumber, $setAvailability);
+                            if ($result > 0) {
+                                $this->respondWithSuccess();
+                            } else if ($result == 0) {
+                                $this->respondWithError();
+                            }
+                        } else {
+                            $this->respondWithError();
+                        }
+                        break;
+                    case 1:
+                        $result =  $this->updateExistingBookQty->availableNow($isbnNumber,$AvailableAllOrOncePara,$bookID);
+                        if ($result > 0) {
+                            $this->respondWithSuccess();
+                        } else if ($result == 0) {
+                            $this->respondWithError();
+                        }
                 }
+
                 break;
         }
     }

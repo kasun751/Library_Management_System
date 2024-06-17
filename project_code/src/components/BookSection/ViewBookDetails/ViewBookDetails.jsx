@@ -21,6 +21,7 @@ function ViewBookDetails() {
         const fetchBooks = async () => {
             await axios.get('http://localhost:8081/project_01/controllers/ViewBookListAndDetailsController.php')
                 .then(response => {
+                    console.log(response.data)
                     setBooksList(response.data);
                 })
                 .catch(error => {
@@ -39,6 +40,7 @@ function ViewBookDetails() {
                     'Content-Type': 'application/json'
                 }
             })
+        console.log(res.data)
         setBooksdetails(res.data);
     }
 
@@ -52,7 +54,7 @@ function ViewBookDetails() {
                 <hr/>
                 <br/>
                 <InputField label={"Search Book Name"} id={"validationCustom01"} className={"form-control"}
-                            name={"bookDetails"}
+                            name={"bookDetails"} placeholder={"EX:Madolduwa"}
                             type={"text"} handleChange={handleChange} feedback={"Book Name."}/>
 
                 <table className="table">
@@ -85,6 +87,7 @@ function ViewBookDetails() {
                             </tr>
                         ))
                     ) : (
+                        Array.isArray(booksList) && booksList.length > 0 ? (
                         booksList.map((book, index) => (
                             <tr key={index}>
                                 <td className="booDetails">{index + 1}</td>
@@ -102,6 +105,11 @@ function ViewBookDetails() {
                                 </td>
                             </tr>
                         ))
+                    ) : (
+                            <tr>
+                                <td colSpan="5">No books found.</td>
+                            </tr>
+                        )
                     )}
                     </tbody>
                 </table>

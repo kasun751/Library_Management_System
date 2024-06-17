@@ -31,22 +31,28 @@ class CategoryController
 
             case "POST":
 
-                $newCategory = $data['addCategory'];
-                $access_parameter = $data['access_parameter'];
+                $newCategory = isset($data['addCategory']) ? $data['addCategory'] : null;
+                $removeCategory = isset($data['category']) ? $data['category'] : null;
+                $access_parameter = isset($data['access_parameter']) ? $data['access_parameter'] : null;
 
-                if (strlen($newCategory) > 0) {
+                if (!empty($newCategory) || !empty($removeCategory)) {
 
                     switch ($access_parameter) {
                         case "add":
-                            $result1 = $this->catObj->createNewCategoryTable($newCategory);
-                            $result2 = $this->catObj->CategoryTableUpdate($newCategory);
-                            $this->handleResult($result1, $result2);
+                            $result = $this->catObj->CategoryTableUpdate($newCategory);
+                            $this->handleResult($result,"add");
                             break;
 
                         case "remove":
-                            $result1 = $this->catObj->dropCategoryTable($newCategory);
-                            $result2 = $this->catObj->dropCategoryDetails($newCategory);
-                            $this->handleResult($result1, $result2);
+                            $numOfRaws=$this->catObj->checkCategoryTableIsEmpty($removeCategory);
+                            if($numOfRaws==0){
+                                $result1 = $this->catObj->dropCategoryDetails($removeCategory);
+                                $this->handleResult($result1,"remove");
+                            }else{
+                                $data = array('resultMessage' =>'tableNotEmpty');
+                                echo json_encode($data);
+                            }
+
                             break;
                         default:
                             $this->respondWithError();
@@ -64,24 +70,28 @@ class CategoryController
         }
     }
 
-    private function handleResult($result1, $result2)
+    private function handleResult($result,$para)
     {
-        if ($result1 > 0 && $result2 > 0) {
-            $this->respondWithSuccess();
-        } else {
-            $this->respondWithError();
+        if ($result > 0 && $para==="add") {
+            $this->respondWithSuccess("add");
+        } else if($result == 0 && $para==="add"){
+            $this->respondWithError("notAdd");
+        } else if($result > 0 && $para==="remove"){
+            $this->respondWithSuccess("remove");
+        } else if($result == 0 && $para==="remove"){
+            $this->respondWithError("notRemove");
         }
     }
 
-    private function respondWithSuccess()
+    private function respondWithSuccess($para)
     {
-        $data = array('resultMessage' => 'true');
+        $data = array('resultMessage' => $para);
         echo json_encode($data);
     }
 
-    private function respondWithError()
+    private function respondWithError($para)
     {
-        $data = array('resultMessage' => 'false');
+        $data = array('resultMessage' => $para);
         echo json_encode($data);
     }
 }

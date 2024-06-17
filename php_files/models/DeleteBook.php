@@ -1,7 +1,7 @@
 <?php
 
 require_once '../dbConnection/DBConnection.php';
-
+require_once '../models/Category.php';
 class DeleteBook
 {
     private $con;
@@ -15,6 +15,7 @@ class DeleteBook
 
     public function deleteAllBook($isbnNumber, $category)
     {
+//
         $result = $this->backupBookDetails($isbnNumber, $category);
         $query1 = "DELETE FROM books WHERE ISBN_Number='$isbnNumber'";
         $query2 = "DELETE FROM $category WHERE ISBN_Number='$isbnNumber'";
@@ -22,7 +23,16 @@ class DeleteBook
         $result1 = $this->con->query($query1);
         return array($result1, $result2, $result);
     }
+    public function deleteSomeBook($category, $bookID)
+    {
+        $result1 = $this->backupSomeBookDetails($category, $bookID);
+        if ($result1) {
+            $query = "DELETE FROM $category WHERE Final_ID='$bookID'";
+            $result2 = $this->con->query($query);
+            return array($result1, $result2);
+        }
 
+    }
     public function restoreAllBook($isbnNumber, $category)
     {
         $result = $this->restoreBookDetails($isbnNumber, $category);
@@ -33,10 +43,12 @@ class DeleteBook
         return array($result1, $result2, $result);
     }
 
-    public function restoreSomeBook($category, $bookID)
+    public function restoreSomeBook( $bookID)
     {
+        $categoryClassObj=new Category();
+        $category=$categoryClassObj->getCategoryNameRelevantToBookID($bookID);
         $result1 = $this->restoreOneBook($category, $bookID);
-        if($result1){
+        if ($result1) {
             $query2 = "DELETE FROM backupbook WHERE Final_ID='$bookID'";
             $result2 = $this->con->query($query2);
             return array($result1, $result2);
@@ -45,146 +57,57 @@ class DeleteBook
 
     }
 
-    public function deleteSomeBook($category, $bookID)
+    public function backupSomeBookDetails($category, $bookID)
     {
-        $result1 = $this->backupSomeBookDetails($category,$bookID);
-        $query = "DELETE FROM $category WHERE Final_ID='$bookID'";
-        $result2 = $this->con->query($query);
-        return array($result1, $result2);
-    }
-    public function backupSomeBookDetails($category,$bookID)
-    {
-        $query1 = "SELECT * FROM $category WHERE Final_ID='$bookID'";
-        $result1 = $this->con->query($query1);
-        if ($result1 && $result1->num_rows > 0) {
-
-            while ($row = $result1->fetch_assoc()) {
-                $final_ID = $row['Final_ID'];
-                $bookName_ID = $row['BookName_ID'];
-                $book_No = $row['Book_No'];
-                $availability = $row['Availability'];
-                $isbnNumber = $row['ISBN_Number'];
-
-                $query2 = "INSERT INTO backupbook (Final_ID,ISBN_Number,BookName_ID,Book_No,Availability)
-                                VALUES ('$final_ID','$isbnNumber','$bookName_ID', '$book_No', '$availability' )";
-
-                $result2 = $this->con->query($query2);
-            }
-            return $result2;
-        }
-        return false;
+        return $this->backupAndRestoreInsertForSubDetailsBooksTable($category, 'books', 'backupbook', 'backupBookDetails', $bookID);
     }
 
 
-    public function restoreOneBook($category,$bookID)
+    public function restoreOneBook($category, $bookID)
     {
-        $query1 = "SELECT * FROM backupbook WHERE Final_ID='$bookID'";
-        $result1 = $this->con->query($query1);
-        if ($result1 && $result1->num_rows > 0) {
-           $row = $result1->fetch_assoc();
-                $final_ID = $row['Final_ID'];
-                $bookName_ID = $row['BookName_ID'];
-                $book_No = $row['Book_No'];
-                $availability = $row['Availability'];
-                $isbnNumber = $row['ISBN_Number'];
+        return $this->backupAndRestoreInsertForSubDetailsBooksTable('backupbook', 'backupbookdetails', $category, 'books', $bookID);
 
-                $query="SELECT ISBN_Number,AllBookQty FROM books WHERE ISBN_Number='$isbnNumber'";
-                $result = $this->con->query($query);
-
-                if($result && $result->num_rows > 0){
-                    $query2 = "INSERT INTO $category (Final_ID,ISBN_Number,BookName_ID,Book_No,Availability)
-                                VALUES ('$final_ID','$isbnNumber','$bookName_ID', '$book_No', '$availability' )";
-
-                    $result2= $this->con->query($query2);
-                    if($result2){
-                        $row = $result->fetch_assoc();
-                        $allBookQty = $row['AllBookQty'];
-                        $allBookQty++;
-                        $queryForUpdateQty="UPDATE books SET AllBookQty ='$allBookQty'  WHERE ISBN_NUmber='$isbnNumber'";
-                         return $this->con->query($queryForUpdateQty);
-
-                    }
-
-                }else{
-                    $query3 = "SELECT * FROM backupBookDetails WHERE ISBN_Number='$isbnNumber'";
-                    $result3 = $this->con->query($query3);
-                    if ($result3 && $result3->num_rows > 0) {
-                        $row = $result3->fetch_assoc();
-                        $bookName = $row['BookName'];
-                        $authorName = $row['AuthorName'];
-                        $publisherName = $row['PublisherName'];
-                        $category = $row['Category'];
-                        $allBookQty = $row['AllBookQty'];
-                        $bookLocation = $row['BookLocation'];
-                        $description = $row['Description'];
-
-                        $query4 = "INSERT INTO books (ISBN_Number,BookName,AuthorName,PublisherName,Category,AllBookQty,
-                               BookLocation,Description) VALUES ('$isbnNumber','$bookName','$authorName', '$publisherName', '$category',
-                                                                 1, '$bookLocation','$description')";
-                        $result4 = $this->con->query($query4);
-                        if($result4){
-                            $query2 = "INSERT INTO $category (Final_ID,ISBN_Number,BookName_ID,Book_No,Availability)
-                                VALUES ('$final_ID','$isbnNumber','$bookName_ID', '$book_No', '$availability' )";
-
-                            return $this->con->query($query2);
-                        }
-
-                    }
-                    return false;
-                }
-        }
-        return false;
     }
-
 
     public function backupBookDetails($isbnNumber, $category)
     {
-        $query1 = "SELECT * FROM books WHERE ISBN_Number='$isbnNumber'";
-        $result1 = $this->con->query($query1);
-        if ($result1 && $result1->num_rows > 0) {
-            $row = $result1->fetch_assoc();
-            $bookName = $row['BookName'];
-            $authorName = $row['AuthorName'];
-            $publisherName = $row['PublisherName'];
-            $category = $row['Category'];
-            $allBookQty = $row['AllBookQty'];
-            $bookLocation = $row['BookLocation'];
-            $description = $row['Description'];
-
-            $query2 = "INSERT INTO backupBookDetails (ISBN_Number,BookName,AuthorName,PublisherName,Category,AllBookQty,
-                               BookLocation,Description) VALUES ('$isbnNumber','$bookName','$authorName', '$publisherName', '$category',
-                                                                 '$allBookQty', '$bookLocation','$description')";
-            $result2 = $this->con->query($query2);
-            if ($result2) {
-                $query3 = "SELECT * FROM $category WHERE ISBN_Number='$isbnNumber'";
-                $result3 = $this->con->query($query3);
-                if ($result3 && $result3->num_rows > 0) {
-
-                    while ($row = $result3->fetch_assoc()) {
-                        $final_ID = $row['Final_ID'];
-                        $bookName_ID = $row['BookName_ID'];
-                        $book_No = $row['Book_No'];
-                        $availability = $row['Availability'];
-
-                        $query4 = "INSERT INTO backupbook (Final_ID,ISBN_Number,BookName_ID,Book_No,Availability)
-                                VALUES ('$final_ID','$isbnNumber','$bookName_ID', '$book_No', '$availability' )";
-
-                        $result4 = $this->con->query($query4);
-                    }
-                    return $result4;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
+        return $this->backupAndRestoreBooksDetails('books', 'backupBookDetails', $category, 'backupbook', $isbnNumber);
     }
 
 
     public function restoreBookDetails($isbnNumber, $category)
     {
-        $query1 = "SELECT * FROM backupBookDetails WHERE ISBN_Number='$isbnNumber'";
+        return $this->backupAndRestoreBooksDetails('backupBookDetails', 'books', 'backupbook', $category, $isbnNumber);
+    }
+
+//('backupbook', 'backupbookdetails', $category, 'books', $bookID);
+    public function backupAndRestoreInsertForSubDetailsBooksTable($SelectSubTableName, $SelectMainTableName, $insertBackupSubTableName, $insertBackupMainTableName, $bookID)
+    {
+
+        $QuantityCheckQuery = "SELECT COUNT(ISBN_Number) AS row_count,ISBN_Number FROM $SelectSubTableName WHERE ISBN_Number=(SELECT ISBN_Number
+        FROM $SelectSubTableName WHERE Final_ID='$bookID')";
+        $result1 = $this->con->query($QuantityCheckQuery);
+        $row = $result1->fetch_assoc();
+        $isbnNumber = $row['ISBN_Number'];
+        if ($row['row_count'] == 1) {
+            $result1 = $this->selectAndInsertTableData($SelectMainTableName, $insertBackupMainTableName, $isbnNumber);
+            $query3 = "DELETE FROM $SelectMainTableName WHERE ISBN_Number='$isbnNumber'";
+            $this->con->query($query3);
+
+        }
+        $queryCheckForbooksDetail = "SELECT COUNT(ISBN_Number) AS row_count FROM $insertBackupSubTableName WHERE ISBN_Number='$isbnNumber'";
+        $resultCheckForbooksDetail = $this->con->query($queryCheckForbooksDetail);
+        $rowCheckForbooksDetail = $resultCheckForbooksDetail->fetch_assoc();
+        if ($rowCheckForbooksDetail['row_count'] == 0) {
+            $this->selectAndInsertTableData($SelectMainTableName, $insertBackupMainTableName, $isbnNumber);
+        }
+        $query1 = "SELECT * FROM $SelectSubTableName WHERE Final_ID='$bookID'";
+        return $this->insertDataToSubTable($query1, $insertBackupSubTableName, $isbnNumber);
+
+    }
+    public function selectAndInsertTableData($selectTableName, $insertTableName, $isbnNumber)
+    {
+        $query1 = "SELECT * FROM $selectTableName WHERE ISBN_Number='$isbnNumber'";
         $result1 = $this->con->query($query1);
         if ($result1 && $result1->num_rows > 0) {
             $row = $result1->fetch_assoc();
@@ -192,49 +115,51 @@ class DeleteBook
             $authorName = $row['AuthorName'];
             $publisherName = $row['PublisherName'];
             $category = $row['Category'];
-            $allBookQty = $row['AllBookQty'];
             $bookLocation = $row['BookLocation'];
             $description = $row['Description'];
 
-            $query="SELECT ISBN_Number,AllBookQty FROM books WHERE ISBN_Number='$isbnNumber'";
-            $result = $this->con->query($query);
-
-            if($result && $result->num_rows > 0){
-                $queryForUpdateQty="UPDATE books SET AllBookQty ='$allBookQty'  WHERE ISBN_NUmber='$isbnNumber'";
-                $result2 = $this->con->query($queryForUpdateQty);
-                $result2;
-            }else{
-                $query2 = "INSERT INTO books (ISBN_Number,BookName,AuthorName,PublisherName,Category,AllBookQty,
+            $query2 = "INSERT INTO $insertTableName (ISBN_Number,BookName,AuthorName,PublisherName,Category,
                                BookLocation,Description) VALUES ('$isbnNumber','$bookName','$authorName', '$publisherName', '$category',
-                                                                 '$allBookQty', '$bookLocation','$description')";
-                $result2 = $this->con->query($query2);
-            }
+                                                                  '$bookLocation','$description')";
+            return $this->con->query($query2);
+        }
 
-            if ($result2) {
-            $query3 = "SELECT * FROM backupbook WHERE ISBN_Number='$isbnNumber'";
-            $result3 = $this->con->query($query3);
-            if ($result3->num_rows > 0) {
+    }
 
-                while ($row = $result3->fetch_assoc()) {
-                    $final_ID = $row['Final_ID'];
-                    $bookName_ID = $row['BookName_ID'];
-                    $book_No = $row['Book_No'];
-                    $availability = $row['Availability'];
+    public function backupAndRestoreBooksDetails($selectMainTable, $insertMainTable, $selectSubTable, $insertSubTable, $isbnNumber)
+    {
+        $queryForCheckDataExistsORNot = "SELECT COUNT(ISBN_Number) AS row_count FROM $insertMainTable WHERE ISBN_Number='$isbnNumber'";
+        $resultForCheckDataExistsORNot = $this->con->query($queryForCheckDataExistsORNot);
+        $rowForCheckDataExistsORNot = $resultForCheckDataExistsORNot->fetch_assoc();
+        if ($rowForCheckDataExistsORNot['row_count'] == 0) {
+            $this->selectAndInsertTableData($selectMainTable, $insertMainTable, $isbnNumber);
+        }
+        $query3 = "SELECT * FROM $selectSubTable WHERE ISBN_Number='$isbnNumber'";
+        return $this->insertDataToSubTable($query3, $insertSubTable, $isbnNumber);
 
-                        $query4 = "INSERT INTO $category (Final_ID,ISBN_Number,BookName_ID,Book_No,Availability)
+    }
+
+    public function insertDataToSubTable($query, $insertSubTable, $isbnNumber)
+    {
+        $result = $this->con->query($query);
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $final_ID = $row['Final_ID'];
+                $bookName_ID = $row['BookName_ID'];
+                $book_No = $row['Book_No'];
+                $availability = $row['Availability'];
+
+                $query1 = "INSERT INTO $insertSubTable (Final_ID,ISBN_Number,BookName_ID,Book_No,Availability)
                                 VALUES ('$final_ID','$isbnNumber','$bookName_ID', '$book_No', '$availability' )";
 
-                        $result4 = $this->con->query($query4);
-                }
-                    return $result4;
-                }else{
-                    return false;
-                }
-            } else {
-                return false;
+                $result1 = $this->con->query($query1);
+
             }
+            return $result1;
+        } else {
+            return false;
         }
     }
 }
-$x=new DeleteBook();
-$x->restoreOneBook("assdd","ASS/1/2");
+//$x=new DeleteBook();
+//$x->deleteSomeBook("science","SCI/1/1");

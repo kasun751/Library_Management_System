@@ -23,7 +23,7 @@ class AddNewBookController{
                 break;
 
             case "POST":
-                // declare variables with the same names as keys in the $data array
+
                 extract($data);
                 $lastBookName_ID = $this->addNewBookObj->getLastBookName_ID($category);
                 if ($lastBookName_ID === null || !isset($lastBookName_ID['BookName_ID'])) {

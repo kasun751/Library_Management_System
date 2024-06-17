@@ -1,9 +1,12 @@
 <?php
 
 require_once '../dbConnection/DBConnection.php';
+require_once '../models/SendMail.php';
+
 class IssueBook
 {
     private $con;
+
     public function __construct()
     {
         $DBobj = new DBConnection();
@@ -28,10 +31,32 @@ class IssueBook
 
             case "bookIssued":
                 $query = "INSERT INTO issuebooks (BookID,UserID,IssueDateAndTime) VALUES ('$bookID', '$userID','$dateTime')";
-                $this->con->query($query);
-                return $this->con->affected_rows;
+                $result1 = $this->con->query($query);
+                if ($result1) {
+                    $getUserMailQuery = "SELECT Email,FirstName,LastName FROM libraryusersdetails WHERE UserID='$userID'";
+                    $resultUserMailQuery = $this->con->query($getUserMailQuery);
+                    $row = $resultUserMailQuery->fetch_assoc();
+                    $email = $row['Email'];
+                    $fName = $row['FirstName'];
+                    $lName = $row['LastName'];
+                    $fullName = $fName . " " . $lName;
+                    $subject = "Book Issued.";
+                    $issueDateAndTime = $dateTime;
 
-
+                    $date = new DateTime($issueDateAndTime);
+                    $date->modify('+7 days');
+                    $expirationDate = $date->format('Y-m-d H:i:s');
+                    $message = "<p>Thank You For Borrowing Book.</p>" .
+                        "<p>Please Returned Book Before Expiration Date And Time  </p>" .
+                        "<p>Expiration Date And Time:$expirationDate </p>";
+                    $sendMail = new SendMail();
+                    $result = $sendMail->sendMailMessage($email, $fullName, $subject, $message);
+                    return $result;
+                }
         }
     }
+
+
 }
+//$x=new IssueBook();
+//$x->updateIsueBooksTable("SCI/1/1","SLMS/24/1","2024-06-16 23:20:58","bookIssued");

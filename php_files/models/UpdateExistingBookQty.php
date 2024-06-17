@@ -26,8 +26,6 @@ private $addNewBookObj;
         $categoryID=$row['Category_ID'];
         $categoryElements=explode("/", $categoryID);
         $firstElement = $categoryElements[0];
-//        $uppercaseString = strtoupper($category);
-//        $charArray = str_split($uppercaseString);
         $bookDetails = $this->getLastBook_No($category, $isbnNumber);
         $book_No = $bookDetails['Book_No'] + 1;
         $bookName_ID = $bookDetails['BookName_ID'];
@@ -38,11 +36,6 @@ private $addNewBookObj;
             $result2 = $this->con->query($query2);
             $book_No++;
         }
-        $query = "SELECT COUNT(*) AS count FROM $category WHERE ISBN_Number='$isbnNumber'";
-        $result = $this->con->query($query);
-        $count = $result->fetch_assoc()['count'];
-        $queryNext = "UPDATE books SET AllBookQty ='$count'  WHERE ISBN_NUmber='$isbnNumber'";
-        $this->con->query($queryNext);
         return $result2;
     }
     public function getLastBook_No($category, $isbnNumber)
@@ -52,4 +45,50 @@ private $addNewBookObj;
         $row = $result->fetch_assoc();
         return $row;
     }
+
+    public function availableNow($isbnNumber,$AvailableAllOrOnce,$bookID)
+    {
+        $query1="SELECT Category FROM books WHERE ISBN_Number='$isbnNumber'";
+        $result1 =$this->con->query($query1);
+        $row1 = $result1->fetch_assoc();
+        $category=$row1['Category'];
+
+        if($result1){
+            switch ($AvailableAllOrOnce){
+                case 0:
+                    $query2="UPDATE $category SET Availability='available' WHERE ISBN_Number='$isbnNumber'";
+                    $result2 =$this->con->query($query2);
+                    return $result2;
+                case 1:
+                    $query3="UPDATE $category SET Availability='available' WHERE Final_ID='$bookID'";
+                    $result3 =$this->con->query($query3);
+                    return $result3;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    public function stillNotAddedBooksRelevantToIsbn($isbnNumber)
+    {
+        $query1="SELECT Category FROM books WHERE ISBN_Number='$isbnNumber'";
+        $result1 =$this->con->query($query1);
+        if ($result1 && $result1->num_rows > 0){
+            $row1 = $result1->fetch_assoc();
+            $category=$row1['Category'];
+            $query2="SELECT * FROM $category WHERE Availability='stillNotAdded' AND ISBN_Number='$isbnNumber'";
+            $result2 =$this->con->query($query2);
+            if ($result2 && $result2->num_rows > 0) {
+                $books = [];
+                while ($row = $result2->fetch_assoc()) {
+                    $books[] = $row;
+                }
+                return $books;
+            }
+        }else{
+            return false;
+        }
+    }
 }
+//$x=new UpdateExistingBookQty();
+//$x->stillNotAddedBooksRelevantToIsbn("ID01");

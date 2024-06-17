@@ -28,18 +28,38 @@ class Category
     }
 
     public function CategoryTableUpdate($category)
-    {   //update categoryList table & generate category ID
+    {
+        $query="SELECT COUNT(*) AS category_count FROM category WHERE Category_Name = '$category'";
+        $result = $this->con->query($query);
+        if ($result) {
+            $row = $result->fetch_assoc();
+            if ($row['category_count'] > 0) {
+                return false;
 
-        $categoryFirstLetters =  $this->categoryLetterCheck($category);
-        $query1 = "INSERT INTO category (Category_Name) VALUES ('$category')";
-        $this->con->query($query1);
-        $query2 = "SELECT Category_No FROM category WHERE Category_Name='$category'";
-        $result2 = $this->con->query($query2);
-        $row = $result2->fetch_assoc();
-        $final_ID = $categoryFirstLetters . "/" . $row['Category_No'];
-        $query3 = "UPDATE category SET Category_ID ='$final_ID'  WHERE Category_Name='$category'";
-        $result3 = $this->con->query($query3);
-        return $result3;
+            } else {
+                $categoryFirstLetters =  $this->categoryLetterCheck($category);
+                $query1 = "INSERT INTO category (Category_Name) VALUES ('$category')";
+                $this->con->query($query1);
+                $query2 = "SELECT Category_No FROM category WHERE Category_Name='$category'";
+                $result2 = $this->con->query($query2);
+                $row = $result2->fetch_assoc();
+                $final_ID = $categoryFirstLetters . "/" . $row['Category_No'];
+                $query3 = "UPDATE category SET Category_ID ='$final_ID'  WHERE Category_Name='$category'";
+                $result3 = $this->con->query($query3);
+                if($result3) {
+                    $createTableResult=$this->createNewCategoryTable($category);
+                    return $createTableResult;
+
+                }else{
+                    return false;
+                }
+            }
+        }else{
+            return false;
+        }
+
+
+
     }
 
     public function categoryLetterCheck($category1)
@@ -96,12 +116,33 @@ class Category
         return $result;
     }
 
+    public function checkCategoryTableIsEmpty($category)
+    {
+        $query="SELECT COUNT(Final_ID) AS num_rows FROM $category ";
+        $result = $this->con->query($query);
+        $row = $result->fetch_assoc();
+        return $row['num_rows'];
+    }
     public function dropCategoryDetails($Category)
     {
         $query = "DELETE FROM category WHERE Category_Name='$Category'";
         $result = $this->con->query($query);
-        return $result;
+        if($result) {
+            return $this->dropCategoryTable($Category);
+        }else{
+            return false;
+        }
+    }
+    function getCategoryNameRelevantToBookID($bookID)
+    {
+        $bookIdElement = explode("/", $bookID);
+        $bookIDFirstElement = $bookIdElement[0];
+        $query2 = "SELECT Category_Name FROM category WHERE SUBSTRING_INDEX(Category_ID, '/', 1) = '$bookIDFirstElement'";
+        $result2 = $this->con->query($query2);
+        $row1 = $result2->fetch_assoc();
+        return $row1['Category_Name'];
     }
 
-
 }
+//$x=new Category();
+//$x->checkCategoryTableIsEmpty('IT');

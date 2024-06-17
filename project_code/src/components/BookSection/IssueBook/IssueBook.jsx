@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
-import SetAvailability from "../../SubComponents/SetAvailability.jsx";
 import Button from "../../SubComponents/Button.jsx";
 import {Link} from "react-router-dom";
 import './IsuueBook.css';
@@ -10,7 +9,8 @@ import './IsuueBook.css';
 function IssueBook() {
     const [inputs, setInputs] = useState({});
     const [returnBookInputs, setReturnBookInputs] = useState({});
-    const [message, setMessage] = useState('');
+    const [issueMessage, setIssueMessage] = useState('');
+    const [returnMessage, setReturnMessage] = useState('');
     const [bookIdDetails, setBookIdDetails] = useState({});
     const [returnBookIdDetails, setReturnBookIdDetails] = useState({});
     const [data, setData] = useState({});
@@ -30,6 +30,19 @@ function IssueBook() {
 
         setInputs(preValues => ({...preValues, [name]: value}))
     }
+
+    useEffect(() => {
+        const storedReturnMessage = localStorage.getItem("returnMessage");
+        const storedIssueMessage = localStorage.getItem("issueMessage");
+        if (storedIssueMessage) {
+            setIssueMessage(storedIssueMessage);
+        }else if(storedReturnMessage){
+            setReturnMessage(storedReturnMessage);
+        }
+        localStorage.removeItem("returnMessage");
+        localStorage.removeItem("issueMessage");
+
+    }, []);
 
     const returnHandleChange = (e) => {
         if (e.target.name == "returnBookID") {
@@ -229,7 +242,10 @@ function IssueBook() {
 
     const issueBook = async () => {
         const extendedData = {
-            ...data, ...inputs, dateTime: getCurrentDateTime()
+            ...data,
+            ...inputs,
+            setAvailability: "bookIssued",
+            dateTime: getCurrentDateTime()
         };
         console.log(extendedData);
         const res = await axios.post(
@@ -242,15 +258,20 @@ function IssueBook() {
             });
         console.log(res.data.resultMessage)
         const message = await res.data.resultMessage;
-        setMessage(message);
-        //console.log(message.ISBN_Number)
+        if (message === "true") {
+            localStorage.setItem("issueMessage", "Successfully issued!");
+        } else {
+            localStorage.setItem("issueMessage", "Failed!");
+        }
+        location.reload();
     }
 
     const returnBook = async () => {
         const extendedData = {
             category: returnBookIdDetails.category,
             userID: returnBookIdDetails.userID,
-            ...returnBookInputs
+            ...returnBookInputs,
+            setAvailability: "available"
         };
         console.log(extendedData)
         const res = await axios.post(
@@ -263,8 +284,12 @@ function IssueBook() {
             });
         console.log(res.data.resultMessage)
         const message = await res.data.resultMessage;
-        setMessage(message);
-
+        if (message === "true") {
+            localStorage.setItem("returnMessage", "Successfully Returned!");
+        } else {
+            localStorage.setItem("returnMessage", "Failed!");
+        }
+        location.reload();
     }
     return (
         <div id="issueAndReturn">
@@ -275,7 +300,10 @@ function IssueBook() {
                 <div id="formDivIssueBook">
                     <form className="row g-3 needs-validation" noValidate>
                         <h1>Issue Books To Customer</h1>
-                        <br/><br/><br/><br/><br/><br/>
+                        <p style={{
+                            color: issueMessage === "Successfully issued!" ? 'green' : 'red',
+                        }}>{issueMessage}</p>
+                        <br/><br/><br/><br/>
                         <div className="row justify-content-center">
                             <h3>Book Details</h3>
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -316,11 +344,6 @@ function IssueBook() {
                                             feedback={"Member Name."} handleChange={handleChange}/>
                             </div>
 
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-
-                                <SetAvailability keyword1={""} keyword2={"Issue to customer"} parameter="issueBook"
-                                                 handleChange={handleChange} disabled={true}/>
-                            </div>
 
                             <Button id="submitButton" keyword2={"Issue Book"} submit={submit}/>
                             <Link id="requestBook" className="btn btn-success" to={"/issueBook/requestList"}>View Books
@@ -328,10 +351,10 @@ function IssueBook() {
                         </div>
                     </form>
                 </div>
-                <div>
-                    <p>Response from PHP script: {message}</p>
-                    <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>
-                </div>
+                {/*<div>*/}
+                {/*    <p>Response from PHP script: {message}</p>*/}
+                {/*    <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>*/}
+                {/*</div>*/}
             </div>
             <hr/>
 
@@ -343,6 +366,9 @@ function IssueBook() {
                 <div id="formDivReturnBook">
                     <form className="row g-3 needs-validation" noValidate>
                         <h1>Return Book</h1>
+                        <p style={{
+                            color: returnMessage === "Successfully Returned!" ? 'green' : 'red',
+                        }}>{returnMessage}</p>
                         <div className="row justify-content-center">
                             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                 <InputField label={"Book ID"} id={"validationBookID"} className={"form-control"}
@@ -373,15 +399,9 @@ function IssueBook() {
 
                             <p>Fine Calculation:{returnBookIdDetails.fine}</p>
 
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-
-                                <SetAvailability keyword1={"Return Book"} keyword2={""} parameter="issueBook"
-                                                 disabled2={true}
-                                                 handleChange={returnHandleChange}/>
-                            </div>
                         </div>
 
-                        <div >
+                        <div>
                             <div className="form-check">
                                 <input className="form-check-input" type="checkbox" value="" id="verifyFine"
                                        required/>
@@ -396,10 +416,10 @@ function IssueBook() {
                         <Button id={"returnBook"} keyword2={"Return Book"} submit={returnSubmit}/>
                     </form>
                 </div>
-                <div>
-                    <p>Response from PHP script: {message}</p>
-                    <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>
-                </div>
+                {/*<div>*/}
+                {/*    <p>Response from PHP script: {message}</p>*/}
+                {/*    <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>*/}
+                {/*</div>*/}
             </div>
         </div>
     )

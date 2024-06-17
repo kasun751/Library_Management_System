@@ -53,3 +53,36 @@
     margin-top: 40px!important;
     color: yellow;
 }
+.category-dark-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+}
+
+ .category-dark-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal.fade.show {
+    opacity: 1;
+   font-size: 13px;
+}
+#categoryModel button{
+    font-size: 11px;
+}
+#understood{
+    background-color:  #1E3541 !important;
+}
+#categoryModel h5{
+    color: red;
+}
+#goToDelete{
+    color: white;
+}

@@ -15,3 +15,31 @@
 #BookAvailabilityDetails #requestThis{
     width: 200px;
 }
+@keyframes slideDownBookAvailabilityDetails {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#BookAvailabilityDetails .modal.fade.show.custom-modal .modal-dialog {
+    animation: slideDownBookAvailabilityDetails 0.5s ease-in-out;
+}
+
+#BookAvailabilityDetails .modal-backdrop.show {
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#BookAvailabilityDetails .modal-content {
+    border-radius: 0.3rem;
+    overflow: hidden;
+}
+
+#BookAvailabilityDetails .btn-close-white {
+    filter: invert(1);
+}

@@ -44,6 +44,9 @@ class HandleRequestController
                             } else if (is_array($result)) {
                                 list($result1, $result2, $result3) = $result;
                                 $this->handleResult($result1, $result2,$result3);
+                            }else if($result ==="userReachDailyRequestCount"){
+                                $data = array('resultMessage' => 'User Reach Daily Request Count.');
+                                echo json_encode($data);
                             } else {
                                 $this->respondWithError();
                             }
@@ -75,13 +78,13 @@ class HandleRequestController
 
     private function respondWithSuccess()
     {
-        $data = array('resultMessage' => 'true');
+        $data = array('resultMessage' => 'Request Placed.');
         echo json_encode($data);
     }
 
     private function respondWithError()
     {
-        $data = array('resultMessage' => 'false');
+        $data = array('resultMessage' => 'Failed!');
         echo json_encode($data);
     }
 }

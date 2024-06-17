@@ -1,7 +1,7 @@
 <?php
 
 require_once '../dbConnection/DBConnection.php';
-
+include '../models/IssueBook.php';
 class ConfirmRequest
 {
     private $con;

@@ -10,7 +10,7 @@ class ViewBookListAndDetails
     }
     public function getBookList()
     {
-        $query = "SELECT * FROM books ORDER BY AllBookQty DESC LIMIT 10";
+        $query = "SELECT * FROM books ORDER BY ISBN_Number DESC LIMIT 10";
         $result = $this->con->query($query);
         return $result;
     }
