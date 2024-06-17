@@ -13,7 +13,9 @@ if($conn->connect_error){
     echo json_encode(['resultMessage' => 'Connection failed', 'error' => $conn->connect_error]);
     exit();
 }
-$sql = "SELECT isbn,title,price,author,category,description,image_path,pdf_path FROM ebook";
+
+//$offset = isset($_GET['offset']) ? (int)$_GET['offset'] : 0;
+$sql = "SELECT isbn, title, price, author, category, description, image_path, pdf_path FROM ebook ORDER BY isbn DESC LIMIT 5 OFFSET 2";
 $result=$conn->query($sql);
 
 $details=array();

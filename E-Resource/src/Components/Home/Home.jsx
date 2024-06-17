@@ -5,7 +5,7 @@ function Home (){
 
             <ul className="nav flex-column">
                 <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/ebook">E-Book Section</a>
+                    <a className="nav-link active" aria-current="page" href="/ebook">E-Books Section</a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" href="/enews">E-NewsPapers Section</a>

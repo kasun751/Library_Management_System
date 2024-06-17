@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 function Add_PastPapers(){
@@ -12,6 +12,22 @@ function Add_PastPapers(){
         pdf: null
     });
     const [resMessage, setResMessage] = useState('');
+    const [nextId, setNextId] = useState(null);
+
+    useEffect(() => {
+        const fetchNextId = async () => {
+            try {
+                const res = await axios.get("http://localhost/Lbrary%20Management%20System/E-Resource_Php/GetPastPapersNextId.php");
+                setNextId(res.data.next_Id);
+                console.log(nextId);
+            } catch (error) {
+                console.error("Error fetching next ID:", error);
+                setResMessage("Failed to retrieve next ID. Please try again.");
+            }
+        };
+
+        fetchNextId();
+    }, []);
 
     const handleChange = (e) => {
         const name = e.target.name;
@@ -72,7 +88,7 @@ function Add_PastPapers(){
                     <div className="col-md-3">
                         <label htmlFor="validationCustom02" className="form-label">ID</label>
                         <input type="text" className="form-control" id="validationCustom02" name="id"
-                               value={formData.id} onChange={handleChange} required />
+                               value={nextId || ""} onChange={handleChange} disabled />
                         <div className="valid-feedback">
                             Looks good!
                         </div>

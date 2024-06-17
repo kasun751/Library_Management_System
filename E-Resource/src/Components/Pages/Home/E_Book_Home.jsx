@@ -8,6 +8,8 @@ function E_Book_Home() {
     const [getBookDetails, setGetBookDetails] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchBy, setSearchBy] = useState('title');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
 
     useEffect(() => {
         const getViewBookDetails = async () => {
@@ -61,6 +63,29 @@ function E_Book_Home() {
         }
         return false;
     });
+
+    // useEffect(() => {
+    //     const fetchBookDetails = async () => {
+    //         const offset = (currentPage - 1) * itemsPerPage;
+    //         const url = `http://localhost/Lbrary%20Management%20System/E-Resource_Php/viewBookDetails.php?offset=${offset}`;
+    //         try {
+    //             const res = await axios.get(url, {
+    //                 headers: {
+    //                     'content-Type': 'application/json'
+    //                 }
+    //             });
+    //             setGetBookDetails(res.data);
+    //         } catch (error) {
+    //             console.error("Error fetching data", error);
+    //         }
+    //     };
+    //
+    //     fetchBookDetails();
+    // }, [currentPage]);
+
+
+
+
 
     return (
         <>
@@ -128,7 +153,15 @@ function E_Book_Home() {
                     />
                 ))}
             </div>
+
+            {/*<div className="pagination-container">*/}
+            {/*    <PreviousButton currentPage={currentPage} handlePageChange={handlePageChange} disabled={currentPage === 1} />*/}
+            {/*    <PageNumbers currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />*/}
+            {/*    <NextButton currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />*/}
+            {/*</div>*/}
         </>
+
+
     );
 }
 
