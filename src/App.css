@@ -1,0 +1,122 @@
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #8F9AA0;
+background: 'rgba(0, 0, 0, 0.5)';
+
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+
+.App {
+
+  text-align: center;
+  width:110%;
+  max-width: 1700px;
+  margin: auto;
+
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 20px;
+  color: #000000;
+  font-size: 2.5em;
+  font-weight: 300;
+  border-bottom: 2px solid #50768b;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+
+.rbc-calendar {
+  background: #fff;
+  border-radius: 8px;
+}
+
+.rbc-toolbar {
+  background:  #1E3541;
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+  padding: 10px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.rbc-toolbar button {
+  background: #fff;
+  color:  #1E3541;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.rbc-toolbar button:hover {
+  background:  #8F9AA0;
+  color: #fff;
+}
+
+.rbc-month-view {
+  border: 1px solid #ddd;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+
+.rbc-header {
+  background:  #1E3541;
+  color: #fff;
+  padding: 10px;
+}
+
+.rbc-header + .rbc-header {
+  border-left: 1px solid #fff;
+}
+
+.rbc-date-cell {
+  color:  #1E3541;
+}
+
+.rbc-event {
+  background:  #1E3541;
+  border: none;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius:0;
+  height: 60px;
+}
+
+.rbc-event:hover {
+  background: #8F9AA0;
+}
+
+.rbc-today {
+  background: #aeddf7;
+}
+
+
+@media (max-width: 600px) {
+  .App {
+    width: 95%;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .rbc-toolbar button {
+    padding: 5px;
+    margin: 0 2px;
+  }
+}
