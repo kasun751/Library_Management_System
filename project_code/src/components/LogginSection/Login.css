@@ -1,0 +1,68 @@
+#loginFormMainDiv {
+    background: linear-gradient(180deg, rgba(143, 154, 173, 1) 0%, rgba(53, 73, 84, 1) 46%, rgba(15, 24, 33, 1) 100%);
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+#loginSideImage img {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0 60px 60px 0;
+}
+
+#loginForm {
+    height: 80vh;
+    background-color: rgba(161, 171, 177, 0.88);
+    border-radius: 20px;
+    opacity: 0.8;
+    outline: #c4cbcf 2px solid;
+}
+
+#loginForm p {
+    color: white;
+    text-align: center;
+    font-size: 13px;
+}
+
+#loginForm h3 {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+#loginForm label {
+    margin-top: 20px;
+    color: white;
+    font-size: 13px;
+}
+
+#loginForm #createAccountLink {
+    color: white;
+    font-size: 16px;
+}
+
+#loginForm button {
+    background-color: #1E3541 !important;
+    border: none !important;
+    margin-top: 20px;
+    color: yellow;
+}
+@media (max-width: 768px) {
+    #loginForm #createAccountLink {
+        font-size: 13px;
+    }
+}
+@media (max-width: 768px) {
+    #loginFormMainDiv{
+        background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('../../assets/images/LoginSideImage.jpg');
+    background-size: cover;
+    }
+    #loginSideImage img {
+        display: none;
+    }
+
+    #loginForm {
+        opacity: 0.94;
+
+    }
+}

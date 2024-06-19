@@ -1,6 +1,10 @@
 import {useState} from "react";
-import { useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
+import InputField from "../SubComponents/InputFields.jsx";
+import './Login.css';
+import LoginSideImage from '../../assets/images/LoginSideImage.jpg';
+
 function Login() {
 
     //development mode ekedi deparak useEffect eka run wena hinda eya nawathweemata useRef hook eka use kara athaa
@@ -26,10 +30,10 @@ function Login() {
             .then(response => {
                 console.log(response.data);
                 setLoginStatus(response.data)
-                if(response.data.resultMessage == "Login_Success"){
+                if (response.data.resultMessage == "Login_Success") {
                     const encodedId = encodeURIComponent(response.data.userID);
                     navigate(`/dashboard/${encodedId}`);
-                }else if (response.data.resultMessage == "NotVerifiedAccount"){
+                } else if (response.data.resultMessage == "NotVerifiedAccount") {
                     console.log(response.data.userID);
                     const encodedId = encodeURIComponent(response.data.userID);
                     navigate(`/verificationPage/${encodedId}`);
@@ -41,6 +45,7 @@ function Login() {
             });
 
     }
+
     function submit() {
         (async () => {
             'use strict'
@@ -77,49 +82,45 @@ function Login() {
 
         })()
     }
+
     return (
-        <>
-            <form className="row g-3 needs-validation" noValidate>
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label"> Email Or User_ID</label>
-                    <div className="input-group has-validation">
-                        <input type="text" className="form-control" id="validationCustomUsername01"
-                               aria-describedby="inputGroupPrepend" name="loginUserEmailOrUser_ID" onChange={handleChange}
-                               required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid Email.
-                        </div>
-                    </div>
+        <div id="loginFormMainDiv" className="row">
+            <div className="col-xl-4 col-lg-5 col-md-5  col-0">
+                <div id="loginSideImage">
+                    <img src={LoginSideImage} alt="LoginSideImage"/>
                 </div>
-
-                <div className="col-md-4">
-                    <label htmlFor="validationCustomUsername" className="form-label"> password</label>
-                    <div className="input-group has-validation">
-                        <input type="password" className="form-control" id="validationCustomUsername02"
-                               aria-describedby="inputGroupPrepend" name="loginUserPassword"
-                               onChange={handleChange}
-                               required/>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please choose a valid password.
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-12">
-                    <button className="btn btn-primary feildDisabled" type="submit" onClick={submit}>Login
-                    </button>
-                </div>
-            </form>
-            <div>
-                <p>Response from PHP script: {loginStatus.resultMessage}</p>
             </div>
-        </>
+            <div id="loginForm" className="col-lg-4 col-md-4  col-6 mx-auto my-auto ">
+                <form className="g-3 needs-validation px-3 px-sm-4 px-md-3  px-lg-3 py-5" noValidate>
+                    <h3>Login</h3>
+                    <InputField label={"Email Or User_ID"} id={"validationUserLogin01"} className={"form-control"}
+                                name={"loginUserEmailOrUser_ID"} type={"text"} handleChange={handleChange}
+                                feedback={"Email Or User_ID."}/>
+
+                    <InputField label={"Password"} id={"validationUserLogin02"} className={"form-control"}
+                                name={"loginUserPassword"} type={"password"} handleChange={handleChange}
+                                feedback={"Email Or User_ID."}/>
+                    <label htmlFor="fogotPassword">Forgot Password?</label>
+                    <div className="col-12">
+                        <button className="col-12 btn btn-primary feildDisabled" type="submit" onClick={submit}>Sign
+                            In
+                        </button>
+                        <hr className="w-75  mt-4 mx-auto"/>
+                        <div className="text-center">
+                            <p>Or sign in with</p>
+                            <Link id="createAccountLink" to="/guestUser">Create new account </Link>
+                        </div>
+                    </div>
+
+
+                </form>
+
+
+            </div>
+            {/*<div>*/}
+            {/*    <p>Response from PHP script: {loginStatus.resultMessage}</p>*/}
+            {/*</div>*/}
+        </div>
     )
 }
 
