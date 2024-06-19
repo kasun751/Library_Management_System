@@ -93,51 +93,53 @@ const Remove = () => {
 
     return (
         <div>
-            <Navigation />
-            <div className="remove_container">
-                <h2>Remove E-Book</h2>
-                <form className="row g-3 needs-validation" noValidate onSubmit={submit}>
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustom01" className="form-label">ISBN</label>
-                        <input type="text" className="form-control" id="validationCustom01" name="isbn"
-                               onChange={deleteHandle}  value={deleteBook.isbn || ""} required />
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div className="invalid-feedback">
-                            Please enter a valid ID.
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustomUsername" className="form-label">Title</label>
-                        <div className="input-group has-validation">
-                            <input type="text" className="form-control" id="validationCustom03" name="author"
-                                   onChange={deleteHandle} value={deleteBook.title || ""} required />
-
+            <div className="remove_Ebook_form">
+                <div className="formContainer_remove">
+                    <h2 id="add" className="outlined-text ">Remove E-Book</h2>
+                    <form className="row g-3 needs-validation" noValidate onSubmit={submit}>
+                        <div className="col-md-4">
+                            <label htmlFor="validationCustom01" className="form-label">ISBN</label>
+                            <input type="text" className="form-control" id="validationCustom01" name="isbn"
+                                   onChange={deleteHandle}  value={deleteBook.isbn || ""} required />
+                            <div className="valid-feedback">
+                                Looks good!
+                            </div>
                             <div className="invalid-feedback">
-                                Please enter a Book Title.
+                                Please enter a valid ID.
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <label htmlFor="validationCustomUsername" className="form-label">Title</label>
+                            <div className="input-group has-validation">
+                                <input type="text" className="form-control" id="validationCustom03" name="author"
+                                       onChange={deleteHandle} value={deleteBook.title || ""} required />
+
+                                <div className="invalid-feedback">
+                                    Please enter a Book Title.
+                                </div>
+                                <div className="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <label htmlFor="validationCustom03" className="form-label">Author</label>
+                            <input type="text" className="form-control" id="validationCustom03" name="author"
+                                   onChange={deleteHandle} value={deleteBook.author || ""}  required />
+                            <div className="invalid-feedback">
+                                Please provide a Author name.
                             </div>
                             <div className="valid-feedback">
                                 Looks good!
                             </div>
                         </div>
-                    </div>
-                    <div className="col-md-4">
-                        <label htmlFor="validationCustom03" className="form-label">Author</label>
-                        <input type="text" className="form-control" id="validationCustom03" name="author"
-                                onChange={deleteHandle} value={deleteBook.author || ""}  required />
-                        <div className="invalid-feedback">
-                            Please provide a Author name.
+                        <div className="col-12">
+                            <button className="btn btn-primary button" id="f-btn" type="submit" onClick={submit}>Remove Book</button>
                         </div>
-                        <div className="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                    <div className="col-12">
-                        <button className="btn btn-primary" type="submit" onClick={submit}>Remove Book</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
+
             <div>
                 <p>Response from PHP script: {resMessage}</p>
             </div>

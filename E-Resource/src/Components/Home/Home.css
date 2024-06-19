@@ -1,0 +1,23 @@
+.main_home{
+    background:url("../../assets/images/main_home.jpg") center center / cover no-repeat;
+    padding: 70px;
+}
+.main_home h1{
+    color: white;
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+}
+ h5{
+    font-size:30px;
+    font-weight: bolder;
+    color: #1E3541;
+    margin: 10px auto;
+     padding: 10px 0;
+}
+.card-body p small{
+    font-weight: bolder;
+}
+.card-text button{
+    width: 8rem;
+}

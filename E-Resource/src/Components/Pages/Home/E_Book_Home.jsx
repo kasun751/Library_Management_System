@@ -8,29 +8,10 @@ function E_Book_Home() {
     const [getBookDetails, setGetBookDetails] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchBy, setSearchBy] = useState('title');
+    const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
-    useEffect(() => {
-        const getViewBookDetails = async () => {
-            try {
-                const res = await axios.get(
-                    'http://localhost/Lbrary%20Management%20System/E-Resource_Php/viewBookDetails.php',
-                    {
-                        headers: {
-                            'content-Type': 'application/json'
-                        }
-                    }
-                )
-                console.log(res.data);
-                setGetBookDetails(res.data);
-            } catch (error) {
-                console.error("Error fetching data", error);
-            }
-        }
-
-        getViewBookDetails();
-    }, []);
 
     useEffect(() => {
         const loadPayHereScript = () => {
@@ -64,26 +45,27 @@ function E_Book_Home() {
         return false;
     });
 
-    // useEffect(() => {
-    //     const fetchBookDetails = async () => {
-    //         const offset = (currentPage - 1) * itemsPerPage;
-    //         const url = `http://localhost/Lbrary%20Management%20System/E-Resource_Php/viewBookDetails.php?offset=${offset}`;
-    //         try {
-    //             const res = await axios.get(url, {
-    //                 headers: {
-    //                     'content-Type': 'application/json'
-    //                 }
-    //             });
-    //             setGetBookDetails(res.data);
-    //         } catch (error) {
-    //             console.error("Error fetching data", error);
-    //         }
-    //     };
-    //
-    //     fetchBookDetails();
-    // }, [currentPage]);
+    useEffect(() => {
+        const fetchBookDetails = async () => {
+            try {
+                const res = await axios.get(
+                    `http://localhost/Lbrary%20Management%20System/E-Resource_Php/viewBookDetails.php?offset=${(currentPage - 1) * itemsPerPage}&limit=${itemsPerPage}`
+                );
+                setGetBookDetails(res.data.books);
+                setTotalPages(res.data.totalPages);
+            } catch (error) {
+                console.error("Error fetching data", error);
+            }
+        };
 
+        fetchBookDetails();
+    }, [currentPage]);
 
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setCurrentPage(newPage);
+        }
+    };
 
 
 
@@ -91,7 +73,7 @@ function E_Book_Home() {
         <>
             <div className="search-container">
 
-                <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <nav className="navbar navbar-expand-lg bg-body-tertiary eBook_NavBar">
                     <div className="container-fluid">
 
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -107,38 +89,45 @@ function E_Book_Home() {
                                 </li>
 
                             </ul>
-                            <form className="d-flex" role="search">
-                                    <div className="input-group mb-4">
-                                        <select
-                                            className="form-select search-select"
-                                            aria-label="Search By"
-                                            onChange={(e) => setSearchBy(e.target.value)}
-                                        >
-                                            <option value="">Search By</option>
-                                            <option value="title">Title</option>
-                                            <option value="category">Category</option>
-                                            <option value="author">Author</option>
-                                        </select>
-                                        <input
-                                            type="search"
-                                            className="form-control me-2"
-                                            placeholder="Search Here"
-                                            aria-label="Search"
-                                            aria-describedby="basic-addon2"
-                                            onChange={(e) => setSearchQuery(e.target.value)}
-                                        />
-                                        <button className="btn btn-outline-success" type="submit">Search</button>
-                                    </div>
-                                </form>
+
 
 
                         </div>
                     </div>
                 </nav>
-                <h1>E-Books Section</h1>
+                <div className="eBook_header">
+                    <h1 className="outlined-text home_heading">E-Books Section</h1>
+
+                    <form className="d-flex" role="search">
+                        <div className="input-group mb-4">
+                            <select
+                                className="form-select search-select"
+                                aria-label="Search By"
+                                onChange={(e) => setSearchBy(e.target.value)}
+                            >
+                                <option value="">Search By</option>
+                                <option value="title">Title</option>
+                                <option value="category">Category</option>
+                                <option value="author">Author</option>
+                            </select>
+                            <input
+                                type="search"
+                                className="form-control me-2"
+                                placeholder="Search Here"
+                                aria-label="Search"
+                                aria-describedby="basic-addon2"
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <button className="btn btn-outline-success button" type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+
 
             </div>
-            <div className="card-container">
+            <div className="card-container row">
+
+
                 {filteredBooks.map((book, index) => (
                     <Card
                         key={index}
@@ -152,13 +141,23 @@ function E_Book_Home() {
                         pdf_path={`http://localhost/Lbrary%20Management%20System/PDF/${book.pdf_path}`}
                     />
                 ))}
+                    </div>
+
+
+            <div className=" eBook_pagination">
+                <div className="btn-group btn-group-sm">
+                    <button  className="btn btn-outline-primary pagination-boarder"
+                             onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                        Previous
+                    </button>
+                    <span className="btn btn-outline-primary">{currentPage} of {totalPages}</span>
+                    <button className="btn btn-outline-primary"
+                            onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                        Next
+                    </button>
+                </div>
             </div>
 
-            {/*<div className="pagination-container">*/}
-            {/*    <PreviousButton currentPage={currentPage} handlePageChange={handlePageChange} disabled={currentPage === 1} />*/}
-            {/*    <PageNumbers currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />*/}
-            {/*    <NextButton currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />*/}
-            {/*</div>*/}
         </>
 
 

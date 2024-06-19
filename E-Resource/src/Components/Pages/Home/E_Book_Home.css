@@ -1,16 +1,62 @@
 .d-flex{
-    margin-top: 15px;
+    margin-top: 25px;
 }
 .search-container {
     margin: 5px;
 
 }
+.eBook_NavBar{
+    background-color: #8F9AA0 !important;
+    padding: 15px;
+}
+.home_heading{
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000 !important;
+    color: white;
 
-.card-container{
+}
+
+.eBook_header{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 50px;
-    margin: 50px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background: url("../../../assets/images/ideas3.jpg") center center / cover no-repeat;
+}
+
+
+.eBook_header h1{
+    color: white;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.button{
+    background-color:#1E3541;
+    border-color:white;
+    color: white;
+}
+.button:hover{
+    background-color:#1E3541;
+    border-color:#1E3541;
+    opacity: 0.8;
+}
+.card-container{
+    margin: 50px 0 !important;
+
+}
+.eBook_pagination{
+    display: flex;
     justify-content: center;
+    margin: 5px;
+}
+.btn-outline-primary{
+    border-color: #1E3541;
+    color: #1E3541;
+}
+.btn-outline-primary:hover{
+    background-color: #1E3541;
 }

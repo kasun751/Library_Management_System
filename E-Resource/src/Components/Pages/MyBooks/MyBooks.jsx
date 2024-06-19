@@ -53,17 +53,22 @@ function MyBooks() {
 
     return (
         <div>
-            <h1>My Books</h1>
+            <div className="eBook_header">
+                <h1 className="outlined-text home_heading">My Books</h1>
+            </div>
             <div className="card-container">
                 {buyBooks.map(book => (
-                    <div key={book.isbn} className="card">
-                        <img src={`http://localhost/Lbrary%20Management%20System/IMAGES/${book.image_path}`} className="card-img-top" alt="Book Cover" />
-                        <div className="card-body">
+                    <div key={book.isbn} className="card col-md-4 col-lg-3 row">
+                        <div className="col-12 col-sm-8 col-lg-11 col-md-11 mx-auto">
+                            <img src={`http://localhost/Lbrary%20Management%20System/IMAGES/${book.image_path}`} className="card-img-top" alt="Book Cover" />
+                        </div>
+
+                        <div className="card-body col-12">
                             <h4 className="card-title">{book.title}</h4>
                             <h6 className="card-title">ISBN: {book.isbn}</h6>
                             <h5 className="card-title">Author: {book.author}</h5>
                             <p className="card-text">{book.description}</p>
-                            <Button className="btn btn-primary" onClick={() => viewBook(book.isbn)}>
+                            <Button className="btn btn-primary button"  onClick={() => viewBook(book.isbn)}>
                                 View Book
                             </Button>
                         </div>

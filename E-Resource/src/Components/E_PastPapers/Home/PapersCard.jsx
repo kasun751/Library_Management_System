@@ -36,16 +36,19 @@ function PapersCard({id, subject, grade, year,extra, image_path, pdf_path }) {
 
     return (
         <>
-            <div className="card">
-                <img src={image_path} className="card-img-top" alt="Book Cover" />
+            <div className="card col-md-4 col-lg-3 row">
+                <div className="col-12 col-sm-8 col-lg-11 col-md-11 mx-auto " >
+                    <img src={image_path} className="card-img-top" alt="Book Cover" />
+                </div>
+
                 <div className="card-body">
                     <h4 className="card-title">{subject}</h4>
                     <h5 className="card-title">Grade {grade}</h5>
                     <h5 className="card-title">{year}</h5>
                     <p className="card-text">{extra}</p>
-                    <Button className="btn btn-primary" onClick={handleViewPdf}>View</Button>&nbsp;
-                    <Button onClick={handleDelete} className="btn btn-primary">Delete</Button>&nbsp;
-                    <Button onClick={handleUpdate} className="btn btn-primary">Update</Button>
+                    <Button className="btn btn-primary button" onClick={handleViewPdf}>View</Button>&nbsp;
+                    <Button onClick={handleDelete} className="btn btn-primary button">Delete</Button>&nbsp;
+                    <Button onClick={handleUpdate} className="btn btn-primary button">Update</Button>
                 </div>
             </div>
             {showPdf && (

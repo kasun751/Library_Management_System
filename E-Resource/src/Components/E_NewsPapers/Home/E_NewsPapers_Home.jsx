@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import NewsCard from "./NewsCard.jsx";
+import './E_NewsPapers_Home.css'
 
 function E_NewsPapers_Home(){
     const [getNewsPapersDetails, setGetNewsPapersDetails] = useState([]);
@@ -42,7 +43,7 @@ function E_NewsPapers_Home(){
     return(
         <>
             <div className="search-container">
-                <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <nav className="navbar navbar-expand-lg bg-body-tertiary eBook_NavBar">
                     <div className="container-fluid">
 
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -56,36 +57,40 @@ function E_NewsPapers_Home(){
 
 
                             </ul>
-                            <form className="d-flex" role="search">
-                                <div className="input-group mb-4">
-                                    <select
-                                        className="form-select search-select"
-                                        aria-label="Search By"
-                                        onChange={(e) => setSearchBy(e.target.value)}
-                                    >
-                                        <option value="">Search By</option>
-                                        <option value="title">Title</option>
-                                        <option value="date">Date</option>
 
-                                    </select>
-                                    <input
-                                        type="search"
-                                        className="form-control me-2"
-                                        placeholder="Search Here"
-                                        aria-label="Search"
-                                        aria-describedby="basic-addon2"
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                    />
-                                    <button className="btn btn-outline-success" type="submit">Search</button>
-                                </div>
-                            </form>
 
 
                         </div>
                     </div>
                 </nav>
-                <h1>E-News Papers Section</h1>
-                <div className="card-container">
+                <div className="enewsPaper_header">
+                    <h1 className="outlined-text home_heading">E-News Papers Section</h1>
+                    <form className="d-flex" role="search">
+                        <div className="input-group mb-4">
+                            <select
+                                className="form-select search-select"
+                                aria-label="Search By"
+                                onChange={(e) => setSearchBy(e.target.value)}
+                            >
+                                <option value="">Search By</option>
+                                <option value="title">Title</option>
+                                <option value="date">Date</option>
+
+                            </select>
+                            <input
+                                type="search"
+                                className="form-control me-2"
+                                placeholder="Search Here"
+                                aria-label="Search"
+                                aria-describedby="basic-addon2"
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <button className="btn btn-outline-success button" type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div className="card-container row">
                     {filteredNews.map((news, index) => (
                         <NewsCard
                             key={index}

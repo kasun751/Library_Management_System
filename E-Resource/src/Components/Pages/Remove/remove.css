@@ -1,3 +1,45 @@
-.remove_container{
-    margin: 25px;
+.remove_Ebook_form{
+    margin: 0;
+    padding: 0;
+    background: url("../../../assets/images/ideas3.jpg") center center/cover no-repeat;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.remove_Ebook_form::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../../../assets/images/ideas3.jpg') center center/ cover no-repeat;
+    filter: blur(2px);
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.formContainer_remove{
+    height: 50%;
+    width: 91%;
+    margin: 15px auto!important;
+    padding: 20px 40px;
+    border-radius: 20px;
+    background-color: rgba(161, 171, 177, 0.88);
+    position: relative;
+    z-index: 2;
+    border: white 2px solid;
+    font-size: 17px;
+    font-weight:bolder ;
+}
+.formContainer_remove form{
+    margin-top: 20px;
+}
+.col-12 button{
+    margin-top: 10px;
 }

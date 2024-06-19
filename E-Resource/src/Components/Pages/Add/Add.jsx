@@ -63,9 +63,9 @@ function Add() {
 
     return (
         <>
-
+        <div className="add_Ebook_form">
             <div className="formContainer">
-                <h2>Add E-Book</h2>
+                <h2 id="add" className="outlined-text ">Add E-Book</h2>
                 <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
                     <div className="col-md-4">
                         <label htmlFor="validationCustom02" className="form-label">ISBN Number</label>
@@ -97,12 +97,12 @@ function Add() {
                             <span className="input-group-text" id="inputGroupPrepend">Rs:</span>
                             <input type="text" className="form-control" id="validationCustomUsername" placeholder="1500.00"
                                    name="price" value={formData.price} onChange={handleChange} required/>
-                                <div className="valid-feedback">
-                                       Looks good!
-                                </div>
-                                <div className="invalid-feedback">
-                                    Please enter a price.
-                                </div>
+                            <div className="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div className="invalid-feedback">
+                                Please enter a price.
+                            </div>
                         </div>
                     </div>
 
@@ -164,11 +164,14 @@ function Add() {
                         </div>
                     </div>
                     <div className="col-12">
-                        <button className="btn btn-primary" type="submit">Add Book</button>
+                        <button className="btn btn-primary button" id="f-btn" type="submit">Add Book</button>
                     </div>
                 </form>
             </div>
+        </div>
             <div>
+
+
                 <p>Response from PHP script: {resMessage}</p>
             </div>
         </>

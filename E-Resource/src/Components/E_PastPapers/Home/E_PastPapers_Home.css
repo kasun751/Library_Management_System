@@ -1,0 +1,12 @@
+.ePastPapers_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background: url("../../../assets/images/epast_papers.jpg") center center / cover no-repeat;
+}
+.ePastPapers_header h1{
+    color: white;
+    font-size: 60px;
+    font-weight: bold;
+}

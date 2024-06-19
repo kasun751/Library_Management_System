@@ -89,18 +89,23 @@ function Card({ title, isbn, author, price, description, image_path ,category,pd
     };
 
     return (
-        <div className="card">
-            <img src={image_path} className="card-img-top" alt="Book Cover" />
-            <div className="card-body">
+        <div className="card col-md-4 col-lg-3 row">
+            <div className="col-12 col-sm-8 col-lg-11 col-md-11 mx-auto " >
+                <img src={image_path} className="card-img-top " alt="Book Cover" />
+            </div>
+
+            <div className="card-body col-12">
                 <h4 className="card-title">{title}</h4>
                 <h6 className="card-title">ISBN: {isbn}</h6>
                 <h5 className="card-title">Author: {author}</h5>
                 <h6 className="card-title">Rs: {price}</h6>
                 <p className="card-text">{description}</p>
-                <Button onClick={buyNow} className="btn btn-primary">Buy Now</Button>&nbsp;
-                <Button onClick={handleDelete} className="btn btn-primary">Delete Book</Button>&nbsp;
-                <Button onClick={handleUpdate} className="btn btn-primary">Update Book</Button>
+                <Button onClick={buyNow} className="btn btn-primary button">Buy Now</Button>&nbsp;
+                <Button onClick={handleDelete} className="btn btn-primary button">Delete Book</Button>&nbsp;
+                <Button onClick={handleUpdate} className="btn btn-primary button">Update Book</Button>
             </div>
+
+
         </div>
     );
 }
