@@ -1,5 +1,7 @@
 #availableNow{
-    height:100vh;
+    min-height: 100vh;
+    height: 100%;
+    box-sizing: border-box;
     background-image: radial-gradient( circle farthest-corner at 48.4% 47.5%,  rgba(122,183,255,1) 0%, rgba(21,83,161,1) 90% );
 }
 

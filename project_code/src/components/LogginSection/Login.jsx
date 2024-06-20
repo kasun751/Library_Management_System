@@ -1,24 +1,33 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import InputField from "../SubComponents/InputFields.jsx";
 import './Login.css';
 import LoginSideImage from '../../assets/images/LoginSideImage.jpg';
+import CircleSpinner from "../CircleSpinner/CircleSpinner.jsx";
 
 function Login() {
 
     //development mode ekedi deparak useEffect eka run wena hinda eya nawathweemata useRef hook eka use kara athaa
     const [inputs, setInputs] = useState({});
-    const [loginStatus, setLoginStatus] = useState({});
+    const [loginDetailsValidateResponse, setLoginDetailsValidateResponse] = useState('');
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const validFeedback = document.getElementsByClassName("valid-feedback");
+    if (validFeedback.length > 0) {
+        for (let i = 0; i < validFeedback.length; i++) {
+            validFeedback[i].style.display = "none";
+        }
+    }
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setInputs(preValues => ({...preValues, [name]: value}))
     }
 
-    const UserLogin = async () => {
 
+    const UserLogin = async () => {
+        setLoading(true);
         await axios.post(
             'http://localhost:8081/project_01/controllers/LibraryUserLoginController.php',
             inputs,
@@ -28,8 +37,18 @@ function Login() {
                 }
             })
             .then(response => {
+                setLoading(false);
                 console.log(response.data);
-                setLoginStatus(response.data)
+                const message = response.data.resultMessage;
+                if (message === "Login details not matched!") {
+                    const emailField=document.getElementById("validationUserLogin01");
+                    const passwordField=document.getElementById("validationUserLogin02");
+                    emailField.style.borderColor="red";
+                    passwordField.style.borderColor="red";
+                    setLoginDetailsValidateResponse("Login details not matched!")
+                } else {
+                    setLoginDetailsValidateResponse(message)
+                }
                 if (response.data.resultMessage == "Login_Success") {
                     const encodedId = encodeURIComponent(response.data.userID);
                     navigate(`/dashboard/${encodedId}`);
@@ -85,6 +104,7 @@ function Login() {
 
     return (
         <div id="loginFormMainDiv" className="row">
+            {loading && <CircleSpinner/>}
             <div className="col-xl-4 col-lg-5 col-md-5  col-0">
                 <div id="loginSideImage">
                     <img src={LoginSideImage} alt="LoginSideImage"/>
@@ -99,8 +119,12 @@ function Login() {
 
                     <InputField label={"Password"} id={"validationUserLogin02"} className={"form-control"}
                                 name={"loginUserPassword"} type={"password"} handleChange={handleChange}
-                                feedback={"Email Or User_ID."}/>
-                    <label htmlFor="fogotPassword">Forgot Password?</label>
+                                feedback={"Password"}/>
+                        <label className="mt-1" style={{
+                            color:  loginDetailsValidateResponse=== "Login details not matched!" ? 'red' : 'green',
+                        }}>{loginDetailsValidateResponse}</label><br/>
+
+                    <label className="mt-1" htmlFor="fogotPassword">Forgot Password?</label>
                     <div className="col-12">
                         <button className="col-12 btn btn-primary feildDisabled" type="submit" onClick={submit}>Sign
                             In
@@ -108,7 +132,7 @@ function Login() {
                         <hr className="w-75  mt-4 mx-auto"/>
                         <div className="text-center">
                             <p>Or sign in with</p>
-                            <Link id="createAccountLink" to="/guestUser">Create new account </Link>
+                            <Link id="createAccountLink" to="/register">Create new account </Link>
                         </div>
                     </div>
 
@@ -117,9 +141,7 @@ function Login() {
 
 
             </div>
-            {/*<div>*/}
-            {/*    <p>Response from PHP script: {loginStatus.resultMessage}</p>*/}
-            {/*</div>*/}
+
         </div>
     )
 }

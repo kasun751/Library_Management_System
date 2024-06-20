@@ -1,6 +1,8 @@
 #AllBookDetails{
     background: url('../../../assets/images/IssueAndReturnBook.jpg') 50% / cover no-repeat;
-    height:100vh;
+    min-height: 100vh;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 #AllBookDetails h1{

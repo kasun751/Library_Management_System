@@ -1,0 +1,55 @@
+#registerSection{
+    background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('../../assets/images/RegisterSectionBackground.png');
+   background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 820px;
+    height: 100%;
+    box-sizing: border-box;
+    color: white;
+    border: 3px black solid;
+}
+
+#registrationForm{
+    width: 80%;
+    margin: auto;
+    padding: 30px 50px ;
+    border-radius: 20px;
+    background-color: rgba(161, 171, 177, 0.88);
+    border: white 2px solid;
+    position: relative;
+    top:30px;
+}
+
+#registrationForm .form-check{
+    width:40px;
+    margin-left: 20px;
+}
+#registrationForm label{
+    margin-top: 10px;
+}
+#registerSection h1{
+    text-align: center;
+    text-decoration: underline;
+    padding:20px 0 ;
+    font-weight: bold;
+}
+#registrationForm button{
+    background-color: #1E3541;
+    color: yellow;
+    border: none;
+}
+.dot-animation {
+    animation: dot-blink 1.5s infinite;
+}
+
+@keyframes dot-blink {
+    0%, 20% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
