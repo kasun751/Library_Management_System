@@ -25,6 +25,7 @@
     align-items: center;
     padding: 50px;
     background: url("../../../assets/images/ideas3.jpg") center center / cover no-repeat;
+    width: 100vw;
 }
 
 
@@ -59,4 +60,35 @@
 }
 .btn-outline-primary:hover{
     background-color: #1E3541;
+}
+
+@media only screen and (max-width: 1060px) {
+     .eBook_header h1{
+         font-size: 50px;
+    }
+    .eBook_header #searchSelect select,input,button{
+       height: 35px;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .eBook_header{
+        display: inline-block;
+    }
+    .eBook_header h1{
+        font-size: 60px;
+        text-align: center;
+        border-radius: 5px;
+        background-color:rgba(143, 154, 160, 0.5) ;
+    }
+
+    .eBook_header h1 .home_heading{
+        text-shadow:
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px  2px 0 #000,
+                2px  2px 0 #000 !important;
+        color: white;
+    }
+
 }

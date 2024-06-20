@@ -43,3 +43,10 @@
 .col-12 button{
     margin-top: 10px;
 }
+
+@media only screen and (max-width: 770px) {
+    .remove_Ebook_form{
+        height: 100%;
+
+    }
+}

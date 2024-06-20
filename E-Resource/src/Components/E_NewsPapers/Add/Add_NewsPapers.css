@@ -48,3 +48,11 @@
     color: yellow;
     border: none;
 }
+
+@media only screen and (max-width: 765px) {
+    .e_NewsPapers_form {
+
+        height: 100%;
+
+    }
+}

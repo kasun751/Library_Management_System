@@ -21,3 +21,55 @@
 .card-text button{
     width: 8rem;
 }
+
+
+@media only screen and (max-width: 680px) {
+    .main_home h1 {
+        font-size:50px;
+    }
+    .container h5{
+        font-size:25px;
+    }
+    .card-body p{
+        font-size:15px;
+    }
+
+}
+@media only screen and (max-width: 650px) {
+    .main_home h1 {
+        font-size:40px;
+    }
+
+}
+@media only screen and (max-width:540px) {
+    .main_home h1 {
+        font-size:35px;
+    }
+
+}
+
+@media only screen and (max-width:420px) {
+    .main_home h1 {
+        font-size:35px;
+    }
+    .container h5{
+        font-size:20px;
+    }
+    .card-body p{
+        font-size:12px;
+    }
+
+}
+
+@media only screen and (max-width:400px) {
+    .main_home h1 {
+        font-size:30px;
+    }
+    .container h5{
+        font-size:18px;
+    }
+    .card-body p{
+        font-size:12px;
+    }
+
+}

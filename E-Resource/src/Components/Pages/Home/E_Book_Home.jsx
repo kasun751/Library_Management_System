@@ -98,7 +98,7 @@ function E_Book_Home() {
                 <div className="eBook_header">
                     <h1 className="outlined-text home_heading">E-Books Section</h1>
 
-                    <form className="d-flex" role="search">
+                    <form className="d-flex" id="searchSelect" role="search">
                         <div className="input-group mb-4">
                             <select
                                 className="form-select search-select"

@@ -13,8 +13,8 @@ function Home (){
                 <h5 className="card-title">E-BOOKS SECTION</h5>
                 <div className="card mb-3 border-0" style={{maxWidth:"540px;"}}>
                     <div className="row g-0">
-                        <div className="col-md-4 col-xl-4 col-lg-5 col-md-7 col-sm-7 mx-auto">
-                            <img src={collectionBook} className="img-fluid rounded-start" alt="cover image"/>
+                        <div className="col-md-4 col-xl-4 col-lg-5 col-md-8 col-sm-10 mx-auto">
+                            <img src={collectionBook} id="img" className="img-fluid rounded-start" alt="cover image"/>
                         </div>
                         <div className="col-md-7  d-flex flex-column justify-content-center mx-auto">
                             <div className="card-body">

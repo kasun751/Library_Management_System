@@ -67,7 +67,7 @@ function E_PastPapers_Home(){
                 </nav>
                 <div className="ePastPapers_header">
                     <h1 className="outlined-text home_heading">E-Past Papers Section</h1>
-                    <form className="d-flex" role="search">
+                    <form className="d-flex" id="ppSearchSelect" role="search">
                         <div className="input-group mb-4">
                             <select
                                 className="form-select search-select"
