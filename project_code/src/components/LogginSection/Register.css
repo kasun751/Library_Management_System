@@ -2,16 +2,35 @@
     background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('../../assets/images/RegisterSectionBackground.png');
    background-repeat: no-repeat;
     background-size: cover;
-    min-height: 820px;
+    min-height:1000px;
     height: 100%;
     box-sizing: border-box;
     color: white;
     border: 3px black solid;
 }
+#registerSection #registerPageSelection{
+    width:80%;
+    margin:auto;
+}
+#registerSection #registerPageSelection h3{
+    text-decoration: underline;
+}
 
+#registerSection .selectMethod{
+    width: 240px;
+    display: inline-block;
+    margin-left: 80px;
+    margin-top: 10px;
+    font-size: 17px;
+}
+#registerSection .selectMethod input{
+    position: relative;
+    bottom: 20px;
+    height: 16px;
+}
 #registrationForm{
     width: 80%;
-    margin: auto;
+    margin: -20px auto;
     padding: 30px 50px ;
     border-radius: 20px;
     background-color: rgba(161, 171, 177, 0.88);

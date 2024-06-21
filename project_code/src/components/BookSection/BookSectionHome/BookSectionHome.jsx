@@ -9,13 +9,6 @@ function BookSectionHome() {
             <button id="deleteBookSection"> <Link to="/deleteBook">Delete Book </Link></button>
             <button id="issueBookSection"><Link to="/issueBook"> Issue Book</Link></button>
             <button id="returnBookSection"><Link to="/viewBook">View Book Details </Link> </button>
-            <br/>
-            <br/>
-            <br/>
-            <button id="guestUserSection"><Link to="/guestUser">GuestUser Account </Link> </button>
-            <button id="registerUserSection"><Link to="/register">Register</Link> </button>
-            <button id="loginSection"><Link to="/login">Login</Link> </button>
-
         </div>
     )
 }

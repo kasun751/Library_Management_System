@@ -13,7 +13,7 @@ function AddRemoveCategory() {
     const [removeMessage, setRemoveMessage] = useState('');
     const [categoryList, setCategoryList] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [showOverlay, setShowOverlay] = useState(false); // New state for overlay
+    const [showOverlay, setShowOverlay] = useState(false);
 
     const handleChange = (e) => {
         const name = e.target.name;

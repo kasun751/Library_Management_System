@@ -8,7 +8,6 @@ import CircleSpinner from "../CircleSpinner/CircleSpinner.jsx";
 
 function Login() {
 
-    //development mode ekedi deparak useEffect eka run wena hinda eya nawathweemata useRef hook eka use kara athaa
     const [inputs, setInputs] = useState({});
     const [loginDetailsValidateResponse, setLoginDetailsValidateResponse] = useState('');
     const navigate = useNavigate();
@@ -28,9 +27,13 @@ function Login() {
 
     const UserLogin = async () => {
         setLoading(true);
+        const extendData={
+            ...inputs,
+            filterParameter:0
+        }
         await axios.post(
             'http://localhost:8081/project_01/controllers/LibraryUserLoginController.php',
-            inputs,
+            extendData,
             {
                 headers: {
                     'Content-Type': 'application/json'
@@ -51,6 +54,9 @@ function Login() {
                 }
                 if (response.data.resultMessage == "Login_Success") {
                     const encodedId = encodeURIComponent(response.data.userID);
+                    localStorage.setItem("userID",response.data.userID);
+                    const token = response.data.token;
+                    localStorage.setItem('token', token);
                     navigate(`/dashboard/${encodedId}`);
                 } else if (response.data.resultMessage == "NotVerifiedAccount") {
                     console.log(response.data.userID);
@@ -124,7 +130,7 @@ function Login() {
                             color:  loginDetailsValidateResponse=== "Login details not matched!" ? 'red' : 'green',
                         }}>{loginDetailsValidateResponse}</label><br/>
 
-                    <label className="mt-1" htmlFor="fogotPassword">Forgot Password?</label>
+                    <Link id="forgotPasswordLink" to="/login/forgotPassword">Forgot Password? </Link>
                     <div className="col-12">
                         <button className="col-12 btn btn-primary feildDisabled" type="submit" onClick={submit}>Sign
                             In
@@ -132,7 +138,7 @@ function Login() {
                         <hr className="w-75  mt-4 mx-auto"/>
                         <div className="text-center">
                             <p>Or sign in with</p>
-                            <Link id="createAccountLink" to="/register">Create new account </Link>
+                           <Link id="createAccountLink" to="/register">Create new account </Link>
                         </div>
                     </div>
 

@@ -79,12 +79,12 @@
 #categoryModel button{
     font-size: 11px;
 }
-#understood{
+#categoryModel #understood{
     background-color:  #1E3541 !important;
 }
 #categoryModel h5{
     color: red;
 }
-#goToDelete{
+#categoryModel #goToDelete{
     color: white;
 }

@@ -13,6 +13,7 @@ function VerificationPage() {
 
             if(response.data.resultMessage == "EmailVerified"){
                 const encodedId = encodeURIComponent(decodedId);
+                localStorage.setItem("userID",response.data.userID)
                 navigate(`/dashboard/${encodedId}`);
             }
         })

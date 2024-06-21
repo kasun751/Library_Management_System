@@ -29,10 +29,15 @@ import VerificationPage from "./components/LogginSection/VerificationPage.jsx";
 import RestoreAllBooksReleventToIsbn from "./components/BookSection/DeleteBook/RestoreAllBooksReleventToIsbn.jsx";
 import ViewBookRequests from "./components/BookSection/IssueBook/ViewBookRequests.jsx";
 import AvailableNow from "./components/BookSection/AvailableNow/AvailableNow.jsx";
+import ForgotPassword from "./components/LogginSection/ForgotPassword.jsx";
+import HomePage from "./components/HomePage/HomePage.jsx";
 const router = createBrowserRouter([
-
     {
         path: "/",
+        element: <HomePage/>,
+    },
+    {
+        path: "/bookSection",
         element: <BookSectionHome/>,
     },
     {
@@ -106,6 +111,10 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <Login/>,
+    },
+    {
+        path: "/login/forgotPassword",
+        element: <ForgotPassword/>,
     },
     {
         path: "/dashboard/:id",
