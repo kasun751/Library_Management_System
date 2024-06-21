@@ -53,7 +53,7 @@ function ReportComponent({ onClose, post_id, openFeild1, reportType, reply_id  }
   return (
     <>
       {openFeild&&<div className={submit ? 'report-containerOuter click' : 'report-containerOuter'}>
-      <div className={submit ? 'report-container click' : 'report-container'}>
+      <div className={submit ? 'container report-container click col-md-5' : 'container report-container col-md-5 col-lg-3'}>
         <img src={closeBtn} onClick={()=>setOpenFeild(false)} alt='close' />
         <h4>This content has</h4>
         <select

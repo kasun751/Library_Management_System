@@ -67,7 +67,7 @@ function SidePanel(props) {
 
     return (
         <div className='container sidePanel_container col-lg-5 col-md-7'>
-          <img id='submitForm-back-btn' src="src\Images\arrow-right.svg" onClick={props.onClickClose}/>
+          <img id='sidePanel-back-btn' src="src\Images\arrow-right.svg" onClick={props.onClickClose}/>
             <div className='row text-center'>
                 <div className='col-12'>
                     {props.state === "savePost" && <h2>Save Posts</h2>}
@@ -77,10 +77,10 @@ function SidePanel(props) {
                 </div>
                 <div className='col-12'>
                     {props.state === "savePost" && mySaveposts.map((item) => (
-                        <PanelPost key={item.post_id} post={item} />
+                        <PanelPost key={item.post_id} onclickClose={props.onClickClose} post={item} />
                     ))}
                     {props.state === "myPost" && myposts.map((item) => (
-                        <PanelPost key={item.post_id} post={item} />
+                        <PanelPost key={item.post_id} onclickClose={props.onClickClose} post={item} />
                     ))}
                     {props.state === "reportPost" && reportPosts.map((item, index) => (
                         <ReportPost key={index} post={item} />

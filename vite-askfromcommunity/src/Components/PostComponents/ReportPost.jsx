@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import './ReportPost.css';
 import ReportPage from '../ReportComponent/ReportPage';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function ReportPost({ post }) {
     const [showDescription, setShowDescription] = useState(false);
     const [openReportPage, setOpenReportPage] = useState(false);
+
+
   return (
     <>
         <div className='reportPost-container'>            
@@ -15,7 +18,18 @@ function ReportPost({ post }) {
               {showDescription && <p>{post.description}</p>}
             </div>
         </div>
-        {openReportPage&&<ReportPage item={post} status={"post"}/>}
+        <AnimatePresence>
+        
+        {openReportPage&&<motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <ReportPage item={post} status={"post"}/>
+            </motion.div>
+            }
+        
+        </AnimatePresence>
     </>    
   )
 }

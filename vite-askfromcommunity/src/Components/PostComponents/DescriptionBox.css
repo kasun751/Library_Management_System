@@ -25,7 +25,9 @@
   
   .descriptionBox.show {
     opacity: 1;
-    height: auto; 
+    padding: 5px;
+    height: 400px; 
+    overflow: scroll;
   }
   
   

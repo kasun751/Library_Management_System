@@ -13,6 +13,24 @@
   .sidePanelPostComponent img{
     width:50%;
   }
+
+  #view-post-btn > img{
+    width:40px;
+    padding: 5px;
+    float:right;
+  }
+
+  #view-post-btn > img:hover{
+    padding: 0;
+    background-color: rgb(128, 181, 212);
+    border-radius: 20px;
+    transition: 500.2ms;
+  }
+  #view-post-btn > img:active{
+    padding: 5px;
+    background-color: rgb(76, 146, 186);
+    transition: 200.2ms;
+  }
   
   
   .sidePanelPostComponent h2 {

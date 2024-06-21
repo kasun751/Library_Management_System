@@ -1,30 +1,45 @@
+/* ImageSlider.css */
+
 .imageSlider {
     display: flex;
-    align-items: center;      /* Align items vertically in the center */
-    justify-content: center;  /* Optional: center all items horizontally */
-    gap: 10px;                /* Optional: space between the items */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
-.imageSlider> button {
-    background-color: rgb(30,52,65); 
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 5px;
+#next-img, #prev-img {
+    width: 10vw;
+    max-width: 40px;
     cursor: pointer;
-    border-radius: 100px;
-    font-size: 16px;
 }
 
-.imageSlider>button:hover {
-    background-color:rgb(99, 156, 189);
-    padding: 15px;
-    margin: 0px;
-    color: black;
-    transition: 500.2ms;
+#next-img:hover, #prev-img:hover {
+    background-color: rgb(178, 204, 219);
+    border-radius: 10px;
+    transition: background-color 0.2s, padding 0.2s;
 }
 
-.imageSlider >img {
-    max-width: 100%;          /* Ensure the image does not exceed its container's width */
-    height: auto;             /* Maintain the aspect ratio of the image */
+#next-img:active, #prev-img:active {
+    background-color: rgb(61, 112, 142);
+    padding: 10px;
+    transition: background-color 0.2s, padding 0.2s;
 }
+
+#slide-img {
+    max-width: 80%;
+    min-height: 250px;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+@media (max-width: 500px) {
+    #slide-img {
+        max-width: 60%;
+        min-height: auto;
+    }
+  }

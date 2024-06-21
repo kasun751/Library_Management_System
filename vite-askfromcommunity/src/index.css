@@ -1,0 +1,6 @@
+#root{
+    background: linear-gradient(to right,rgb(217, 224, 228),rgb(187, 190, 194));
+}
+* {
+    box-sizing: border-box;
+  }

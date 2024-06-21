@@ -72,6 +72,7 @@ function ReportPage({item, status}) {
         });
       }
       handleRefresh();
+      setIsVisible(isVisible?false:true)
     }catch(err){
       console.error(err);
     }

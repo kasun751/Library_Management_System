@@ -9,8 +9,11 @@
     border: 1px solid black;
     border-radius: 20px;
     background-color: rgba(193, 182, 228,0.9);
+    z-index: 10000;
   }
-  
+  .form-control{
+    padding: 0;
+  }
   .submitPostFormBox textarea {
     resize: none;
     width: 100%;
@@ -31,8 +34,14 @@
     border-radius: 5px;
     box-sizing: border-box;
   }
+
+  #warning-msg > p{
+    color: red;
+    font-size: smaller;
+    text-align: center;
+  }
   
-  .submitPostFormBox input[type="submit"] {
+  .submitPostFormBox input[type="button"] {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -89,6 +98,7 @@
   .submitPostFormBtn img:active{
     background-color:aqua;
     padding: 5px;
+    transition: 200.2ms;
   }
 #submitForm-back-btn{
   width: 55px;
@@ -105,4 +115,12 @@
 
 #submitForm-back-btn:active{
   background-color:aqua;
+  padding: 5px;
+  transition: 200.2ms;
 }
+
+/* .file-upload-container{
+  display: grid;
+  grid-template-columns:  repeat(3,auto);
+    grid-template-rows: 1fr; 
+} */

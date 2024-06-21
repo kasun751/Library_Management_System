@@ -1,6 +1,6 @@
 .footer-donation{
     width:100%;
-    position: fixed;
+    position: relative;
     bottom: 0;
     left: 0;
     height: 50px;

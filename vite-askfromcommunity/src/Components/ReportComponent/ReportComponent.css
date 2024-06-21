@@ -2,11 +2,10 @@
     border: 1px solid #ccc;
     padding: 20px;
     margin: 20px auto;
-    max-width: 400px;
     position: fixed;
-    top:40%;
-    left:40%;
-    background-color: #37ff00;
+    top:50px;
+    right: 0;
+    background:linear-gradient(#eb8865, #de2929);
     border: 2px solid red;
     border-radius: 20px;
   }

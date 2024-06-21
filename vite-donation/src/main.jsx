@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path:"/donatefunds",
-    element: <DonateFundsPage />
+    element: < DonateFundsPage/>
   }
 ]);
 

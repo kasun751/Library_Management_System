@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: repeat(2,auto);
     grid-template-rows: auto;
+    min-height: 85vh;
 }
 
 .bodyComponent-donation div{

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 import './BodyPost.css';
 import ReplyBox from '../ReplyBoxComponent/ReplyBox';
 import axios from 'axios';
@@ -7,7 +7,13 @@ import ImageSlider from '../ImageSliderComponent/ImageSlider';
 import DescriptionBox from '../PostComponents/DescriptionBox'
 import ReportComponent from '../ReportComponent/ReportComponent';
 import { postRefresh } from '../BodyComponents/BodyComponent';
+import { AnimatePresence, motion } from 'framer-motion';
 import { userAuthentication } from '../../App';
+import AlertBox from '../AlertComponent/AlertBox';
+import ImageSlideEnlarger from '../ImageSliderComponent/ImageSlideEnlarger';
+
+export const alertBoxActivity = createContext({});
+export const imageEnlargerActivity = createContext({});
 
 function BodyPost({ post}) {
   const [reply, setReply] = useState('');
@@ -20,6 +26,8 @@ function BodyPost({ post}) {
   const [isAvailable,setIsAvailable] = useState(false);
   const [isDelete,setIsDelete] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [openAlertBox, setOpenAlertBox] = useState(false);
+  const [openEnlarger, setOpenEnlarger] = useState(false);
 
   const {handleRefresh} = useContext(postRefresh);
   const {user_id, user_type} = useContext(userAuthentication)
@@ -98,7 +106,6 @@ function BodyPost({ post}) {
         reply_msg: reply
       }); //ok
       getReplyMsgFromDB()
-      //setReplyBulk([...replyBulk, { post_id: post.post_id, reply_msg: reply, user_id:user_id }]);
       setReply('');
     } catch (err) {
       console.error(err);
@@ -116,8 +123,12 @@ function BodyPost({ post}) {
     }
     
   }
+
+  const handleDelete =()=>{
+    setOpenAlertBox(true);
+  }
   
-  async function handleDelete(){    
+  async function deletePost(){
     try{ //ok
       await axios.delete(`http://localhost:80/project_1/AskFromCommunity/Controller/postController.php`,{
       data:{
@@ -128,7 +139,7 @@ function BodyPost({ post}) {
     handleRefresh();
     }catch(err){
       console.error(err);
-    }
+    }   
   }
 
   const handleSendReply = () => {
@@ -145,19 +156,32 @@ function BodyPost({ post}) {
 
   return (
     <>
-      {!isDelete && <div className='container  postComponent col-lg-12 col-sm-12'>
+    <AnimatePresence>
+      {!isDelete && 
+      <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <div className='container  postComponent col-lg-12 col-sm-12 col-12'>
         <div className='image-box'>
           <div className='post-btn-panel'>
               <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
-              {!isAvailable && <label className='reportBtn'  onClick={handleReport}>Report</label>}
-              {isAvailable && <label className='buttonPanel' onClick={handleEdit}>Edit</label>}
-              {!isAvailable && <img id="savePostBtn" src={img} onClick={handleSaveBtn} />}
-              {isAvailable && <label className='buttonPanel' onClick={handleDelete}>Delete</label>}
-          </div> 
+
+              {!isAvailable && <img id = "reportBtn" src="src\Images\report-btn.svg" alt="report"  onClick={handleReport}/>}
+
+              {isAvailable && <img id="editPostBtn" src="src\Images\edit-btn.svg" alt="edit" onClick={handleEdit}/>}
+
+              {!isAvailable && <img id="savePostBtn" src={img} alt="post save button" onClick={handleSaveBtn} />}
+
+              {isAvailable && <img id="deletePostBtn" src="src\Images\delete-btn.svg" alt="delete" onClick={handleDelete}/>}
+          </div>
             <div className='imageSlider-container'>
-              <div >
+              
+          <img id="enlarge-btn" src="src\Images\view-in-body.svg" alt="view images" onClick={()=>setOpenEnlarger(true)} />
+              
                   <ImageSlider post_id={post.post_id}/>
-              </div>                               
+                                             
             </div>            
         </div>
         <div className='contentBox col-lg-10'>
@@ -184,7 +208,9 @@ function BodyPost({ post}) {
           </div>
         </div>
       </div>
+      </motion.div>
       }
+      </AnimatePresence>
       {editedPost && editForm && (
                 <SubmitPostForm
                     category={editedPost.category}
@@ -199,7 +225,22 @@ function BodyPost({ post}) {
       {isReportOpen &&
           <ReportComponent onClose={() => setIsReportOpen(isReportOpen?false:true)} openFeild1={isReportOpen} post_id={post.post_id} reportType={"post"} reply_id={""}/>
       }
-
+      <alertBoxActivity.Provider value={{deletePost, setOpenAlertBox}}>
+        {openAlertBox && <AlertBox/>}
+      </alertBoxActivity.Provider>
+      <imageEnlargerActivity.Provider value={{openEnlarger, setOpenEnlarger}}>
+      <AnimatePresence>
+        {openEnlarger &&
+        <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <ImageSlideEnlarger post_id={post.post_id} />
+        </motion.div>
+        }
+        </AnimatePresence>
+      </imageEnlargerActivity.Provider>
     </>
   );
 }
