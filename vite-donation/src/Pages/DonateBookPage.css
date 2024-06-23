@@ -7,10 +7,29 @@
   flex-wrap: wrap;
   justify-content: space-around;
   margin: 50px 5px;
+  min-height: 60vh;
 }
 
 .card_container{
     margin: 5px;
     justify-content:center;
     align-items:center;
+}
+
+P > label{
+  font-weight: bold;
+  font-style: italic;
+}
+#page-numbers > img{
+  width:50px;
+  padding: 5px;
+  margin:0 5px;
+}
+#page-numbers {
+  display: flex;
+  justify-content: center;
+}
+#page-numbers > *{
+  border: 1px solid black;
+  align-items: center;
 }

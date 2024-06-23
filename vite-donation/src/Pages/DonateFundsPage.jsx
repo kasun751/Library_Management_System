@@ -3,8 +3,11 @@ import SubHeader from '../Components/SubHeader';
 import axios from 'axios';
 import './DonateFundsPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { SearchDataContext } from './DonateBookPage';
+import FooterComponent from '../Components/FooterComponent';
 
 function DonateFundsPage() {
+  const [searchData, setSearchData] = useState("");
   const [data, setData] = useState({
     fname: "",
     lname: "",
@@ -90,7 +93,10 @@ function DonateFundsPage() {
 
   return (
     <>
-      <SubHeader />
+      <SearchDataContext.Provider value={{searchData, setSearchData}}>
+        <SubHeader searchBar={false} />
+      </SearchDataContext.Provider>
+      
       <div className='container donate-funds-container col-5'>
         <form className="row g-3 needs-validation" noValidate>
           <div className="col-md-6">
@@ -120,7 +126,6 @@ function DonateFundsPage() {
           <div className="col-md-4">
             <label className="form-label">Phone Number</label>
             <div className="input-group has-validation">
-              <span className="input-group-text" id="inputGroupPrepend">#</span>
               <input
                 type="text"
                 className="form-control"
@@ -215,6 +220,7 @@ function DonateFundsPage() {
         </form>
         <button className="btn btn-primary" onClick={paymentGateway}>Submit form</button>
       </div>
+      <FooterComponent />
     </>
   );
 }

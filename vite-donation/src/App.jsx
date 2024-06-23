@@ -1,17 +1,18 @@
 import { useState } from 'react'
 import './App.css'
-import SubHeader from './Components/SubHeader'
 import BodyComponent from './Components/BodyComponent'
 import FooterComponent from './Components/FooterComponent'
+import SubHeader from './Components/SubHeader'
+import { SearchDataContext } from './Pages/DonateBookPage'
 
 function App() {
-
+  const [searchData, setSearchData] = useState("");
   return (
-    <>
-      <SubHeader />
+    <SearchDataContext.Provider value={{searchData, setSearchData}}>
+      <SubHeader searchBar={false} />
       <BodyComponent />
       <FooterComponent />
-    </>
+    </SearchDataContext.Provider>
   )
 }
 
