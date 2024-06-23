@@ -1,0 +1,33 @@
+.subHeadeContainer{
+    display: flex;
+  justify-content: space-between;
+  height:20%;
+  border: 2px solid black;
+  background-color: red;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.subHeaderImageBtnPannel>img{
+    width:30px;  
+    cursor: pointer;  
+}
+.headerTitle{
+    width:60%;
+    display: inline-block;    
+    height:55px;
+    z-index: 50;
+}
+.headerImages{
+    width:40%;
+    display: inline-block;
+    margin-left: auto;
+    height:55px;
+    z-index: 100;
+}
+
+.headerTitle img{
+    width:100px;
+}
+

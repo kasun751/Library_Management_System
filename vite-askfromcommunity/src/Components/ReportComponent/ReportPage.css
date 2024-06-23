@@ -1,0 +1,39 @@
+.report-page-container{
+    position: fixed;
+    top: 0%;
+    left: 0;   
+    height:100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    overflow: auto;
+}
+.report-page-container button{
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn-panel{
+    display: flex;
+    flex-direction: row;
+}
+#rejectBtn{
+    background-color:rgb(83, 94, 197);
+}
+#deleteBtn{
+    background-color:rgb(210, 72, 88);
+}
+#rejectBtn:hover{
+    background-color:rgb(46, 58, 161);
+}
+#deleteBtn:hover{
+    background-color:rgb(164, 40, 54);
+}
+#imageSlider-container{
+    width: 50%;
+    margin: 10px auto;
+
+}

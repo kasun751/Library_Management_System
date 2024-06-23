@@ -1,0 +1,93 @@
+.sidePanelPostComponent {
+    margin: 20px;
+    width: 75%;
+    padding: 20px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ccc;
+    color: black;
+  }
+
+  .sidePanelPostComponent img{
+    width:50%;
+  }
+
+  #view-post-btn > img{
+    width:40px;
+    padding: 5px;
+    float:right;
+  }
+
+  #view-post-btn > img:hover{
+    padding: 0;
+    background-color: rgb(128, 181, 212);
+    border-radius: 20px;
+    transition: 500.2ms;
+  }
+  #view-post-btn > img:active{
+    padding: 5px;
+    background-color: rgb(76, 146, 186);
+    transition: 200.2ms;
+  }
+  
+  
+  .sidePanelPostComponent h2 {
+    margin-bottom: 10px;
+  }
+  
+  .sidePanelPostComponent p {
+    margin-bottom: 20px;
+  }
+  
+  .sidePanelPostComponent input[type="text"] {
+    width: calc(100% - 80px);
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .sidePanelPostComponent button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidePanelPostComponent button:hover {
+    background-color: #f0f0f0;
+  }
+  .sidePanelPostComponent-replyBox {
+    margin-top: 20px;
+  }
+  .sidePanelPostComponent-reportBtn{
+    float: right;
+    cursor: pointer;
+    color: gray;
+  }
+  .reportBtn:hover{
+    color: red;
+  }
+
+  .sidePanelPostComponent-buttonPanel{
+    float: right;
+    cursor: pointer;
+    color: gray;
+    margin-right: 20px;
+  }
+  .sidePanelPostComponent-buttonPanel:hover{
+    color: rgb(12, 77, 198);
+  }
+
+  #savePostBtn{
+    width:30px;
+    float:right;
+    margin-right: 20px;
+  }
+  #savePostBtn:hover{
+    cursor: pointer;
+  }

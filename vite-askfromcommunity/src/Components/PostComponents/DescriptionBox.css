@@ -1,0 +1,33 @@
+.descriptionBox h4{
+    color: blue;
+    text-decoration: underline;
+    text-align: center; 
+    transition: 1s;   
+}
+.descriptionBox h4:hover{
+    color: green;
+    text-align: center; 
+    font-size: 1.2em;  
+    cursor: pointer; 
+}
+
+.descriptionBox {
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+  }
+  
+  .descriptionBox.hide {
+    transition: opacity 0.5s ease, height 0.5s ease; 
+    opacity: 0;
+    height: 0; 
+    overflow: hidden; 
+  }
+  
+  .descriptionBox.show {
+    opacity: 1;
+    padding: 5px;
+    height: 400px; 
+    overflow: scroll;
+  }
+  
+  

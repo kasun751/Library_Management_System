@@ -1,0 +1,27 @@
+.bodyComponent-donation{
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-template-rows: auto;
+    min-height: 85vh;
+}
+
+.bodyComponent-donation div{
+    padding: 10px;
+    border:1px solid black;
+    width:80%;    
+    border-radius: 20px;
+    margin-top: 10%;
+}
+.donate-books{
+    margin-left: 50px;
+}
+
+.donate-funds:hover{
+    background-color: blanchedalmond;
+    cursor: pointer;
+}
+.donate-books:hover{
+    background-color: blanchedalmond;
+    cursor: pointer;
+}
