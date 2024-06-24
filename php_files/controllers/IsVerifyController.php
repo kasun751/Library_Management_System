@@ -19,9 +19,9 @@ class IsVerifyController
             case "GET":
                 $userID = $_GET['id'];
                 $result = $this->IsVerifyObj->checkVerification($userID, 0);
-                if ($result) {
-                    $data = array('resultMessage' => 'EmailVerified');
-                    echo json_encode($data);
+                if (is_array($result)) {
+                    $result['resultMessage'] = 'EmailVerified';
+                    echo json_encode($result);
                 } else {
                     $data = array('resultMessage' => 'EmailNotVerified');
                     echo json_encode($data);

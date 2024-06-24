@@ -1,5 +1,6 @@
 <?php
 require_once '../dbConnection/DBConnection.php';
+require_once '../models/SendMail.php';
 class VerifyEmail
 {
     private $con;
@@ -19,7 +20,19 @@ class VerifyEmail
             $result2 = $this->con->query($query2);
             $numOfRaw2 = $this->con->affected_rows;
             if ($numOfRaw2 == 1) {
-                echo "Email Verified Successfully...";
+
+                $email=$row['Email'];
+                $password=$row['Password'];
+                $userID=$row['UserID'];
+                $fName=$row['FirstName'];
+                $message = "<p>Thank You For Registering Our Smart Library System.</p>" .
+                    "<p>Your Login Details </p>" .
+                    "<p>EMAIL:$email</p>" .
+                    "<p>USER_ID:$userID </p>".
+                    "<p>PASSWORD:$password </p>";
+                $sendMail=new SendMail();
+                $result=$sendMail->sendMailMessage($email,$fName,"Login Details",$message);
+                header("Location: http://localhost:5173/dashboard/" . urlencode($row['UserID']));
             } else {
                 echo "Email Not Verified...";
             }

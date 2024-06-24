@@ -9,7 +9,7 @@ function BookAvailabilityDetails() {
     const [message, setMessage] = useState('');
     const [modalMessage, setModalMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const userID="SLMS/24/1";  //getting this from session storage
+    const userID="SLMS/ADM/24/1";  //getting this from session storage
     useEffect(() => {
         console.log(id);
         fetchBookDetails(id);
@@ -44,6 +44,7 @@ function BookAvailabilityDetails() {
             userID:userID,
             category:category
         };
+        console.log(extendedData)
         const res = await axios.post(
             'http://localhost:8081/project_01/controllers/HandleRequestController.php?id=0',
             extendedData,
@@ -52,7 +53,7 @@ function BookAvailabilityDetails() {
                     'Content-Type': 'application/json'
                 }
             })
-        // console.log(res.data)
+        console.log(res.data)
        const message =res.data.resultMessage;
         if (message) {
 

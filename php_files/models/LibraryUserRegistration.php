@@ -8,52 +8,80 @@ class LibraryUserRegistration
         $DBobj = new DBConnection();
         $this->con = $DBobj->dbConnect();
     }
-    public function InsertLibraryUserDetails($userID, $firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password, $verificationCode)
+    public function InsertLibraryUserDetails( $firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password, $verificationCode,$accountType)
     {
         $resultCheckExistsOrNot = $this->checkExistsOrNot($nic, $phoneNumber, $email);
         if ($resultCheckExistsOrNot == "NicExist") {
-            $data = array('resultMessage' => 'NicExist');
+            $data = array('resultMessage' => 'Nic Already Exist!');
             echo json_encode($data);
         } elseif ($resultCheckExistsOrNot == "PhoneNumberExist") {
-            $data = array('resultMessage' => 'PhoneNumberExist');
+            $data = array('resultMessage' => 'Phone Number Already Exist');
             echo json_encode($data);
         } elseif ($resultCheckExistsOrNot == "EmailExist") {
-            $data = array('resultMessage' => 'EmailExist');
+            $data = array('resultMessage' => 'Email Already Exist!');
             echo json_encode($data);
         } elseif ($resultCheckExistsOrNot == "queryError") {
-            $data = array('resultMessage' => 'QueryFailed');
+            $data = array('resultMessage' => 'Query Failed!');
             echo json_encode($data);
         } else {
-            $query1 = "INSERT INTO libraryusersdetails (UserID,FirstName,LastName,NIC,Address,PhoneNumber,BirthDay,Gender,Email,Password,Verification_Code,Is_Active) VALUES ('$userID','$firstName', '$lastName', '$nic', '$address', '$phoneNumber','$birthDay','$gender', '$email','$password','$verificationCode',false)";
-            if ($this->con->query($query1)) {
-                return "success!";
+            $nextUserID=$this->createNextUserID($accountType);
+            $nextUserNo = $this->getLastUser_No($accountType);
+
+            $query1 = "INSERT INTO libraryusersdetails (UserID,User_No,FirstName,LastName,NIC,Address,PhoneNumber,BirthDay,Gender,Email,Password,Verification_Code,Is_Active,AccountType) VALUES ('$nextUserID','$nextUserNo','$firstName', '$lastName', '$nic', '$address', '$phoneNumber','$birthDay','$gender', '$email','$password','$verificationCode',false,'$accountType')";
+            $result=$this->con->query($query1);
+            if ($result) {
+                $response = array(
+                    'message' => 'success!',
+                    'userID' => $nextUserID
+                );
+                return $response;
             } else {
-                $data = array('resultMessage' => 'QueryFailed');
+                $data = array('resultMessage' =>  $this->con->error);
                 echo json_encode($data);
             }
         }
 
     }
 
-    public function createNextUserID()
+    public function createNextUserID($accountType)
     {
-        $lastUserNo = $this->getLastUser_No();
-        if ($lastUserNo === null || !isset($lastUserNo['User_No'])) {
-            $user_No = 1;
-        } else {
-            $PreUser_No = $this->getLastUser_No()['User_No'];
-            $user_No = $PreUser_No + 1;
-        }
+        $lastUserNo = $this->getLastUser_No($accountType);
         $lastTwoDigit = substr(date("Y"), -2);
-        $NextUserID = "SLMS/" . $lastTwoDigit . "/" . $user_No;
+        switch ($accountType){
+            case "Register":
+                $NextUserID = "SLMS/REG/" . $lastTwoDigit . "/" .  $lastUserNo;
+                break;
+            Case "SystemAdmin":
+                $NextUserID = "SLMS/ADM/" . $lastTwoDigit . "/" .  $lastUserNo;
+                break;
+            Case "Librarian":
+                $NextUserID = "SLMS/LIB/" . $lastTwoDigit . "/" .  $lastUserNo;
+                break;
+            Case "LibraryAssistantRegistrar":
+                $NextUserID = "SLMS/LAR/" . $lastTwoDigit . "/" .  $lastUserNo;
+                break;
+            Case "LibraryInformationAssistant":
+                $NextUserID = "SLMS/LIA/" . $lastTwoDigit . "/" .  $lastUserNo;
+                break;
+        }
         return $NextUserID;
     }
 
-    public function getLastUser_No()
+    public function getLastUser_No($accountType)
     {
-        $query = "SELECT * FROM libraryusersdetails ORDER BY User_No DESC LIMIT 1";
+        $query = "SELECT * FROM libraryusersdetails WHERE AccountType='$accountType' ORDER BY User_No DESC LIMIT 1";
         $result = mysqli_query($this->con, $query);
-        return mysqli_fetch_assoc($result);
+        $nextUserNoData= mysqli_fetch_assoc($result);
+        $nextUserNo=null;
+        if ($nextUserNoData !== null && isset($nextUserNoData['User_No'])) {
+            $nextUserNo = $nextUserNoData['User_No'];
+            $nextUserNo++;
+        }
+
+        if ($nextUserNo === null) {
+            $nextUserNo = 1;
+        }
+       return $nextUserNo;
     }
 
     public function checkExistsOrNot($nic, $phoneNumber, $email)
@@ -85,3 +113,5 @@ class LibraryUserRegistration
 
     }
 }
+$x=new LibraryUserRegistration();
+$x->getLastUser_No('Register');

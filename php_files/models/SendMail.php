@@ -21,7 +21,7 @@ class SendMail
             $mail->Port = 465;
 
             //Recipients
-            $mail->setFrom('sajanhirushaportfolio@gmail.com', $subject);
+            $mail->setFrom('sajanhirushaportfolio@gmail.com', 'LMS System');
             $mail->addAddress($receiverMail, $receiverName);
 
             //Content

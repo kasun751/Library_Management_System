@@ -4,6 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 include '../models/LibraryUserRegistration.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -11,6 +12,7 @@ use PHPMailer\PHPMailer\Exception;
 class LibraryUserRegistrationController
 {
     private $libraryUserRegistrationObj;
+
     public function __construct()
     {
         $this->libraryUserRegistrationObj = new LibraryUserRegistration();
@@ -22,10 +24,7 @@ class LibraryUserRegistrationController
         $method = $_SERVER['REQUEST_METHOD'];
         switch ($method) {
             case "GET":
-                $result = $this->libraryUserRegistrationObj->createNextUserID();
-                $data = array('nextUserID' => $result);
-                echo json_encode($data, JSON_UNESCAPED_SLASHES);
-                break;
+
 
             case "POST":
                 $firstName = $data['registeredUserFirstName'];
@@ -38,53 +37,56 @@ class LibraryUserRegistrationController
                 $email = $data['registeredUserEmail'];
                 $password = $data['registeredUserPassword'];
                 $ConfirmPassword = $data['registeredUserPasswordConfirm'];
-                $userID = $data['nextUserID'];
                 $verificationCode = sha1($email . time());
-                $verification_Url = 'http://localhost:8081/project_01/controllers/VerifyEmailController.php?code='. $verificationCode;
+                $verification_Url = 'http://localhost:8081/project_01/controllers/VerifyEmailController.php?code=' . $verificationCode;
+                $accountType = $data['accountType'];
 
                 if (!empty($firstName) && !empty($lastName) && !empty($nic) && !empty($address) && !empty($phoneNumber)
-                    && !empty($birthDay) && !empty($gender) && !empty($email) && !empty($password) && !empty($ConfirmPassword)) {
+                    && !empty($birthDay) && !empty($gender) && !empty($email) && !empty($password) && !empty($ConfirmPassword) && !empty($accountType)) {
                     if ($password == $ConfirmPassword) {
-                        $result = $this->libraryUserRegistrationObj->InsertLibraryUserDetails($userID, $firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password, $verificationCode);
-                        if ($result == "success!") {
+                        $result = $this->libraryUserRegistrationObj->InsertLibraryUserDetails($firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password, $verificationCode, $accountType);
+                        if ($result !== null && isset($result['message'])) {
+                            if ($result['message'] == "success!") {
 
-                            require '../PHPMailer/Exception.php';
-                            require '../PHPMailer/PHPMailer.php';
-                            require '../PHPMailer/SMTP.php';
-                            $mail = new PHPMailer(true);
+                                require '../PHPMailer/Exception.php';
+                                require '../PHPMailer/PHPMailer.php';
+                                require '../PHPMailer/SMTP.php';
+                                $mail = new PHPMailer(true);
 
-                            try {
-                                $mail->isSMTP();
-                                $mail->Host = 'smtp.gmail.com';
-                                $mail->SMTPAuth = true;
-                                $mail->Username = 'sajanhirushaportfolio@gmail.com';
-                                $mail->Password = 'bqdqrjjerftiaofm';
-                                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                                $mail->Port = 465;
+                                try {
+                                    $mail->isSMTP();
+                                    $mail->Host = 'smtp.gmail.com';
+                                    $mail->SMTPAuth = true;
+                                    $mail->Username = 'sajanhirushaportfolio@gmail.com';
+                                    $mail->Password = 'bqdqrjjerftiaofm';
+                                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                                    $mail->Port = 465;
 
-                                //Recipients
-                                $mail->setFrom('sajanhirushaportfolio@gmail.com', 'Email Verification');
-                                $mail->addAddress($email, $firstName);
+                                    //Recipients
+                                    $mail->setFrom('sajanhirushaportfolio@gmail.com', 'LMS System');
+                                    $mail->addAddress($email, $firstName);
 
-                                //Content
-                                $mail->isHTML(true);
-                                $mail->Subject = "Email Verification";
-                                $mail->Body = "<p> Dear" . $firstName . "</p>";
-                                $mail->Body .= "<p> Thank You For Signing Up.There is one more step. Click below link to verify your email address in order to activate your account.</p>";
-                                $mail->Body .= "<p> " . $verification_Url . "</p>";
-                                $mail->Body .= "<p> Thank you.</p>";
-                                $mail->send();
+                                    //Content
+                                    $mail->isHTML(true);
+                                    $mail->Subject = "Email Verification";
+                                    $mail->Body = "<p> Dear" . $firstName . "</p>";
+                                    $mail->Body .= "<p> Thank You For Signing Up.There is one more step. Click below link to verify your email address in order to activate your account.</p>";
+                                    $mail->Body .= "<p> " . $verification_Url . "</p>";
+                                    $mail->Body .= "<p> Thank you.</p>";
+                                    $mail->send();
 
-                            } catch (Exception $e) {
-                                $message = "Message could not be sent. ";
+                                } catch (Exception $e) {
+                                    $message = "Message could not be sent. ";
+                                }
+                                $data = array('resultMessage' => 'verificationProcessRunning...',
+                                    'userID' => $result['userID']);
+                                echo json_encode($data);
+
                             }
-                            $data = array('resultMessage' => 'verificationProcessRunning');
-                            echo json_encode($data);
-
                         }
 
                     } else {
-                        $data = array('resultMessage' => 'Password Not Matched');
+                        $data = array('resultMessage' => 'Password Not Matched!');
                         echo json_encode($data);
                     }
                 } else {
@@ -94,5 +96,6 @@ class LibraryUserRegistrationController
         }
     }
 }
-$libraryUserRegistrationController=new LibraryUserRegistrationController();
+
+$libraryUserRegistrationController = new LibraryUserRegistrationController();
 $libraryUserRegistrationController->handleRequest();

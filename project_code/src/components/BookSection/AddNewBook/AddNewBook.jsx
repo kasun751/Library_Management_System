@@ -13,6 +13,8 @@ function AddNewBook() {
     const [message, setMessage] = useState('');
     const [isbnMessage, setIsbnMessage] = useState({});
     const [categoryList, setCategoryList] = useState([]);
+    const [bookData, setBookData] = useState(null);
+
 
     useEffect(() => {
         const storedAddMessage = localStorage.getItem("message");
@@ -34,7 +36,7 @@ function AddNewBook() {
 
         const name = e.target.name;
         const value = e.target.value;
-
+        console.log(name+":"+ value);
         setInputs(preValues => ({...preValues, [name]: value}))
     }
 
@@ -48,12 +50,13 @@ function AddNewBook() {
                 }
             })
         const message = await res.data.resultMessage;
-        if(message==="true"){
-            localStorage.setItem("message","Book Added successfully.");
-        }else {
-            localStorage.setItem("message","Book Not Added!");
+        console.log(res.data)
+        if (message === "true") {
+            localStorage.setItem("message", "Book Added successfully.");
+        } else {
+            localStorage.setItem("message", "Book Not Added!");
         }
-        location.reload();
+        // location.reload();
     }
 
     //check isbn exists or not
@@ -70,6 +73,38 @@ function AddNewBook() {
         switch (message.ISBN_Number) {
             case undefined:
                 inputEnable_disable(false, "#dee2e6");
+                console.log(isbnNumber.isbnNumber)
+                axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnNumber.isbnNumber}`)
+                    .then(response => {
+                        let foundWord = null;
+                        let data = response.data.items[0].volumeInfo;
+                        let categories = data.categories[0].includes(' ') ? data.categories[0].split(' ') : [data.categories[0]];
+                        console.log(categories)
+                        for (const word of categories) {
+                            console.log( word)
+                            console.log("==============")
+                            console.log(categoryList)
+                            if (categoryList.some(category => category.Category_Name === word)){
+                                console.log(word)
+                                foundWord = word;
+                                console.log(foundWord)
+                                break;
+                            }
+                        }
+                        console.log(data);
+                        setBookData(data)
+                        setInputs(preValues => ({
+                            ...preValues,
+                            bookName: data.title.replace(/\([^()]*\)/g, '').trim() || "",
+                            authorName: data.authors?.[0] || "",
+                            publisherName: data.publisher || "",
+                            category: foundWord || "",
+                            description: data.description || ""
+                        }))
+                    })
+                    .catch(error => {
+                        console.error('Error fetching book data:', error);
+                    });
                 break;
             case (message.ISBN_Number).length > 0:
                 inputEnable_disable(true, "red");
@@ -103,6 +138,7 @@ function AddNewBook() {
                 console.log(error.message);
             });
     }, []);
+
 
     function submit() {
         (async () => {
@@ -170,7 +206,7 @@ function AddNewBook() {
                                         name={"isbnNumber"} type={"text"} handleChange={handleChange}
                                         feedback={"ISBN Number."}/>
                             <InputField label={"Publisher Name"} id={"validationCustom05"} className={"form-control"}
-                                        name={"publisherName"}
+                                        name={"publisherName"} value={inputs.publisherName || ""}
                                         placeholder={isbnMessage.PublisherName} type={"text"}
                                         handleChange={handleChange}
                                         feedback={"Publisher Name."}/>
@@ -184,7 +220,7 @@ function AddNewBook() {
 
                         <div className="col-xl-4 col-md-6 col-sm-12">
                             <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"}
-                                        name={"bookName"}
+                                        name={"bookName"} value={inputs.bookName || ''}
                                         placeholder={isbnMessage.BookName} type={"text"} handleChange={handleChange}
                                         feedback={"Book Name."}/>
 
@@ -198,7 +234,7 @@ function AddNewBook() {
 
                         <div className="col-xl-4 col-md-6 col-sm-12">
                             <InputField label={"Author Name"} id={"validationCustom02"} className={"form-control"}
-                                        name={"authorName"}
+                                        name={"authorName"} value={inputs.authorName || ''}
                                         placeholder={isbnMessage.AuthorName} type={"text"} handleChange={handleChange}
                                         feedback={"Author Name."}/>
 
@@ -215,7 +251,7 @@ function AddNewBook() {
                         <div className="col-xl-12 col-lg-6 col-md-6 col-sm-12">
                             <label htmlFor="validationCustom03" className="form-label ">Description</label>
                             <textarea className="form-control feildDisabled" id="validationCustom03" rows="4" cols="50"
-                                      name="description"
+                                      name="description" value={inputs.description || ''}
                                       placeholder={isbnMessage.Description} onChange={handleChange} required/>
 
                         </div>

@@ -23,7 +23,6 @@ class AddNewBookController{
                 break;
 
             case "POST":
-
                 extract($data);
                 $lastBookName_ID = $this->addNewBookObj->getLastBookName_ID($category);
                 if ($lastBookName_ID === null || !isset($lastBookName_ID['BookName_ID'])) {
@@ -33,7 +32,6 @@ class AddNewBookController{
                     $bookName_ID = $bookDetails2['BookName_ID'] + 1;
                 }
                 $book_No = 1;
-
                 if (!empty($bookName) && !empty($authorName) && !empty($publisherName) && !empty($isbnNumber)
                     && !empty($category) && !empty($qty) && !empty($bookLocation) && !empty($setAvailability) && !empty($description)) {
                     list($result1, $result2) = $this->addNewBookObj->InsertBookSTableDetails($bookName, $authorName, $publisherName, $isbnNumber, $category, $qty, $bookLocation, $setAvailability, $description, $bookName_ID, $book_No);

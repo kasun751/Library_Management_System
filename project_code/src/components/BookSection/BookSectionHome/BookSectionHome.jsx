@@ -9,6 +9,7 @@ function BookSectionHome() {
             <button id="deleteBookSection"> <Link to="/deleteBook">Delete Book </Link></button>
             <button id="issueBookSection"><Link to="/issueBook"> Issue Book</Link></button>
             <button id="returnBookSection"><Link to="/viewBook">View Book Details </Link> </button>
+            <button id="returnBookSection"><Link to="/test">Fetch data </Link> </button>
         </div>
     )
 }

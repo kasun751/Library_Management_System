@@ -22,9 +22,17 @@ class IsVerify
 
         $result = $this->con->query($query);
         $row = $result->fetch_assoc();
-        if ($row['Is_Active']) {
-            return true;
-        } else {
+        if (isset($row) && array_key_exists('Is_Active', $row)) {
+            if ($row['Is_Active']) {
+                $userID=$row['UserID'];
+                $resultArray = array(
+                    "userID" => $userID,
+                );
+                return $resultArray;
+            } else {
+                return false;
+            }
+        }else {
             return false;
         }
     }

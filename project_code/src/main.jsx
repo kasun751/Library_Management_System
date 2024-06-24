@@ -31,6 +31,7 @@ import ViewBookRequests from "./components/BookSection/IssueBook/ViewBookRequest
 import AvailableNow from "./components/BookSection/AvailableNow/AvailableNow.jsx";
 import ForgotPassword from "./components/LogginSection/ForgotPassword.jsx";
 import HomePage from "./components/HomePage/HomePage.jsx";
+import FetchBookData from "./components/BookSection/AddNewBook/FetchBookData.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -123,6 +124,10 @@ const router = createBrowserRouter([
     {
         path: "/verificationPage/:id",
         element: <VerificationPage/>,
+    },
+    {
+        path: "/test",
+        element: <FetchBookData/>,
     },
 
 
