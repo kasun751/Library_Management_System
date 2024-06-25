@@ -1,34 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { createContext, useState } from 'react'
 import './App.css'
+import HeaderComponent from './Components/HeaderComponent'
+import BodyComponent from './Components/BodyComponent'
+import FooterComponent from './Components/FooterComponent'
 
-function App() {
-  const [count, setCount] = useState(0)
+export const userAuthentication = createContext();
+
+function App({user_id, user_type}) {
+  const [current_user_id, setUser_id] = useState(user_id)
+  const [current_user_type, setUser_type] = useState(user_type)
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <userAuthentication.Provider value={{current_user_id, current_user_type}}>
+      <HeaderComponent />
+      <BodyComponent />
+      <FooterComponent />
+    </userAuthentication.Provider>
   )
 }
 
