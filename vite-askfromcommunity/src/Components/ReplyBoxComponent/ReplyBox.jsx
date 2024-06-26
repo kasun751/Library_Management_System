@@ -24,7 +24,6 @@ function ReplyBox({post_id2, item }) {
         reply_id :item.reply_id
       }
     });
-    handleRefresh();
     setIsDelete(true);
     }catch(err){
       console.error(err);

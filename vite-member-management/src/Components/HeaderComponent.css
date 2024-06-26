@@ -1,0 +1,6 @@
+.header-container{
+    background: rgb(212,223,223);
+    background: linear-gradient(0deg, rgba(212,223,223,1) 11%, rgba(116,115,113,1) 70%);
+    min-width: 100%;
+    min-height:100px;
+}

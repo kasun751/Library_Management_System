@@ -33,6 +33,7 @@ function ImageSlider({post_id}) {
         try {
             const res = await axios.get(`http://localhost:80/project_1/AskFromCommunity/Controller/postImageController.php?post_id=${$post_id}`); //ok
             setImageArray(res.data);
+            console.log(res.data)
           } catch (err) {
             console.error(err);
           }

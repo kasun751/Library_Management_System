@@ -38,6 +38,7 @@ function BodyComponent() {
       if(posts.length+5>offSet || val<0)
       setOffSet(offSet+val);
     }
+    window.scrollTo(0,0)
   }
 
   useEffect(() => {
@@ -115,7 +116,9 @@ function BodyComponent() {
         </div>
         <div id='bodyComponent-footer'>          
             <div id='post-numbers'>
-            <label>page: {(offSet+5)/5} </label>
+              <img src="src\Images\prev-page-btn.svg" onClick={()=>onClickSetOffSet(-5)} />
+              <label>page: {(offSet+5)/5} </label>
+              <img src="src\Images\next-page-btn.svg" onClick={()=>onClickSetOffSet(5)} />
           </div>
           </div>
       </postRefresh.Provider>

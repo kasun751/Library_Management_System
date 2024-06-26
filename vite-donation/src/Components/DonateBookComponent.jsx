@@ -207,7 +207,7 @@ function DonateBookComponent({onClickClose,amount, purpose}) {
                     value={data.numberInput}
                     onChange={handleChange}
                     min="0" // Optional: set minimum value
-                    max="100" // Optional: set maximum value
+                    max="10000" // Optional: set maximum value
                     step="1" // Optional: set step value
                 />
                 <div className="invalid-feedback">Please enter an amount.</div>

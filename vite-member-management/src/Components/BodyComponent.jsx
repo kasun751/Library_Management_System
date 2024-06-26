@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './BodyComponent.css';
 import axios from 'axios';
-import { userAuthentication } from '../App';
+import { userAuthentication, userSearch } from '../App';
+import HeaderComponent from './HeaderComponent';
 
 function BodyComponent() {
+    const {searchData, filter} = useContext(userSearch)
     const {current_user_id, current_user_type} = useContext(userAuthentication);
     const [tableData, setTableData] = useState([]);
+    const [offSet, setOffSet] = useState(0);
     const [formData, setFormData] = useState({
         user_id:"",
         firstName:"",
@@ -22,10 +25,9 @@ function BodyComponent() {
     const [restrictedUserDetails, setRestrictedUserDetails] = useState({
         restricted_reason:""
     });
-
     useEffect(() => {
-        getTableData();
-    }, []);
+        getTableData(searchData, filter, offSet);
+    }, [searchData, filter, offSet]);
 
     const handleChange=(e)=>{
         const {name, value} = e.target;
@@ -34,6 +36,14 @@ function BodyComponent() {
             [name]:value
         })
     }
+
+    const onClickSetOffSet=(val)=>{
+        if(offSet==0&&val<0){
+        }else{
+          if(tableData.length+5>offSet || val<0)
+          setOffSet(offSet+val);
+        }
+      }
 
     const renderAccountStatus = (status) => {
         switch(status) {
@@ -65,7 +75,7 @@ function BodyComponent() {
                 current_user:current_user_id,
                 reason:reason
             });
-            getTableData();
+            getTableData(searchData, filter, offSet);
         } catch (error) {
             console.error('Error fetching table data:', error);
         }
@@ -77,7 +87,7 @@ function BodyComponent() {
                 user_id:user_id,
                 current_user:current_user_id,
             });
-            getTableData();
+            getTableData(searchData, filter, offSet);
         } catch (error) {
             console.error('Error fetching table data:', error);
         }
@@ -89,7 +99,7 @@ function BodyComponent() {
                 ...formData,
                 user_id:user_id
             });
-            getTableData();
+            getTableData(searchData, filter, offSet);
         } catch (error) {
             console.error('Error fetching table data:', error);
         }
@@ -100,7 +110,7 @@ function BodyComponent() {
             const res = await axios.post(`http://localhost:80/project_1/MemberManagement/Controller/memberManagementController.php`,{
                 delete_user:user_id
             });
-            getTableData();
+            getTableData(searchData, filter, offSet);
         } catch (error) {
             console.error('Error fetching table data:', error);
         }
@@ -131,9 +141,9 @@ function BodyComponent() {
         }
     }
 
-    async function getTableData() {
+    async function getTableData(searchData, filter) {
         try {
-            const res = await axios.get(`http://localhost:80/project_1/MemberManagement/Controller/memberManagementController.php`);
+            const res = await axios.get(`http://localhost:80/project_1/MemberManagement/Controller/memberManagementController.php?search=${searchData}&filter=${filter}&offset=${offSet}`);
             setTableData(res.data);
         } catch (error) {
             console.error('Error fetching table data:', error);
@@ -142,6 +152,7 @@ function BodyComponent() {
 
     return (
         <>
+            <HeaderComponent onclick={onClickSetOffSet}/>
             <div className='table-responsive'>
                 <table className="table table-striped">
                     <thead>
