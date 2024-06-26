@@ -11,8 +11,13 @@ class BookAvailabilityDetails
     }
     public function getAvailableBooksList($category, $isbnNumber)
     {
-        $query = "SELECT Final_ID,ISBN_Number FROM $category WHERE ISBN_Number='$isbnNumber' AND Availability='available'";
-        $result = $this->con->query($query);
+        $query = "SELECT Final_ID, ISBN_Number FROM $category WHERE ISBN_Number = ? AND Availability = 'available'";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $isbnNumber);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
         return $result;
     }
+
 }

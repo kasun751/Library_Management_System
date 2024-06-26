@@ -56,7 +56,7 @@ function AddNewBook() {
         } else {
             localStorage.setItem("message", "Book Not Added!");
         }
-        // location.reload();
+        location.reload();
     }
 
     //check isbn exists or not

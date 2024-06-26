@@ -17,9 +17,13 @@ class ViewBookListAndDetails
 
     public function getBookDetails($bookDetails)
     {
-        $searchPattern="%".$bookDetails."%";
-        $query = "SELECT * FROM books WHERE BookName LIKE '$searchPattern'";
-        $result = $this->con->query($query);
+        $searchPattern = "%" . $bookDetails . "%";
+        $query = "SELECT * FROM books WHERE BookName LIKE ?";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $searchPattern);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
         return $result;
     }
 }

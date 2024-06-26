@@ -9,18 +9,23 @@ class UpdateBookDetails
         $DBobj = new DBConnection();
         $this->con = $DBobj->dbConnect();
     }
+
     public function updateBookDetails($isbnNumber, $bookName, $authorName, $publisherName, $bookLocation, $description)
     {
         $query = "UPDATE books SET
-    BookName = '$bookName',
-    AuthorName = '$authorName',
-    PublisherName = '$publisherName',
-    BookLocation = '$bookLocation',
-    Description = '$description'
-    WHERE
-    ISBN_Number= '$isbnNumber'";
-        $result = $this->con->query($query);;
+                BookName = ?,
+                AuthorName = ?,
+                PublisherName = ?,
+                BookLocation = ?,
+                Description = ?
+              WHERE
+                ISBN_Number = ?";
+
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("ssssss", $bookName, $authorName, $publisherName, $bookLocation, $description, $isbnNumber);
+        $stmt->execute();
+        $result = $stmt->affected_rows;
+        $stmt->close();
         return $result;
     }
-
 }

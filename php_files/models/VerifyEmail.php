@@ -9,37 +9,48 @@ class VerifyEmail
         $DBobj = new DBConnection();
         $this->con = $DBobj->dbConnect();
     }
+
     public function verifyAccount($verificationCode)
     {
-        $query = "SELECT * FROM libraryusersdetails WHERE Verification_Code = '$verificationCode'";
-        $result = $this->con->query($query);
-        $row = $result->fetch_assoc();
-        $numOfRaw = $this->con->affected_rows;
-        if ($numOfRaw == 1) {
-            $query2 = "UPDATE libraryusersdetails SET Is_Active = true, Verification_Code=NULL WHERE Verification_Code = '$verificationCode' LIMIT 1";
-            $result2 = $this->con->query($query2);
-            $numOfRaw2 = $this->con->affected_rows;
-            if ($numOfRaw2 == 1) {
+        $query = "SELECT * FROM libraryusersdetails WHERE Verification_Code = ?";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $verificationCode);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-                $email=$row['Email'];
-                $password=$row['Password'];
-                $userID=$row['UserID'];
-                $fName=$row['FirstName'];
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $stmt->close();
+
+            $query2 = "UPDATE libraryusersdetails SET Is_Active = true, Verification_Code = NULL WHERE Verification_Code = ? LIMIT 1";
+            $stmt2 = $this->con->prepare($query2);
+            $stmt2->bind_param("s", $verificationCode);
+            $stmt2->execute();
+
+            if ($stmt2->affected_rows == 1) {
+                $stmt2->close();
+
+                $email = $row['Email'];
+                $userID = $row['UserID'];
+                $fName = $row['FirstName'];
+                $password = $row['Password'];
                 $message = "<p>Thank You For Registering Our Smart Library System.</p>" .
                     "<p>Your Login Details </p>" .
-                    "<p>EMAIL:$email</p>" .
-                    "<p>USER_ID:$userID </p>".
-                    "<p>PASSWORD:$password </p>";
-                $sendMail=new SendMail();
-                $result=$sendMail->sendMailMessage($email,$fName,"Login Details",$message);
-                header("Location: http://localhost:5173/dashboard/" . urlencode($row['UserID']));
+                    "<p>EMAIL: $email</p>" .
+                    "<p>USER_ID: $userID</p>" .
+                    "<p>PASSWORD: $password</p>";
+                $sendMail = new SendMail();
+                $sendMail->sendMailMessage($email, $fName, "Login Details", $message);
+
+                header("Location: http://localhost:5173/dashboard/" . urlencode($userID));
+                exit();
             } else {
+                $stmt2->close();
                 echo "Email Not Verified...";
             }
         } else {
+            $stmt->close();
             echo "Invalid Verification...";
         }
-
     }
-
 }

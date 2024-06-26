@@ -15,21 +15,26 @@ class HandleRequest
 
     public function getRequestList()
     {
-        $query = "SELECT Final_ID,UserID FROM requests ORDER BY Req_ID DESC LIMIT 10";
-        $result = $this->con->query($query);
+        $query = "SELECT Final_ID, UserID FROM requests ORDER BY Req_ID DESC LIMIT 10";
+        $stmt = $this->con->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $finalIdsWithCategory = [];
+
+        $categoryQuery = "SELECT Category_Name FROM category WHERE SUBSTRING_INDEX(Category_ID, '/', 1) = ?";
+        $categoryStmt = $this->con->prepare($categoryQuery);
 
         while ($row = $result->fetch_assoc()) {
             $finalID = $row['Final_ID'];
             $finalIdElement = explode("/", $finalID);
             $finalFirstElement = $finalIdElement[0];
 
-            $query1 = "SELECT Category_Name FROM category WHERE SUBSTRING_INDEX(Category_ID, '/', 1) = '$finalFirstElement'";
-            $result1 = $this->con->query($query1);
-            $row1 = $result1->fetch_assoc();
-            $category = $row1['Category_Name'];
+            $categoryStmt->bind_param("s", $finalFirstElement);
+            $categoryStmt->execute();
+            $categoryResult = $categoryStmt->get_result();
+            $categoryRow = $categoryResult->fetch_assoc();
 
-            $row['Category_Name'] = $category;
+            $row['Category_Name'] = $categoryRow['Category_Name'];
             $finalIdsWithCategory[] = $row;
         }
         return $finalIdsWithCategory;
@@ -38,11 +43,13 @@ class HandleRequest
     public function getRequestDetails($userID)
     {
         $searchPattern = "%" . $userID . "%";
-        $query = "SELECT * FROM requests WHERE UserID LIKE '$searchPattern'";
-        $result = $this->con->query($query);
+        $query = "SELECT * FROM requests WHERE UserID LIKE ?";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $searchPattern);
+        $stmt->execute();
+        $result = $stmt->get_result();
         return $result;
     }
-
     public function placeRequest($bookID, $userID, $category, $requestTime)
     {
         date_default_timezone_set('Asia/Colombo');
@@ -50,31 +57,41 @@ class HandleRequest
         if ($checkRequestPlacingAvailability == 3) {
             return "userReachDailyRequestCount";
         } else {
-            $checkUserIDQuery = "SELECT UserID FROM requests WHERE UserID='$userID'";
-            $resultCheckUserIDQuery = $this->con->query($checkUserIDQuery);
-            if ($resultCheckUserIDQuery && $resultCheckUserIDQuery->num_rows > 0) {
+            $checkUserIDQuery = "SELECT UserID FROM requests WHERE UserID=?";
+            $stmtCheckUserIDQuery = $this->con->prepare($checkUserIDQuery);
+            $stmtCheckUserIDQuery->bind_param("s", $userID);
+            $stmtCheckUserIDQuery->execute();
+            $resultCheckUserIDQuery = $stmtCheckUserIDQuery->get_result();
+
+            if ($resultCheckUserIDQuery->num_rows > 0) {
                 return "userExists";
             } else {
-                if($checkRequestPlacingAvailability==0){
-                    $query = "INSERT INTO requestcount (UserID,Count) VALUES ('$userID',1)";
-                    $result = $this->con->query($query);
-                }else{
-                    $query = "UPDATE requestcount SET Count=Count+1 WHERE UserID='$userID'";
-                    $result = $this->con->query($query);
+                if ($checkRequestPlacingAvailability == 0) {
+                    $query = "INSERT INTO requestcount (UserID, Count) VALUES (?, 1)";
+                } else {
+                    $query = "UPDATE requestcount SET Count = Count + 1 WHERE UserID=?";
                 }
+                $stmtUpdateRequestCount = $this->con->prepare($query);
+                $stmtUpdateRequestCount->bind_param("s", $userID);
+                $stmtUpdateRequestCount->execute();
 
-
-                $updateBookQuery = "UPDATE $category SET Availability='Book Requested' WHERE Final_ID='$bookID'";
-                $result1 = $this->con->query($updateBookQuery);
+                $updateBookQuery = "UPDATE $category SET Availability='Book Requested' WHERE Final_ID=?";
+                $stmtUpdateBookQuery = $this->con->prepare($updateBookQuery);
+                $stmtUpdateBookQuery->bind_param("s", $bookID);
+                $stmtUpdateBookQuery->execute();
 
                 $confirmationCode = rand(1000, 9999);
                 $deleteTime = date('Y-m-d H:i:s', strtotime($requestTime . ' + 1 minutes'));
                 $this->sendConfirmationCode($userID, $confirmationCode, $deleteTime);
-                $query = "INSERT INTO requests (Final_ID, UserID,requestTime,ConfirmationCode) VALUES ('$bookID', '$userID','$requestTime','$confirmationCode')";
-                $result2 = $this->con->query($query);
+
+                $query = "INSERT INTO requests (Final_ID, UserID, requestTime, ConfirmationCode) VALUES (?, ?, ?, ?)";
+                $stmtInsertRequest = $this->con->prepare($query);
+                $stmtInsertRequest->bind_param("ssss", $bookID, $userID, $requestTime, $confirmationCode);
+                $stmtInsertRequest->execute();
+
                 $newUserID = str_replace('/', '_', $userID);
                 $deleteRequestQuery = "
-            CREATE EVENT delete_request_$newUserID
+                CREATE EVENT IF NOT EXISTS delete_request_$newUserID
                 ON SCHEDULE AT '$deleteTime'
                 DO
                 BEGIN
@@ -82,49 +99,50 @@ class HandleRequest
                     UPDATE `$category` SET Availability='available' WHERE Final_ID='$bookID';
                 END ";
                 $result3 = $this->con->query($deleteRequestQuery);
-                return array($result1, $result2, $result3);
+
+                return array($stmtUpdateBookQuery->affected_rows, $stmtInsertRequest->affected_rows, $result3);
             }
         }
     }
 
     public function sendConfirmationCode($userID, $confirmationCode, $expireTime)
     {
-        $query = "SELECT * FROM libraryusersdetails WHERE UserID ='$userID'";
-        $result = $this->con->query($query);
-        $row = $result->fetch_assoc();
-        $email = $row['Email'];
-        $firstName = $row['FirstName'];
-        $subject = "Book Request Code";
-        $message = "<p>Thank You For Requesting Book.</p>" .
-            "<p>Please Borrow Book Before Expiration Time Of Request </p>" .
-            "<p>Request Expiration Date And Time:$expireTime</p>" .
-            "<p>YOUR CONFIRMATION CODE:$confirmationCode </p>";
+        $query = "SELECT Email, FirstName FROM libraryusersdetails WHERE UserID = ?";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $email = $row['Email'];
+            $firstName = $row['FirstName'];
+            $subject = "Book Request Code";
+            $message = "<p>Thank You For Requesting Book.</p>" .
+                "<p>Please Borrow Book Before Expiration Time Of Request </p>" .
+                "<p>Request Expiration Date And Time: $expireTime</p>" .
+                "<p>YOUR CONFIRMATION CODE: $confirmationCode</p>";
+
             $sendConfirmationCode = new SendMail();
             $sendConfirmationCode->sendMailMessage($email, $firstName, $subject, $message);
-
         }
     }
 
     public function checkRequestPlacingAvailabilityForUser($userID)
     {
-        $query = "SELECT Count FROM requestcount WHERE UserID='$userID'";
-        $result = $this->con->query($query);
+        $query = "SELECT Count FROM requestcount WHERE UserID=?";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $count = $row['Count'];
         } else {
             $count = 0;
         }
-        if($count==3){
-            return $count;
-        }else if($count == 0){
-            return $count;
-        }else{
-           return $count;
-        }
-
+        return $count;
     }
 }
 //date_default_timezone_set('Asia/Colombo');

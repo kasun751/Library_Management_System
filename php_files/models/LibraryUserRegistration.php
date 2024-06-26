@@ -8,7 +8,8 @@ class LibraryUserRegistration
         $DBobj = new DBConnection();
         $this->con = $DBobj->dbConnect();
     }
-    public function InsertLibraryUserDetails( $firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password, $verificationCode,$accountType)
+
+    public function InsertLibraryUserDetails($firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password, $verificationCode, $accountType)
     {
         $resultCheckExistsOrNot = $this->checkExistsOrNot($nic, $phoneNumber, $email);
         if ($resultCheckExistsOrNot == "NicExist") {
@@ -24,24 +25,32 @@ class LibraryUserRegistration
             $data = array('resultMessage' => 'Query Failed!');
             echo json_encode($data);
         } else {
-            $nextUserID=$this->createNextUserID($accountType);
+            $nextUserID = $this->createNextUserID($accountType);
             $nextUserNo = $this->getLastUser_No($accountType);
 
-            $query1 = "INSERT INTO libraryusersdetails (UserID,User_No,FirstName,LastName,NIC,Address,PhoneNumber,BirthDay,Gender,Email,Password,Verification_Code,Is_Active,AccountType) VALUES ('$nextUserID','$nextUserNo','$firstName', '$lastName', '$nic', '$address', '$phoneNumber','$birthDay','$gender', '$email','$password','$verificationCode',false,'$accountType')";
-            $result=$this->con->query($query1);
+            $query1 = "INSERT INTO libraryusersdetails 
+            (UserID, User_No, FirstName, LastName, NIC, Address, PhoneNumber, BirthDay, Gender, Email, Password, Verification_Code, Is_Active, AccountType) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, false, ?)";
+
+            $stmt = $this->con->prepare($query1);
+            $stmt->bind_param("sssssssssssss", $nextUserID, $nextUserNo, $firstName, $lastName, $nic, $address, $phoneNumber, $birthDay, $gender, $email, $password, $verificationCode, $accountType);
+
+            $result = $stmt->execute();
             if ($result) {
                 $response = array(
                     'message' => 'success!',
                     'userID' => $nextUserID
                 );
+                $stmt->close();
                 return $response;
             } else {
-                $data = array('resultMessage' =>  $this->con->error);
+                $data = array('resultMessage' => $stmt->error);
+                $stmt->close();
                 echo json_encode($data);
             }
         }
-
     }
+
 
     public function createNextUserID($accountType)
     {
@@ -69,10 +78,14 @@ class LibraryUserRegistration
 
     public function getLastUser_No($accountType)
     {
-        $query = "SELECT * FROM libraryusersdetails WHERE AccountType='$accountType' ORDER BY User_No DESC LIMIT 1";
-        $result = mysqli_query($this->con, $query);
-        $nextUserNoData= mysqli_fetch_assoc($result);
-        $nextUserNo=null;
+        $query = "SELECT User_No FROM libraryusersdetails WHERE AccountType = ? ORDER BY User_No DESC LIMIT 1";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $accountType);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $nextUserNoData = $result->fetch_assoc();
+
+        $nextUserNo = null;
         if ($nextUserNoData !== null && isset($nextUserNoData['User_No'])) {
             $nextUserNo = $nextUserNoData['User_No'];
             $nextUserNo++;
@@ -81,23 +94,40 @@ class LibraryUserRegistration
         if ($nextUserNo === null) {
             $nextUserNo = 1;
         }
-       return $nextUserNo;
+
+        $stmt->close();
+        return $nextUserNo;
     }
 
     public function checkExistsOrNot($nic, $phoneNumber, $email)
     {
-        $query1 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE NIC = '$nic'";
-        $query2 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE PhoneNumber = '$phoneNumber'";
-        $query3 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE Email = '$email'";
-        $result1 = $this->con->query($query1);
-        $result2 = $this->con->query($query2);
-        $result3 = $this->con->query($query3);
+
+        $query1 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE NIC = ?";
+        $stmt1 = $this->con->prepare($query1);
+        $stmt1->bind_param("s", $nic);
+        $stmt1->execute();
+        $result1 = $stmt1->get_result();
+        $row1 = $result1->fetch_assoc();
+        $stmt1->close();
+
+
+        $query2 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE PhoneNumber = ?";
+        $stmt2 = $this->con->prepare($query2);
+        $stmt2->bind_param("i", $phoneNumber);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result();
+        $row2 = $result2->fetch_assoc();
+        $stmt2->close();
+
+        $query3 = "SELECT COUNT(*) AS count FROM libraryusersdetails WHERE Email = ?";
+        $stmt3 = $this->con->prepare($query3);
+        $stmt3->bind_param("s", $email);
+        $stmt3->execute();
+        $result3 = $stmt3->get_result();
+        $row3 = $result3->fetch_assoc();
+        $stmt3->close();
 
         if ($result1 && $result2 && $result3) {
-            $row1 = $result1->fetch_assoc();
-            $row2 = $result2->fetch_assoc();
-            $row3 = $result3->fetch_assoc();
-
             if ($row1['count'] > 0) {
                 return "NicExist";
             } elseif ($row2['count'] > 0) {
@@ -110,8 +140,7 @@ class LibraryUserRegistration
         } else {
             return "queryError";
         }
-
     }
 }
-$x=new LibraryUserRegistration();
-$x->getLastUser_No('Register');
+//$x=new LibraryUserRegistration();
+//$x->getLastUser_No('Register');

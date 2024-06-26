@@ -8,23 +8,28 @@ class IsVerify
         $DBobj = new DBConnection();
         $this->con = $DBobj->dbConnect();
     }
+
     public function checkVerification($userID, $checkParaForIDOrEmail)
     {
-
+        $query = "";
         switch ($checkParaForIDOrEmail) {
             case 0:
-                $query = "SELECT * FROM libraryusersdetails WHERE UserID = '$userID'";
+                $query = "SELECT * FROM libraryusersdetails WHERE UserID = ?";
                 break;
             case 1:
-                $query = "SELECT * FROM libraryusersdetails WHERE Email = '$userID'";
+                $query = "SELECT * FROM libraryusersdetails WHERE Email = ?";
                 break;
         }
 
-        $result = $this->con->query($query);
-        $row = $result->fetch_assoc();
-        if (isset($row) && array_key_exists('Is_Active', $row)) {
-            if ($row['Is_Active']) {
-                $userID=$row['UserID'];
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if (isset($row['Is_Active']) && $row['Is_Active']) {
+                $userID = $row['UserID'];
                 $resultArray = array(
                     "userID" => $userID,
                 );
@@ -32,7 +37,7 @@ class IsVerify
             } else {
                 return false;
             }
-        }else {
+        } else {
             return false;
         }
     }

@@ -131,6 +131,7 @@ function IssueBook() {
                 }
             })
         const message = await res.data.resultMessage;
+        console.log(res.data)
         if (message === "true") {
             localStorage.setItem("message", "Delete Successfully!");
         } else {

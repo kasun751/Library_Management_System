@@ -17,8 +17,12 @@ class ViewBookListInBackupBookTable
 
     public function getBookDetails($isbnNumber)
     {
-        $query = "SELECT * FROM backupbook WHERE ISBN_Number='$isbnNumber'";
-        $result = $this->con->query($query);
+        $query = "SELECT * FROM backupbook WHERE ISBN_Number=?";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $isbnNumber);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
         return $result;
     }
 }

@@ -11,14 +11,21 @@ class GetRegLibraryUserDetails
     }
     public function getUserIDDetails($userID)
     {
-        $query = "SELECT * FROM libraryusersdetails WHERE UserID='$userID'";
-        $result = $this->con->query($query);
+        $query = "SELECT * FROM libraryusersdetails WHERE UserID = ?";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $raw = $result->fetch_assoc();
-        $userFirstname = isset($raw['FirstName']) ? $raw['FirstName'] : '';
-        $userLastname = isset($raw['LastName']) ? $raw['LastName'] : '';
+        if ($raw) {
+            $userFirstname = isset($raw['FirstName']) ? $raw['FirstName'] : '';
+            $userLastname = isset($raw['LastName']) ? $raw['LastName'] : '';
 
-        $fullName = $userFirstname . " " . $userLastname;
-        $data = array('userName' => $fullName);
+            $fullName = $userFirstname . " " . $userLastname;
+            $data = array('userName' => $fullName);
+        } else {
+            $data = array('userName' => '');
+        }
         echo json_encode($data);
     }
 }

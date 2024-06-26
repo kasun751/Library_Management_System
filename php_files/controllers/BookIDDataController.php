@@ -29,7 +29,7 @@ class BookIDDataController
             case "POST":
                 $bookID = $data['bookID'];
                 if (strlen($bookID) > 0) {
-                    $resultCategory = $this->bookIDDataObj->getBookIdCategory($bookID);  //return category related to the book id
+                    $resultCategory = $this->bookIDDataObj->getBookIdCategory($bookID);
                     if ($resultCategory != null) {
                         $bookDetails = $this->bookIDDataObj->getBookIdData($resultCategory, $bookID);
                         $isbnNumber = $bookDetails['ISBN_Number'];

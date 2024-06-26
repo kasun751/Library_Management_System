@@ -164,7 +164,7 @@ function DeleteAllBook() {
         } else {
             localStorage.setItem("message", "Failed!");
         }
-        location.reload();
+        // location.reload();
     }
 
 

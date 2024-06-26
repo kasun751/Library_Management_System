@@ -13,35 +13,45 @@ class BookIDData
     public function getBookIdCategory($bookId)
     {
         $parts = explode("/", $bookId);
-        $part1 = $parts[0];
+        $part1 =$parts[0];
         $lowercaseString = strtolower($part1);
         $categoryTableQuery = "SELECT Category_Name FROM category";
-        $result = mysqli_query($this->con, $categoryTableQuery);
+        $stmt = $this->con->prepare($categoryTableQuery);
+        $stmt->execute();
+        $result = $stmt->get_result();
         if ($result) {
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = $result->fetch_assoc()) {
                 $categoryName = $row['Category_Name'];
                 $charArray = str_split($categoryName);
                 if (count($charArray) >= 3) {
                     $part1Fromdatabase = $charArray[0] . $charArray[1] . $charArray[2];
+
                 } else {
                     $part1Fromdatabase = $charArray[0] . $charArray[1];
-
                 }
-                if ($lowercaseString === $part1Fromdatabase) {
+                if ($lowercaseString === strtolower($part1Fromdatabase)) {
+                    $stmt->close();
                     return $categoryName;
                 }
             }
-        } else {
-            return null;
         }
+        $stmt->close();
         return null;
     }
 
     public function getBookIdData($category, $bookId)
     {
-        $query = "SELECT * FROM $category WHERE Final_ID='$bookId' ORDER BY Book_No DESC LIMIT 1";
-        $result = $this->con->query($query);
-        $row = mysqli_fetch_assoc($result);
+        $query = "SELECT * FROM $category WHERE Final_ID=? ORDER BY Book_No DESC LIMIT 1";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("s", $bookId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
         return $row;
     }
+
 }
+//$x= new BookIDData();
+//$result=$x->getBookIdCategory("FIC/4/1");
+//echo $result;

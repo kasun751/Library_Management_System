@@ -61,7 +61,6 @@ class AddNewBook
         }else{
             $resultOfSeparateBookInsertion=false;
         }
-
         return array($result1, $resultOfSeparateBookInsertion);
     }
 }
