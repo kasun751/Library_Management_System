@@ -65,7 +65,7 @@ function DonateFundsPage() {
         merchant_id: "1227349",    // Replace with your Merchant ID
         return_url: "http://localhost:5173/",     // Important
         cancel_url: "http://localhost:5173/",     // Important
-        notify_url: "http://localhost:80/project_1/DonationHandling/Controller/payHereProcessController.php",
+        notify_url: "",
         order_id: obj.order_id,
         items: obj.items,
         amount: obj.amount,

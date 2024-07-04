@@ -4,6 +4,7 @@ import './BodyComponent.css';
 import axios from 'axios';
 import SubHeader from '../HeaderComponents/SubHeader';
 import { AnimatePresence, motion } from 'framer-motion';
+import FooterComponent from '../FooterComponent/FooterComponent';
 
 export const postRefresh = createContext({});
 
@@ -82,7 +83,8 @@ function BodyComponent() {
     <loadPanelPost.Provider value = {{setPost_id, showPanelPost, setShowPanelPost}}>
       <postRefresh.Provider value={{refresh, handleRefresh}}>
         <SubHeader onChangeTitle={handleChangeTitle} />
-          <div id='selectList-container'>
+        <div className='bodyComponent'>
+        <div id='selectList-container'>
             <div id='selectList-div'>
               <select onChange={handleChange}>
                 <option value="">- Sort by category -</option>
@@ -97,7 +99,6 @@ function BodyComponent() {
               <img src="src\Images\next-page-btn.svg" onClick={()=>onClickSetOffSet(5)} />
           </div>
           </div>
-        <div className='bodyComponent'>
           <AnimatePresence>
             <motion.div
                initial={{ opacity: 0 }}
@@ -121,6 +122,7 @@ function BodyComponent() {
               <img src="src\Images\next-page-btn.svg" onClick={()=>onClickSetOffSet(5)} />
           </div>
           </div>
+          <FooterComponent />
       </postRefresh.Provider>
     </loadPanelPost.Provider>  
   );

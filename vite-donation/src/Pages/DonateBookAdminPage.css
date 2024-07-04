@@ -1,0 +1,18 @@
+#donate-book-numbers > img{
+    width:50px;
+    padding: 5px;
+    margin:0 5px;
+  }
+  #donate-book-numbers {
+    display: inline-flex;
+    justify-content: center;
+    width:80%;
+  }
+  #donate-book-numbers > *{
+    align-items: center;
+  }
+  #summary-btn{
+    float:right;
+    position: relative;
+    z-index: 100;
+  }

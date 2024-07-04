@@ -1,12 +1,10 @@
-/* ImageSlideEnlarger.css */
-
 .ise-container {
-  padding: 20px;
+  padding: 50px;
   margin: 20px auto;
   position: fixed;
   top: 0;
   height: 90vh;
-  width: calc(90% - 0); 
+  width: calc(80% - 0); 
   max-width: 1200px;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -40,12 +38,19 @@
 }
 
 #imgSlider-container {
-  width: 100%;
-  height: 80vh;
+  max-width: 70%;
+  max-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Ensures the images don't overflow */
+  overflow-y: scroll;
+  margin: 0 auto;
+}
+
+#imgSlider-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ensures the image fits within the container while maintaining its aspect ratio */
 }
 
 #ise-close-btn {

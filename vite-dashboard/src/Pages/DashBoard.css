@@ -1,0 +1,39 @@
+.dashbord-btn-panel > .row-cols-12{
+    display: flex;
+    justify-items: center;
+    justify-content: space-around;
+}
+.header{
+    display: flex;
+    justify-content: center;
+    color:white;
+    text-shadow: -2px -2px 0 #000,  
+                  2px -2px 0 #000,
+                  -2px 2px 0 #000,
+                  2px 2px 0 #000;
+}
+.dashboard {
+    position: relative;
+    border: 1px solid black;
+    border-radius: 20px;
+    max-width: 80%;
+    margin: 0 auto;
+    min-height: 60vh;
+    padding: 20px;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.dashboard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("src/Images/dashBoard_background.webp");
+    background-size: cover;
+    background-position: center;
+    filter: blur(6px);
+    z-index: -1;
+}

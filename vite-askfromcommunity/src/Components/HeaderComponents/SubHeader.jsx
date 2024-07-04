@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { postRefresh } from '../BodyComponents/BodyComponent';
 import { userAuthentication } from '../../App';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 function SubHeader({ onChangeTitle }) {
   const [savePostVisible, setSavePostVisible] = useState(false);
@@ -60,8 +61,7 @@ function SubHeader({ onChangeTitle }) {
     <>
       <div className='subHeadeContainer'>
         <div className='headerTitle'>
-          <img src='src/Images/community.svg' alt="Community" />
-          <h3>Ask From Community</h3>
+          <img src='src\Images\SLMS-logo.svg' alt="Community" />
           <input
             type='text'
             value={titleField}
@@ -69,52 +69,66 @@ function SubHeader({ onChangeTitle }) {
             placeholder='search by title'
           />
         </div>
-        <div className='nav-bar '>
+        <div className='nav-bar'>
           <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <Nav.Link>
+                  <Link className="nav-link" to="/home">
+                    <img
+                      className='menu-btn'
+                      src='src/Images/home-btn.svg'
+                      alt="home btn"
+                    />
+                  </Link>
+                  <div className="nav-link">
                     <img
                       className='menu-btn'
                       src='src/Images/refresh-btn.svg'
                       alt="Refresh Posts"
                       onClick={handleRefresh}
                     />
-                  </Nav.Link>
-                  <Nav.Link>
+                  </div>
+                  <div className="nav-link">
                     <img
                       className='menu-btn'
                       src='src/Images/message-white-heart.svg'
                       alt="Saved Posts"
                       onClick={mySavedPost}
                     />
-                  </Nav.Link>
-                  <Nav.Link>
+                  </div>
+                  <div className="nav-link">
                     <img
                       className='menu-btn'
                       src='src/Images/message-line.svg'
                       alt="My posts"
                       onClick={myPost}
                     />
-                  </Nav.Link>
-                  <Nav.Link>
-                    {(user_type=="staff")&&<img
-                      className='menu-btn'
-                      src='src/Images/report-post.svg'
-                      alt='Reported Post'
-                      onClick={showReportedPost}
-                    />}
-                  </Nav.Link>
-                  <Nav.Link>
-                    {(user_type=="staff")&&<img
-                      className='menu-btn'
-                      src='src/Images/reported-msg.svg'
-                      alt='Reported Msg'
-                      onClick={showReportedMsg}
-                    />}
-                  </Nav.Link>
+                  </div>
+                  {user_type === "staff" && (
+                    <>
+                      <div className="nav-link">
+                        <img
+                          className='menu-btn'
+                          src='src/Images/report-post.svg'
+                          alt='Reported Post'
+                          onClick={showReportedPost}
+                        />
+                      </div>
+                      <div className="nav-link">
+                        <img
+                          className='menu-btn'
+                          src='src/Images/reported-msg.svg'
+                          alt='Reported Msg'
+                          onClick={showReportedMsg}
+                        />
+                      </div>
+                      <Link className="nav-link" to="/home">
+                        <label id="logOut-btn">Log Out</label>
+                      </Link>
+                    </>
+                  )}
                 </Nav>
               </Navbar.Collapse>
             </Container>

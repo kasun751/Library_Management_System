@@ -1,6 +1,6 @@
 /* ImageSlider.css */
 
-.imageSlider {
+/* .imageSlider {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,8 +14,8 @@
     width: 10vw;
     max-width: 40px;
     cursor: pointer;
-}
-
+} */
+/* 
 #next-img:hover, #prev-img:hover {
     background-color: rgb(178, 204, 219);
     border-radius: 10px;
@@ -42,4 +42,10 @@
         max-width: 60%;
         min-height: auto;
     }
+  } */
+
+.carousel-item img {
+    max-width: 100%;
+    max-height: fit-content;
+    object-fit: contain;
   }

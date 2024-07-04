@@ -1,10 +1,11 @@
 .subHeadeContainer{
   display: flex;
   justify-content: space-between;
+  min-height: 100px;
   height:auto;
   border: 2px solid black;
-  background-color: rgb(144, 154, 160);
-  background:linear-gradient(rgb(144, 154, 160),rgb(126, 132, 138),rgb(96, 103, 112));
+  background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
   /* position: fixed;
   top: 0;
   left: 0;
@@ -18,9 +19,18 @@
   text-align: center;
   justify-content: center;
 }
-.bg-body-tertiary {
-  --bs-bg-opacity: 1;
-  background:linear-gradient(rgb(144, 154, 160),rgb(126, 132, 138),rgb(96, 103, 112)) !important;
+.navbar-light{
+  background: rgb(69,141,224) !important; 
+  background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+  
+}
+
+#logOut-btn{
+ font-size: 20px;
+}
+
+.nav-link{
+  color: white !important;
 }
 .headerTitle{
     width:50%; 
@@ -32,7 +42,9 @@
 }
 
 .headerTitle img{
-    width:40px;
+    width:70px;
+    margin-right: 50px;
+    margin-left: 10px;
 }
 .headerTitle input[type="text"]{
     width: 80%;
@@ -47,13 +59,14 @@
   padding: 10px;
 }
 .menu-btn:hover{
-  background-color:rgb(178, 204, 219);
+  background-color:rgb(30,52,65);
+  cursor: pointer;
   padding: 5px;
   border-radius: 20px;
   transition: 500.2ms;
 }
 .menu-btn:active{
-  background-color:rgb(55, 115, 149);
+  background-color:rgb(63, 86, 100);
   padding: 10px;
   transition: 200.2ms;
 }

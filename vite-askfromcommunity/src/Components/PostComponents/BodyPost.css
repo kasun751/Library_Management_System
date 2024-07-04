@@ -4,7 +4,7 @@
     text-align: left;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background:linear-gradient(rgb(179, 182, 185),rgb(96, 103, 112));
+    background-color:rgb(181,206,235);
     display: grid;
     min-height: 350px;
     grid-template-columns: 40% 60%;
@@ -48,15 +48,24 @@
   }
   
   .contentBox{
-    display: grid;
-    grid-template-columns: repeat(2,auto);
-    grid-template-rows: 1;
+    /* display: grid; */
+    display: inline-flex;
+    max-width: 100%;
+    width: auto;
+    /* grid-template-columns: repeat(2,auto);
+    grid-template-rows: 1; */
     text-align: center;
-    background-color: rgb(222,226,227);
+    background-color:rgb(209,225,243);
     margin: 10px;
     border-radius: 20px;
   }
-  .post-msg-btn>img{
+  .contentBox-outer{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  /* .post-msg-btn>img{
     width:50px;
     margin-left: 5px;
     margin-top: 5px;
@@ -74,14 +83,18 @@
     padding: 5px;
     transition: 500.2ms;
     
-  }
-  .post-msg-btn{
-    display: inline;
+  } */
+  .post-msg-btn > button{
+    margin-left: 10px;
+    background-color: #072E5D !important;
   }
   .title-box > input[type="text"] {
-    width: 90%;
-    padding: 10px;
-    margin-right: 10px;
+    max-width: 100%;
+    padding: 5px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
@@ -91,7 +104,6 @@
     margin-top: 20px;
     max-height:300px;
     height: auto;
-    width: auto;
     overflow-y: scroll;
     
   }
@@ -102,7 +114,9 @@
     flex-direction: column;
   }
 .title-box{
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  min-width: 300px;
+  
 }
 
   #savePostBtn, #editPostBtn, #reportBtn, #deletePostBtn{
@@ -136,9 +150,13 @@
     transition: 500.2ms;
   }
 
-.asdf{
-  width: 50px;
+.description-container{
+  border: 1px solid black;
+  height:150px;
+  margin: 0 20px;
+  overflow-y: scroll;
 }
+
 .overlay {
   position: fixed;
   top: 0;

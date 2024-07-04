@@ -155,7 +155,7 @@ function BodyPost({ post}) {
   const img = savePost? 'src/Images/save.svg':'src/Images/unSave.svg';
 
   return (
-    <>
+    <div className='container col-lg-10 col-sm-12 col-12'>
     <AnimatePresence>
       {!isDelete && 
       <motion.div
@@ -163,7 +163,7 @@ function BodyPost({ post}) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className='container  postComponent col-lg-12 col-sm-12 col-12'>
+      <div className=' postComponent col-lg-12 col-sm-12 col-12'>
         <div className='image-box'>
           <div className='post-btn-panel'>
               <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
@@ -184,29 +184,36 @@ function BodyPost({ post}) {
                                              
             </div>            
         </div>
-        <div className='contentBox col-lg-10'>
+        <div className='contentBox-outer'>
+        <div className='contentBox'>
           <div className='title-box'>
-              <h1>{post.title}</h1>
-              <DescriptionBox description={post.description} />
+              <h3>{post.title}</h3>
+              {/* <DescriptionBox description={post.description} /> */}
+              <div className='description-container'>
+                <p>{post.description}</p>
+              </div>
                 <input
                       type='text'
                       value={reply}
                       placeholder='enter your reply'
                       onChange={(e) => setReply(e.target.value)}
                   />
-                  <div className='post-msg-btn'>
-                    <img src="src\Images\send-reply.svg" alt="" onClick={handleSendReply} />
-                    <img src={visible ? "src/Images/not-see.svg" : "src/Images/look.svg"} alt="" onClick={handleVisibility} />
+                  <div className='post-msg-btn mt-2'>
+                    {/* <img src="src\Images\send-reply.svg" alt="" onClick={handleSendReply} />
+                    <img src={visible ? "src/Images/not-see.svg" : "src/Images/look.svg"} alt="" onClick={handleVisibility} /> */}
+
+                    <button className="btn btn-primary" disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
+                  <button className="btn btn-primary ml-1" onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
                   </div>
-                  {/* <button disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
-                  <button onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button> */}
-          </div>
+                  
+        </div>
           <div className='replyBox'>
             {visible && replyBulk.map((item, index) => (
                 <ReplyBox  key={index} post_id2={post.post_id} item = {item}/>
             ))}
           </div>
-        </div>
+      </div>
+      </div>
       </div>
       </motion.div>
       }
@@ -241,7 +248,7 @@ function BodyPost({ post}) {
         }
         </AnimatePresence>
       </imageEnlargerActivity.Provider>
-    </>
+    </div>
   );
 }
 

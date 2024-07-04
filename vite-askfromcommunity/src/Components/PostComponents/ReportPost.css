@@ -1,9 +1,10 @@
 
 .reportPost-container div{
     border:1px solid white;
-    color: black;
+    color: white;
     padding:0 10px 10px 10px;
-    background-color: rgb(218, 97, 97);
+    background: rgb(239,34,21);
+    background: linear-gradient(0deg, rgba(239,34,21,1) 22%, rgba(149,58,52,1) 96%);
     border-radius: 20px;
     text-align: center;
     margin: 10px;
@@ -16,6 +17,8 @@
     
 }
 .reportPost-container button{
-    background-color:blueviolet;
+    background: rgb(5,26,51);
+    background: linear-gradient(0deg, rgba(5,26,51,1) 16%, rgba(60,128,208,1) 90%);
     border-radius: 10px;
+    color: white;
 }

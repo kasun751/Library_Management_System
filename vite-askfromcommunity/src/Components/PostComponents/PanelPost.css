@@ -1,7 +1,7 @@
 .sidePanelPostComponent {
     margin: 20px;
     width: 75%;
-    padding: 20px;
+    padding: 5px;
     text-align: left;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -48,6 +48,18 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+  }
+
+  .accordion-item {
+    padding: 0px !important;
+  }
+
+  .accordion-header {
+    padding: 0 !important;
+  }
+
+  .accordion-body {
+    padding: 0 !important;
   }
   
   .sidePanelPostComponent button {
