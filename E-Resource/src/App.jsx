@@ -1,6 +1,6 @@
 
 import './App.css'
-import Navigation from "./Components/HeaderContent/Navigation.jsx";
+import Navigation from "./Components/Navigation/Navigation.jsx";
 
 function App() {
 

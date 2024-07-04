@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import NewsCard from "./NewsCard.jsx";
-import './E_NewsPapers_Home.css'
+import './E_NewsPapers_Home.css';
 
-function E_NewsPapers_Home(){
+function E_NewsPapers_Home() {
     const [getNewsPapersDetails, setGetNewsPapersDetails] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchBy, setSearchBy] = useState('title');
@@ -18,34 +18,35 @@ function E_NewsPapers_Home(){
                             'content-Type': 'application/json'
                         }
                     }
-                )
+                );
                 console.log(res.data);
-                setGetNewsPapersDetails(res.data);
+                setGetNewsPapersDetails(res.data || []); // Ensure to default to an empty array if res.data is falsy
             } catch (error) {
                 console.error("Error fetching data", error);
+                setGetNewsPapersDetails([]); // Set empty array on error to prevent undefined.filter() error
             }
-        }
+        };
 
         getViewNewsPapersDetails();
     }, []);
 
-    const filteredNews = getNewsPapersDetails.filter(news => {
+    // Ensure getNewsPapersDetails is an array before calling .filter()
+    const filteredNews = Array.isArray(getNewsPapersDetails) ? getNewsPapersDetails.filter(news => {
         const query = searchQuery.toLowerCase();
         if (searchBy === 'title') {
             return news.title.toLowerCase().includes(query);
         } else if (searchBy === 'date') {
-            const newsDate = news.date.toString().toLowerCase();
-            return newsDate.includes(query);
+            const newsDate = news.date?.toString().toLowerCase(); // Use optional chaining to avoid errors if news.date is null or undefined
+            return newsDate?.includes(query);
         }
         return false;
-    });
+    }) : [];
 
-    return(
+    return (
         <>
             <div className="search-container">
                 <nav className="navbar navbar-expand-lg bg-body-tertiary eBook_NavBar">
                     <div className="container-fluid">
-
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-6 mb-lg-0">
                                 <li className="nav-item">
@@ -54,12 +55,7 @@ function E_NewsPapers_Home(){
                                 <li className="nav-item">
                                     <a className="nav-link" href="/add_news">Add E-News Paper</a>
                                 </li>
-
-
                             </ul>
-
-
-
                         </div>
                     </div>
                 </nav>
@@ -75,7 +71,6 @@ function E_NewsPapers_Home(){
                                 <option value="">Search By</option>
                                 <option value="title">Title</option>
                                 <option value="date">Date</option>
-
                             </select>
                             <input
                                 type="search"
@@ -103,10 +98,9 @@ function E_NewsPapers_Home(){
                         />
                     ))}
                 </div>
-
             </div>
         </>
-    )
+    );
 }
 
 export default E_NewsPapers_Home;

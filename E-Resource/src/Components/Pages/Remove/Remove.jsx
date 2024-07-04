@@ -1,4 +1,4 @@
-import Navigation from "../../HeaderContent/Navigation.jsx";
+import Navigation from "../../Navigation/Navigation.jsx";
 import './remove.css';
 import { useState ,useEffect } from "react";
 import axios from "axios";

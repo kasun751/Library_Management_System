@@ -10,12 +10,15 @@ $dbcon = new database();
 $conn = $dbcon->dbConnect();
 
 if ($conn->connect_error) {
+    error_log("Connection failed: " . $conn->connect_error);
     echo json_encode(['resultMessage' => 'Connection failed', 'error' => $conn->connect_error]);
     exit();
 }
-
 $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : 0;
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
+
+// Log query for debugging
+error_log("Offset: $offset, Limit: $limit");
 
 $sql = "SELECT COUNT(*) as total FROM ebook";
 $result = $conn->query($sql);
@@ -33,13 +36,21 @@ $details = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $details[] = $row;
+
     }
+
+    echo json_encode(['books' => $details, 'totalPages' => $totalPages]);
 } else {
     echo json_encode(['books' => [], 'totalPages' => $totalPages]);
+
+
     exit();
 }
 
 $conn->close();
 
-echo json_encode(['books' => $details, 'totalPages' => $totalPages]);
+
+
+// Log final output for debugging
+error_log(json_encode(['books' => $details, 'totalPages' => $totalPages]));
 ?>

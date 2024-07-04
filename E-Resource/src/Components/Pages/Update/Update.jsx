@@ -1,4 +1,4 @@
-import Navigation from "../../HeaderContent/Navigation.jsx";
+import Navigation from "../../Navigation/Navigation.jsx";
 import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import './Update.css';

@@ -1,26 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+.body{
+    background:linear-gradient(0deg, rgb(3,57,108) 10%, rgb(142, 165, 182) 60%) !important ;
+    margin-bottom: 0;
+}
+
 .main_home{
     background:url("../../assets/images/main_home.jpg") center center / cover no-repeat;
-    padding: 70px;
+    padding: 40px;
 }
 .main_home h1{
     color: white;
-    font-size: 60px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 48px;
     font-weight: bold;
-    text-align: center;
+    margin-left: 2rem;
+
 }
- h5{
-    font-size:30px;
-    font-weight: bolder;
-    color: #1E3541;
-    margin: 10px auto;
-     padding: 10px 0;
+#custom-button{
+    width: 10rem;
+    margin-left: 8.9rem;
+    margin-top: 0.5rem;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+}
+#custom-button a{
+    color: white;
+    text-decoration: none;
+}
+.vertical-line{
+    border-left: 2px solid black;
+    height: 250px; /* Adjust as needed */
+    margin-top: 5px;
+
+}
+.card-title{
+    font-size:43px;
+     font-family: "Inter", sans-serif;
+    font-weight: bold;
+    color: #072E5D;
 }
 .card-body p small{
     font-weight: bolder;
 }
-.card-text button{
-    width: 8rem;
+.card-text{
+    font-family: "Libre Caslon Text", serif;
+    font-size: 24px;
+    font-weight: lighter;
 }
+
 
 
 @media only screen and (max-width: 680px) {

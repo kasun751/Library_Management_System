@@ -1,4 +1,4 @@
-import Navigation from "../../HeaderContent/Navigation.jsx";
+import Navigation from "../../Navigation/Navigation.jsx";
 import './E_Book_Home.css';
 import Card from './Card/Card.jsx';
 import {useEffect, useState} from "react";
@@ -51,8 +51,9 @@ function E_Book_Home() {
                 const res = await axios.get(
                     `http://localhost/Lbrary%20Management%20System/E-Resource_Php/viewBookDetails.php?offset=${(currentPage - 1) * itemsPerPage}&limit=${itemsPerPage}`
                 );
-                setGetBookDetails(res.data.books);
-                setTotalPages(res.data.totalPages);
+                setGetBookDetails(res.data.books || []);
+                console.log(res.data);
+                setTotalPages(res.data.totalPages || 1);
             } catch (error) {
                 console.error("Error fetching data", error);
             }

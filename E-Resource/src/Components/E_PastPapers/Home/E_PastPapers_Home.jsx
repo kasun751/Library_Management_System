@@ -1,4 +1,3 @@
-
 import {useEffect, useState} from "react";
 import axios from "axios";
 import PapersCard from "./PapersCard.jsx";
@@ -8,7 +7,7 @@ function E_PastPapers_Home(){
     const [getPastPapersDetails, setGetPastPapersDetails] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchBy, setSearchBy] = useState('subject');
-0
+
     useEffect(() => {
         const getViewPastPapersDetails = async () => {
             try {
@@ -19,11 +18,19 @@ function E_PastPapers_Home(){
                             'content-Type': 'application/json'
                         }
                     }
-                )
+                );
                 console.log(res.data);
-                setGetPastPapersDetails(res.data);
+
+                // Ensure the response data is an array
+                if (Array.isArray(res.data)) {
+                    setGetPastPapersDetails(res.data);
+                } else {
+                    console.error("Unexpected response data format:", res.data);
+                    setGetPastPapersDetails([]);
+                }
             } catch (error) {
                 console.error("Error fetching data", error);
+                setGetPastPapersDetails([]);
             }
         }
 
@@ -34,7 +41,7 @@ function E_PastPapers_Home(){
         const query = searchQuery.toLowerCase();
         if (searchBy === 'subject') {
             return papers.subject.toLowerCase().includes(query);
-        }else if (searchBy === 'grade') {
+        } else if (searchBy === 'grade') {
             return papers.grade.toLowerCase().includes(query);
         } else if (searchBy === 'year') {
             const newsDate = papers.year.toString().toLowerCase();
@@ -42,12 +49,12 @@ function E_PastPapers_Home(){
         }
         return false;
     });
-    return(
+
+    return (
         <>
             <div className="search-container">
                 <nav className="navbar navbar-expand-lg bg-body-tertiary eBook_NavBar">
                     <div className="container-fluid">
-
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-6 mb-lg-0">
                                 <li className="nav-item">
@@ -56,12 +63,7 @@ function E_PastPapers_Home(){
                                 <li className="nav-item">
                                     <a className="nav-link" href="/add_pastPapers">Add E-Past Paper</a>
                                 </li>
-
-
                             </ul>
-
-
-
                         </div>
                     </div>
                 </nav>
@@ -78,7 +80,6 @@ function E_PastPapers_Home(){
                                 <option value="title">Title</option>
                                 <option value="grade">Grade</option>
                                 <option value="year">Year</option>
-
                             </select>
                             <input
                                 type="search"
@@ -92,7 +93,6 @@ function E_PastPapers_Home(){
                         </div>
                     </form>
                 </div>
-
                 <div className="card-container row">
                     {filteredPapers.map((papers, index) => (
                         <PapersCard
@@ -107,10 +107,9 @@ function E_PastPapers_Home(){
                         />
                     ))}
                 </div>
-
             </div>
         </>
-    )
+    );
 }
 
 export default E_PastPapers_Home;
