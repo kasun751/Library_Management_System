@@ -4,6 +4,9 @@ import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
 import ShowDeletedBooksReleventToIsbn from "./ShowDeletedBooksReleventToIsbn.jsx";
 import './RestoreAllBooksRelevantToIsbn.css';
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
+import FooterComponent from "../../Footer/FooterComponent.jsx";
 
 function RestoreAllBooksReleventToIsbn() {
 
@@ -13,6 +16,8 @@ function RestoreAllBooksReleventToIsbn() {
     const [data, setData] = useState({});
     const [bookNameID, setNextBookID] = useState('');
     const [categoryList, setCategoryList] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e) => {
         if (e.target.name == "isbnNumber") {
             getISBNData({
@@ -113,7 +118,7 @@ function RestoreAllBooksReleventToIsbn() {
 
 
     const restore = async (restorePara, BookIDForrestoreOnce) => {
-
+        setLoading(true);
         const extendedData = {
             ...data,
             restorePara: restorePara,
@@ -131,6 +136,7 @@ function RestoreAllBooksReleventToIsbn() {
             })
         console.log(res.data)
         const message = await res.data.resultMessage;
+        setLoading(false);
         if (message === "true") {
             localStorage.setItem("message", "Restored Successfully!");
         } else {
@@ -142,19 +148,17 @@ function RestoreAllBooksReleventToIsbn() {
 
     return (
         <>
-            <div id="restoreAllBook">
-                <div id="progress">
-                    <img src="" alt=""/>
-
-                </div>
-                <div id="formDivRestoreAllBook">
+            <div id="restoreAllBook" className="bookSectionCommonClass "  >
+                {loading && <CircleSpinner/>}
+                <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
+                <div id="formDivRestoreAllBook" className="bookSectionCommonFormClass">
                     <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
-                        <h1>Restore Book</h1>
+                        <h1> Restore Books Relevant To ISBN</h1>
                         <p style={{
                             color: message === "Restored Successfully!" ? 'green' : 'red',
                         }}>{message}</p>
                         <div className="row justify-content-center">
-                            <div className="col-xl-8 col-md-8 col-sm-12">
+                            <div className="col-xl-6 col-md-6 col-sm-12">
                                 <InputField label={"ISBN Number"} id={"restoreBook"} className={"form-control"}
                                             name={"isbnNumber"} type={"text"} handleChange={handleChange}
                                             feedback={"ISBN Number."}/>
@@ -164,7 +168,7 @@ function RestoreAllBooksReleventToIsbn() {
                                             disabled={true}
                                             feedback={"Book Name."}/>
                                 <CategoryList value={inputs.category || isbnMessage.Category || ""}
-                                              categoryList={categoryList}
+                                              categoryList={categoryList} disabled1={true}
                                               disabled={true} handleChange={handleChange}/>
                             </div>
                         </div>
@@ -172,13 +176,7 @@ function RestoreAllBooksReleventToIsbn() {
                                                         category={isbnMessage.Category} submit={submit}/>
                     </form>
                 </div>
-
-                {/*<div>*/}
-                {/*    <p>Response from PHP script: {message}</p>*/}
-                {/*    <p>ISBN Response from PHP*/}
-                {/*        script: {isbnMessage.successMessage !== undefined ? isbnMessage.successMessage : ''}*/}
-                {/*        {isbnMessage.ISBN_Number !== undefined ? "Have Book" : ''}</p>*/}
-                {/*</div>*/}
+                <FooterComponent/>
             </div>
         </>
     )

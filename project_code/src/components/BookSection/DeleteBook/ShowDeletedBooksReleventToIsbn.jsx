@@ -68,11 +68,9 @@ function ShowDeletedBooksReleventToIsbn({value,submit,category}) {
         <div id="showDeletedBooksRelevantToIsbn">
             <div className="container" >
                 <br/>
-                <hr/>
+                <h1 id="displayTitle">Display Deleted Books</h1>
                 <br/>
-                <h2>Show Deleted Books</h2>
-                <br/>
-                <table className="table">
+                <table className="table w-75 mx-auto    ">
                     <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -109,7 +107,9 @@ function ShowDeletedBooksReleventToIsbn({value,submit,category}) {
 
                 </table>
                 {booksdetails.length !== 0 ? (
+                    <div className="col-9 mx-auto">
                     <Button id={"restoreAll"} keyword1={"RestoreAll"} keyword2={"Restore All Books"} submit={submit}/>
+                    </div>
                 ) : ""}
             </div>
         </div>

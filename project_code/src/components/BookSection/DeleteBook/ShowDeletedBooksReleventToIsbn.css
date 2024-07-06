@@ -1,13 +1,14 @@
-
-#showDeletedBooksRelevantToIsbn .container h2{
-    background-color: rgba(30, 53, 63,0.4) !important;
-    color:white;
-    text-align: center;
-    text-decoration: underline;
-    padding: 10px!important;
-    border-radius: 20px;
+#showDeletedBooksRelevantToIsbn .container{
+    background: transparent;
+    border: none;
 }
-
+#displayTitle{
+    color:#072E5D;
+    text-decoration: underline;
+}
+#showDeletedBooksRelevantToIsbn table th{
+    background-color: #4A86CD;
+}
 #showDeletedBooksRelevantToIsbn .container table td .col-12 button{
     margin-top: 0!important;
     width: auto!important;
@@ -15,15 +16,16 @@
     /*border: none!important;*/
     opacity: 0.88;
 }
-#showDeletedBooksRelevantToIsbn .container table td .col-12{
-    width:300px !important;
-    margin-right: -400px!important;
-    /*padding-right: -100px!important;*/
+#showDeletedBooksRelevantToIsbn .table th:nth-child(3),#showDeletedBooksRelevantToIsbn .table td:nth-child(3) {
+    width: 16%;
 }
+
+#showDeletedBooksRelevantToIsbn .table th:nth-child(1),#showDeletedBooksRelevantToIsbn .table td:nth-child(1),
+#showDeletedBooksRelevantToIsbn .table th:nth-child(2), #showDeletedBooksRelevantToIsbn .table td:nth-child(2) {
+    width: 20%;
+}
+
 #showDeletedBooksRelevantToIsbn .container #restoreAll{
-    background-color: #1E3541 !important;
-    width: 100%!important;
-    margin-top: 40px!important;
-    color: yellow;
-    border: none!important;
+    background: linear-gradient(0deg, rgb(9, 122, 255) 16%, rgb(55, 210, 232) 87%) !important;
+
 }

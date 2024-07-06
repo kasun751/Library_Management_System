@@ -5,6 +5,8 @@ import './Register.css';
 import CircleSpinner from "../CircleSpinner/CircleSpinner.jsx";
 import RegistrationCommonForm from "./RegistrationCommonForm.jsx";
 import InputField from "../SubComponents/InputFields.jsx";
+import HeaderComponent from "../Header/HeaderComponent.jsx";
+import FooterComponent from "../Footer/FooterComponent.jsx";
 
 function Register() {
     const [inputs, setInputs] = useState({});
@@ -92,14 +94,15 @@ function Register() {
 
 
     return (
-        <div>
+        <div id="SignUpMainDiv">
             {loading && <CircleSpinner/>}
+            <HeaderComponent Link1={"Home"} router1={"/"} Link7={"Log Out"} router7={""}/>
             <div id={"registerSection"}>
                 <h1> Sign Up</h1>
                 <div id="registerPageSelection">
                     <h3>Register As</h3>
                     <div className="selectMethod">
-                        <label> Register User </label>
+                        <label > Register User </label>
                         <input
                             type="radio"
                             value="RegisterUser"
@@ -117,7 +120,7 @@ function Register() {
                         />
                     </div>
                 </div>
-                <div>
+                <div >
                     {selectedPage === 'RegisterUser' &&
                         <RegistrationCommonForm handleChange={handleChange} submit={submit}
                                                 registerStatus={registerStatus.resultMessage}
@@ -194,8 +197,8 @@ function Register() {
                         </div>
                     </div>}/>}
                 </div>
-
             </div>
+            <FooterComponent/>
         </div>)
 }
 

@@ -4,8 +4,8 @@ import InputField from "../SubComponents/InputFields.jsx";
 function RegistrationCommonForm({handleChange, registerStatus, submit,selectTypeInput1,selectTypeInput2,tittle}) {
 
     return (
-        <div id="registrationForm">
-            <h2 className="d-flex justify-content-center" style={{color:"black"}}>{tittle}</h2>
+        <div id="registrationForm"  className="bookSectionCommonFormClass">
+            <h2 className="d-flex justify-content-center text-white" >{tittle}</h2>
             <form className="row g-3 needs-validation justify-content-center" noValidate>
                 <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 mx-2 mx-xl-4">
                     {selectTypeInput1}
@@ -72,7 +72,7 @@ function RegistrationCommonForm({handleChange, registerStatus, submit,selectType
                     </div>
                     <div className="d-flex justify-content-centercol-12">
                         <button className="btn btn-primary feildDisabled col-6 mx-auto " type="submit"
-                                onClick={submit}>Logging
+                                onClick={submit}>Sign Up
                         </button>
                     </div>
 

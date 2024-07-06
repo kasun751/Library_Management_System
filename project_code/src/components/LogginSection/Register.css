@@ -32,9 +32,6 @@
     width: 80%;
     margin: -20px auto;
     padding: 30px 50px ;
-    border-radius: 20px;
-    background-color: rgba(161, 171, 177, 0.88);
-    border: white 2px solid;
     position: relative;
     top:30px;
 }
@@ -44,9 +41,10 @@
     margin-left: 20px;
 }
 #registrationForm label{
-    margin-top: 10px;
+    margin-top: 20px;
+    font-weight: 500;
 }
-#registerSection h1{
+#registerSection h1 {
     text-align: center;
     text-decoration: underline;
     padding:20px 0 ;
@@ -56,6 +54,8 @@
     background-color: #1E3541;
     color: yellow;
     border: none;
+    margin-top: -20px;
+    width: 30% !important;
 }
 .dot-animation {
     animation: dot-blink 1.5s infinite;

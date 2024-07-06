@@ -4,6 +4,9 @@ import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
 import Button from "../../SubComponents/Button.jsx";
 import './DeleteSomeBooks.css'
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
+import FooterComponent from "../../Footer/FooterComponent.jsx";
 
 function IssueBook() {
     const [inputs, setInputs] = useState({});
@@ -11,6 +14,8 @@ function IssueBook() {
     const [bookIdDetails, setBookIdDetails] = useState({});
     const [data, setData] = useState({});
     const [categoryList, setCategoryList] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e) => {
         if (e.target.name == "bookID") {
             getBookIdDetails({[e.target.name]: e.target.value});
@@ -117,6 +122,7 @@ function IssueBook() {
     }
 
     const deleteBook = async () => {
+        setLoading(true);
         const extendedData = {
             ...data,
             delete_parameter: 1
@@ -131,6 +137,7 @@ function IssueBook() {
                 }
             })
         const message = await res.data.resultMessage;
+        setLoading(false);
         console.log(res.data)
         if (message === "true") {
             localStorage.setItem("message", "Delete Successfully!");
@@ -142,11 +149,10 @@ function IssueBook() {
 
 
     return (
-        <div id="singleBooksDelete">
-            <div id="progress">
-                <img src="" alt=""/>
-            </div>
-            <div id="formDivSingleBooksDelete">
+        <div id="singleBooksDelete" className="bookSectionCommonClass">
+            {loading && <CircleSpinner/>}
+            <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
+            <div id="formDivSingleBooksDelete" className="bookSectionCommonFormClass">
                 <form className="row g-3 needs-validation" noValidate>
                     <h1>Delete Single Book</h1>
                     <p style={{
@@ -178,10 +184,7 @@ function IssueBook() {
                     </div>
                 </form>
             </div>
-            {/*<div>*/}
-            {/*    <p>Response from PHP script: {message}</p>*/}
-            {/*    <p>ISBN Response from PHP script: {bookIdDetails.ISBN_Number}</p>*/}
-            {/*</div>*/}
+          <FooterComponent/>
         </div>
     )
 }

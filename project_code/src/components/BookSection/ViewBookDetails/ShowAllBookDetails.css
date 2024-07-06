@@ -1,32 +1,17 @@
-#AllBookDetails{
-    background: url('../../../assets/images/IssueAndReturnBook.jpg') 50% / cover no-repeat;
-    min-height: 100vh;
-    height: 100%;
-    box-sizing: border-box;
+#AllBookDetails h1{
+    color:#072E5D;
+    text-align: center;
+    padding: 10px!important;
+    font-family: 'Georgia', serif;
+    font-weight: 800;
 }
 
-#AllBookDetails h1{
-   padding: 40px;
-    background-color: rgba(30, 53, 63,0.4) !important;
-    color:white;
-    text-align: center;
-}
-#AllBookDetails #details{
-    width: 91%;
-    margin: 80px auto;
-    padding: 20px 40px;
-    border-radius: 20px;
-    background-color: rgba(161, 171, 177, 0.88);
-    position: relative;
-    z-index: 2;
-    border: white 2px solid;
-}
 
 #AllBookDetails #details p{
     color: white;
     font-weight: 600;
     padding: 13px;
     height: 55px;
-    background-color: #1E3541 !important;
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(21, 101, 202) 87%) !important;
     border-radius: 10px;
 }

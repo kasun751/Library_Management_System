@@ -1,60 +1,27 @@
-#categoryAddAndRemove{
-    background: url('../../../assets/images/AddAndRemoveCategory.png') 50% / cover no-repeat;
-    z-index: 1;
-    overflow: hidden;
-    position: relative;
-    min-height: 100vh;
-    height: 100%;
-    box-sizing: border-box;
-}
-#categoryAddAndRemove::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('../../../assets/images/AddAndRemoveCategory.png') 50% / cover no-repeat;
-    filter: blur(3px);
-    z-index: -1;
-    opacity: 0.8;
-}
+
 #formDivCategoryAddAndRemove {
-    width: 50%;
     margin: 5% auto;
+    height:auto;
+    width: 40%;
     padding: 20px 40px;
-    border-radius: 20px;
-    background-color: rgba(161, 171, 177, 0.88);
-    position: relative;
-    z-index: 2;
-    border: white 2px solid;
 }
-#formDivCategoryAddAndRemove h1{
-    text-align: center;
-}
-#formDivCategoryAddAndRemove label{
-    width: 280px;
-    font-weight: 600;
-    margin-top: 13px;
-}
-#formDivCategoryAddAndRemove #addCategory{
+
+#formDivCategoryAddAndRemove #addCategory {
     margin-top: 10px;
 }
-#formDivCategoryAddAndRemove button{
-    background-color: #1E3541 !important;
-    border: none!important;
-    margin: 20px 10px;
-    width: 220px;
+#formDivCategoryAddAndRemove .add{
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(21, 101, 202) 87%) !important;
 }
+
+#formDivCategoryAddAndRemove .remove{
+    background: linear-gradient(0deg, rgb(213, 8, 32) 16%, rgb(232, 78, 78) 87%) !important;
+}
+
 #formDivCategoryAddAndRemove button a{
     color: white!important;
     text-decoration: none;
 }
-#formDivCategoryAddAndRemove #submit{
-    width: 400px!important;
-    margin-top: 40px!important;
-    color: yellow;
-}
+
 .category-dark-overlay {
     position: fixed;
     top: 0;

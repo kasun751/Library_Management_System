@@ -5,6 +5,9 @@ import Button from "../../SubComponents/Button.jsx";
 import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
 import SetAvailability from "../../SubComponents/SetAvailability.jsx";
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
+import FooterComponent from "../../Footer/FooterComponent.jsx";
 
 function AddExistingBookQty() {
 
@@ -14,6 +17,8 @@ function AddExistingBookQty() {
     const [data, setData] = useState({});
     const [nextBookID, setNextBookID] = useState('');
     const [categoryList, setCategoryList] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e) => {
         if (e.target.name == "isbnNumber") {
             getISBNData({
@@ -42,6 +47,7 @@ function AddExistingBookQty() {
     }, []);
 
     const updateDatabase = async () => {
+        setLoading(true);
         const extendData={
             ...inputs,
             parameter:0
@@ -56,6 +62,7 @@ function AddExistingBookQty() {
                 }
             })
         const message = await res.data.resultMessage;
+        setLoading(false);
         if(message==="true"){
             localStorage.setItem("message","Book Added successfully.");
         }else {
@@ -175,11 +182,10 @@ function AddExistingBookQty() {
 
     return (
         <>
-        <div id="addExistingBook">
-            <div id="progress">
-                <img src="" alt=""/>
-            </div>
-            <div id="formDivAddExistingBook">
+        <div id="addExistingBook" className="bookSectionCommonClass">
+            {loading && <CircleSpinner/>}
+            <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
+            <div id="formDivAddExistingBook" className="bookSectionCommonFormClass">
                 <form className="row g-3 needs-validation" noValidate>
                     <h1>Add Existing Book</h1>
                     <div className="row justify-content-center">
@@ -206,7 +212,7 @@ function AddExistingBookQty() {
                                         feedback={"Book Name."}/>
                             <CategoryList value={inputs.category || isbnMessage.Category || ""}
                                           categoryList={categoryList}
-                                          handleChange={handleChange}/>
+                                          handleChange={handleChange} disabled1={true}/>
                         </div>
                         <div className="col-12 col-xl-8">
                             <Button id={"submit"} keyword2={"Add Qty"} submit={submit} className="w-100"/>
@@ -224,7 +230,7 @@ function AddExistingBookQty() {
                     </div>
                 </form>
             </div>
-
+<FooterComponent/>
         </div>
         </>
     )

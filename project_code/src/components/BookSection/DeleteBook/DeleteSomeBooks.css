@@ -1,57 +1,12 @@
-#singleBooksDelete{
-    background: url('../../../assets/images/DeleteSomeBook.jpg') 50% / cover no-repeat;
-    z-index: 1;
-    overflow: hidden;
-    position: relative;
-    min-height: 100vh;
-    height: 100%;
-    box-sizing: border-box;
-}
-#singleBooksDelete::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('../../../assets/images/DeleteSomeBook.jpg') 50% / cover no-repeat;
-    filter: blur(3px);
-    z-index: -1;
-    opacity: 0.8;
-}
 #formDivSingleBooksDelete {
     width: 70%;
     margin: 8% auto;
     padding: 40px 40px;
-    border-radius: 20px;
-    background-color: rgba(161, 171, 177, 0.88);
-    position: relative;
-    z-index: 2;
-    border: white 2px solid;
 }
-#formDivSingleBooksDelete h1{
-    text-align: center;
-}
-#formDivSingleBooksDelete label{
-    width: 280px;
-    font-weight: 600;
-    margin-top: 13px;
-}
+
 #formDivSingleBooksDelete #addCategory{
     margin-top: 10px;
 }
-#formDivSingleBooksDelete button{
-    background-color: #1E3541 !important;
-    border: none!important;
-    margin-top: 20px;
-    width: 220px;
-}
-#formDivSingleBooksDelete button a{
-    color: white!important;
-    text-decoration: none;
-}
-#formDivSingleBooksDelete #submit{
-   width: 100%!important;
-    margin-top: 40px!important;
-    color: yellow;
+ #singleBooksDelete button{
+    background: linear-gradient(0deg, rgb(213, 8, 32) 16%, rgb(232, 78, 78) 87%) !important;
 }

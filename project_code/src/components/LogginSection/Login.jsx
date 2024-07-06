@@ -5,6 +5,8 @@ import InputField from "../SubComponents/InputFields.jsx";
 import './Login.css';
 import LoginSideImage from '../../assets/images/LoginSideImage.jpg';
 import CircleSpinner from "../CircleSpinner/CircleSpinner.jsx";
+import HeaderComponent from "../Header/HeaderComponent.jsx";
+import FooterComponent from "../Footer/FooterComponent.jsx";
 
 function Login() {
 
@@ -52,13 +54,13 @@ function Login() {
                 } else {
                     setLoginDetailsValidateResponse(message)
                 }
-                if (response.data.resultMessage == "Login_Success") {
+                if (response.data.resultMessage === "Login_Success") {
                     const encodedId = encodeURIComponent(response.data.userID);
                     localStorage.setItem("userID",response.data.userID);
                     const token = response.data.token;
                     localStorage.setItem('token', token);
                     navigate(`/dashboard/${encodedId}`);
-                } else if (response.data.resultMessage == "NotVerifiedAccount") {
+                } else if (response.data.resultMessage === "NotVerifiedAccount") {
                     console.log(response.data.userID);
                     const encodedId = encodeURIComponent(response.data.userID);
                     navigate(`/verificationPage/${encodedId}`);
@@ -111,11 +113,15 @@ function Login() {
     return (
         <div id="loginFormMainDiv" className="row">
             {loading && <CircleSpinner/>}
-            <div className="col-xl-4 col-lg-5 col-md-5  col-0">
+            <HeaderComponent Link1={"Home"} router1={"/"}
+                    Link7={"Sign Up"} router7={"/register"}
+            />
+            <div className="col-xl-4 col-lg-4 col-md-4  col-0">
                 <div id="loginSideImage">
                     <img src={LoginSideImage} alt="LoginSideImage"/>
                 </div>
             </div>
+
             <div id="loginForm" className="col-lg-4 col-md-4  col-6 mx-auto my-auto ">
                 <form className="g-3 needs-validation px-3 px-sm-4 px-md-3  px-lg-3 py-5" noValidate>
                     <h3>Login</h3>
@@ -141,13 +147,9 @@ function Login() {
                            <Link id="createAccountLink" to="/register">Create new account </Link>
                         </div>
                     </div>
-
-
                 </form>
-
-
             </div>
-
+            <FooterComponent/>
         </div>
     )
 }

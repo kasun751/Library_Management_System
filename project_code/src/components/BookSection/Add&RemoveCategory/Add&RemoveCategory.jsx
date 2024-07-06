@@ -6,6 +6,9 @@ import CategoryList from "../../SubComponents/CategoryList.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import {Link} from "react-router-dom";
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
+import FooterComponent from "../../Footer/FooterComponent.jsx";
 
 function AddRemoveCategory() {
     const [inputs, setInputs] = useState({});
@@ -14,6 +17,7 @@ function AddRemoveCategory() {
     const [categoryList, setCategoryList] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const name = e.target.name;
@@ -49,6 +53,7 @@ function AddRemoveCategory() {
     }, []);
 
     const updateDatabase = async (access) => {
+        setLoading(true);
         const extendedData = {
             ...inputs,
             access_parameter: access
@@ -64,6 +69,7 @@ function AddRemoveCategory() {
             }
         );
         const message = await res.data.resultMessage;
+        setLoading(false);
         console.log(res.data.resultMessage);
         if (message === "add") {
             localStorage.setItem("categoryAddMessage", "Category Added Successfully.");
@@ -96,16 +102,16 @@ function AddRemoveCategory() {
     };
 
     return (
-        <div id="categoryAddAndRemove">
-            <div id="progress">
-                <img src="" alt="" />
-            </div>
-            <div id="formDivCategoryAddAndRemove">
+        <div id="categoryAddAndRemove" className="bookSectionCommonClass">
+            {loading && <CircleSpinner/>}
+            <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
+            <div id="formDivCategoryAddAndRemove" className="bookSectionCommonFormClass">
                 <form className="row g-3 needs-validation" noValidate>
+                    <h1>Add </h1>
                     <InputField
                         type={"text"}
                         className={"form-control"}
-                        label="Add Category"
+                        label="Enter Category"
                         id="validationCustomUsername"
                         name="addCategory"
                         value={inputs.addCategory || ""}
@@ -113,14 +119,16 @@ function AddRemoveCategory() {
                         required={true}
                         feedback="Please choose a valid ISBN Number."
                     />
-                    <button
-                        id={"submit"}
-                        className="btn btn-primary feildDisabled"
-                        type="submit"
-                        onClick={() => submit("add")}
-                    >
-                        Add Category
-                    </button>
+                    <div className="d-flex justify-content-end w-100">
+                        <button
+                            id={"submit"}
+                            className="btn btn-primary feildDisabled add"
+                            type="submit"
+                            onClick={() => submit("add")}
+                        >
+                            Add Category
+                        </button>
+                    </div>
                     <div>
                         {addMessage && (
                             <p
@@ -135,21 +143,24 @@ function AddRemoveCategory() {
                         )}
                     </div>
                 </form>
-                <hr />
-                <form className="row g-3 needs-validation" noValidate>
+                <hr/>
+                <form className="row g-3 needs-validation">
+                    <h1>Remove</h1>
                     <CategoryList
                         value={inputs.category || ""}
                         categoryList={categoryList}
                         handleChange={handleChange}
                     />
-                    <button
-                        id={"submit"}
-                        className="btn btn-primary feildDisabled"
-                        type="submit"
-                        onClick={() => submit("remove")}
-                    >
-                        Remove Category
-                    </button>
+                    <div className="d-flex justify-content-end w-100">
+                        <button
+                            id={"submit"}
+                            className="btn btn-primary feildDisabled remove"
+                            type="submit"
+                            onClick={() => submit("add")}
+                        >
+                            Remove Category
+                        </button>
+                    </div>
                     <div>
                         {removeMessage && removeMessage !== 'tableNotEmpty' && (
                             <p
@@ -166,11 +177,12 @@ function AddRemoveCategory() {
                 </form>
             </div>
             {showOverlay && (
-                <div className={`category-dark-overlay ${showOverlay ? 'show' : ''}`} onClick={() => setShowOverlay(false)}></div>
+                <div className={`category-dark-overlay ${showOverlay ? 'show' : ''}`}
+                     onClick={() => setShowOverlay(false)}></div>
             )}
             {removeMessage && removeMessage === 'tableNotEmpty' && (
-                <div id="categoryModel" style={{ display: 'initial' }}>
-                    {showModal && (
+                <div id="categoryModel" style={{display: 'initial'}}>
+                {showModal && (
                         <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1">
                             <div className="modal-dialog modal-dialog-centered">
                                 <div className="modal-content bg-dark text-white">
@@ -212,7 +224,7 @@ function AddRemoveCategory() {
                     )}
                 </div>
             )}
-
+            <FooterComponent/>
         </div>
     );
 }

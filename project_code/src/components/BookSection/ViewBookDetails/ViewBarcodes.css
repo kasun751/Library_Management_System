@@ -1,0 +1,20 @@
+#viewBarcodes .barcodeButton{
+position: relative;
+    top: 16px;
+}
+#viewBarcodes h1{
+    color:#072E5D;
+}
+#viewBarcodesForms{
+    padding: 40px 100px;
+    width: 70%;
+    margin: 40px auto;
+}
+.singleBarcodeInput{
+    margin: -10px;
+}
+
+.barcodesubTopic{
+    color: #072E5D;
+    text-decoration: underline;
+}

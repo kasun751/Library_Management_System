@@ -1,5 +1,7 @@
-#addNewBook{
-    background: url('../../../assets/images/AddBook.jpg') 50% / cover no-repeat;
+.bookSectionCommonClass{
+    background-image:linear-gradient(rgba(182, 179, 179, 0.25), rgba(166, 166, 166, 0.27)),  url('../../../assets/images/BookSectionBG.webp') ;
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 1;
     overflow: hidden;
     position: relative;
@@ -7,51 +9,65 @@
     height: 100%;
     box-sizing: border-box;
 }
-#addNewBook::before {
+.bookSectionCommonClass::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../../../assets/images/AddBook.jpg') 50% / cover no-repeat;
     filter: blur(3px);
     z-index: -1;
     opacity: 0.8;
 }
-#formDivAddNewBook {
-    width: 91%;
-    margin: auto;
-    padding: 20px 40px;
+.bookSectionCommonClass .commonHeader{
+    border-bottom: 20px white solid;
+}
+.bookSectionCommonClass .footer-container{
+    border-top: 20px white solid;
+}
+
+.bookSectionCommonFormClass {
+    margin:40px 76px;
+    height:auto;
+    max-width: 1200px;
+    background: rgba(234, 228, 228, 0.19);
+    border: 2px solid rgba(251, 251, 251, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
-    background-color: rgba(161, 171, 177, 0.88);
-    position: relative;
-    z-index: 2;
-    border: white 2px solid;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index:1000;
+    padding: 20px 40px;
 }
-#formDivAddNewBook h1{
+.bookSectionCommonFormClass h1{
     text-align: center;
+    font-weight: 800;
+    font-family: 'Georgia', serif;
 }
-#formDivAddNewBook label{
+.bookSectionCommonFormClass label{
     width: 280px;
-    font-weight: 600;
-    margin-top: 13px;
+    margin-top: 16px;
+   font-weight: 800;
+    font-family: 'Arial', sans-serif;
 }
+
 #formDivAddNewBook #addCategory{
     margin-top: 10px;
 }
-#formDivAddNewBook button{
-    background-color: #1E3541 !important;
+.bookSectionCommonFormClass button{
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(21, 101, 202) 87%) !important;
     border: none!important;
     margin-top: 20px;
-    width: 220px;
+    width: auto !important;
+    padding: 10px 40px !important;
 }
-#formDivAddNewBook button a{
+
+.bookSectionCommonFormClass button a{
     color: white!important;
     text-decoration: none;
 }
-#formDivAddNewBook #submit{
-   width: 100%!important;
-    margin-top: 40px!important;
-    color: yellow;
+.bookSectionCommonFormClass #submit{
+    float: right;
 }

@@ -29,9 +29,9 @@ const AcceptRequest = ({bookID,userID,category}) => {
                     'Content-Type': 'application/json'
                 }
             })
-        console.log(res.data.resultMessage)
+        console.log(res.data)
         setMessage(res.data.resultMessage);
-        window.location.reload();
+        location.reload();
     };
 
     return (

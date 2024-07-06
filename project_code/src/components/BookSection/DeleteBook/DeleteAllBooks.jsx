@@ -4,6 +4,9 @@ import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
 import Button from "../../SubComponents/Button.jsx";
 import './DeleteAllBooks.css';
+import FooterComponent from "../../Footer/FooterComponent.jsx";
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
 
 function DeleteAllBook() {
 
@@ -13,6 +16,8 @@ function DeleteAllBook() {
     const [data, setData] = useState({});
     const [bookNameID, setNextBookID] = useState('');
     const [categoryList, setCategoryList] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e) => {
         if (e.target.name == "isbnNumber") {
             getISBNData({
@@ -144,6 +149,7 @@ function DeleteAllBook() {
 
 
     const deleteBook = async () => {
+        setLoading(true);
         const extendedData = {
             ...data,
             delete_parameter: 0
@@ -159,24 +165,24 @@ function DeleteAllBook() {
             })
         console.log(res.data)
         const message = await res.data.resultMessage;
+        setLoading(false);
         if (message === "true") {
             localStorage.setItem("message", "Delete Successfully!");
         } else {
             localStorage.setItem("message", "Failed!");
         }
-        // location.reload();
+        location.reload();
     }
 
 
     return (
         <>
-            <div id="allBooksDelete">
-                <div id="progress">
-                    <img src="" alt=""/>
-                </div>
-                <div id="formDivAllBookDelete">
+            <div id="allBooksDelete " className="bookSectionCommonClass">
+                {loading && <CircleSpinner/>}
+                <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
+                <div id="formDivAllBookDelete" className="bookSectionCommonFormClass">
                     <form className="row g-3 needs-validation" noValidate>
-                        <h1>Delete All Book</h1>
+                        <h1>Delete All Books Relevant To ISBN</h1>
                         <p style={{
                             color: message === "Delete Successfully!" ? 'green' : 'red',
                         }}>{message}</p>
@@ -208,10 +214,7 @@ function DeleteAllBook() {
                         </div>
                     </form>
                 </div>
-                {/*<div>*/}
-                {/*    <p>Response from PHP script: {message}</p>*/}
-                {/*    <p>ISBN Response from PHP script: {isbnMessage.ISBN_Number}</p>*/}
-                {/*</div>*/}
+               <FooterComponent/>
             </div>
         </>
     )

@@ -2,14 +2,16 @@ import axios from "axios";
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import './BookAvailabilityDetails.css';
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
+import FooterComponent from "../../Footer/FooterComponent.jsx";
 
 function BookAvailabilityDetails() {
-    const { id } = useParams();
+    const {id} = useParams();
     const [availableBookList, setAvailableBookList] = useState([]);
     const [message, setMessage] = useState('');
     const [modalMessage, setModalMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const userID="SLMS/ADM/24/1";  //getting this from session storage
+    const userID = "SLMS/REG/24/1";  //getting this from session storage
     useEffect(() => {
         console.log(id);
         fetchBookDetails(id);
@@ -38,11 +40,11 @@ function BookAvailabilityDetails() {
             });
     }
 
-    const requestBook = async (bookID,category) => {
+    const requestBook = async (bookID, category) => {
         const extendedData = {
-            bookID:bookID,
-            userID:userID,
-            category:category
+            bookID: bookID,
+            userID: userID,
+            category: category
         };
         console.log(extendedData)
         const res = await axios.post(
@@ -54,7 +56,7 @@ function BookAvailabilityDetails() {
                 }
             })
         console.log(res.data)
-       const message =res.data.resultMessage;
+        const message = res.data.resultMessage;
         if (message) {
 
             localStorage.setItem("message", message);
@@ -62,7 +64,8 @@ function BookAvailabilityDetails() {
         location.reload();
     }
     return (
-        <div id="BookAvailabilityDetails">
+        <div id="BookAvailabilityDetails"  className="bookSectionCommonClass">
+            <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
             {showModal && (
                 <div className="modal fade show custom-modal" tabIndex="-1" role="dialog"
                      style={{display: 'block', backgroundColor: 'rgba(0,0,0,0.5)'}}>
@@ -83,39 +86,45 @@ function BookAvailabilityDetails() {
                     </div>
                 </div>
             )}
-            <table className="table">
-                <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Book ID</th>
-                    <th scope="col">Request This</th>
-                </tr>
-                </thead>
-                <tbody>
-                {Array.isArray(availableBookList) && availableBookList.length > 0 ? (
-                    availableBookList.map((book, index) => (
-                        <tr key={index}>
-                            <td className="booDetails">Result {index + 1}</td>
-                            <td className="booDetails">{book.Final_ID}</td>
-                            <td id="requestThis" className="booDetails">
-                                <button id="request" className="btn btn-success"
-                                        onClick={() => requestBook(book.Final_ID, book.category
-                                        )}>Request This
-                                </button>
-                            </td>
-
-                    </tr>
-                ))): (
+            <div  className="bookSectionCommonTableClass">
+                <div className="container">
+                    <h1>Available Books</h1>
+                    <br/>
+                <table className="table w-75 mx-auto">
+                    <thead>
                     <tr>
-                        <td colSpan="3" className="booDetails">No books available</td>
+                        <th scope="col">No</th>
+                        <th scope="col">Book ID</th>
+                        <th scope="col">Request This</th>
                     </tr>
-                )}
-             {/*<p>response:  {message}</p>*/}
-                </tbody>
-            </table>
-            <div>
+                    </thead>
+                    <tbody>
+                    {Array.isArray(availableBookList) && availableBookList.length > 0 ? (
+                        availableBookList.map((book, index) => (
+                            <tr key={index}>
+                                <td className="booDetails" >{index + 1}</td>
+                                <td className="booDetails">{book.Final_ID}</td>
+                                <td id="requestThis" className="booDetails">
+                                    <button id="request" className="btn btn-success"
+                                            onClick={() => requestBook(book.Final_ID, book.category
+                                            )}>Request This
+                                    </button>
+                                </td>
 
+                            </tr>
+                        ))) : (
+                        <tr>
+                            <td colSpan="3" className="booDetails">No books available</td>
+                        </tr>
+                    )}
+                    {/*<p>response:  {message}</p>*/}
+                    </tbody>
+                </table>
+                </div>
+                <div>
+                </div>
             </div>
+            <FooterComponent/>
         </div>
     )
 }

@@ -2,11 +2,16 @@ import InputField from "../../SubComponents/InputFields.jsx";
 import './AvailableNow.css';
 import axios from "axios";
 import {useEffect, useState} from "react";
-import login from "../../LogginSection/Login.jsx";
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
+import FooterComponent from "../../Footer/FooterComponent.jsx";
 
 const AvailableNow = () => {
     const [bookList, setBookList] = useState([]);
+    const [autoFetchBookList, setAutoFetchBookList] = useState([]);
     const [message, setMessage] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e) => {
 
         if (e.target.name == "isbnNumber") {
@@ -21,11 +26,37 @@ const AvailableNow = () => {
         localStorage.removeItem("message");
 
     }, []);
+
+    useEffect(() => {
+        const fetchBooks = async () => {
+            await axios.get(`http://localhost:8081/project_01/controllers/UpdateExistingBookQtyController.php`, {
+                params: {
+                    para: 0
+                }
+            })
+                .then(response => {
+                    console.log(response.data)
+                    setAutoFetchBookList(response.data);
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
+        };
+        fetchBooks();
+    }, []);
+
     const getStillNotAddedBooks = async (isbnNumber) => {
-        await axios.get(`http://localhost:8081/project_01/controllers/UpdateExistingBookQtyController.php?isbnNumber=${isbnNumber}`)
+        setLoading(true);
+        await axios.get(`http://localhost:8081/project_01/controllers/UpdateExistingBookQtyController.php`, {
+            params: {
+                isbnNumber: isbnNumber,
+                para: 1
+            }
+        })
             .then(response => {
                 console.log(response.data)
                 setBookList(response.data);
+                setLoading(false);
             })
             .catch(error => {
                 console.log(error.message);
@@ -70,17 +101,19 @@ const AvailableNow = () => {
     }
 
     return (
-        <div id="availableNow">
+        <div id="availableNow" className="bookSectionCommonClass bookSectionCommonTableClass">
+            {loading && <CircleSpinner/>}
+            <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
             <div className="container">
                 <br/>
-                <h2>View Book</h2>
+                <h1>Set Available</h1>
                 <hr/>
                 <p style={{
                     color: message === "Update Successfully!" ? 'yellow' : 'red',
                 }}>{message}</p>
-                <div className="input-and-button">
+                <div className="input-and-button w-75 mx-auto">
                     <div>
-                        <InputField label={""} id={"validationBookID1"} className={"form-control"}
+                        <InputField label={""} id={"searchIsbn"} className={"form-control "}
                                     placeholder={"Enter ISBN"}
                                     name={"isbnNumber"} type={"text"} handleChange={handleChange}/>
                     </div>
@@ -92,7 +125,7 @@ const AvailableNow = () => {
                     </div>
                 </div>
 
-                <table className="table">
+                <table className="table w-75 mx-auto">
                     <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -107,25 +140,47 @@ const AvailableNow = () => {
 
                         bookList.map((book, index) => (
                             <tr key={index}>
-                                <td className="booDetails">Result {index + 1}</td>
+                                <td className="booDetails"> {index + 1}</td>
                                 <td className="booDetails">{book.Final_ID}</td>
-                                <td id="requestThis" className="booDetails">
+                                <td id="availableThisBook" className="booDetails">
                                     {<button id="availableThis" className="btn btn-success"
-                                             onClick={() => available(book.Final_ID, 1)}>Available This
+                                             onClick={() => available(book.Final_ID, 1)}>Available Now
+                                    </button>}
+                                    {<button id="notAvailable" className="btn btn-success"
+                                             onClick={() => available(book.Final_ID, 1)}>Not Available
                                     </button>}
                                 </td>
                             </tr>
                         ))
                     ) : (
-                        <tr>
-                            <td colSpan="3" className="booDetails">No books available</td>
-                        </tr>
+                        Array.isArray(autoFetchBookList) && autoFetchBookList.length > 0 ? (
+
+                            autoFetchBookList.map((book, index) => (
+                                <tr key={index}>
+                                    <td className="booDetails"> {index + 1}</td>
+                                    <td className="booDetails">{book.Final_ID}</td>
+                                    <td id="requestThis" className="booDetails">
+                                        {<button id="availableThis" className="btn btn-success"
+                                                 onClick={() => available(book.Final_ID, 1)}>Available Now
+                                        </button>}
+                                        {<button id="notAvailable" className="btn btn-success"
+                                                 onClick={() => available(book.Final_ID, 1)}>Not Available
+                                        </button>}
+                                    </td>
+                                </tr>
+                            ))
+                        ): (
+                            <tr>
+                                <td colSpan="5">No books found.</td>
+                            </tr>
+                        )
                     )}
 
                     </tbody>
                 </table>
 
             </div>
+            <FooterComponent/>
         </div>
     );
 };

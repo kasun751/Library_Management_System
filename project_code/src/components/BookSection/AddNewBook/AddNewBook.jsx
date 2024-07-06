@@ -6,6 +6,9 @@ import InputField from "../../SubComponents/InputFields.jsx";
 import CategoryList from "../../SubComponents/CategoryList.jsx";
 import SetAvailability from "../../SubComponents/SetAvailability.jsx";
 import Button from "../../SubComponents/Button.jsx";
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
+import FooterComponent from "../../Footer/FooterComponent.jsx";
 
 function AddNewBook() {
 
@@ -14,7 +17,7 @@ function AddNewBook() {
     const [isbnMessage, setIsbnMessage] = useState({});
     const [categoryList, setCategoryList] = useState([]);
     const [bookData, setBookData] = useState(null);
-
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const storedAddMessage = localStorage.getItem("message");
@@ -36,11 +39,12 @@ function AddNewBook() {
 
         const name = e.target.name;
         const value = e.target.value;
-        console.log(name+":"+ value);
+        console.log(name + ":" + value);
         setInputs(preValues => ({...preValues, [name]: value}))
     }
 
     const updateDatabase = async () => {
+        setLoading(true);
         const res = await axios.post(
             'http://localhost:8081/project_01/controllers/AddNewBookController.php',
             inputs,
@@ -50,6 +54,7 @@ function AddNewBook() {
                 }
             })
         const message = await res.data.resultMessage;
+        setLoading(false);
         console.log(res.data)
         if (message === "true") {
             localStorage.setItem("message", "Book Added successfully.");
@@ -81,10 +86,10 @@ function AddNewBook() {
                         let categories = data.categories[0].includes(' ') ? data.categories[0].split(' ') : [data.categories[0]];
                         console.log(categories)
                         for (const word of categories) {
-                            console.log( word)
+                            console.log(word)
                             console.log("==============")
                             console.log(categoryList)
-                            if (categoryList.some(category => category.Category_Name === word)){
+                            if (categoryList.some(category => category.Category_Name === word)) {
                                 console.log(word)
                                 foundWord = word;
                                 console.log(foundWord)
@@ -183,11 +188,10 @@ function AddNewBook() {
 
     return (
 
-        <div id="addNewBook">
-            <div id="progress">
-                <img src="" alt=""/>
-            </div>
-            <div id="formDivAddNewBook">
+        <div id="addNewBook" className="bookSectionCommonClass">
+            {loading && <CircleSpinner/>}
+            <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
+            <div id="formDivAddNewBook" className="bookSectionCommonFormClass">
                 <form className="row g-3 needs-validation" noValidate>
                     <h1>Add New Book</h1>
                     <div>
@@ -223,7 +227,10 @@ function AddNewBook() {
                                         name={"bookName"} value={inputs.bookName || ''}
                                         placeholder={isbnMessage.BookName} type={"text"} handleChange={handleChange}
                                         feedback={"Book Name."}/>
-
+                            <InputField label={"Book Price"} id={"price"} className={"form-control"}
+                                        name={"bookPrice"} value={inputs.bookPrice || ''}
+                                        placeholder={isbnMessage.BookName} type={"number"} handleChange={handleChange}
+                                        feedback={"Book Price."}/>
                             <CategoryList value={inputs.category || isbnMessage.Category || ""}
                                           categoryList={categoryList}
                                           handleChange={handleChange}/>
@@ -261,7 +268,7 @@ function AddNewBook() {
                     </div>
                 </form>
             </div>
-
+            <FooterComponent/>
         </div>
     )
 }

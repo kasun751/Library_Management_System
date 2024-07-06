@@ -1,32 +1,49 @@
-#availableNow{
-    min-height: 100vh;
-    height: 100%;
-    box-sizing: border-box;
-    background-image: radial-gradient( circle farthest-corner at 48.4% 47.5%,  rgba(122,183,255,1) 0%, rgba(21,83,161,1) 90% );
+.bookSectionCommonTableClass .container{
+    margin:40px auto;
+    height:auto;
+    width:70%;
+    background: rgba(234, 228, 228, 0.19);
+    border: 2px solid rgba(251, 251, 251, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index:1000;
+    padding: 20px 40px;
 }
-
-
-#availableNow #response{
+.bookSectionCommonTableClass #response{
     width: 130px;
 }
-#availableNow .container h2{
-    background-color: rgba(30, 53, 63,0.4) !important;
-    color:white;
+
+.bookSectionCommonTableClass .container h1{
+    color:#072E5D;
     text-align: center;
-    text-decoration: underline;
     padding: 10px!important;
-    border-radius: 20px;
+    font-family: 'Georgia', serif;
+    font-weight: 800;
+}
+.bookSectionCommonTableClass table{
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+.bookSectionCommonTableClass table th{
+    background-color: #4A86CD;
+}
+.bookSectionCommonTableClass .table th:nth-child(3),.bookSectionCommonTableClass .table td:nth-child(3),
+.bookSectionCommonTableClass .table th:nth-child(2), .bookSectionCommonTableClass .table td:nth-child(2) {
+    width: 20%;
 }
 
-#availableNow .container input{
+.bookSectionCommonTableClass .table th:nth-child(1),.bookSectionCommonTableClass .table td:nth-child(1) {
+    width: 10%;
+}
+.bookSectionCommonTableClass .container input{
     width: 250px!important;
     margin-bottom: 20px !important;
 }
-#availableNow .container table td  button{
-    /*margin-top: 0!important;*/
-    /*width: auto!important;*/
-    /*opacity: 0.88;*/
-}
+
 #availableNow #availableAll{
     background-color: #1E3541 !important;
     border: none!important;
@@ -40,4 +57,17 @@
     display: flex;
     align-items: center;
     gap: 20px; /* Adjust the gap as needed */
+}
+#availableNow #notAvailable{
+    background: linear-gradient(0deg, rgb(9, 122, 255) 16%, rgb(55, 210, 232) 87%) !important;
+    border: none;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#availableNow #availableThis{
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(21, 101, 202) 87%) !important;
+    border: none;
+    margin-left: 20px;
+    margin-top: 10px;
 }

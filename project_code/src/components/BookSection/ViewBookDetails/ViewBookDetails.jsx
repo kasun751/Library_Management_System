@@ -4,6 +4,8 @@ import './ViewBookDetails.css'
 import {Link} from "react-router-dom";
 import InputField from "../../SubComponents/InputFields.jsx";
 import './ViewBookDetails.css';
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
 
 function ViewBookDetails() {
 
@@ -31,6 +33,7 @@ function ViewBookDetails() {
         fetchBooks();
     }, []);
 
+
     const getBookDetails = async (bookDetails) => {
         const res = await axios.post(
             'http://localhost:8081/project_01/controllers/ViewBookListAndDetailsController.php',
@@ -45,14 +48,12 @@ function ViewBookDetails() {
     }
 
     return (
-        <div id="ViewBookDetails">
-
-
+        <div id="ViewBookDetails" className="bookSectionCommonClass bookSectionCommonTableClass">
+            <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
             <div className="container">
                 <br/>
-                <h2>View Book</h2>
+                <h1>View Book</h1>
                 <hr/>
-                <br/>
                 <InputField label={"Search Book Name"} id={"validationCustom01"} className={"form-control"}
                             name={"bookDetails"} placeholder={"EX:Madolduwa"}
                             type={"text"} handleChange={handleChange} feedback={"Book Name."}/>
@@ -71,16 +72,16 @@ function ViewBookDetails() {
                     {booksdetails.length !== 0 ? (
                         booksdetails.map((book, index) => (
                             <tr key={index}>
-                                <td className="booDetails">Result {index + 1}</td>
-                                <td className="booDetails">{book.BookName}</td>
-                                <td className="booDetails">{book.AuthorName}</td>
-                                <td className="booDetails">
-                                    <button id="availabilityDetails" className="btn btn-success"><Link
+                                <td>Result {index + 1}</td>
+                                <td >{book.BookName}</td>
+                                <td>{book.AuthorName}</td>
+                                <td>
+                                    <button id="availabilityDetails" className="btn btn-success"><Link className="style"
                                         to={`/viewBook/bookAvailabilityDetails/${book.ISBN_Number}`}>Available
                                         Books </Link></button>
                                 </td>
                                 <td className="booDetails">
-                                    <button id="viewDetails" className="btn btn-danger"><Link
+                                        <button id="viewDetails" className="btn btn-danger"><Link className="style"
                                         to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link>
                                     </button>
                                 </td>
@@ -94,12 +95,12 @@ function ViewBookDetails() {
                                 <td className="booDetails">{book.BookName}</td>
                                 <td className="booDetails">{book.AuthorName}</td>
                                 <td className="booDetails">
-                                    <button id="availabilityDetails" className="btn btn-success"><Link
+                                    <button id="availabilityDetails" className="btn btn-success"><Link className="style"
                                         to={`/viewBook/bookAvailabilityDetails/${book.ISBN_Number}`}>Available
                                         Books </Link></button>
                                 </td>
                                 <td className="booDetails">
-                                    <button id="viewDetails" className="btn btn-danger"><Link
+                                    <button id="viewDetails" className="btn btn-danger"><Link className="style"
                                         to={`/viewBook/showAllBookDetails/${book.ISBN_Number}`}>View Details</Link>
                                     </button>
                                 </td>

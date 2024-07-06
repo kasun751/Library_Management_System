@@ -1,30 +1,32 @@
-.booDetails{
-    background-color: rgba(1, 8, 25, 0.56) !important;
-    color: white !important;
-}
-#ViewBookDetails{
-    min-height: 100vh;
-    height: 100%;
-    box-sizing: border-box;
-    background-image: radial-gradient( circle farthest-corner at 48.4% 47.5%,  rgba(122,183,255,1) 0%, rgba(21,83,161,1) 90% );
-}
-#ViewBookDetails .container h2{
-    background-color: rgba(30, 53, 63,0.4) !important;
-    color:white;
-    text-align: center;
-    text-decoration: underline;
-    padding: 10px!important;
-    border-radius: 20px;
-}
-#ViewBookDetails .container label{
-    color: white;
-    font-weight: 600;
-}
 #ViewBookDetails .container input{
     width: 250px!important;
     margin-bottom: 20px !important;
 }
-#ViewBookDetails button a{
+#ViewBookDetails label{
+    font-weight: bold;
+}
+#ViewBookDetails .table th:nth-child(1),#ViewBookDetails .table td:nth-child(1) {
+    width: 8%;
+}
+
+#ViewBookDetails .table th ,#ViewBookDetails .table td{
+    width: 20%;
+}
+#ViewBookDetails #availabilityDetails{
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(21, 101, 202) 87%) !important;
+    border: none;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#ViewBookDetails #viewDetails{
+    background: linear-gradient(0deg, rgb(9, 122, 255) 16%, rgb(55, 210, 232) 87%) !important;
+    border: none;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#ViewBookDetails .style{
     color: white;
     text-decoration: none;
 }

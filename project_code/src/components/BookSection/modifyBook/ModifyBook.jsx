@@ -3,6 +3,9 @@ import axios from "axios";
 import InputField from "../../SubComponents/InputFields.jsx";
 import Button from "../../SubComponents/Button.jsx";
 import './ModifyBook.css'
+import FooterComponent from "../../Footer/FooterComponent.jsx";
+import HeaderComponent from "../../Header/HeaderComponent.jsx";
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
 
 function ModifyBook() {
 
@@ -11,6 +14,8 @@ function ModifyBook() {
     const [isbnMessage, setIsbnMessage] = useState({});
     const [data, setData] = useState({});
     const [bookNameID, setNextBookID] = useState('');
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e) => {
         if (e.target.name === "isbnNumber") {
             getISBNData({
@@ -126,6 +131,7 @@ function ModifyBook() {
     }
 
     const updateBookDetails = async () => {
+        setLoading(true);
         const extendedData = {
             ...data, ...inputs
         };
@@ -139,6 +145,7 @@ function ModifyBook() {
             })
         console.log(res.data)
         const message = await res.data.resultMessage;
+        setLoading(false);
         if (message === "true") {
             localStorage.setItem("message", "Update Successfully!");
         } else {
@@ -149,18 +156,17 @@ function ModifyBook() {
 
     return (
         <>
-            <div id="modifyBook">
-                <div id="progress">
-                    <img src="" alt=""/>
-                </div>
-                <div id="formDivModifyBook">
+            <div id="modifyBook" className="bookSectionCommonClass">
+                {loading && <CircleSpinner/>}
+                <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
+                <div id="formDivModifyBook" className="bookSectionCommonFormClass">
                     <form className="row g-3 needs-validation" noValidate>
                         <h1>Update Book Details</h1>
                         <p style={{
                             color: message === "Update Successfully!" ? 'green' : 'red',
                         }}>{message}</p>
-                        <div className="row justify-content-center">
-                            <div className="col-xl-4 col-md-6 col-sm-12">
+                        <div className="row justify-content-center" >
+                            <div className="col-xl-5 col-md-6 col-sm-12" >
                                 <InputField label={"ISBN Number"} id={"normalBook"} className={"form-control"}
                                             name={"isbnNumber"} type={"text"} handleChange={handleChange}
                                             feedback={"ISBN Number."}/>
@@ -169,17 +175,17 @@ function ModifyBook() {
                                             name={"authorName"}
                                             value={inputs.authorName !== undefined ? inputs.authorName : isbnMessage.AuthorName || ""}
                                             type={"text"} handleChange={handleChange} feedback={"Author Name."}/>
+                                <label htmlFor="validationCustom03" className="form-label ">Description</label>
+                                <textarea className="form-control feildDisabled" id="validationCustom03" rows="4"
+                                          cols="50" name="description"
+                                          value={inputs.description !== undefined ? inputs.description : isbnMessage.Description || ""}
+                                          onChange={handleChange} required/>
+                            </div>
+                            <div className="col-xl-5 col-md-6 col-sm-12" >
                                 <InputField label={"Book Name"} id={"validationCustom01"} className={"form-control"}
                                             name={"bookName"}
                                             value={inputs.bookName !== undefined ? inputs.bookName : isbnMessage.BookName || ""}
                                             type={"text"} handleChange={handleChange} feedback={"Book Name."}/>
-                            </div>
-                            <div className="col-xl-4 col-md-6 col-sm-12">
-                                <InputField label={"Book Name ID"} id={"validationBookNameID"}
-                                            className={"form-control"}
-                                            name={"bookNameID"} placeholder="Auto fill" type={"text"}
-                                            value={bookNameID || ""}
-                                            disabled={true} handleChange={handleChange} feedback={"Book Name ID."}/>
 
 
                                 <InputField label={"Publisher Name"} id={"validationCustom05"}
@@ -192,22 +198,16 @@ function ModifyBook() {
                                             name={"bookLocation"}
                                             value={inputs.bookLocation !== undefined ? inputs.bookLocation : isbnMessage.BookLocation || ""}
                                             type={"text"} handleChange={handleChange} feedback={"Book Location."}/>
-                            </div>
-                            <div className=" col-xl-8 col-lg-12 col-md-12 col-sm-12">
-                                <label htmlFor="validationCustom03" className="form-label ">Description</label>
-                                <textarea className="form-control feildDisabled" id="validationCustom03" rows="4"
-                                          cols="50" name="description"
-                                          value={inputs.description !== undefined ? inputs.description : isbnMessage.Description || ""}
-                                          onChange={handleChange} required/>
-                            </div>
-                            <div className="col-12 col-xl-8">
-                                <Button id={"submit"} keyword2={"Modify Book"} submit={submit} className="w-100"/>
+                                <div className=" col-sm-2 mt-3 buttonEnd">
+                                <Button id={"submit"} keyword2={"Modify Book"} submit={submit} className="w-25"/>
+                                </div>
                             </div>
                         </div>
                     </form>
                 </div>
-
+                <FooterComponent/>
             </div>
+
         </>
     )
 }
