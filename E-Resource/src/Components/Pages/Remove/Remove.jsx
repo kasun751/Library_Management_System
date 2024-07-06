@@ -3,6 +3,8 @@ import './remove.css';
 import { useState ,useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
 
 const Remove = () => {
     const location = useLocation();
@@ -93,11 +95,15 @@ const Remove = () => {
 
     return (
         <div>
+            <HeaderComponent
+                id="homePageHeader" router1={"/"} Link1={"Home"}
+                router2={"/logout"} Link4={"Log Out"}
+            />
             <div className="remove_Ebook_form">
                 <div className="formContainer_remove">
                     <h2 id="add" className="outlined-text ">Remove E-Book</h2>
                     <form className="row g-3 needs-validation" noValidate onSubmit={submit}>
-                        <div className="col-md-4">
+                        <div className="col-md-8">
                             <label htmlFor="validationCustom01" className="form-label">ISBN</label>
                             <input type="text" className="form-control" id="validationCustom01" name="isbn"
                                    onChange={deleteHandle}  value={deleteBook.isbn || ""} required />
@@ -108,7 +114,7 @@ const Remove = () => {
                                 Please enter a valid ID.
                             </div>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-8">
                             <label htmlFor="validationCustomUsername" className="form-label">Title</label>
                             <div className="input-group has-validation">
                                 <input type="text" className="form-control" id="validationCustom03" name="author"
@@ -122,7 +128,7 @@ const Remove = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-8">
                             <label htmlFor="validationCustom03" className="form-label">Author</label>
                             <input type="text" className="form-control" id="validationCustom03" name="author"
                                    onChange={deleteHandle} value={deleteBook.author || ""}  required />
@@ -133,16 +139,13 @@ const Remove = () => {
                                 Looks good!
                             </div>
                         </div>
-                        <div className="col-12">
-                            <button className="btn btn-primary button" id="f-btn" type="submit" onClick={submit}>Remove Book</button>
+                        <div className="remove-button-container">
+                            <button className="btn btn-primary button" id="romove-button" type="submit" onClick={submit}>Delete E-Book</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-            <div>
-                <p>Response from PHP script: {resMessage}</p>
-            </div>
+            <FooterComponent/>
         </div>
     )
 }

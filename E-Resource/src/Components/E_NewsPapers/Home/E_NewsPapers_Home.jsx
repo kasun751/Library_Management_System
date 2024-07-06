@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import NewsCard from "./NewsCard.jsx";
 import './E_NewsPapers_Home.css';
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
 
 function E_NewsPapers_Home() {
     const [getNewsPapersDetails, setGetNewsPapersDetails] = useState([]);
@@ -44,60 +46,62 @@ function E_NewsPapers_Home() {
 
     return (
         <>
-            <div className="search-container">
-                <nav className="navbar navbar-expand-lg bg-body-tertiary eBook_NavBar">
-                    <div className="container-fluid">
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-6 mb-lg-0">
-                                <li className="nav-item">
-                                    <a className="nav-link active" aria-current="page" href="/">Home</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="/add_news">Add E-News Paper</a>
-                                </li>
-                            </ul>
+            <div className="body">
+                <HeaderComponent
+                    id="homePageHeader" router1={"/"} Link1={"Home"}
+                    router2={"/askforum"} Link2={"Ask Forum"}
+                    router3={"/ideaCorner"} Link3={"Idea Corner"}
+                    router7={"/logout"} Link7={"Log Out"}
+                />
+                <div className="search-container">
+                    <div className="enewsPaper_header">
+                        <h1 className="outlined-text home_heading">WELCOME<br/>OUR<br/><span>E-News Papers</span> SECTION
+                        </h1>
+                        <form className="d-flex justify-content-center" id="npSearchSelect" role="search">
+                            <div className="input-group mb-4">
+                                <select
+                                    className="form-select search-select"
+                                    aria-label="Search By"
+                                    onChange={(e) => setSearchBy(e.target.value)}
+                                >
+                                    <option value="">Search By</option>
+                                    <option value="title">Title</option>
+                                    <option value="date">Date</option>
+                                </select>
+                                <input
+                                    type="search"
+                                    className="form-control me-2"
+                                    placeholder="Search Here"
+                                    aria-label="Search"
+                                    aria-describedby="basic-addon2"
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                                <button className="btn btn-outline-success button" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="home mx-auto">
+                        <div className="button-container">
+                            <button className="btn btn-outline-success button" id="right-button" type="submit" >
+                                <a href="/add_news">Add Resources</a></button>
+
+                        </div>
+                        <div className="row d-flex justify-content-center">
+                            {filteredNews.map((news, index) => (
+                                <NewsCard
+                                    key={index}
+                                    Id={news.Id}
+                                    title={news.title}
+                                    date={news.date}
+                                    description={news.description}
+                                    image_path={`http://localhost/Lbrary%20Management%20System/NewsPapersIMAGES/${news.image_path}`}
+                                    pdf_path={`http://localhost/Lbrary%20Management%20System/NewsPapersPDF/${news.pdf_path}`}
+                                />
+                            ))}
                         </div>
                     </div>
-                </nav>
-                <div className="enewsPaper_header">
-                    <h1 className="outlined-text home_heading">E-News Papers Section</h1>
-                    <form className="d-flex" id="npSearchSelect" role="search">
-                        <div className="input-group mb-4">
-                            <select
-                                className="form-select search-select"
-                                aria-label="Search By"
-                                onChange={(e) => setSearchBy(e.target.value)}
-                            >
-                                <option value="">Search By</option>
-                                <option value="title">Title</option>
-                                <option value="date">Date</option>
-                            </select>
-                            <input
-                                type="search"
-                                className="form-control me-2"
-                                placeholder="Search Here"
-                                aria-label="Search"
-                                aria-describedby="basic-addon2"
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                            <button className="btn btn-outline-success button" type="submit">Search</button>
-                        </div>
-                    </form>
                 </div>
-
-                <div className="card-container row">
-                    {filteredNews.map((news, index) => (
-                        <NewsCard
-                            key={index}
-                            Id={news.Id}
-                            title={news.title}
-                            date={news.date}
-                            description={news.description}
-                            image_path={`http://localhost/Lbrary%20Management%20System/NewsPapersIMAGES/${news.image_path}`}
-                            pdf_path={`http://localhost/Lbrary%20Management%20System/NewsPapersPDF/${news.pdf_path}`}
-                        />
-                    ))}
-                </div>
+                <FooterComponent/>
             </div>
         </>
     );

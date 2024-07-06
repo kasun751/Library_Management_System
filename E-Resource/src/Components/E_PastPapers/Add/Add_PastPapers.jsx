@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import './Add_PastPapers.css';
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
 
 function Add_PastPapers(){
     const [formData, setFormData] = useState({
@@ -83,6 +85,10 @@ function Add_PastPapers(){
     };
     return(
         <>
+            <HeaderComponent
+                id="homePageHeader" router1={"/"} Link1={"Home"}
+                router7={"/logout"} Link7={"Log Out"}
+            />
             <div className="add_EpastPapers_form">
                 <div className="formContainer">
                     <h2 id="add" className="outlined-text ">Add E-Past Paper</h2>
@@ -167,16 +173,14 @@ function Add_PastPapers(){
                                 Looks good!
                             </div>
                         </div>
-                        <div className="col-12">
-                            <button className="btn btn-primary button" id="f-btn" type="submit">Add Past Paper</button>
+                        <div className="button-container col-12">
+                            <button className="btn btn-primary button" id="right-button" type="submit">Add Past Paper</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <div>
-                <p>Response from PHP script: {resMessage}</p>
-            </div>
+           <FooterComponent/>
         </>
     )
 }

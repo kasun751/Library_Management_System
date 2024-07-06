@@ -1,10 +1,10 @@
 import './Card.css';
-import { Button } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
+import {Button} from "react-bootstrap";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
-function Card({ title, isbn, author, price, description, image_path ,category,pdf_path}) {
+function Card({title, isbn, author, price, description, image_path, category, pdf_path}) {
     const [buyBookDetails, setBuyBookDetails] = useState(null);
     const navigate = useNavigate();
     const userId = 'SLMS/24/2'; // getting from session storage
@@ -13,7 +13,7 @@ function Card({ title, isbn, author, price, description, image_path ,category,pd
         try {
             const res = await axios.post(
                 'http://localhost/Lbrary%20Management%20System/E-Resource_Php/buy.php',
-                { isbn,userId },
+                {isbn, userId},
                 {
                     headers: {
                         'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ function Card({ title, isbn, author, price, description, image_path ,category,pd
 
     useEffect(() => {
         if (buyBookDetails) {
-            const { isbn, title, price, hash } = buyBookDetails;
+            const {isbn, title, price, hash} = buyBookDetails;
 
             payhere.onCompleted = function onCompleted(isbn) {
                 // alert("Payment completed");
@@ -52,7 +52,7 @@ function Card({ title, isbn, author, price, description, image_path ,category,pd
             var payment = {
                 "sandbox": true,
                 "merchant_id": "1227044",
-                "return_url":'http://localhost/Lbrary Management System/E-Resource/src/Components/Pages/MyBooks/MyBooks.jsx',
+                "return_url": 'http://localhost/Lbrary Management System/E-Resource/src/Components/Pages/MyBooks/MyBooks.jsx',
                 "cancel_url": 'http://localhost/Lbrary Management System/E-Resource/src/Components/Pages/E_Book_Home/E_Book_Home.jsx',
                 "notify_url": "http://sample.com/notify",
                 "order_id": isbn,
@@ -79,34 +79,43 @@ function Card({ title, isbn, author, price, description, image_path ,category,pd
     }, [buyBookDetails]);
 
     const handleDelete = () => {
-        navigate('/remove', { state: { isbn, title, author } });
+        navigate('/remove', {state: {isbn, title, author}});
 
     };
 
     const handleUpdate = () => {
 
-        navigate('/update', { state: { isbn, title, author,price,description,category,image_path,pdf_path } });
+        navigate('/update', {state: {isbn, title, author, price, description, category, image_path, pdf_path}});
     };
 
     return (
-        <div className="card col-md-4 col-lg-3 row">
-            <div className="col-12 col-sm-8 col-lg-11 col-md-11 mx-auto " >
-                <img src={image_path} className="card-img-top " alt="Book Cover" />
+
+
+        <div className="card rounded-4" id="card">
+            <div className=" col-12 col-sm-8 col-lg-11 col-md-11 mx-auto">
+                <img src={image_path} className="card-img-top rounded-4 " alt="Book Cover"/>
             </div>
 
-            <div className="card-body col-12">
-                <h4 className="card-title">{title}</h4>
-                <h6 className="card-title">ISBN: {isbn}</h6>
-                <h5 className="card-title">Author: {author}</h5>
-                <h6 className="card-title">Rs: {price}</h6>
-                <p className="card-text">{description}</p>
-                <Button onClick={buyNow} className="btn btn-primary button">Buy Now</Button>&nbsp;
-                <Button onClick={handleDelete} className="btn btn-primary button">Delete Book</Button>&nbsp;
-                <Button onClick={handleUpdate} className="btn btn-primary button">Update Book</Button>
+            <div className="card-body col-12" id="card-body">
+                <h4 className="card-title" id="card-title">Name:<span> {title}</span></h4>
+                <h5 className="card-title" id="card-title">Author:<span> {author}</span></h5>
+                <h6 className="card-title" id="card-title">Rs: <span>{price}</span></h6>
+
+                <p className="card-text text-justify" id="card-text">{description}</p>
+
+
+                <div className="home-center-button col-12">
+                    <Button onClick={buyNow} className="btn btn-primary" id="buy-button">Buy Book</Button>
+
+                </div>
+                <div className="home-center-button col-12">
+                    <Button onClick={handleUpdate} className="btn btn-primary" id="home-update-button">Update</Button>
+                    <Button onClick={handleDelete} className="btn btn-danger" id="home-delete-button">Delete</Button>
+                </div>
             </div>
-
-
         </div>
+
+
     );
 }
 

@@ -1,5 +1,5 @@
 .e_NewsPapers_form {
-    margin: 0;
+    margin:20px 0;
     padding: 0;
     width: 100%;
     height: 100vh;
@@ -33,6 +33,7 @@
 }
 .formContainer{
     width: 91%;
+    height: 90%;
     margin: auto;
     padding: 20px 40px;
     border-radius: 20px;
@@ -43,15 +44,14 @@
     font-size: 17px;
     font-weight:bolder ;
 }
-#f-btn{
-    width: 100%;
-    color: yellow;
-    border: none;
-}
+@media only screen and (max-width: 1240px) {
+    .e_NewsPapers_form {
+        height: 100%;
 
+    }
+}
 @media only screen and (max-width: 765px) {
     .e_NewsPapers_form {
-
         height: 100%;
 
     }

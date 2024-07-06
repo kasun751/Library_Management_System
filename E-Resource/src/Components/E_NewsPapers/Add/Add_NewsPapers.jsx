@@ -1,6 +1,8 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
 import './Add_NewsPapers.css';
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
 
 function Add_NewsPapers(){
 
@@ -84,6 +86,10 @@ function Add_NewsPapers(){
     };
     return(
         <>
+            <HeaderComponent
+                id="homePageHeader" router1={"/"} Link1={"Home"}
+                router7={"/logout"} Link7={"Log Out"}
+            />
             <div className="e_NewsPapers_form">
                 <div className="formContainer">
                     <h2 id="add" className="outlined-text">Add E-News Paper</h2>
@@ -155,16 +161,13 @@ function Add_NewsPapers(){
                                 Looks good!
                             </div>
                         </div>
-                        <div className="col-12">
-                            <button className="btn btn-primary button" id="f-btn" type="submit">Add News Paper</button>
+                        <div className="button-container col-12">
+                            <button className="btn btn-primary button" id="right-button" type="submit">Add News Paper</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-            <div>
-                <p>Response from PHP script: {resMessage}</p>
-            </div>
+            <FooterComponent/>
         </>
     )
 }

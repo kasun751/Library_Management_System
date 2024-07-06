@@ -1,7 +1,7 @@
 .remove_Ebook_form{
-    margin: 0;
+    margin:20px 0;
     padding: 0;
-    background: url("../../../assets/images/ideas3.jpg") center center/cover no-repeat;
+    background: url("../../../assets/images/ebook.jpeg") center center/cover no-repeat;
     width: 100%;
     height: 100vh;
     z-index: 1;
@@ -18,30 +18,74 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../../../assets/images/ideas3.jpg') center center/ cover no-repeat;
+    background: url('../../../assets/images/ebook.jpeg') center center/ cover no-repeat;
     filter: blur(2px);
     z-index: -1;
     opacity: 0.8;
 }
 
 .formContainer_remove{
-    height: 50%;
-    width: 91%;
+    height: 65%;
+    width: 75%;
     margin: 15px auto!important;
     padding: 20px 40px;
     border-radius: 20px;
-    background-color: rgba(161, 171, 177, 0.88);
+    background: rgba(239, 240, 246, 0.36) !important; /* Slightly transparent background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    box-shadow: 0 4px 8px rgba(248, 246, 246, 0.66); /* Soft shadow */
+    border: 2px solid rgba(255, 255, 255, 0.91); /* Light border */
     position: relative;
     z-index: 2;
-    border: white 2px solid;
     font-size: 17px;
     font-weight:bolder ;
+
 }
 .formContainer_remove form{
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-.col-12 button{
+.remove-button-container{
+    display: flex;
+    justify-content: flex-end;
+}
+.remove-button-container button{
     margin-top: 10px;
+    width: 8rem;
+    background: linear-gradient(0deg, rgb(19, 19, 19) , rgba(240,8,22,1) 95%) !important;
+    margin-right: 11rem;
+}
+
+@media only screen and (max-width: 1250px) {
+    .remove_Ebook_form{
+        height: 100%;
+
+    }
+    .remove-button-container button{
+        margin-right: 9rem;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+
+    .remove_Ebook_form h2{
+        font-size: 45px !important;
+    }
+    .remove-button-container button{
+        margin-right: 7rem;
+    }
+}
+@media only screen and (max-width: 810px) {
+
+    .remove_Ebook_form h2{
+        font-size: 40px !important;
+    }
+    .remove-button-container button{
+        margin-right: 6rem;
+    }
 }
 
 @media only screen and (max-width: 770px) {
@@ -49,4 +93,8 @@
         height: 100%;
 
     }
+    .remove-button-container button{
+     margin-right: 0;
+    }
+
 }

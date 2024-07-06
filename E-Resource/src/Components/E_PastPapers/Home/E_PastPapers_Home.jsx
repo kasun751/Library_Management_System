@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import PapersCard from "./PapersCard.jsx";
 import './E_PastPapers_Home.css';
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
 
 function E_PastPapers_Home(){
     const [getPastPapersDetails, setGetPastPapersDetails] = useState([]);
@@ -52,24 +54,18 @@ function E_PastPapers_Home(){
 
     return (
         <>
+            <div className="body">
+            <HeaderComponent
+                id="homePageHeader" router1={"/"} Link1={"Home"}
+                router2={"/askforum"} Link2={"Ask Forum"}
+                router3={"/ideaCorner"} Link3={"Idea Corner"}
+                router7={"/logout"} Link7={"Log Out"}
+            />
             <div className="search-container">
-                <nav className="navbar navbar-expand-lg bg-body-tertiary eBook_NavBar">
-                    <div className="container-fluid">
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-6 mb-lg-0">
-                                <li className="nav-item">
-                                    <a className="nav-link active" aria-current="page" href="/">Home</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="/add_pastPapers">Add E-Past Paper</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+
                 <div className="ePastPapers_header">
-                    <h1 className="outlined-text home_heading">E-Past Papers Section</h1>
-                    <form className="d-flex" id="ppSearchSelect" role="search">
+                    <h1 className="outlined-text home_heading">WELCOME <br/>OUR<br/><span>E-PAST PAPERS</span> SECTION</h1>
+                    <form className="d-flex" id="ppsearchSelect" role="search">
                         <div className="input-group mb-4">
                             <select
                                 className="form-select search-select"
@@ -93,7 +89,13 @@ function E_PastPapers_Home(){
                         </div>
                     </form>
                 </div>
-                <div className="card-container row">
+                <div className="home mx-auto" >
+                    <div className="button-container" >
+                        <button className="btn btn-outline-success button" id="right-button" type="submit">
+                            <a href="/add_pastPapers">Add Resources</a></button>
+
+                    </div>
+                <div className="row d-flex justify-content-center">
                     {filteredPapers.map((papers, index) => (
                         <PapersCard
                             key={index}
@@ -107,6 +109,9 @@ function E_PastPapers_Home(){
                         />
                     ))}
                 </div>
+            </div>
+            </div>
+            <FooterComponent/>
             </div>
         </>
     );

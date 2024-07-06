@@ -8,16 +8,20 @@
 }
 .enewsPaper_header h1{
     color: white;
-    font-size: 60px;
+    font-size: 48px;
     font-weight: bold;
 }
 
+
+.enewsPaper_header h1 span{
+    color: #C8F154;
+}
 
 @media only screen and (max-width: 1180px) {
     .enewsPaper_header h1{
         font-size: 47px;
     }
-    #npSearchSelect select,input,button{
+    #npSearchSelect{
         height: 35px;
     }
 
@@ -41,6 +45,10 @@
                 -2px  2px 0 #000,
                 2px  2px 0 #000 !important;
         color: white;
+    }
+    #npSearchSelect{
+        width: 60vw;
+        margin: auto;
     }
 
 }

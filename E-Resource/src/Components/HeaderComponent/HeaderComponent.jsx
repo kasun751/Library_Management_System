@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import LoginIcon from "../../assets/images/LoginManIcon.svg";
 import SLMSLogo from "../../assets/images/SLMS-mini-logo.svg";
 
-function HeaderComponent({id,Link1,router1,Link2,router2, Link3,router3, Link4,router4}) {
+function HeaderComponent({id,Link1,router1,Link2,router2, Link3,router3, Link4,router4,Link5,router5,Link6,router6,Link7,router7}) {
     return (
         <div id={id} className='header-container commonHeader m-0'>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -30,14 +30,29 @@ function HeaderComponent({id,Link1,router1,Link2,router2, Link3,router3, Link4,r
                                     <Link className="text-white" to={router3}>{Link3}</Link>
                                 </li>
                             )}
+                            {Link4 && (
+                                <li className="nav-item mx-3 mt-3 ">
+                                    <Link className="text-white" to={router4}>{Link4}</Link>
+                                </li>
+                            )}
+                            {Link5 && (
+                                <li className="nav-item mx-3 mt-3 ">
+                                    <Link className="text-white" to={router5}>{Link5}</Link>
+                                </li>
+                            )}
+                            {Link6 && (
+                                <li className="nav-item mx-3 mt-3 ">
+                                    <Link className="text-white" to={router6}>{Link6}</Link>
+                                </li>
+                            )}
 
                             <li className="nav-item mx-3 mt-3 ">
 
                             </li>
 
-                            {Link4 && (
+                            {Link7 && (
                                 <li className="nav-item mx-4 mt-3 ">
-                                    <div><img className="mx-2" src={LoginIcon} alt=""/> <Link className="text-white" to={router4}>{Link4}</Link></div>
+                                    <div><img className="mx-2" src={LoginIcon} alt=""/> <Link className="text-white" to={router7}>{Link7}</Link></div>
                                 </li>
                             )}
                         </ul>

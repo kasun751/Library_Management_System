@@ -3,6 +3,8 @@ import './E_Book_Home.css';
 import Card from './Card/Card.jsx';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
 
 function E_Book_Home() {
     const [getBookDetails, setGetBookDetails] = useState([]);
@@ -69,96 +71,91 @@ function E_Book_Home() {
     };
 
 
-
     return (
         <>
-            <div className="search-container">
+            <div className="body">
+                <HeaderComponent
+                    id="homePageHeader" router1={"/"} Link1={"Home"}
+                    router2={"/my_books"} Link2={"My Books"}
+                    router3={"/askforum"} Link3={"Ask Forum"}
+                    router4={"/ideaCorner"} Link4={"Idea Corner"}
+                    router7={"/logout"} Link7={"Log Out"}
+                />
+                <div className="search-container">
 
-                <nav className="navbar navbar-expand-lg bg-body-tertiary eBook_NavBar">
-                    <div className="container-fluid">
+                    <div className="eBook_header">
+                        <h1 className="outlined-text home_heading">WELCOME <br/>OUR<br/> <span>E-Books</span> SECTION</h1>
 
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-6 mb-lg-0">
-                                <li className="nav-item">
-                                    <a className="nav-link active" aria-current="page" href="/">Home</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="/add">Add E-Book</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="/my_books">My Books</a>
-                                </li>
-
-                            </ul>
-
-
-
-                        </div>
+                        <form className="d-flex" id="searchSelect" role="search">
+                            <div className="input-group mb-4">
+                                <select
+                                    className="form-select search-select"
+                                    aria-label="Search By"
+                                    onChange={(e) => setSearchBy(e.target.value)}
+                                >
+                                    <option value="">Search By</option>
+                                    <option value="title">Title</option>
+                                    <option value="category">Category</option>
+                                    <option value="author">Author</option>
+                                </select>
+                                <input
+                                    type="search"
+                                    className="form-control me-2"
+                                    placeholder="Search Here"
+                                    aria-label="Search"
+                                    aria-describedby="basic-addon2"
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                                <button className="btn btn-outline-success button" type="submit">Search</button>
+                            </div>
+                        </form>
                     </div>
-                </nav>
-                <div className="eBook_header">
-                    <h1 className="outlined-text home_heading">E-Books Section</h1>
 
-                    <form className="d-flex" id="searchSelect" role="search">
-                        <div className="input-group mb-4">
-                            <select
-                                className="form-select search-select"
-                                aria-label="Search By"
-                                onChange={(e) => setSearchBy(e.target.value)}
-                            >
-                                <option value="">Search By</option>
-                                <option value="title">Title</option>
-                                <option value="category">Category</option>
-                                <option value="author">Author</option>
-                            </select>
-                            <input
-                                type="search"
-                                className="form-control me-2"
-                                placeholder="Search Here"
-                                aria-label="Search"
-                                aria-describedby="basic-addon2"
-                                onChange={(e) => setSearchQuery(e.target.value)}
+
+                </div>
+                <div className="home mx-auto" >
+                    <div className="button-container" >
+                        <button className="btn btn-outline-success button" id="right-button" type="submit">
+                            <a href="/add">Add Resources</a></button>
+
+                    </div>
+
+
+                    <div className="row d-flex justify-content-center">
+
+                        {filteredBooks.map((book, index) => (
+                            <Card
+                                key={index}
+                                title={book.title}
+                                isbn={book.isbn}
+                                category={book.category}
+                                author={book.author}
+                                price={book.price}
+                                description={book.description}
+                                image_path={`http://localhost/Lbrary%20Management%20System/IMAGES/${book.image_path}`}
+                                pdf_path={`http://localhost/Lbrary%20Management%20System/PDF/${book.pdf_path}`}
                             />
-                            <button className="btn btn-outline-success button" type="submit">Search</button>
-                        </div>
-                    </form>
-                </div>
+                        ))}
 
-
-            </div>
-            <div className="card-container row">
-
-
-                {filteredBooks.map((book, index) => (
-                    <Card
-                        key={index}
-                        title={book.title}
-                        isbn={book.isbn}
-                        category={book.category}
-                        author={book.author}
-                        price={book.price}
-                        description={book.description}
-                        image_path={`http://localhost/Lbrary%20Management%20System/IMAGES/${book.image_path}`}
-                        pdf_path={`http://localhost/Lbrary%20Management%20System/PDF/${book.pdf_path}`}
-                    />
-                ))}
                     </div>
 
-
-            <div className=" eBook_pagination">
-                <div className="btn-group btn-group-sm">
-                    <button  className="btn btn-outline-primary pagination-boarder"
-                             onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                        Previous
-                    </button>
-                    <span className="btn btn-outline-primary">{currentPage} of {totalPages}</span>
-                    <button className="btn btn-outline-primary"
-                            onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-                        Next
-                    </button>
+                    <div className=" eBook_pagination">
+                        <div className="btn-group btn-group-sm">
+                            <button className="btn btn-outline-primary pagination-boarder"
+                                    onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                                Previous
+                            </button>
+                            <span className="btn btn-outline-primary">{currentPage} of {totalPages}</span>
+                            <button className="btn btn-outline-primary"
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages}>
+                                Next
+                            </button>
+                        </div>
+                    </div>
                 </div>
+                <FooterComponent/>
             </div>
-
         </>
 
 

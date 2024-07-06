@@ -1,7 +1,7 @@
 .add_Ebook_form{
-    margin: 0;
+    margin: 20px 0 0 0;
     padding: 0;
-    background: url("../../../assets/images/ideas3.jpg") center center/cover no-repeat;
+    background: url("../../../assets/images/ebook.jpeg") center center/cover no-repeat;
     width: 100%;
     height: 100%;
     z-index: 1;
@@ -18,28 +18,36 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../../../assets/images/ideas3.jpg') center center/ cover no-repeat;
-    filter: blur(2px);
+    background: url('../../../assets/images/ebook.jpeg') center center/ cover no-repeat;
+    filter: blur(5px);
     z-index: -1;
-    opacity: 0.8;
+    opacity: 0.9 !important;
 }
 #add{
     text-align: center;
     font-size: 50px;
-    font-weight: bolder;
+    font-weight:bolder;
     padding: 5px;
 
 }
+
 .formContainer{
     height: 90%;
     width: 91%;
-    margin: 15px auto!important;
+    margin:50px auto!important;
     padding: 20px 40px;
     border-radius: 20px;
-    background-color: rgba(161, 171, 177, 0.88);
+    background: rgba(239, 240, 246, 0.36) !important; /* Slightly transparent background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    box-shadow: 0 4px 8px rgba(248, 246, 246, 0.66); /* Soft shadow */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Light border */
     position: relative;
     z-index: 2;
-    border: white 2px solid;
     font-size: 17px;
-    font-weight:bolder ;
+    font-weight:bolder;
+}
+.formContainer label{
+    font-weight: bolder;
+    font-size: 20px;
 }

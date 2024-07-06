@@ -1,10 +1,8 @@
+
 .d-flex{
     margin-top: 25px;
 }
-.search-container {
-    margin: 5px;
 
-}
 .eBook_NavBar{
     background-color: #8F9AA0 !important;
     padding: 15px;
@@ -25,14 +23,19 @@
     align-items: center;
     padding: 50px;
     background: url("../../../assets/images/ideas3.jpg") center center / cover no-repeat;
-    width: 100vw;
+    width: 99vw;
 }
 
 
 .eBook_header h1{
     color: white;
-    font-size: 60px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 48px;
     font-weight: bold;
+    margin-left: 2rem;
+}
+.eBook_header h1 span{
+    color: #C8F154;
 }
 
 .button{
@@ -45,21 +48,63 @@
     border-color:#1E3541;
     opacity: 0.8;
 }
-.card-container{
-    margin: 50px 0 !important;
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 15px 0;
+}
 
+#right-button{
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+    font-weight: bold;
+    width: 10rem;
+}
+#right-button a{
+    text-decoration: none;
+    color: white;
+}
+#buy-button{
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+    font-weight: bold;
+    width: 10rem;
+    padding: 0.5rem 0;
+}
+.home-center-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 5px;
+}
+#buy-button a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+#home-update-button{
+    width: 8rem !important;
+}
+#home-delete-button{
+    width: 8rem !important;
 }
 .eBook_pagination{
     display: flex;
     justify-content: center;
     margin: 5px;
 }
-.btn-outline-primary{
-    border-color: #1E3541;
-    color: #1E3541;
+
+@media only screen and (max-width: 1250px) {
+
+    .eBook_header{
+        width: 100vw;
+    }
 }
-.btn-outline-primary:hover{
-    background-color: #1E3541;
+
+@media only screen and (max-width: 1200px) {
+
+    .eBook_header{
+        width: 100vw;
+    }
 }
 
 @media only screen and (max-width: 1060px) {
@@ -70,25 +115,46 @@
        height: 35px;
     }
 }
-
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 1045px) {
     .eBook_header{
         display: inline-block;
     }
     .eBook_header h1{
-        font-size: 60px;
+        font-size: 55px;
         text-align: center;
         border-radius: 5px;
         background-color:rgba(143, 154, 160, 0.5) ;
     }
-
-    .eBook_header h1 .home_heading{
-        text-shadow:
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px  2px 0 #000,
-                2px  2px 0 #000 !important;
-        color: white;
+    #searchSelect{
+        width: 60vw;
+        margin: auto;
     }
+}
+
+@media only screen and (max-width: 920px) {
+
+    .eBook_header h1{
+        font-size: 50px;
+    }
+
+
+
+}
+
+@media only screen and (max-width: 600px) {
+
+    .eBook_header h1{
+        font-size: 45px;
+    }
+    
+}
+
+@media only screen and (max-width: 450px) {
+
+    .eBook_header h1{
+        font-size: 40px;
+
+    }
+
 
 }

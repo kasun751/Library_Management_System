@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import './MyBooks.css';
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
 
 function MyBooks() {
     const [buyBooks, setBuyBooks] = useState([]);
@@ -53,24 +55,34 @@ function MyBooks() {
 
     return (
         <div>
+            <div className="body">
+                <HeaderComponent
+                    id="homePageHeader" router1={"/"} Link1={"Home"}
+                    router3={"/askforum"} Link3={"Ask Forum"}
+                    router4={"/ideaCorner"} Link4={"Idea Corner"}
+                    router7={"/logout"} Link7={"Log Out"}
+                />
             <div className="eBook_header">
                 <h1 className="outlined-text home_heading">My Books</h1>
             </div>
-            <div className="card-container">
+                <div className="home mx-auto" >
+                    <div className="row d-flex justify-content-center">
                 {buyBooks.map(book => (
-                    <div key={book.isbn} className="card col-md-4 col-lg-3 row">
+                    <div key={book.isbn} className="card rounded-4" id="card">
                         <div className="col-12 col-sm-8 col-lg-11 col-md-11 mx-auto">
                             <img src={`http://localhost/Lbrary%20Management%20System/IMAGES/${book.image_path}`} className="card-img-top" alt="Book Cover" />
                         </div>
 
-                        <div className="card-body col-12">
-                            <h4 className="card-title">{book.title}</h4>
-                            <h6 className="card-title">ISBN: {book.isbn}</h6>
-                            <h5 className="card-title">Author: {book.author}</h5>
-                            <p className="card-text">{book.description}</p>
-                            <Button className="btn btn-primary button"  onClick={() => viewBook(book.isbn)}>
+                        <div className="card-body col-12" id="card-body">
+                            <h4 className="card-title" id="card-title">Name:<span>{book.title}</span></h4>
+                            <h6 className="card-title" id="card-title">ISBN:<span> {book.isbn}</span></h6>
+                            <h5 className="card-title" id="card-title">Author:<span>{book.author}</span> </h5>
+                            <p className="card-text" id="card-text">{book.description}</p>
+                            <div className="home-center-button col-12">
+                            <Button className="btn btn-primary" id="buy-button" onClick={() => viewBook(book.isbn)}>
                                 View Book
                             </Button>
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -81,6 +93,10 @@ function MyBooks() {
                     <iframe src={pdfUrl} width="100%" height="600px" title="PDF Viewer"></iframe>
                 </div>
             )}
+                </div>
+            <FooterComponent/>
+        </div>
+
         </div>
     );
 }

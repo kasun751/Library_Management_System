@@ -1,7 +1,7 @@
 .update_Ebook_form{
-    margin: 0;
+    margin: 20px 0;
     padding: 0;
-    background: url("../../../assets/images/ideas3.jpg") center center/cover no-repeat;
+    background: url("../../../assets/images/ebook.jpeg") center center/cover no-repeat;
     width: 100%;
     height: 100%;
     z-index: 1;
@@ -18,7 +18,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../../../assets/images/ideas3.jpg') center center/ cover no-repeat;
+    background: url('../../../assets/images/ebook.jpeg') center center/ cover no-repeat;
     filter: blur(2px);
     z-index: -1;
     opacity: 0.8;

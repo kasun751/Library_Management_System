@@ -1,5 +1,5 @@
 .update_Enewspapers_form{
-    margin: 0;
+    margin: 20px 0;
     padding: 0;
     background: url("../../../assets/images/e_newsPapers1.jpg") center center/cover no-repeat;
     width: 100%;
@@ -23,6 +23,13 @@
     z-index: -1;
     opacity: 0.8;
 }
+@media only screen and (max-width: 1240px) {
+    .update_Enewspapers_form {
+        height: 100%;
+
+    }
+}
+
 @media only screen and (max-width: 765px) {
     .update_Enewspapers_form {
         height: 100%;

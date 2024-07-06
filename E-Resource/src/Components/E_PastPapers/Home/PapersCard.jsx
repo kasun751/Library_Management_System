@@ -36,19 +36,24 @@ function PapersCard({id, subject, grade, year,extra, image_path, pdf_path }) {
 
     return (
         <>
-            <div className="card col-md-4 col-lg-3 row">
+            <div className="card rounded-4" id="card">
                 <div className="col-12 col-sm-8 col-lg-11 col-md-11 mx-auto " >
                     <img src={image_path} className="card-img-top" alt="Book Cover" />
                 </div>
 
-                <div className="card-body">
-                    <h4 className="card-title">{subject}</h4>
-                    <h5 className="card-title">Grade {grade}</h5>
-                    <h5 className="card-title">{year}</h5>
-                    <p className="card-text">{extra}</p>
-                    <Button className="btn btn-primary button" onClick={handleViewPdf}>View</Button>&nbsp;
-                    <Button onClick={handleDelete} className="btn btn-primary button">Delete</Button>&nbsp;
-                    <Button onClick={handleUpdate} className="btn btn-primary button">Update</Button>
+                <div className="card-body col-12" id="card-body">
+                    <h4 className="card-title" id="card-title">Subject:<span>{subject}</span></h4>
+                    <h5 className="card-title" id="card-title">Grade:<span>{grade}</span> </h5>
+                    <h5 className="card-title" id="card-title">Year:<span>{year}</span></h5>
+                    <p className="card-text" id="card-text">{extra}</p>
+                    <div className="home-center-button col-12">
+                        <Button className="btn btn-primary" id="buy-button" onClick={handleViewPdf}>View Paper</Button>
+                    </div>
+                    <div className="home-center-button col-12">
+                        <Button onClick={handleUpdate} className="btn btn-primary" id="home-update-button">Update</Button>
+                        <Button onClick={handleDelete} className="btn btn-danger" id="home-delete-button">Delete</Button>
+                    </div>
+
                 </div>
             </div>
             {showPdf && (

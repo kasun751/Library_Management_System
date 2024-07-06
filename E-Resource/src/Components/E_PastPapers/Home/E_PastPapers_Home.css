@@ -8,18 +8,19 @@
 }
 .ePastPapers_header h1{
     color: white;
-    font-size: 60px;
+    font-size: 48px;
     font-weight: bold;
 
+}
+.ePastPapers_header h1 span{
+    color: #C8F154;
 }
 
 @media only screen and (max-width: 1180px) {
      .ePastPapers_header h1{
          font-size: 47px;
     }
-    #ppSearchSelect select,input,button{
-        height: 35px;
-    }
+
 
 }
 
@@ -28,7 +29,7 @@
        display: inline-block;
    }
     .ePastPapers_header h1{
-        font-size: 50px;
+        font-size: 45px;
         text-align: center;
         border-radius: 5px;
         background-color:rgba(143, 154, 160, 0.5) ;
@@ -42,5 +43,8 @@
                 2px  2px 0 #000 !important;
         color: white;
     }
-
+    #ppsearchSelect{
+        width: 60vw;
+        margin: auto;
+    }
 }

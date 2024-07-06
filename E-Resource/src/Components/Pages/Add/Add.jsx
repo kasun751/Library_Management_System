@@ -1,6 +1,8 @@
 import './Add.css';
 import { useState } from "react";
 import axios from "axios";
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
 
 function Add() {
     const [formData, setFormData] = useState({
@@ -63,6 +65,10 @@ function Add() {
 
     return (
         <>
+            <HeaderComponent
+                id="homePageHeader" router1={"/"} Link1={"Home"}
+                router2={"/logout"} Link4={"Log Out"}
+            />
         <div className="add_Ebook_form">
             <div className="formContainer">
                 <h2 id="add" className="outlined-text ">Add E-Book</h2>
@@ -163,17 +169,13 @@ function Add() {
                             Looks good!
                         </div>
                     </div>
-                    <div className="col-12">
-                        <button className="btn btn-primary button" id="f-btn" type="submit">Add Book</button>
+                    <div className="button-container col-12">
+                        <button className="btn btn-primary button" id="right-button" type="submit">Add E-Book</button>
                     </div>
                 </form>
             </div>
         </div>
-            <div>
-
-
-                <p>Response from PHP script: {resMessage}</p>
-            </div>
+            <FooterComponent/>
         </>
     );
 }

@@ -3,6 +3,8 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import './Update.css';
 import axios from "axios";
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
 
 const Update = () => {
 
@@ -79,6 +81,10 @@ const Update = () => {
 
     return (
         <>
+            <HeaderComponent
+                id="homePageHeader" router1={"/"} Link1={"Home"}
+                router2={"/logout"} Link4={"Log Out"}
+            />
             <div className="update_Ebook_form">
                 <div className="formContainer">
                     <h2 id="add" className="outlined-text ">Update E-Book</h2>
@@ -180,16 +186,14 @@ const Update = () => {
                                 Looks good!
                             </div>
                         </div>
-                        <div className="col-12">
-                            <button className="btn btn-primary button" id="f-btn" type="submit">Update Book</button>
+                        <div className="button-container col-12">
+                            <button className="btn btn-primary button" id="right-button" type="submit">Update E-Book</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <div>
-                <p>Response from PHP script: {resMessage}</p>
-            </div>
+            <FooterComponent/>
         </>
     )
 }

@@ -2,6 +2,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import './Update_NewsPapers.css';
+import HeaderComponent from "../../HeaderComponent/HeaderComponent.jsx";
+import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
 
 function Update_NewsPapers() {
     const location = useLocation();
@@ -74,8 +76,12 @@ function Update_NewsPapers() {
 
     return (
         <>
+            <HeaderComponent
+                id="homePageHeader" router1={"/"} Link1={"Home"}
+                router7={"/logout"} Link7={"Log Out"}
+            />
             <div className="update_Enewspapers_form">
-                <div className="formContainer">
+                <div className="formContainer ">
                     <h2 id="add" className="outlined-text ">Update E-News Paper</h2>
                     <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
                         <div className="col-md-4">
@@ -147,16 +153,14 @@ function Update_NewsPapers() {
                                 Looks good!
                             </div>
                         </div>
-                        <div className="col-12">
-                            <button className="btn btn-primary button" id="f-btn" type="submit">Update News Paper</button>
+                        <div className="button-container col-12">
+                            <button className="btn btn-primary button" id="right-button" type="submit">Update Paper</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <div>
-                <p>Response from PHP script: {resMessage}</p>
-            </div>
+            <FooterComponent/>
         </>
     );
 }
