@@ -96,7 +96,7 @@ function Register() {
     return (
         <div id="SignUpMainDiv">
             {loading && <CircleSpinner/>}
-            <HeaderComponent Link1={"Home"} router1={"/"} Link7={"Log Out"} router7={""}/>
+            <HeaderComponent Link1={"Home"} router1={"/"} Link7={"Log In"} router7={"/login"}/>
             <div id={"registerSection"}>
                 <h1> Sign Up</h1>
                 <div id="registerPageSelection">

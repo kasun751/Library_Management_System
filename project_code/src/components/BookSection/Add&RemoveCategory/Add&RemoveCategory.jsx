@@ -83,7 +83,7 @@ function AddRemoveCategory() {
             localStorage.setItem("categoryRemoveMessage", "tableNotEmpty");
         }
         console.log(res.data);
-        window.location.reload(); // This reloads the page
+        location.reload();
     };
 
     const submit = (access) => {
@@ -156,7 +156,7 @@ function AddRemoveCategory() {
                             id={"submit"}
                             className="btn btn-primary feildDisabled remove"
                             type="submit"
-                            onClick={() => submit("add")}
+                            onClick={() => submit("remove")}
                         >
                             Remove Category
                         </button>

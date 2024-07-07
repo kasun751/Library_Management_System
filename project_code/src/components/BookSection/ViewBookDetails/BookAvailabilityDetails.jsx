@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import './BookAvailabilityDetails.css';
 import HeaderComponent from "../../Header/HeaderComponent.jsx";
 import FooterComponent from "../../Footer/FooterComponent.jsx";
+import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
 
 function BookAvailabilityDetails() {
     const {id} = useParams();
@@ -11,6 +12,8 @@ function BookAvailabilityDetails() {
     const [message, setMessage] = useState('');
     const [modalMessage, setModalMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const userID = "SLMS/REG/24/1";  //getting this from session storage
     useEffect(() => {
         console.log(id);
@@ -41,6 +44,7 @@ function BookAvailabilityDetails() {
     }
 
     const requestBook = async (bookID, category) => {
+        setLoading(true);
         const extendedData = {
             bookID: bookID,
             userID: userID,
@@ -57,14 +61,16 @@ function BookAvailabilityDetails() {
             })
         console.log(res.data)
         const message = res.data.resultMessage;
+        setLoading(false);
         if (message) {
 
             localStorage.setItem("message", message);
         }
-        location.reload();
+ location.reload();
     }
     return (
         <div id="BookAvailabilityDetails"  className="bookSectionCommonClass">
+            {loading && <CircleSpinner/>}
             <HeaderComponent Link1={"Home"} router1={"/bookSection"} Link7={"Log Out"} router7={""}/>
             {showModal && (
                 <div className="modal fade show custom-modal" tabIndex="-1" role="dialog"

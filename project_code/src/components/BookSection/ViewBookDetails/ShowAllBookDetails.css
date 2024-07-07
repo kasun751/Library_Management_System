@@ -7,7 +7,7 @@
 }
 
 
-#AllBookDetails #details p{
+#AllBookDetails #details p,#AllBookDetails textarea{
     color: white;
     font-weight: 600;
     padding: 13px;

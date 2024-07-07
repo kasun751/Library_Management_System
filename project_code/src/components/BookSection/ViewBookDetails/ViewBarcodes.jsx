@@ -31,7 +31,7 @@ function ViewBarcodes() {
             }
         })
             .then(response => {
-                setBarcodeImage(response.data.base64Image);
+                setBarcodeImage(response.data);
                 setLoading(false);
             })
             .catch(error => {
@@ -82,6 +82,7 @@ function ViewBarcodes() {
         })()
     }
 
+    console.log(barcodeImage)
     return (
         <div id="viewBarcodes" className="bookSectionCommonClass bookSectionCommonTableClass">
             {loading && <CircleSpinner/>}
@@ -116,21 +117,28 @@ function ViewBarcodes() {
                         </tr>
                         </thead>
                         <tbody>
-                        {Array.isArray(barcodeImage) && barcodeImage.length > 0 ? (
-                            barcodeImage.map((barcode, index) => (
-                                <tr key={index}>
-                                    <td className="booDetails">{index + 1}</td>
-                                    <td className="booDetails">bookID</td>
-                                    <td className="booDetails"><img
-                                        src={`data:image/png;base64,${barcode.barcode_image}`}
-                                        alt={`Barcode ${index}`}/></td>
+                        {barcodeImage && typeof barcodeImage === 'object' && Object.keys(barcodeImage).length > 0 ? (
+                            Array.isArray(barcodeImage.base64Image) && barcodeImage.base64Image.length > 0 ? (
+                                barcodeImage.base64Image.map((barcode, index) => (
+                                    <tr key={index}>
+                                        <td className="booDetails">{index + 1}</td>
+                                        <td className="booDetails">{barcode.Final_ID}</td>
+                                        <td className="booDetails">
+                                            <img src={`data:image/png;base64,${barcode.barcode_image}`} alt={`Barcode ${index}`} />
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="5">No Barcodes.</td>
                                 </tr>
-                            ))
+                            )
                         ) : (
                             <tr>
                                 <td colSpan="5">No Barcodes.</td>
                             </tr>
                         )}
+
                         </tbody>
                     </table>
                 </div>
@@ -161,11 +169,11 @@ function ViewBarcodes() {
                             </tr>
                             </thead>
                             <tbody>
-                            {barcodeImage ? (
+                            {barcodeImage !== null && !(Array.isArray(barcodeImage.base64Image)) ? (
                                 <tr>
                                     <td className="booDetails">01</td>
-                                    <td className="booDetails">bookID</td>
-                                    <td className="booDetails"><img src={`data:image/png;base64,${barcodeImage}`}
+                                    <td className="booDetails">{barcodeImage.bookID}</td>
+                                    <td className="booDetails"><img src={`data:image/png;base64,${barcodeImage.base64Image}`}
                                                                     alt="Barcode"/></td>
                                 </tr>
 

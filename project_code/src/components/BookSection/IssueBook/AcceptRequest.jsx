@@ -7,6 +7,7 @@ const AcceptRequest = ({bookID,userID,category}) => {
     const [confirmationCode, setConfirmationCode] = useState('');
     const [message, setMessage] = useState('');
 
+
     const handleChange = (event) => {
         setConfirmationCode(event.target.value);
     };
@@ -31,7 +32,10 @@ const AcceptRequest = ({bookID,userID,category}) => {
             })
         console.log(res.data)
         setMessage(res.data.resultMessage);
-        location.reload();
+        if(res.data.resultMessage==='Successfully Book Issued.'){
+            location.reload();
+        }
+
     };
 
     return (

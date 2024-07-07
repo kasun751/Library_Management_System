@@ -34,16 +34,21 @@ function ShowAllBookDetails() {
                 <br/>
                 <div className="row">
                     <div className="col-xl-5 col-md-5 col-sm-12 mx-auto">
-                        <p>ISBN: {bookDetails.ISBN_Number}</p>
-                        <p>Title: {bookDetails.BookName}</p>
-                        <p>Author: {bookDetails.AuthorName}</p>
-                        <p>PublisherName: {bookDetails.PublisherName}</p>
+                        <p className="h-auto">ISBN: {bookDetails.ISBN_Number}</p>
+                        <p className="h-auto">Title: {bookDetails.BookName}</p>
+                        <p className="h-auto">Author: {bookDetails.AuthorName}</p>
+                        <p className="h-auto">PublisherName: {bookDetails.PublisherName}</p>
                     </div>
                     <div className="col-xl-5 col-md-5 col-sm-12 mx-auto">
-                        <p>Category: {bookDetails.Category}</p>
-                        <p>AllBookQty: {bookDetails.AllBookQty}</p>
-                        <p>BookLocation: {bookDetails.BookLocation}</p>
-                        <p>Description: {bookDetails.Description}</p>
+                        <p className="h-auto">Category: {bookDetails.Category}</p>
+                        <p className="h-auto">All Book Qty: {bookDetails.allBooksQty}</p>
+                        <p className="h-auto">All available Book Qty: {bookDetails.availableBooksQty}</p>
+                        <p className="h-auto">BookLocation: {bookDetails.BookLocation}</p>
+
+                    </div>
+                    <div className="col-sm-11 mx-auto">
+                          <textarea id="displayDescription" className="w-100 h-auto" rows="5" disabled={true}
+                                    name="description" value={bookDetails.Description || ""}/>
                     </div>
                 </div>
             </div>

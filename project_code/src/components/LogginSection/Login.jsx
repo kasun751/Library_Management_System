@@ -7,6 +7,7 @@ import LoginSideImage from '../../assets/images/LoginSideImage.jpg';
 import CircleSpinner from "../CircleSpinner/CircleSpinner.jsx";
 import HeaderComponent from "../Header/HeaderComponent.jsx";
 import FooterComponent from "../Footer/FooterComponent.jsx";
+import AlertMessage from "./AlertMessage.jsx";
 
 function Login() {
 
@@ -15,6 +16,14 @@ function Login() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const validFeedback = document.getElementsByClassName("valid-feedback");
+    const [alertMessage, setAlertMessage] = useState('');
+
+    useEffect(() => {
+        if (loginDetailsValidateResponse) {
+            setAlertMessage(loginDetailsValidateResponse);
+        }
+    }, [loginDetailsValidateResponse]);
+
     if (validFeedback.length > 0) {
         for (let i = 0; i < validFeedback.length; i++) {
             validFeedback[i].style.display = "none";
@@ -148,6 +157,7 @@ function Login() {
                         </div>
                     </div>
                 </form>
+                <AlertMessage message={alertMessage} duration={5000} />
             </div>
             <FooterComponent/>
         </div>

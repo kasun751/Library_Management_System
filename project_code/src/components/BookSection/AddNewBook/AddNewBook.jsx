@@ -39,8 +39,9 @@ function AddNewBook() {
 
         const name = e.target.name;
         const value = e.target.value;
+        const trimmedValue = value.trim();
         console.log(name + ":" + value);
-        setInputs(preValues => ({...preValues, [name]: value}))
+        setInputs(preValues => ({...preValues, [name]: trimmedValue}))
     }
 
     const updateDatabase = async () => {
@@ -81,35 +82,39 @@ function AddNewBook() {
                 console.log(isbnNumber.isbnNumber)
                 axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnNumber.isbnNumber}`)
                     .then(response => {
-                        let foundWord = null;
-                        let data = response.data.items[0].volumeInfo;
-                        let categories = data.categories[0].includes(' ') ? data.categories[0].split(' ') : [data.categories[0]];
-                        console.log(categories)
-                        for (const word of categories) {
-                            console.log(word)
-                            console.log("==============")
-                            console.log(categoryList)
-                            if (categoryList.some(category => category.Category_Name === word)) {
-                                console.log(word)
-                                foundWord = word;
-                                console.log(foundWord)
-                                break;
+                        if (response.data && response.data.items && response.data.items.length > 0) {
+                            let foundWord = null;
+                            let data = response.data.items[0].volumeInfo;
+
+                            // Handle categories data
+                            let categories = data.categories ? (data.categories[0].includes(' ') ? data.categories[0].split(' ') : [data.categories[0]]) : [];
+
+                            // Find matching category
+                            for (const word of categories) {
+                                if (categoryList.some(category => category.Category_Name === word)) {
+                                    foundWord = word;
+                                    break;
+                                }
                             }
+
+                            // Set state values
+                            setBookData(data);
+                            setInputs(prevValues => ({
+                                ...prevValues,
+                                bookName: data.title.replace(/\([^()]*\)/g, '').trim() || "",
+                                authorName: data.authors?.[0] || "",
+                                publisherName: data.publisher || "",
+                                category: foundWord || "",
+                                description: data.description || ""
+                            }));
+                        } else {
+                            console.error('Error fetching book data: Response or items array is empty or undefined');
                         }
-                        console.log(data);
-                        setBookData(data)
-                        setInputs(preValues => ({
-                            ...preValues,
-                            bookName: data.title.replace(/\([^()]*\)/g, '').trim() || "",
-                            authorName: data.authors?.[0] || "",
-                            publisherName: data.publisher || "",
-                            category: foundWord || "",
-                            description: data.description || ""
-                        }))
                     })
                     .catch(error => {
                         console.error('Error fetching book data:', error);
                     });
+
                 break;
             case (message.ISBN_Number).length > 0:
                 inputEnable_disable(true, "red");

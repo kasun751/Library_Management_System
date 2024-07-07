@@ -5,6 +5,9 @@ import {useEffect, useState} from "react";
 import CircleSpinner from "../../CircleSpinner/CircleSpinner.jsx";
 import HeaderComponent from "../../Header/HeaderComponent.jsx";
 import FooterComponent from "../../Footer/FooterComponent.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 
 const AvailableNow = () => {
     const [bookList, setBookList] = useState([]);
@@ -64,6 +67,7 @@ const AvailableNow = () => {
     }
 
     const available = async (deleteData, AvailableAllOrOncePara) => {
+        console.log(deleteData)
         let extendData;
         switch (AvailableAllOrOncePara) {
             case 0:
@@ -76,9 +80,25 @@ const AvailableNow = () => {
             case 1:
                 extendData = {
                     bookID: deleteData,
-                    isbnNumber:bookList[0].ISBN_Number,
+                    isbnNumber: deleteData,
                     parameter: 1,
                     AvailableAllOrOncePara: 1
+                }
+                break;
+            case 2:
+                extendData = {
+                    bookID: deleteData,
+                    isbnNumber: deleteData,
+                    parameter: 1,
+                    AvailableAllOrOncePara: 2
+                }
+                break;
+            case 3:
+                extendData = {
+                    bookID: deleteData,
+                    isbnNumber: deleteData,
+                    parameter: 1,
+                    AvailableAllOrOncePara: 3
                 }
                 break;
         }
@@ -92,6 +112,7 @@ const AvailableNow = () => {
                 }
             })
         const message = res.data;
+        console.log(res.data)
         if (message.resultMessage === "true") {
             localStorage.setItem("message", "Update Successfully!");
         } else {
@@ -119,9 +140,21 @@ const AvailableNow = () => {
                     </div>
                     <div>
                         {Array.isArray(bookList) && bookList.length !== 0 ?
-                            (<button id="availableAll" className="btn btn-success"
-                                     onClick={() => available(bookList[0].ISBN_Number, 0)}>Available All
-                            </button>) : ""}
+                            (<div id="hiddenBtn">
+                                <button id="availableAll" className="btn btn-success "
+                                        onClick={() => available(bookList[0].ISBN_Number, 0)}
+                                        data-toggle="tooltip"
+                                        title="Click To Set Available All Books Relavant To ISBN."
+                                >Available All
+                                </button>
+                                <button id="notAvailableAll" className="btn btn-success"
+                                        onClick={() => available(bookList[0].ISBN_Number, 3)}
+                                        data-toggle="tooltip"
+                                        title="Click To Set Not Available All Books Relavant To ISBN."
+                                >Not Available All
+                                </button>
+                            </div>) : ""}
+
                     </div>
                 </div>
 
@@ -140,14 +173,17 @@ const AvailableNow = () => {
 
                         bookList.map((book, index) => (
                             <tr key={index}>
+
                                 <td className="booDetails"> {index + 1}</td>
                                 <td className="booDetails">{book.Final_ID}</td>
                                 <td id="availableThisBook" className="booDetails">
                                     {<button id="availableThis" className="btn btn-success"
+                                             disabled={book.Availability === 'available'}
                                              onClick={() => available(book.Final_ID, 1)}>Available Now
                                     </button>}
                                     {<button id="notAvailable" className="btn btn-success"
-                                             onClick={() => available(book.Final_ID, 1)}>Not Available
+                                             disabled={book.Availability === 'stillNotAdded'}
+                                             onClick={() => available(book.Final_ID, 2)}>Not Available
                                     </button>}
                                 </td>
                             </tr>
@@ -161,15 +197,24 @@ const AvailableNow = () => {
                                     <td className="booDetails">{book.Final_ID}</td>
                                     <td id="requestThis" className="booDetails">
                                         {<button id="availableThis" className="btn btn-success"
-                                                 onClick={() => available(book.Final_ID, 1)}>Available Now
+                                                 disabled={book.Availability === 'available'}
+                                                 onClick={() => available(book.Final_ID, 1)}
+                                                 data-toggle="tooltip"
+                                                 title="Click To Available This."
+                                        >Available Now
+
                                         </button>}
                                         {<button id="notAvailable" className="btn btn-success"
-                                                 onClick={() => available(book.Final_ID, 1)}>Not Available
+                                                 disabled={book.Availability === 'stillNotAdded'}
+                                                 onClick={() => available(book.Final_ID, 2)}
+                                                 data-toggle="tooltip"
+                                                 title="Click To Not Available This."
+                                        >Not Available
                                         </button>}
                                     </td>
                                 </tr>
                             ))
-                        ): (
+                        ) : (
                             <tr>
                                 <td colSpan="5">No books found.</td>
                             </tr>
