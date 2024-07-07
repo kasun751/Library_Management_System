@@ -8,7 +8,13 @@ function BodyComponent() {
     const {searchData, filter} = useContext(userSearch)
     const {current_user_id, current_user_type} = useContext(userAuthentication);
     const [tableData, setTableData] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [offSet, setOffSet] = useState(0);
+    const [summaryData, setSummaryData] = useState({
+        totalMembers:"",
+        restrictedMembers:"",
+        staffMembers:""
+    });
     const [formData, setFormData] = useState({
         user_id:"",
         firstName:"",
@@ -66,9 +72,18 @@ function BodyComponent() {
             console.log(error)
         }
     }
+    async function handleGetSummaryData(){
+        try {
+            const res = await axios.get(`http://localhost:80/project_1/MemberManagement/Controller/summaryController.php`);
+            setSummaryData(res.data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     async function handleRestrict(user_id,reason){
         try {
+            setLoading(true);
             const res = await axios.post(`http://localhost:80/project_1/MemberManagement/Controller/restrictedMemberController.php`,{
                 ...formData,
                 user_id:user_id,
@@ -78,10 +93,13 @@ function BodyComponent() {
             getTableData(searchData, filter, offSet);
         } catch (error) {
             console.error('Error fetching table data:', error);
-        }
+        }finally {
+            setLoading(false);
+          }
     }
     async function handleRemoveRestrict(user_id){
         try {
+            setLoading(true);
             const res = await axios.post(`http://localhost:80/project_1/MemberManagement/Controller/restrictedMemberController.php`,{
                 ...formData,
                 user_id:user_id,
@@ -90,11 +108,14 @@ function BodyComponent() {
             getTableData(searchData, filter, offSet);
         } catch (error) {
             console.error('Error fetching table data:', error);
-        }
+        }finally {
+            setLoading(false);
+          }
     }
 
     async function updateUserInfo(user_id){
         try {
+            setLoading(true);
             const res = await axios.post(`http://localhost:80/project_1/MemberManagement/Controller/memberManagementController.php`,{
                 ...formData,
                 user_id:user_id
@@ -102,21 +123,26 @@ function BodyComponent() {
             getTableData(searchData, filter, offSet);
         } catch (error) {
             console.error('Error fetching table data:', error);
-        }
+        }finally {
+            setLoading(false);
+          }
     }
 
     async function handleDelete(user_id){
         try {
+            setLoading(true);
             const res = await axios.post(`http://localhost:80/project_1/MemberManagement/Controller/memberManagementController.php`,{
                 delete_user:user_id
             });
             getTableData(searchData, filter, offSet);
         } catch (error) {
             console.error('Error fetching table data:', error);
-        }
+        }finally {
+            setLoading(false);
+          }
     }
 
-    async function loadFormData(user_id){
+    async function loadFromData(user_id){
         try {
             const res = await axios.get(`http://localhost:80/project_1/MemberManagement/Controller/memberManagementController.php?user_id=${user_id}`);
             setFormData({
@@ -153,6 +179,7 @@ function BodyComponent() {
     return (
         <>
             <HeaderComponent onclick={onClickSetOffSet}/>
+            <button className='btn btn-primary summary-btn' data-bs-toggle="modal" data-bs-target="#summaryReport" onClick={()=>handleGetSummaryData()} >Summary</button>
             <div className='table-responsive'>
                 <table className="table table-striped">
                     <thead>
@@ -176,10 +203,10 @@ function BodyComponent() {
                                 <td>{item.Email}</td> 
                                 <td>{item.PhoneNumber}</td> 
                                 <td className='btn-group'>
-                                    <button className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editFormModel" onClick={()=>loadFormData(item.UserID)}>Edit</button>
-                                    <button className="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewMoreDetails" onClick={()=>loadFormData(item.UserID)}>More...</button>
-                                    <button className={item.Account_Status!=2?"btn btn-outline-warning":"btn btn-warning"} data-bs-toggle="modal" data-bs-target={item.Account_Status!=2?"#restrictedReason":"#removeRestriction"} onClick={()=>loadFormData(item.UserID)} >{item.Account_Status!=2?"Restrict__":"Restricted"}</button>
-                                    <button className="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete" onClick={()=>loadFormData(item.UserID)}>Delete</button>
+                                    <button className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editFormModel" onClick={()=>loadFromData(item.UserID)} disabled={loading}>Edit</button>
+                                    <button className="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewMoreDetails" onClick={()=>loadFromData(item.UserID)}disabled={loading}>More...</button>
+                                    <button className={item.Account_Status!=2?"btn btn-outline-warning":"btn btn-warning"} data-bs-toggle="modal" data-bs-target={item.Account_Status!=2?"#restrictedReason":"#removeRestriction"} onClick={()=>loadFromData(item.UserID)} disabled={loading}>{item.Account_Status!=2?"Restrict__":"Restricted"}</button>
+                                    <button className="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete" onClick={()=>loadFromData(item.UserID)}disabled={loading}>Delete</button>
                                 </td>
                             </tr>
                         ))}
@@ -345,6 +372,57 @@ function BodyComponent() {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={()=>handleDelete(formData.user_id)}>Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            {
+                <div className="modal fade" id="summaryReport" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-lg">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Summary</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                                Total number of members :{
+                                                    summaryData && summaryData.totalMembers
+                                                }
+                                            </th>
+                                            <td>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Total number of Resticted members :{
+                                                    summaryData && summaryData.restrictedMembers
+                                                }
+                                            </th>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Total number of staff members :{
+                                                    summaryData && summaryData.staffMembers
+                                                }
+                                            </th>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             </div>
                         </div>
                     </div>
