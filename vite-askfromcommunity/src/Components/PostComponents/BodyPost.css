@@ -41,6 +41,10 @@
     background-color: rgb(60, 104, 129);
 
   }
+  #post-title{
+    padding: 0 5px;
+    margin-bottom: 10px;
+  }
   
   .imageSlider-container > * {
     max-width: 50%;          /* Ensure child respects container's width */
@@ -153,6 +157,7 @@
 .description-container{
   border: 1px solid black;
   height:150px;
+  max-width: 500px;
   margin: 0 20px;
   overflow-y: scroll;
 }

@@ -13,7 +13,7 @@ import DonateFundsAdminPage from './Pages/DonateFundsAdminPage.jsx';
 
 const Root = () => {
   const [userID, setUserID] = useState("");
-  const [userType, setUserType] = useState("reg");
+  const [userType, setUserType] = useState("staff");
 
   const router = createBrowserRouter([
     {

@@ -12,6 +12,10 @@
 
   }
 
+  .post-display-container{
+    min-height: 60vh;
+  }
+
   #scroll-btn{
     width:50px;
     padding: 10px;

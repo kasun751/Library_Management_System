@@ -4,24 +4,43 @@
     grid-template-columns: repeat(2,auto);
     grid-template-rows: auto;
     min-height: 85vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bodyComponent-donation-outer{
+    background-image: url("src/Images/donation-background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid black;
+    
+}
+
+a{
+    text-decoration: none !important;
 }
 
 .bodyComponent-donation div{
     padding: 10px;
-    border:1px solid black;
-    width:80%;    
+    border:1px solid black;      
     border-radius: 20px;
     margin-top: 10%;
 }
-.donate-books{
-    margin-left: 50px;
+.donate-books, .donate-funds{
+    margin:0 auto;
 }
 
-.donate-funds:hover{
-    background-color: blanchedalmond;
+.donate-funds, .donate-books{
+    background-color: rgb(7,46,93);
+    color: white;
     cursor: pointer;
 }
-.donate-books:hover{
-    background-color: blanchedalmond;
+
+.donate-funds:hover, .donate-books:hover{
+    background-color: rgb(36, 99, 176);
     cursor: pointer;
+}
+
+.donate-link{
+    margin: 0 auto;
 }

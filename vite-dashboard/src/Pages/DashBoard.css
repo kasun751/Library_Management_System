@@ -21,7 +21,31 @@
     min-height: 60vh;
     padding: 20px;
     overflow: hidden;
-    z-index: -1;
+    z-index: 1;
+}
+
+.dashboard-outer{
+    position: relative;
+    z-index: 1
+}
+
+.profile-container-inner{
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 50px;
+  background-color: rgb(217,217,217);
+}
+
+.edit-btn-profile{
+  width:40px;
+  padding: 10px;
+  margin-left: 10px;
+}
+.edit-btn-profile:hover{
+  padding: 8px;
+  background-color: rgb(32, 120, 214);
+  border-radius: 20px;
+  transition: all 0.5s ease;
 }
 
 .dashboard::before {
@@ -37,3 +61,39 @@
     filter: blur(6px);
     z-index: -1;
 }
+
+.profile-label{
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.btn-primary{
+    background: linear-gradient(0deg, rgba(3,47,100,1) 25%, rgba(69,141,224,1) 95%) !important;
+    border: 1px solid white;
+  }
+  .btn-secondary{
+    background: linear-gradient(0deg, rgb(55, 57, 60) 25%, rgb(140, 142, 144) 95%) !important;
+    border: 1px solid white;
+  }
+.btn-primary:hover{
+    background: linear-gradient(0deg, rgba(69,141,224,1) 25%, rgba(3,47,100,1) 95%) !important;
+    border: 1px solid white;
+    transition: all 0.5s ease;
+  }
+  .btn-secondary:hover{
+    background: linear-gradient(0deg, rgb(151, 8, 23) 25%, rgb(227, 72, 72) 95%) !important;
+    border: 1px solid white;
+    transition: all 0.5s ease;
+  }
+
+  #back-btn-profile{
+    width:50px;
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 50px;
+  }
+  #back-btn-profile:hover{
+    padding: 0;
+    background-color: rgb(9, 107, 75);
+    transition: all 0.5s ease;
+  }

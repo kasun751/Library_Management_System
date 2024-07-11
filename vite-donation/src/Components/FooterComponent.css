@@ -1,10 +1,55 @@
-.footer-donation{
-    width:100%;
-    position: relative;
-    bottom: 0;
-    left: 0;
-    height: 50px;
-    background-color: rgb(80, 81, 83);
+.footer-container {
+    background: rgb(3,47,100);
+    background: linear-gradient(0deg, rgba(3,47,100,1) 7%, rgba(69,141,224,1) 88%);
+    padding: 10px 0 0 0 ;
+    color: white;
+  }
+  
+  .footer-container > .row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .footer-container  img {
+    width: 50px;
+    padding: 5px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .footer-container img:hover {
+    width: 50px;
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .icon-div {
+    text-align: center;
+  }
+  
+  .icon-div label {
+    color: white;
+    display: block;
+    font-size: 10px;
+  }
+  
+  .footer-link {
     color: white;
     text-align: center;
-}
+    display: block;
+    font-size: 15px;
+    font-weight: bolder;
+    text-decoration: none;
+  }
+  
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-text {
+    color: rgb(103, 98, 98);
+    text-align: center;
+    font-size: 10px;
+  }
+  

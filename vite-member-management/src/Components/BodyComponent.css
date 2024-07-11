@@ -7,3 +7,6 @@
     color: white;
     margin:10px 0 0 10px;
 }
+.table{
+    min-height: 60vh;
+}

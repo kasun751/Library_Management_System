@@ -30,6 +30,5 @@ P > label{
   justify-content: center;
 }
 #page-numbers > *{
-  border: 1px solid black;
   align-items: center;
 }

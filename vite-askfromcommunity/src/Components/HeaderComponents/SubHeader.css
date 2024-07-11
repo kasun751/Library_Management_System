@@ -20,8 +20,8 @@
   justify-content: center;
 }
 .navbar-light{
-  background: rgb(69,141,224) !important; 
-  background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+  background: none !important; 
+  
   
 }
 

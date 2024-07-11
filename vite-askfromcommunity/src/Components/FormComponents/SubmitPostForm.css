@@ -3,12 +3,14 @@
     position: fixed;
     bottom: 1%;
     left: 50%;
+    color: white;
     transform: translateX(-50%);
     padding: 20px;    
     max-width: 600px;
     border: 1px solid black;
     border-radius: 20px;
-    background-color: rgba(193, 182, 228,0.9);
+    background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgba(5, 50, 104, 1) 16%, rgba(55, 63, 72, 0.9) 87%) !important;
     z-index: 10000;
   }
   .form-control{
@@ -45,7 +47,8 @@
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgb(4, 110, 15) 16%, rgba(101, 223, 107, 0.9) 87%) !important;
     color: white;
     border: none;
     border-radius: 5px;

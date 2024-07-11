@@ -3,7 +3,7 @@
     top: 0%;
     left: 0;   
     height:100%;
-    background-color: #333;
+    background-color: rgb(41, 71, 88);
     color: #fff;
     padding: 20px;
     overflow: auto;
@@ -21,16 +21,23 @@
     flex-direction: row;
 }
 #rejectBtn{
-    background-color:rgb(83, 94, 197);
+    background: rgb(5,26,51);
+    background: linear-gradient(0deg, rgba(5,26,51,1) 16%, rgba(60,128,208,1) 90%);
 }
 #deleteBtn{
-    background-color:rgb(210, 72, 88);
+    background:linear-gradient(#eb8865, #de2929);
+    border: 2px solid red;
 }
 #rejectBtn:hover{
-    background-color:rgb(46, 58, 161);
+    background: rgb(10, 60, 121);
+    background: linear-gradient(0deg, rgb(14, 61, 118) 16%, rgb(37, 77, 123) 90%);
+    border: 2px solid rgb(249, 248, 248);
+    transition: 200ms;
 }
 #deleteBtn:hover{
-    background-color:rgb(164, 40, 54);
+    background:linear-gradient(#7e371c, #9c4949);
+    border: 2px solid rgb(251, 246, 246);
+    transition: 200ms;
 }
 #imageSlider-container{
     width: 50%;

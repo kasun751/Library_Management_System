@@ -97,7 +97,7 @@ function DonateFundsPage() {
         <SubHeader searchBar={false} />
       </SearchDataContext.Provider>
       
-      <div className='container donate-funds-container col-5'>
+      <div className='container donate-funds-container col-lg-6'>
         <form className="row g-3 needs-validation" noValidate>
           <div className="col-md-6">
             <label className="form-label">First name</label>
@@ -107,6 +107,7 @@ function DonateFundsPage() {
               id="fname"
               onChange={handleChange}
               value={data.fname}
+              placeholder='John'
               required
             />
             <div className="valid-feedback">Looks good!</div>
@@ -119,6 +120,7 @@ function DonateFundsPage() {
               id="lname"
               onChange={handleChange}
               value={data.lname}
+              placeholder='Perera'
               required
             />
             <div className="valid-feedback">Looks good!</div>
@@ -133,6 +135,7 @@ function DonateFundsPage() {
                 onChange={handleChange}
                 value={data.phoneNum}
                 aria-describedby="inputGroupPrepend"
+                placeholder='07xxxxxxx'
                 required
               />
               <div className="invalid-feedback">Please enter phone number.</div>
@@ -146,6 +149,7 @@ function DonateFundsPage() {
               id="email"
               onChange={handleChange}
               value={data.email}
+              placeholder='John@example.com'
               required
             />
             <div className="invalid-feedback">Please enter your email address.</div>
@@ -158,6 +162,7 @@ function DonateFundsPage() {
               id="country"
               onChange={handleChange}
               value={data.country}
+              placeholder='Srilanka'
               required
             />
             <div className="invalid-feedback">Please provide a country.</div>
@@ -170,6 +175,7 @@ function DonateFundsPage() {
               id="city"
               onChange={handleChange}
               value={data.city}
+              placeholder='Kurunegala'
               required
             />
             <div className="invalid-feedback">Please provide a city.</div>
@@ -182,6 +188,7 @@ function DonateFundsPage() {
               id="address"
               onChange={handleChange}
               value={data.address}
+              placeholder='No.42/2 Kandy Road, Mawathagama'
               required
             />
             <div className="invalid-feedback">Please provide a Address.</div>
@@ -213,12 +220,13 @@ function DonateFundsPage() {
               id="amount"
               onChange={handleAmountChange}
               value={data.amount}
+              placeholder='Rs.'
               required
             />
             <div className="invalid-feedback">Please enter an amount.</div>
           </div>
         </form>
-        <button className="btn btn-primary" onClick={paymentGateway}>Submit form</button>
+        <button className="btn btn-primary " onClick={paymentGateway}>Donate Now</button>
       </div>
       <FooterComponent />
     </>

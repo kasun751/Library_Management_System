@@ -187,7 +187,7 @@ function BodyPost({ post}) {
         <div className='contentBox-outer'>
         <div className='contentBox'>
           <div className='title-box'>
-              <h3>{post.title}</h3>
+              <h4 id="post-title">{post.title}</h4>
               {/* <DescriptionBox description={post.description} /> */}
               <div className='description-container'>
                 <p>{post.description}</p>

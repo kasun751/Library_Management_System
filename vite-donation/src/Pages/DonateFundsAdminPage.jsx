@@ -3,6 +3,7 @@ import './DonateFundsAdminPage.css';
 import SubHeader from '../Components/SubHeader'
 import { SearchDataContext } from './DonateBookPage';
 import axios from 'axios';
+import FooterComponent from '../Components/FooterComponent';
 
 function DonationFundsAdminPage() {
     const [searchData, setSearchData] = useState("");
@@ -72,9 +73,9 @@ function DonationFundsAdminPage() {
             <SubHeader searchBar={true} />
         </SearchDataContext.Provider>
         <div id='donate-funds-numbers'>
-              <img src="src\Images\prev-page-btn.svg" onClick={()=>onClickSetOffSet(-5)} />
-              <p>Page {offSet/5+1}</p>
-              <img src="src\Images\next-page-btn.svg" onClick={()=>onClickSetOffSet(5)} />
+              <img src="src\Images\prev-page-btn.svg" onClick={()=>onClickSetOffSet(-25)} />
+              <p>Page {offSet/25+1}</p>
+              <img src="src\Images\next-page-btn.svg" onClick={()=>onClickSetOffSet(25)} />
         </div>
         <button className='btn btn-success' id="summary-btn" data-bs-toggle="modal" data-bs-target="#summaryReport" onClick={() => getSummaryReport(reportDate.from,reportDate.to)}>Generate Summary Report</button>
         <div className='table-responsive'>
@@ -200,6 +201,7 @@ function DonationFundsAdminPage() {
           </div>
         </div>
       </div>
+      <FooterComponent />
     </>
   )
 }

@@ -1,8 +1,29 @@
 .subHeader-donation{
     height:auto;
     width: 100%;
-    background-color: red;
+    color: white;
+    background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
     padding: 10px;
     align-items: center;
 }
 
+.navbar-light{ 
+    background: none !important;
+    
+}
+.nav-link{
+    color: white !important;
+}
+.navbar-nav{
+    vertical-align: middle;
+}
+
+#logout-icon{
+    width:10px;
+    margin-right: 2px;
+}
+#logout{
+    font-size: 20px;
+    cursor: pointer;
+}

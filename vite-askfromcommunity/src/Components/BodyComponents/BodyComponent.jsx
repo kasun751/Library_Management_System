@@ -99,18 +99,20 @@ function BodyComponent() {
               <img src="src\Images\next-page-btn.svg" onClick={()=>onClickSetOffSet(5)} />
           </div>
           </div>
-          <AnimatePresence>
-            <motion.div
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               exit={{ opacity: 0 }}
-          >
-          {posts.map((item) => (
-           
-            <BodyPost key={item.post_id} post={item} />
-          ))}
-          </motion.div>
-          </AnimatePresence>
+          <div className='post-display-container'>
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
+            {posts.map((item) => (
+            
+              <BodyPost key={item.post_id} post={item} />
+            ))}
+            </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
         <div id="scroll-btn-container">
           <img src="src\Images\scroll-up-btn.svg" alt="scroll up" id='scroll-btn' onClick={()=>window.scrollTo(0,0)}/>

@@ -15,7 +15,7 @@ import AboutUs from './DummyPages/AboutUs.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App user_id={"A17"} user_type={"staff"} />
+    element: <App user_id={"U008"} user_type={"staff"} />
   },
   {
     path: "/home",

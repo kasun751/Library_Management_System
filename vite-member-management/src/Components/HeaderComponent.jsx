@@ -59,8 +59,8 @@ function HeaderComponent({onclick}) {
         </div>
         <div className="row col-md-3 col-12 mt-3 d-flex justify-content-center">
             <div className="prev-next-btn">
-                <button className='btn btn-secondary'  onClick={()=>onclick(-5)}>prev <img src='src\Images\prev-item.svg' /></button>
-                <button className='btn btn-primary' onClick={()=>onclick(5)}>next <img src='src\Images\next-items.svg' /></button>
+                <button className='btn btn-secondary'  onClick={()=>onclick(-25)}>prev <img src='src\Images\prev-item.svg' /></button>
+                <button className='btn btn-primary' onClick={()=>onclick(25)}>next <img src='src\Images\next-items.svg' /></button>
             </div>
         </div>
         <div className="col-md-6 col-12 d-flex justify-content-center ">

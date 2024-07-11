@@ -348,7 +348,7 @@ function BodyComponent() {
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
-                                <h3>Are you Want to Remove Restrictions</h3>
+                                <h3>Do you Want to Remove Restrictions</h3>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -367,7 +367,7 @@ function BodyComponent() {
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
-                                <h3>Are You Want to delete</h3>
+                                <h3>Do You Want to delete</h3>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

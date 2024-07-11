@@ -42,12 +42,12 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
     const validateImgFiles = () =>{
         let returnStatement = "";
         const imageSizes = (selectedFile1?.size || 0) + (selectedFile2?.size || 0) + (selectedFile3?.size || 0);
-        const allowedFileTypes = ["image/jped","image/png","image/gif","image/svg+xml","image/svg"]
+        const allowedFileTypes = ["image/jped","image/jpeg","image/png","image/gif","image/svg+xml","image/svg"]
         if((selectedFile1?(allowedFileTypes.includes(selectedFile1?.type)):true)&&(selectedFile2?(allowedFileTypes.includes(selectedFile2?.type)):true)&&(selectedFile3?(allowedFileTypes.includes(selectedFile3?.type)):true)&&(imageSizes<5242880)){
             return "";
         }
         else if(!((selectedFile1?(allowedFileTypes.includes(selectedFile1?.type)):true)&&(selectedFile2?(allowedFileTypes.includes(selectedFile2?.type)):true)&&(selectedFile3?(allowedFileTypes.includes(selectedFile3?.type)):true))){
-            returnStatement= "please upload jpg, png, gif, svg files only.";
+            returnStatement= "please upload jpg, jpeg, png, gif, svg files only.";
         }
          if(!(imageSizes<5242880)){
             returnStatement+= "Check average images size are less than 5MB";
@@ -134,13 +134,13 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
                         <b>Belong to any unique category?</b>
                         <div className="form-check">
                             <input className="form-check-input" type="radio" name="category" value="true" onChange={handleOnOption} id="flexRadioDefault1" />
-                            <label className="form-check-label">
+                            <label >
                                 Yes
                             </label>
                         </div>
                         <div className="form-check">
                             <input className="form-check-input" type="radio" name="category" value="false" onChange={handleOnOption}/>
-                            <label className="form-check-label">
+                            <label >
                                 No
                             </label>
                         </div>

@@ -3,6 +3,7 @@ import './DonateBookAdminPage.css';
 import SubHeader from '../Components/SubHeader'
 import { SearchDataContext } from './DonateBookPage';
 import axios from 'axios';
+import FooterComponent from '../Components/FooterComponent';
 
 function DonationBookAdminPage() {
   const [searchData, setSearchData] = useState("");
@@ -198,6 +199,7 @@ function DonationBookAdminPage() {
           </div>
         </div>
       </div>
+      <FooterComponent />
     </>
   )
 }
