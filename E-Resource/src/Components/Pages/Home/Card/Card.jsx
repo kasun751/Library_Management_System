@@ -12,7 +12,7 @@ function Card({title, isbn, author, price, description, image_path, category, pd
     const buyNow = async () => {
         try {
             const res = await axios.post(
-                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/buy.php',
+                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/BuyController.php',
                 {isbn, userId},
                 {
                     headers: {

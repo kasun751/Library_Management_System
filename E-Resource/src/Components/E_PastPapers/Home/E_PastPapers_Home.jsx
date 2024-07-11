@@ -14,7 +14,7 @@ function E_PastPapers_Home(){
         const getViewPastPapersDetails = async () => {
             try {
                 const res = await axios.get(
-                    'http://localhost/Lbrary%20Management%20System/E-Resource_Php/viewPastPapersDetails.php',
+                    'http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/ViewPastPapersDetailsContoller.php',
                     {
                         headers: {
                             'content-Type': 'application/json'

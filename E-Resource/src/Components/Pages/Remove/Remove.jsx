@@ -32,7 +32,7 @@ const Remove = () => {
 
         try {
             const res = await axios.post(
-                'http://localhost/Lbrary Management System/E-Resource_Php/Remove.php',
+                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/RemoveBookController.php',
                 deleteBook,
                 {
                     headers: {

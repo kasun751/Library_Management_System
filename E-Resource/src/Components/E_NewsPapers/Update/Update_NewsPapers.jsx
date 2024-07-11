@@ -46,7 +46,7 @@ function Update_NewsPapers() {
 
         try {
             const res = await axios.post(
-                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/UpdateNewsPapers.php',
+                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/UpdateNewsPapersController.php',
                 formData,
                 {
                     headers: {

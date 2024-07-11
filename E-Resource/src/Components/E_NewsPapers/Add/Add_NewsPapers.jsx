@@ -21,7 +21,7 @@ function Add_NewsPapers(){
     useEffect(() => {
         const fetchNextId = async () => {
             try {
-                const res = await axios.get("http://localhost/Lbrary%20Management%20System/E-Resource_Php/GetNewsPapersNextId.php");
+                const res = await axios.get("http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/GetNewsPapersNextIdController.php");
                 setNextId(res.data.next_Id);
                 console.log(nextId);
             } catch (error) {
@@ -58,7 +58,7 @@ function Add_NewsPapers(){
         try {
             console.log('Sending FormData:', ...formDataToSend.entries());
             const res = await axios.post(
-                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/AddNewsPapers.php',
+                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/AddNewsPapersController.php',
                 formDataToSend,
                 {
                     headers: {

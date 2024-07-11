@@ -20,7 +20,7 @@ function Add_PastPapers(){
     useEffect(() => {
         const fetchNextId = async () => {
             try {
-                const res = await axios.get("http://localhost/Lbrary%20Management%20System/E-Resource_Php/GetPastPapersNextId.php");
+                const res = await axios.get("http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/GetPastPapersNextIdController.php");
                 setNextId(res.data.next_Id);
                 console.log(nextId);
             } catch (error) {
@@ -57,7 +57,7 @@ function Add_PastPapers(){
         try {
             console.log('Sending FormData:', ...formDataToSend.entries());
             const res = await axios.post(
-                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/AddPastPapers.php',
+                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/AddPastPapersController.php',
                 formDataToSend,
                 {
                     headers: {

@@ -51,7 +51,7 @@ function E_Book_Home() {
         const fetchBookDetails = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost/Lbrary%20Management%20System/E-Resource_Php/viewBookDetails.php?offset=${(currentPage - 1) * itemsPerPage}&limit=${itemsPerPage}`
+                    `http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/viewBookDetailsController.php?offset=${(currentPage - 1) * itemsPerPage}&limit=${itemsPerPage}`
                 );
                 setGetBookDetails(res.data.books || []);
                 console.log(res.data);

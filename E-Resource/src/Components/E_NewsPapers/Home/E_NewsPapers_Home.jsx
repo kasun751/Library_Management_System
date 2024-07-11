@@ -14,7 +14,7 @@ function E_NewsPapers_Home() {
         const getViewNewsPapersDetails = async () => {
             try {
                 const res = await axios.get(
-                    'http://localhost/Lbrary%20Management%20System/E-Resource_Php/viewNewsPapersDetails.php',
+                    'http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/ViewNewsPapersDetailsController.php',
                     {
                         headers: {
                             'content-Type': 'application/json'

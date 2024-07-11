@@ -37,7 +37,7 @@ function Add() {
 
         try {
             const res = await axios.post(
-                'http://localhost/Lbrary Management System/E-Resource_Php/Add.php',
+                'http://localhost/Lbrary Management System/E-Resource_Php/Controllers/AddBookController.php',
                 formDataToSend,
                 {
                     headers: {

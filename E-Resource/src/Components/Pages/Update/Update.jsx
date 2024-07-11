@@ -51,7 +51,7 @@ const Update = () => {
 
         try {
             const res = await axios.post(
-                'http://localhost/Lbrary Management System/E-Resource_Php/Update.php',
+                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/UpdateBookController.php',
                 formData,
                 {
                     headers: {

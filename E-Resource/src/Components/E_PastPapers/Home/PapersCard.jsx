@@ -1,10 +1,11 @@
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import React, { useState } from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function PapersCard({id, subject, grade, year,extra, image_path, pdf_path }) {
+function PapersCard({ id, subject, grade, year, extra, image_path, pdf_path }) {
     const [showPdf, setShowPdf] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     const handleViewPdf = () => {
@@ -12,10 +13,14 @@ function PapersCard({id, subject, grade, year,extra, image_path, pdf_path }) {
     };
 
     const handleDelete = async () => {
+        setShowModal(true);
+    };
+
+    const confirmDelete = async () => {
         try {
             const res = await axios.post(
-                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/DeletePastPapers.php',
-                {id, subject, grade, year,extra, image_path, pdf_path},
+                'http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/DeletePastPapersController.php',
+                { id, subject, grade, year, extra, image_path, pdf_path },
                 {
                     headers: {
                         'Content-Type': 'application/json'
@@ -26,18 +31,20 @@ function PapersCard({id, subject, grade, year,extra, image_path, pdf_path }) {
             alert(res.data.resultMessage);
         } catch (error) {
             console.error('error: ', error);
-            alert('An error occurred while trying to delete the news.');
+            alert('An error occurred while trying to delete the paper.');
+        } finally {
+            setShowModal(false);
         }
     };
 
     const handleUpdate = () => {
-        navigate('/update_pastPapers', { state: {id, subject, grade, year,extra, image_path, pdf_path} });
+        navigate('/update_pastPapers', { state: { id, subject, grade, year, extra, image_path, pdf_path } });
     };
 
     return (
         <>
             <div className="card rounded-4" id="card">
-                <div className="col-12 col-sm-8 col-lg-11 col-md-11 mx-auto " >
+                <div className="col-12 col-sm-8 col-lg-11 col-md-11 mx-auto ">
                     <img src={image_path} className="card-img-top" alt="Book Cover" />
                 </div>
 
@@ -53,7 +60,6 @@ function PapersCard({id, subject, grade, year,extra, image_path, pdf_path }) {
                         <Button onClick={handleUpdate} className="btn btn-primary" id="home-update-button">Update</Button>
                         <Button onClick={handleDelete} className="btn btn-danger" id="home-delete-button">Delete</Button>
                     </div>
-
                 </div>
             </div>
             {showPdf && (
@@ -63,6 +69,16 @@ function PapersCard({id, subject, grade, year,extra, image_path, pdf_path }) {
                     style={{ width: "100vw", height: "100vh", border: "none" }}
                 />
             )}
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to delete this paper?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>No</Button>
+                    <Button variant="danger" onClick={confirmDelete}>Yes</Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 }

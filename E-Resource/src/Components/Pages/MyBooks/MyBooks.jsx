@@ -8,12 +8,12 @@ import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
 function MyBooks() {
     const [buyBooks, setBuyBooks] = useState([]);
     const [pdfUrl, setPdfUrl] = useState(null);
-    const userId = 'SLMS/24/1';
+    const userId = 'SLMS/24/2';
 
     useEffect(() => {
         const fetchBuyBooks = async () => {
             try {
-                const res = await axios.post('http://localhost/Lbrary%20Management%20System/E-Resource_Php/MyBooks.php', {
+                const res = await axios.post('http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/MyBooksController.php', {
                     userId
                 }, {
                     headers: {
@@ -35,14 +35,14 @@ function MyBooks() {
 
     const viewBook = async (isbn) => {
         try {
-            const res = await axios.post('http://localhost/Lbrary%20Management%20System/E-Resource_Php/GetPDF.php', {
+            const res = await axios.post('http://localhost/Lbrary%20Management%20System/E-Resource_Php/Controllers/GetPDFController.php', {
                 isbn
             }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log("Response from GetPDF.php:", res.data);
+            console.log("Response from GetPDFController.php:", res.data);
             if (res.data.status === 'success') {
                 setPdfUrl(`http://localhost/Lbrary%20Management%20System/PDF/${res.data.data}`);
             } else {
