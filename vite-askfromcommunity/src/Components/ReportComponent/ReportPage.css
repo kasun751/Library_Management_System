@@ -44,3 +44,9 @@
     margin: 10px auto;
 
 }
+.modal-backdrop.fade{
+    visibility: hidden;
+}
+.modal-title, .modal-body{
+    color:black !important;
+}

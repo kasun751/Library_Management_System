@@ -18,6 +18,9 @@ function ReportPage({item, status}) {
       getPost(item.post_id);
     }
   }, []);
+  function confirmHandleDelete(para){
+    
+  }
   async function handleDelete(){
     setIsDelete(true);
       try{ //ok
@@ -82,9 +85,9 @@ function ReportPage({item, status}) {
       {isVisible&&<div className='container col-lg-10 report-page-container'>
         <div className=' post-container'>
           <div className='btn-panel'>
-            <button id='rejectBtn' onClick={handleRemoveReports} disabled={isRemove}>Reject All Reports</button>
+            <button id='rejectBtn' disabled={isRemove} data-bs-toggle="modal" data-bs-target="#rejectConfirm" >Reject All Reports</button>
 
-            <button id='deleteBtn' onClick={handleDelete} disabled={isDelete}>{status=="post"?"Delete Post":"Delete Reply"}</button>
+            <button id='deleteBtn'  disabled={isDelete} data-bs-toggle="modal" data-bs-target="#deleteConfirm" >{status=="post"?"Delete Post":"Delete Reply"}</button>
             <button id='rejectBtn' onClick={()=>setIsVisible(isVisible?false:true)}>Close</button>
           </div>
             <div id='imageSlider-container'>
@@ -107,6 +110,44 @@ function ReportPage({item, status}) {
         {(status=="reply"?true:false)&&<ReportTable status={status} post_id={item.post_id} reply_id={item.reply_id} user_id={item.user_id} />}
         </div>
       </div>}
+      {
+        <div className="modal fade" id="deleteConfirm" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel" style={{ color: "black" }}>Confirmation...!!!</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <h3>Do you want to Delete Post...!</h3>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={handleDelete}>Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      {
+        <div className="modal fade" id="rejectConfirm" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Confirmation...!!!</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <h3>Do you want to Reject Post Reports...!</h3>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={handleRemoveReports}>Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
     </>
   );
 }

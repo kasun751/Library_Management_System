@@ -186,8 +186,8 @@ function BodyPost({ post}) {
         </div>
         <div className='contentBox-outer'>
         <div className='contentBox'>
-          <div className='title-box'>
-              <h4 id="post-title">{post.title}</h4>
+          <div className='title-box mb-2'>
+              <h4 className='mt-2' id="post-title">{post.title}</h4>
               {/* <DescriptionBox description={post.description} /> */}
               <div className='description-container'>
                 <p>{post.description}</p>
@@ -202,8 +202,8 @@ function BodyPost({ post}) {
                     {/* <img src="src\Images\send-reply.svg" alt="" onClick={handleSendReply} />
                     <img src={visible ? "src/Images/not-see.svg" : "src/Images/look.svg"} alt="" onClick={handleVisibility} /> */}
 
-                    <button className="btn btn-primary" disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Send Reply'}</button>
-                  <button className="btn btn-primary ml-1" onClick={handleVisibility}>{visible ? 'Hide Replies' : 'Show Replies'}</button>
+                    <button className="btn btn-primary" disabled={loading} onClick={handleSendReply}>{loading ? 'Sending...' : 'Submit'}</button>
+                  <button className="btn btn-primary ml-1" onClick={handleVisibility}>{visible ? 'Hide Comments' : 'Show Comments'}</button>
                   </div>
                   
         </div>

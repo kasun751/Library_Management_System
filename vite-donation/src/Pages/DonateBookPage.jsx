@@ -64,16 +64,28 @@ function DonateBookPage() {
           {bookDetails?.map((item, index) => (
             <div key={index} className="">
               <Card style={{ width: '18rem' }} className='card_container'>
-                <Card.Img variant="top" src={bookImg} style={{ width: '40%' }} />
+                
                 <Card.Body>
-                  <Card.Title>{item.BookName}</Card.Title>
-                  <Card.Text>
-                    <p><label>ISBN:</label> {item.ISBN_Number}</p>
-                    <p><label>Author:</label> {item.AuthorName}</p>
-                    <p><label>Publisher:</label> {item.PublishName}</p>
-                    <p><label>Unit Price:</label> Rs. {item.BookPrice}/=</p>
+                  <Card.Title><h3 id='donate-book-title'>{item.BookName}</h3></Card.Title>
+                  <Card.Text style={{display:'flex', justifyContent:'center' }}>
+                    <label>ISBN: </label>&nbsp; {item.ISBN_Number} 
                   </Card.Text>
-                  <Button variant="primary" onClick={()=>handleClickDonate(item.BookPrice,item.ISBN_Number)}>Donate Now</Button>
+                  {/* <Card.Img variant="top" src={bookImg} style={{ width: '40%',margin: '0 auto' }} /> */}
+                  <Card.Text style={{display:'flex', justifyContent:'center' }}>
+                  <span id='book-requied'><label>Requied: </label>&nbsp; {item.quantity}</span>
+                  <span id= 'book-received'><label>Received: </label>&nbsp; {item.received_qty}</span>
+                  </Card.Text>
+                  <Card.Text>
+                    <label>Author: </label>&nbsp; {item.AuthorName}, <label>Publisher:</label>&nbsp; {item.PublishName}
+                  </Card.Text>
+                  {/* <Card.Text>
+                    <label>Publisher:</label> {item.PublishName}
+                  </Card.Text> */}
+                  <Card.Text style={{display:'flex', justifyContent:'center' }}>
+                    <label>Unit Price: </label>&nbsp; Rs.{item.BookPrice}
+                  </Card.Text>
+                  <Button variant="primary" style={{margin:"0 5px 0 0" }} onClick={()=>handleClickDonate(item.BookPrice,item.ISBN_Number)}>Donate Book</Button>
+                  <Button variant="secondary" onClick={()=>handleClickDonate(item.BookPrice,item.ISBN_Number)}>Donate Money</Button>
                 </Card.Body>
               </Card>
             </div>

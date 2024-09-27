@@ -14,7 +14,7 @@ function ReportPost({ post }) {
             <div>
               <button onClick={()=>setOpenReportPage(openReportPage?false:true)}>View Report Details</button>
               <h2>{post.title}</h2>
-              <h4 onClick={()=>setShowDescription(showDescription?false:true)}>Description</h4>
+              <h4 onClick={()=>setShowDescription(showDescription?false:true)}><span id='reportPost-description'>Description</span></h4>
               {showDescription && <p>{post.description}</p>}
             </div>
         </div>

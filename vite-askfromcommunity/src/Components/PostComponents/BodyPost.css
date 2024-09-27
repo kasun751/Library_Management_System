@@ -155,8 +155,10 @@
   }
 
 .description-container{
-  border: 1px solid black;
+  border: 1px solid gray;
+  padding: 10px;
   height:150px;
+  border-radius: 20px;
   max-width: 500px;
   margin: 0 20px;
   overflow-y: scroll;
@@ -178,6 +180,17 @@
   left: 0;
   width: 0%;
   height: 0%;
+}
+
+#post-title{
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* Clean, modern font */
+    font-size: 1.5em; /* Larger size for emphasis */
+    font-weight: bold; /* Bold text to stand out */
+    color: #333; /* Dark gray color for readability */
+    margin: 0 0 20px 0; /* Space below the title */
+    line-height: 1.2; /* Adjusts line spacing */
+    text-align: center; /* Center align the title */
+    text-transform: uppercase;
 }
 
 @media only screen and (max-width: 750px){

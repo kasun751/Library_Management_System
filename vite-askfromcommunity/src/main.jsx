@@ -11,11 +11,13 @@ import HomePage from './DummyPages/HomePage.jsx';
 import ContactUs from './DummyPages/ContactUs.jsx';
 import Services from './DummyPages/Services.jsx';
 import AboutUs from './DummyPages/AboutUs.jsx';
-
+async function getUserAuthantication(){
+  
+}
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App user_id={"U008"} user_type={"staff"} />
+    element: <App user_id={"U034"} user_type={"staff"} />
   },
   {
     path: "/home",

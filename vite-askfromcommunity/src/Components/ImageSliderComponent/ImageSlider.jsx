@@ -47,21 +47,21 @@ function ImageSlider({post_id}) {
             <img id='prev-img' src="src\Images\next-img-btn.svg" alt="next-image" onClick={handleForword}/>
         </div> */}
         <Carousel data-bs-theme="dark">
-            <Carousel.Item>
+            <Carousel.Item className='test'>
                 <img
                 className="d-block w-100"
                 src={imageArray[0]?"src/postImages/"+imageArray[0].image_url:"src/Images/default-img.svg" }
                 alt="First slide"
                 />
             </Carousel.Item>
-            {imageArray[1] &&<Carousel.Item>
+            {imageArray[1] &&<Carousel.Item className='test'>
                 <img
                 className="d-block w-100"
                 src={imageArray[1]?"src/postImages/"+imageArray[1].image_url:"src/Images/default-img.svg" }
                 alt="Second slide"
                 />
             </Carousel.Item>}
-            {imageArray[2] &&<Carousel.Item>
+            {imageArray[2] &&<Carousel.Item className='test'>
                 <img
                 className="d-block w-100"
                 src={imageArray[2]?"src/postImages/"+imageArray[2].image_url:"src/Images/default-img.svg" }

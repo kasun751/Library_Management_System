@@ -4,6 +4,7 @@ import SubHeader from '../Components/SubHeader'
 import { SearchDataContext } from './DonateBookPage';
 import axios from 'axios';
 import FooterComponent from '../Components/FooterComponent';
+import DonateBookAdmin from '../Components/DonateBookAdmin';
 
 function DonationBookAdminPage() {
   const [searchData, setSearchData] = useState("");
@@ -36,7 +37,9 @@ function DonationBookAdminPage() {
   async function getDonateBookTableData() {
     try {
       const res = await axios.get(`http://localhost:80/project_1/DonationHandling/Controller/donateBookAdminPageController.php?search=${searchData}&offset=${offSet}`);
-      setDonateBookTableData(res.data);
+      const result = res.data;
+      console.log(result)
+      setDonateBookTableData(result);      
     } catch (error) {
       console.error(error);
     }
@@ -72,7 +75,14 @@ function DonationBookAdminPage() {
         <img src="src\Images\next-page-btn.svg" onClick={() => onClickSetOffSet(25)} />
       </div>
       <button className='btn btn-success' id="summary-btn" data-bs-toggle="modal" data-bs-target="#summaryReport" onClick={() => getSummaryReport(reportDate.from,reportDate.to)}>Generate Summary Report</button>
-      <div className='table-responsive'>
+      <button className='btn btn-success' id="request-books-btn" data-bs-toggle="modal" data-bs-target="#request-books" onClick={() => getSummaryReport(reportDate.from,reportDate.to)}>Request Books</button>
+      <div className='d-flex justify-content-center m-2'>
+        {donateBookTableData?.map((item, index) => (
+        <DonateBookAdmin key={index} item1={item} count={index+1} >{console.log("hello",item)}  </DonateBookAdmin>                      
+            ))}
+      </div>
+      
+      {/* <div className='table-responsive'>
         <table className="table">
           <thead>
             <tr>
@@ -103,8 +113,8 @@ function DonationBookAdminPage() {
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="modal fade" id="donatorInfo" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      </div> */}
+       {/* <div className="modal fade" id="donatorInfo" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -129,7 +139,7 @@ function DonationBookAdminPage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="modal fade" id="summaryReport" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -198,7 +208,46 @@ function DonationBookAdminPage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> 
+      <div className="modal fade" id="request-books" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Requests For Books Donations</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <div class="mb-3">
+                <label for="isbnNumber" class="form-label">ISBN Number</label>
+                <input type="text" class="form-control" id="isbnNumber" placeholder="ISBN Number" />
+              </div>
+              <div class="mb-3">
+                <label for="bookName" class="form-label">Book Name</label>
+                <input type="text" class="form-control" id="bookName" placeholder="Book Name" />
+              </div>
+              <div class="mb-3">
+                <label for="authorName" class="form-label">Author Name</label>
+                <input type="text" class="form-control" id="authorName" placeholder="Author Name" />
+              </div>
+              <div class="mb-3">
+                <label for="pubName" class="form-label">Publisher Name</label>
+                <input type="text" class="form-control" id="pubName" placeholder="Publisher Name" />
+              </div>
+              <div class="mb-3">
+                <label for="bookPrice" class="form-label">Book Price</label>
+                <input type="number" class="form-control" id="bookPrice" placeholder="Book Price" />
+              </div>
+              <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" class="form-control" id="category" placeholder="Category" />
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div> 
       <FooterComponent />
     </>
   )

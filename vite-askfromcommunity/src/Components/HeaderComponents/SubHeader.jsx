@@ -80,6 +80,10 @@ function SubHeader({ onChangeTitle }) {
                       className='menu-btn'
                       src='src/Images/home-btn.svg'
                       alt="home btn"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom"
+                      data-bs-custom-class="custom-tooltip"
+                      data-bs-title="Home Button"
+                      title='Home Button'
                     />
                   </Link>
                   <div className="nav-link">
@@ -88,6 +92,7 @@ function SubHeader({ onChangeTitle }) {
                       src='src/Images/refresh-btn.svg'
                       alt="Refresh Posts"
                       onClick={handleRefresh}
+                      title='Refresh Button'
                     />
                   </div>
                   <div className="nav-link">
@@ -96,6 +101,7 @@ function SubHeader({ onChangeTitle }) {
                       src='src/Images/message-white-heart.svg'
                       alt="Saved Posts"
                       onClick={mySavedPost}
+                      title='Saved Posts'
                     />
                   </div>
                   <div className="nav-link">
@@ -104,6 +110,7 @@ function SubHeader({ onChangeTitle }) {
                       src='src/Images/message-line.svg'
                       alt="My posts"
                       onClick={myPost}
+                      title='My Posts'
                     />
                   </div>
                   {user_type === "staff" && (
@@ -114,6 +121,7 @@ function SubHeader({ onChangeTitle }) {
                           src='src/Images/report-post.svg'
                           alt='Reported Post'
                           onClick={showReportedPost}
+                          title='Reported Posts'
                         />
                       </div>
                       <div className="nav-link">
@@ -122,6 +130,7 @@ function SubHeader({ onChangeTitle }) {
                           src='src/Images/reported-msg.svg'
                           alt='Reported Msg'
                           onClick={showReportedMsg}
+                          title='Reported Messages'
                         />
                       </div>
                       <Link className="nav-link" to="/home">
