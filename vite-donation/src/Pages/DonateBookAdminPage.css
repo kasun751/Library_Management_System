@@ -13,11 +13,18 @@
   }
   #summary-btn{
     float:right;
+    margin: 10px 5px 5px 10px;
     position: relative;
     z-index: 100;
   }
   #request-books-btn{
     float:right;
     position: relative;
+    margin-right: 5px;
     z-index: 100;
+  }
+
+  .dbookAdmin{
+    display: flex;
+    flex-wrap: wrap;
   }

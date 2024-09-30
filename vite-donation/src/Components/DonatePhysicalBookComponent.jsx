@@ -3,7 +3,7 @@ import axios from 'axios';
 import './DonateBookComponent.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function DonateBookComponent({ onClickConfirmBookPayment, onClickClose,  amount, purpose, record_id, maxBook }) {
+function DonatePhysicalBookComponent({ onClickClose, purpose, record_id, maxBook, onClickConfirm }) {
   const [data, setData] = useState({
     fname: "",
     lname: "",
@@ -14,9 +14,10 @@ function DonateBookComponent({ onClickConfirmBookPayment, onClickClose,  amount,
     address: "",
     item: purpose,
     numberInput: "1",
-    amount: amount,
+    amount: -1,
     record_id: record_id,
   });
+//   const [showThankYouModal, setShowThankYouModal] = useState(false);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -24,73 +25,32 @@ function DonateBookComponent({ onClickConfirmBookPayment, onClickClose,  amount,
       ...prevData,
       [id]: value,
     }));
-    if (id === "numberInput") {
-      setData((prevData) => ({
-        ...prevData,
-        amount: amount * value,
-      }));
-    }
   };
- 
+
   const handleCheckFeilds = () => {
     return !(data.fname !== "" && data.lname !== "" && data.email !== "");
   }
 
-  // async function paymentGateway() {
-  //   try {
-  //     console.log("Fetching payment data...");
-  //     const res = await axios.post('http://localhost:80/project_1/DonationHandling/Controller/payHereProcessController.php', data);
-  //     const obj = res.data;
-  //     console.log("Payment data:", obj);
+  async function saveDonator() {
+    try {
+      console.log("Fetching payment data...");
+      const res = await axios.post('http://localhost:80/project_1/DonationHandling/Controller/payHereProcessController.php', data);
+      const obj = res.data;
+      console.log("Payment data:", obj);
+      // Show thank you modal after successful donation
+      setShowThankYouModal(true);
+    } catch (err) {
+      console.error("Error fetching payment data:", err);
+    }
+  }
 
-  //     payhere.onCompleted = function onCompleted(orderId) {
-  //       console.log("Payment completed. OrderID:", orderId);
-  //     };
-
-  //     payhere.onDismissed = function onDismissed() {
-  //       console.log("Payment dismissed");
-  //     };
-
-  //     payhere.onError = function onError(error) {
-  //       console.log("Error:", error);
-  //     };
-
-  //     const payment = {
-  //       sandbox: true,
-  //       merchant_id: "1227349",
-  //       return_url: "http://localhost:5173/",
-  //       cancel_url: "http://localhost:5173/",
-  //       notify_url: "",
-  //       order_id: obj.order_id,
-  //       items: obj.items,
-  //       amount: obj.amount,
-  //       currency: obj.currency,
-  //       hash: obj.hash,
-  //       first_name: obj.first_name,
-  //       last_name: obj.last_name,
-  //       email: obj.email,
-  //       phone: obj.phone,
-  //       address: obj.address,
-  //       city: obj.city,
-  //       country: obj.country,
-  //       delivery_address: "No. 46, Galle road, Kalutara South",
-  //       delivery_city: "Kalutara",
-  //       delivery_country: "Sri Lanka",
-  //       custom_1: "",
-  //       custom_2: ""
-  //     };
-
-  //     payhere.startPayment(payment);
-  //   } catch (err) {
-  //     console.error("Error fetching payment data:", err);
-  //   }finally{
-      
-  //   onClickClose();
-  //   }
-  // }
+//   const closeThankYouModal = () => {
+//     setShowThankYouModal(false);
+//     onClickClose();  // Close the parent component when thank you modal is closed
+//   };
 
   return (
-    <div className='donate-books-outer-container'>
+    <div id='donate-book' className='donate-books-outer-container'>
       <div className='container donate-books-container col-lg-6'>
         <form className="row g-3 needs-validation" noValidate onSubmit={(e) => e.preventDefault()}>
           <div className="col-md-6">
@@ -126,7 +86,7 @@ function DonateBookComponent({ onClickConfirmBookPayment, onClickClose,  amount,
                 type="text"
                 className="form-control"
                 id="phoneNum"
-                onChange={handleChange}
+                onChange={handleChange} 
                 value={data.phoneNum}
                 placeholder='07xxxxxxx'
                 aria-describedby="inputGroupPrepend"
@@ -197,16 +157,6 @@ function DonateBookComponent({ onClickConfirmBookPayment, onClickClose,  amount,
               disabled
             />
           </div>
-          <div className="col-md-6">
-            <label className="form-label">Amount</label>
-            <input
-              type="text"
-              className="form-control"
-              id="amount"
-              value={data.amount}
-              disabled
-            />
-          </div>
           <div className="col-md-4">
             <label className="form-label">Quantity</label>
             <input
@@ -223,11 +173,29 @@ function DonateBookComponent({ onClickConfirmBookPayment, onClickClose,  amount,
             <div className="invalid-feedback">Please enter a quantity.</div>
           </div>
         </form>
-        <input type='submit' className="btn btn-primary" onClick={()=>onClickConfirmBookPayment(data)} value="Donate" disabled={handleCheckFeilds()} />
+        <input type='submit' className="btn btn-primary"  value="Donate" onClick={()=>{onClickConfirm(data),onClickClose()}} disabled={handleCheckFeilds()} />
         <button className="btn btn-danger" onClick={onClickClose}>Cancel</button>
-      </div>          
+      </div> 
+
+      {/* Thank You Modal */}
+      {/* <div className={`modal fade ${showThankYouModal ? 'show' : ''}`} style={{ display: showThankYouModal ? 'block' : 'none' }} tabIndex="-1">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Thank You!</h5>
+              <button type="button" className="btn-close" onClick={closeThankYouModal}></button>
+            </div>
+            <div className="modal-body">
+              <p>Thank you for your donation, {data.fname} {data.lname}! We truly appreciate your support.</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-primary" onClick={closeThankYouModal}>Close</button>
+            </div>
+          </div>
+        </div>
+      </div> */}
     </div>
   );
 }
 
-export default DonateBookComponent;
+export default DonatePhysicalBookComponent;

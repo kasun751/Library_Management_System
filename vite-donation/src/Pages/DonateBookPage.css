@@ -8,12 +8,25 @@
   justify-content: space-around;
   margin: 50px 5px;
   min-height: 60vh;
+} 
+
+#Donation-con-div{
+  justify-content: center;
+    align-items: center;
+    position: fixed;
+    padding: 50px;
+    top: 0;
+    z-index: 50000;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.3);
 }
 
-.card_container{
-    margin: 5px;
-    justify-content:center;
-    align-items:center;
+.card-title{
+  background-color: rgb(127,182,247);
+  padding: 5px 0 !important;
+  margin: 0 0 15px 0 !important;
+  border-radius: 5px 5px 0 0;
 }
 
 P > label{
@@ -33,20 +46,45 @@ P > label{
   align-items: center;
 }
 #book-received{
-  margin: 0 0 0 10px;
-  padding: 3px 5px;
-  border: 1px solid gray;
-  background-color: green;
-  color: white;
-  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: rgb(140,230,142);
+  color: black;
 }
 #book-requied{
-  padding: 3px;
-  border: 1px solid gray;
-  background-color: red;
-  color: white;
-  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: rgb(255,174,88);
+  color: black;
 }
 #donate-book-title{
   text-align: center;
+  font-weight: bold;
+}
+
+.card-body{
+  padding: 0 0 10px 0 !important;
+}
+.card{
+  padding:0px !important;
+  margin: 5px;
+  border: 2px solid black !important;
+}
+
+.card-text{
+  display: flex;
+  justify-content: left;
+  margin-left: 10px;
+}
+
+.card-outer{
+  background-color: rgb(241, 239, 240);
+  margin: 10px;
+  border-radius: 5px;
+}
+.thankyou-outer-container{
+  position: fixed;
+  top:0;
+  width:100%;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 100;
 }

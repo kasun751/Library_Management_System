@@ -10,7 +10,8 @@ function DonationBookAdminPage() {
   const [searchData, setSearchData] = useState("");
   const [donateBookTableData, setDonateBookTableData] = useState([]);
   const [offSet, setOffSet] = useState(0);
-  const [itemData, setItemData] = useState({});
+  const [refreshPage, setRefreshPage] = useState(false);
+  const [requestBook, setRequestBook] = useState({});
   const [summaryReport, setSummaryReport] = useState({
     summary: [],
     totalBooks: {}
@@ -28,7 +29,7 @@ function DonationBookAdminPage() {
 
   useEffect(() => {
     getDonateBookTableData();
-  }, [searchData, offSet]);
+  }, [searchData, offSet, refreshPage]);
 
   useEffect(()=>{
     getSummaryReport(reportDate.from,reportDate.to);
@@ -42,6 +43,17 @@ function DonationBookAdminPage() {
       setDonateBookTableData(result);      
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  async function submitRequestBookDetails(data){
+    try {
+      const res = await axios.post(`http://localhost:80/project_1/DonationHandling/Controller/donateBookAdminPageController.php`, {
+        requestBookData: data,
+      });
+      console.log(res)
+    } catch (error) {
+      
     }
   }
 
@@ -64,6 +76,10 @@ function DonationBookAdminPage() {
     }
   }
 
+  function submitRequestBook(e){
+    submitRequestBookDetails(requestBook)
+  }
+
   return (
     <>
       <SearchDataContext.Provider value={{ searchData, setSearchData }}>
@@ -75,71 +91,12 @@ function DonationBookAdminPage() {
         <img src="src\Images\next-page-btn.svg" onClick={() => onClickSetOffSet(25)} />
       </div>
       <button className='btn btn-success' id="summary-btn" data-bs-toggle="modal" data-bs-target="#summaryReport" onClick={() => getSummaryReport(reportDate.from,reportDate.to)}>Generate Summary Report</button>
-      <button className='btn btn-success' id="request-books-btn" data-bs-toggle="modal" data-bs-target="#request-books" onClick={() => getSummaryReport(reportDate.from,reportDate.to)}>Request Books</button>
-      <div className='d-flex justify-content-center m-2'>
-        {donateBookTableData?.map((item, index) => (
-        <DonateBookAdmin key={index} item1={item} count={index+1} >{console.log("hello",item)}  </DonateBookAdmin>                      
+      <button className='btn btn-secondary' id="request-books-btn" data-bs-toggle="modal" data-bs-target="#request-books" onClick={() => getSummaryReport(reportDate.from,reportDate.to)}>Request Books</button>
+      <div className=' dbookAdmin m-2'>
+        {donateBookTableData?.slice(1).map((item, index) => (
+        <DonateBookAdmin key={index} item1={item} refreshPage={()=>setRefreshPage(refreshPage? false:true)} count={index+1} ></DonateBookAdmin>                      
             ))}
       </div>
-      
-      {/* <div className='table-responsive'>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">ISBN Number</th>
-              <th scope="col">No.of Books</th>
-              <th scope="col">Donator ID</th>
-              <th scope="col">First Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone number</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {donateBookTableData?.map((item, index) => (
-              <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>{item.ISBN_Number}</td>
-                <td>{item.no_of_books}</td>
-                <td>{item.donator_id}</td>
-                <td>{item.firstName}</td>
-                <td>{item.email}</td>
-                <td>{item.phoneNum}</td>
-                <td>
-                  <button type="button" className="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#donatorInfo" onClick={() => setItemData(item)}>More info</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div> */}
-       {/* <div className="modal fade" id="donatorInfo" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">{itemData.firstName + " " + itemData.lastName}</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <p><b>ISBN Number: </b>{itemData.ISBN_Number}</p>
-              <p><b>No.Of Books: </b>{itemData.no_of_books}</p>
-              <p><b>Unit Price: </b>{parseFloat(itemData.total_price) / parseInt(itemData.no_of_books)}</p>
-              <p><b>Total price: </b>{itemData.total_price}</p>
-              <p><b>Donator ID: </b>{itemData.donator_id}</p>
-              <p><b>Email: </b>{itemData.email}</p>
-              <p><b>Phone number: </b>{itemData.phoneNum}</p>
-              <p><b>Address: </b>{itemData.address}</p>
-              <p><b>City: </b>{itemData.city}</p>
-              <p><b>Country: </b>{itemData.country}</p>
-              <p><b>Time Stamp: </b>{itemData.time_stamp}</p>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <div className="modal fade" id="summaryReport" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -209,6 +166,7 @@ function DonationBookAdminPage() {
           </div>
         </div>
       </div> 
+
       <div className="modal fade" id="request-books" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -217,36 +175,107 @@ function DonationBookAdminPage() {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <div class="mb-3">
-                <label for="isbnNumber" class="form-label">ISBN Number</label>
-                <input type="text" class="form-control" id="isbnNumber" placeholder="ISBN Number" />
-              </div>
-              <div class="mb-3">
-                <label for="bookName" class="form-label">Book Name</label>
-                <input type="text" class="form-control" id="bookName" placeholder="Book Name" />
-              </div>
-              <div class="mb-3">
-                <label for="authorName" class="form-label">Author Name</label>
-                <input type="text" class="form-control" id="authorName" placeholder="Author Name" />
-              </div>
-              <div class="mb-3">
-                <label for="pubName" class="form-label">Publisher Name</label>
-                <input type="text" class="form-control" id="pubName" placeholder="Publisher Name" />
-              </div>
-              <div class="mb-3">
-                <label for="bookPrice" class="form-label">Book Price</label>
-                <input type="number" class="form-control" id="bookPrice" placeholder="Book Price" />
-              </div>
-              <div class="mb-3">
-                <label for="category" class="form-label">Category</label>
-                <input type="text" class="form-control" id="category" placeholder="Category" />
-              </div>
+              <form className="row g-3 needs-validation" noValidate>
+                <div className="mb-3">
+                  <label htmlFor="isbnNumber" className="form-label">ISBN Number</label>
+                  <input type="text" className="form-control" id="isbnNumber" onChange={(e)=>setRequestBook((prev)=>({
+                    ...prev,
+                      isbnNumber: e.target.value
+                  }))} placeholder="ISBN Number" required/>
+                  <div className="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="bookName" className="form-label">Book Name</label>
+                  <input type="text" className="form-control" id="bookName" onChange={(e)=>setRequestBook((prev)=>({
+                    ...prev,
+                      bookName: e.target.value
+                  }))} placeholder="Book Name" required/>
+                  <div className="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="authorName" className="form-label">Author Name</label>
+                  <input type="text" className="form-control" id="authorName" onChange={(e)=>setRequestBook((prev)=>({
+                    ...prev,
+                      authorName: e.target.value
+                  }))} placeholder="Author Name" required/>
+                  <div className="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="pubName" className="form-label">Publisher Name</label>
+                  <input type="text" className="form-control" id="pubName" onChange={(e)=>setRequestBook((prev)=>({
+                    ...prev,
+                      publisherName: e.target.value
+                  }))} placeholder="Publisher Name" required/>
+                  <div className="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="bookPrice" className="form-label">Book Price</label>
+                  <input type="number" className="form-control" id="bookPrice" onChange={(e)=>setRequestBook((prev)=>({
+                    ...prev,
+                      bookPrice: e.target.value
+                  }))} placeholder="Book Price" required/>
+                  <div className="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="category" className="form-label">Category</label>
+                  <input type="text" className="form-control" id="category" onChange={(e)=>setRequestBook((prev)=>({
+                    ...prev,
+                      category: e.target.value
+                  }))} placeholder="Category" required/>
+                  <div className="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="quantity" className="form-label">Quantity</label>
+                  <input type="number" className="form-control" id="quantity" onChange={(e)=>setRequestBook((prev)=>({
+                    ...prev,
+                      quantity: e.target.value
+                  }))} placeholder="Quantity" required/>
+                  <div className="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <button className="btn btn-primary" type="button" onClick={submitRequestBook} data-bs-dismiss="modal">Submit form</button>
+                </div>
+              </form>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
+        {/* {
+          (() => {
+            'use strict'
+          
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+          
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+              form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                }
+          
+                form.classList.add('was-validated')
+              }, false)
+            })
+          })()
+        } */}
       </div> 
       <FooterComponent />
     </>
