@@ -1,7 +1,8 @@
 
 
 #slms-logo{
-    width: 70px;
+    width: 100px;
+    height: 100px;
 }
 .navbar-light{
     background: rgb(69,141,224) !important;
@@ -16,5 +17,5 @@
     color: white;
     font-size: 20px;
     font-weight: 600;
-    font-family: "Times New Roman",sans-serif;
+    font-family: "Browallia New", sans-serif;
 }

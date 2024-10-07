@@ -2,7 +2,7 @@ import React from 'react';
 import './HeaderComponent.css';
 import {Link} from "react-router-dom";
 import LoginIcon from "../../assets/images/LoginManIcon.svg";
-import SLMSLogo from "../../assets/images/SLMS-mini-logo.svg";
+import SLMSLogo from "../../assets/images/SLMS-mini-logo.png";
 
 function HeaderComponent({id,Link1,router1,Link2,router2, Link3,router3, Link4,router4,Link5,router5,Link6,router6,Link7,router7}) {
     return (

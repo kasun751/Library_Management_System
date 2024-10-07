@@ -131,9 +131,12 @@ function E_Book_Home() {
                                 category={book.category}
                                 author={book.author}
                                 price={book.price}
+                                volume={book.volume}
+                                version={book.version}
                                 description={book.description}
                                 image_path={`http://localhost/Lbrary%20Management%20System/IMAGES/${book.image_path}`}
                                 pdf_path={`http://localhost/Lbrary%20Management%20System/PDF/${book.pdf_path}`}
+                                citations={book.citations}
                             />
                         ))}
 

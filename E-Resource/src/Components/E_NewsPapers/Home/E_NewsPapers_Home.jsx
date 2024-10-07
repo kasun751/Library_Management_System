@@ -22,23 +22,23 @@ function E_NewsPapers_Home() {
                     }
                 );
                 console.log(res.data);
-                setGetNewsPapersDetails(res.data || []); // Ensure to default to an empty array if res.data is falsy
+                setGetNewsPapersDetails(res.data || []);
             } catch (error) {
                 console.error("Error fetching data", error);
-                setGetNewsPapersDetails([]); // Set empty array on error to prevent undefined.filter() error
+                setGetNewsPapersDetails([]);
             }
         };
 
         getViewNewsPapersDetails();
     }, []);
 
-    // Ensure getNewsPapersDetails is an array before calling .filter()
+
     const filteredNews = Array.isArray(getNewsPapersDetails) ? getNewsPapersDetails.filter(news => {
         const query = searchQuery.toLowerCase();
         if (searchBy === 'title') {
             return news.title.toLowerCase().includes(query);
         } else if (searchBy === 'date') {
-            const newsDate = news.date?.toString().toLowerCase(); // Use optional chaining to avoid errors if news.date is null or undefined
+            const newsDate = news.date?.toString().toLowerCase();
             return newsDate?.includes(query);
         }
         return false;

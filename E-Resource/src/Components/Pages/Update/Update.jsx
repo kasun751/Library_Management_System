@@ -9,19 +9,19 @@ import FooterComponent from "../../FooterComponent/FooterComponent.jsx";
 const Update = () => {
 
     const location = useLocation();
-    const { isbn = '', title = '', author = '', price = '',
-        description = '', category = '', image_path = '', pdf_path = '' } = location.state || {};
+    const { isbn = '', title = '', author = '', price = '', volume='',version='',
+        description = '', category = '', image_path = '', pdf_path = '' ,citations=''} = location.state || {};
 
-    const [updateBook, setUpdateBook] = useState({ isbn, title, author, price, description, category, image_path, pdf_path });
+    const [updateBook, setUpdateBook] = useState({ isbn, title, author, price,volume,version, description, category, image_path, pdf_path ,citations});
     const [imageFile, setImageFile] = useState(null);
     const [pdfFile, setPdfFile] = useState(null);
     const [resMessage, setResMessage] = useState('');
 
     useEffect(() => {
-        if (isbn || title || author || price || description || category || image_path || pdf_path) {
-            setUpdateBook({ isbn, title, author, price, description, category, image_path, pdf_path });
+        if (isbn || title || author || price ||volume || version || description || category || image_path || pdf_path || citations) {
+            setUpdateBook({ isbn, title, author, price,volume,version, description, category, image_path, pdf_path ,citations });
         }
-    }, [isbn, title, author, price, description, category, image_path, pdf_path]);
+    }, [isbn, title, author, price, volume,version, description, category, image_path, pdf_path,citations]);
 
     const updateHandle = (e) => {
         const { name, value } = e.target;
@@ -88,6 +88,7 @@ const Update = () => {
             <div className="update_Ebook_form">
                 <div className="formContainer">
                     <h2 id="add" className="outlined-text ">Update E-Book</h2>
+                    <h2 style={{color:'yellow'}}>{resMessage}</h2>
                     <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
                         <div className="col-md-4">
                             <label htmlFor="validationCustom02" className="form-label">ISBN Number</label>
@@ -127,9 +128,31 @@ const Update = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="col-md-6">
+                            <label htmlFor="validationCustom03" className="form-label">Volume</label>
+                            <input type="text" className="form-control" id="validationCustom03" name="volume"
+                                   value={updateBook.volume || ""} onChange={updateHandle} />
+                            {/*<div className="invalid-feedback">*/}
+                            {/*    Please provide an Author name.*/}
+                            {/*</div>*/}
+                            {/*<div className="valid-feedback">*/}
+                            {/*    Looks good!*/}
+                            {/*</div>*/}
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="validationCustom03" className="form-label">Version</label>
+                            <input type="text" className="form-control" id="validationCustom03" name="version"
+                                   value={updateBook.version || ""} onChange={updateHandle}  />
+                            {/*<div className="invalid-feedback">*/}
+                            {/*    Please provide an Author name.*/}
+                            {/*</div>*/}
+                            {/*<div className="valid-feedback">*/}
+                            {/*    Looks good!*/}
+                            {/*</div>*/}
+                        </div>
 
                         <div className="col-md-6">
-                            <label htmlFor="validationCustom03" className="form-label">Author</label>
+                            <label htmlFor="validationCustom03" className="form-label">Author(s)</label>
                             <input type="text" className="form-control" id="validationCustom03" name="author"
                                    value={updateBook.author || ""} onChange={updateHandle} required />
                             <div className="invalid-feedback">
@@ -141,14 +164,16 @@ const Update = () => {
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="validationCustom04" className="form-label">Category</label>
-                            <select className="form-select" required aria-label="select example" name="category"
-                                    value={updateBook.category || ""} onChange={updateHandle}>
-                                <option value="">Open this select menu</option>
-                                <option value="Education">Education</option>
-                                <option value="Novels">Novels</option>
-                                <option value="Fantacy">Fantacy</option>
-                                <option value="Horror">Horror</option>
-                            </select>
+                            <input type="text" className="form-control" id="validationCustom04" name="category"
+                                   value={updateBook.category || ""} onChange={updateHandle} required />
+                            {/*<select className="form-select" required aria-label="select example" name="category"*/}
+                            {/*        value={updateBook.category || ""} onChange={updateHandle}>*/}
+                            {/*    <option value="">Open this select menu</option>*/}
+                            {/*    <option value="Education">Education</option>*/}
+                            {/*    <option value="Novels">Novels</option>*/}
+                            {/*    <option value="Fantacy">Fantacy</option>*/}
+                            {/*    <option value="Horror">Horror</option>*/}
+                            {/*</select>*/}
                             <div className="invalid-feedback">Please select a category.</div>
                             <div className="valid-feedback">
                                 Looks good!
@@ -185,6 +210,18 @@ const Update = () => {
                             <div className="valid-feedback">
                                 Looks good!
                             </div>
+                        </div>
+
+                        <div className="col-12">
+                            <label htmlFor="validationCustom05" className="form-label">Citations</label>
+                            <textarea cols="30" rows="5" className="form-control" id="validationCustom05" name="citations"
+                                      value={updateBook.citations || ""} onChange={updateHandle}  />
+                            {/*<div className="invalid-feedback">*/}
+                            {/*    Please provide a description.*/}
+                            {/*</div>*/}
+                            {/*<div className="valid-feedback">*/}
+                            {/*    Looks good!*/}
+                            {/*</div>*/}
                         </div>
                         <div className="button-container col-12">
                             <button className="btn btn-primary button" id="right-button" type="submit">Update E-Book</button>

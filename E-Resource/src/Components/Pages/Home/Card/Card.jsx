@@ -4,7 +4,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 
-function Card({title, isbn, author, price, description, image_path, category, pdf_path}) {
+function Card({title, isbn, author, price,volume,version, description, image_path, category, pdf_path,citations}) {
     const [buyBookDetails, setBuyBookDetails] = useState(null);
     const navigate = useNavigate();
     const userId = 'SLMS/24/2'; // getting from session storage
@@ -79,13 +79,13 @@ function Card({title, isbn, author, price, description, image_path, category, pd
     }, [buyBookDetails]);
 
     const handleDelete = () => {
-        navigate('/remove', {state: {isbn, title, author}});
+        navigate('/remove', {state: {isbn, title, volume,version,author}});
 
     };
 
     const handleUpdate = () => {
 
-        navigate('/update', {state: {isbn, title, author, price, description, category, image_path, pdf_path}});
+        navigate('/update', {state: {isbn, title, volume,version,author, price, description, category, image_path, pdf_path,citations}});
     };
 
     return (

@@ -5,11 +5,13 @@
     padding: 50px;
     background: url("../../../assets/images/e_newsPapers1.jpg") center center / cover no-repeat;
     width: 100vw;
+    font-family: "Browallia New", sans-serif;
 }
 .enewsPaper_header h1{
     color: white;
     font-size: 48px;
     font-weight: bold;
+    font-family: "Browallia New", sans-serif;
 }
 
 

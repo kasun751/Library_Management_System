@@ -27,7 +27,7 @@ class EBook
     public function ViewBookDetails($limit, $offset)
     {
 
-        $sql = "SELECT isbn, title, price, author, category, description, image_path, pdf_path 
+        $sql = "SELECT isbn, title, price,volume,version, author, category, description, image_path, pdf_path,citations 
         FROM ebook 
         ORDER BY isbn DESC 
         LIMIT $limit OFFSET $offset";
@@ -36,18 +36,18 @@ class EBook
         return $result;
     }
 
-    public function AddBook($isbn, $title, $price, $author, $category, $description, $newFileName, $newFileName1)
+    public function AddBook($isbn, $title, $price, $volume,$version,$author, $category, $description, $newFileName, $newFileName1,$citations)
     {
 
-        $sql = "INSERT INTO ebook (isbn, title,price,author, category, description, pdf_path,image_path)
-                    VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+        $sql = "INSERT INTO ebook (isbn, title,price,volume,version,author, category, description, pdf_path,image_path,citations)
+                    VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
 
         $stmt = $this->conn->prepare($sql);
         if ($stmt === false) {
             die("Prepare failed: " . htmlspecialchars($this->conn->error));
         }
 
-        $stmt->bind_param('ssssssss', $isbn, $title, $price, $author, $category, $description, $newFileName, $newFileName1);
+        $stmt->bind_param('sssssssssss', $isbn, $title, $price,$volume,$version,  $author,$category, $description, $newFileName, $newFileName1,$citations);
         $result = $stmt->execute();
 
         return $result;
@@ -66,17 +66,17 @@ class EBook
         return ['pdf_path' => $currentPdfPath, 'image_path' => $currentImagePath];
     }
 
-    public function UpdateBook($title, $price, $author, $category, $description, $newFileName, $newFileName1, $isbn)
+    public function UpdateBook($title, $price, $author,$volume,$version, $category, $description, $newFileName, $newFileName1,$citations, $isbn)
     {
 
-        $sql2 = "UPDATE ebook SET title=?, price=?, author=?, category=?, description=?, pdf_path=?, image_path=? WHERE isbn=?";
+        $sql2 = "UPDATE ebook SET title=?, price=?, author=?,volume=?,version=?, category=?, description=?, pdf_path=?, image_path=? ,citations=? WHERE isbn=?";
         $stmt = $this->conn->prepare($sql2);
 
         if ($stmt === false) {
             die("Prepare failed: " . htmlspecialchars($this->conn->error));
         }
 
-        $stmt->bind_param('ssssssss', $title, $price, $author, $category, $description, $newFileName, $newFileName1, $isbn);
+        $stmt->bind_param('sssssssssss', $title, $price, $author,$volume,$version, $category, $description, $newFileName, $newFileName1,$citations, $isbn);
         $result = $stmt->execute();
 
         return $result;

@@ -17,7 +17,7 @@
 }
 .main_home h1{
     color: white;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Browallia New", sans-serif;
     font-size: 48px;
     font-weight: bold;
     margin-left: 2rem;
@@ -27,7 +27,7 @@
     width: 10rem;
     margin-left: 8.9rem;
     margin-top: 0.5rem;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Browallia New", sans-serif;
     font-weight: initial;
     font-size: 20px;
     background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
@@ -44,12 +44,12 @@
 }
 .home h2{
     font-size:43px;
-     font-family: "Inter", sans-serif;
+    font-family: "Browallia New", sans-serif;
     font-weight: bold;
     color: #072E5D;
 }
 .home p{
-    font-family: "Libre Caslon Text", serif;
+    font-family: "Browallia New", sans-serif;
     font-size: 24px;
     font-weight: lighter;
 }

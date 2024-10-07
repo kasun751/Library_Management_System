@@ -2,7 +2,7 @@ import React from 'react';
 import './FooterComponent.css';
 import { Link } from 'react-router-dom';
 import AskForum from "../../assets/images/askForum-logo.svg"
-import SLMSLogo from "../../assets/images/SLMS-mini-logo.svg";
+import SLMSLogo from "../../assets/images/SLMS-mini-logo.png";
 import IdeaCorner from "../../assets/images/mdi_art.svg"
 function FooterComponent() {
     return (

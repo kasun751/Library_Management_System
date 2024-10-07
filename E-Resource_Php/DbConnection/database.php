@@ -6,6 +6,7 @@ class database
     private $password='';
     private $database='lms';
     private $port = 3308;
+
     public function dbConnect(){
         $con = new mysqli($this->hostName, $this->userName, $this->password, $this->database, $this->port);
 

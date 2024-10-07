@@ -23,13 +23,14 @@
     align-items: center;
     padding: 50px;
     background: url("../../../assets/images/ideas3.jpg") center center / cover no-repeat;
+    font-family: "Browallia New", sans-serif;
     width: 99vw;
 }
 
 
 .eBook_header h1{
     color: white;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Browallia New", sans-serif;
     font-size: 48px;
     font-weight: bold;
     margin-left: 2rem;
@@ -55,6 +56,7 @@
 }
 
 #right-button{
+    font-family: "Browallia New", sans-serif;
     background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
     font-weight: bold;
     width: 10rem;
@@ -64,6 +66,7 @@
     color: white;
 }
 #buy-button{
+    font-family: "Browallia New", sans-serif;
     background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
     font-weight: bold;
     width: 10rem;

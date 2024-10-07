@@ -73,7 +73,11 @@ function NewsCard({ Id, title, date, description, image_path, pdf_path }) {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this paper?</Modal.Body>
+                <Modal.Body>
+                    <p>Are you sure you want to delete the following newspaper?</p>
+                    <p><strong>Title:</strong> {title}</p>
+                    <p><strong>Date:</strong> {date}</p>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>No</Button>
                     <Button variant="danger" onClick={confirmDelete}>Yes</Button>

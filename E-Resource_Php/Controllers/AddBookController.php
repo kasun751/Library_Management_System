@@ -16,20 +16,26 @@ class AddBookController{
             isset($_POST['isbn']) &&
             isset($_POST['title']) &&
             isset($_POST['price']) &&
+            isset($_POST['volume']) &&
+            isset($_POST['version']) &&
             isset($_POST['author']) &&
             isset($_POST['category']) &&
             isset($_POST['description']) &&
             isset($_FILES['image']) &&
-            isset($_FILES['pdf'])
+            isset($_FILES['pdf'])&&
+            isset($_POST['citations'])
         ) {
             $isbn = $_POST['isbn'];
             $title = $_POST['title'];
             $price = $_POST['price'];
+            $volume = $_POST['volume'];
+            $version = $_POST['version'];
             $author = $_POST['author'];
             $category = $_POST['category'];
             $description = $_POST['description'];
             $image = $_FILES['image'];
             $pdf = $_FILES['pdf'];
+            $citations = $_POST['citations'];
 
             if ($pdf['error'] === UPLOAD_ERR_OK && $image['error'] === UPLOAD_ERR_OK) {
 
@@ -70,7 +76,7 @@ class AddBookController{
 //                    }
 //
 //                    $stmt->bind_param('ssssssss',  $isbn, $title, $price,$author, $category, $description, $newFileName,$newFileName1);
-                    $result=$this->eBookObj->AddBook($isbn, $title, $price,$author, $category, $description, $newFileName,$newFileName1);
+                    $result=$this->eBookObj->AddBook($isbn, $title, $price,$volume,$version,$author, $category, $description, $newFileName,$newFileName1,$citations);
 
                     if ($result) {
                         echo json_encode(['resultMessage' => 'true']);

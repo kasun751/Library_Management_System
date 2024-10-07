@@ -83,6 +83,7 @@ function Update_NewsPapers() {
             <div className="Update_pasrpapers_form">
                 <div className="formContainer">
                     <h2 id="add" className="outlined-text ">Update E-Past Paper</h2>
+                    <h2 style={{color:'yellow'}}>{resMessage}</h2>
                     <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
                         <div className="col-md-3">
                             <label htmlFor="validationCustom02" className="form-label">ID</label>

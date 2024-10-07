@@ -9,15 +9,18 @@ function Add() {
         isbn: '',
         title: '',
         price: '',
+        volume:'',
+        version:'',
         author: '',
         category: '',
         description: '',
         image:null,
-        pdf: null
+        pdf: null,
+        citations:''
     });
     const [resMessage, setResMessage] = useState('');
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const name = e.target.name;
         let value;
         if (name === 'image' || name === 'pdf') {
@@ -26,6 +29,50 @@ function Add() {
             value = e.target.value;
         }
         setFormData({ ...formData, [name]: value });
+
+        // Check if the ISBN or title field is updated and fetch book data
+        if (name === 'isbn' || name === 'title') {
+            await fetchBookData(value, name);
+        }
+    };
+
+    const fetchBookData = async (query, type) => {
+        try {
+            let searchQuery = '';
+            if (type === 'isbn') {
+                searchQuery = `isbn:${query}`;
+            } else if (type === 'title') {
+                searchQuery = `intitle:${query}`;
+            }
+
+            const response = await axios.get(
+                `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=AIzaSyAgwncdGLmMwKCy0yFYIeK2z_WO_DaGRjg`
+            );
+
+            if (response.data.items && response.data.items.length > 0) {
+                const book = response.data.items[0].volumeInfo;
+                const industryIdentifiers = book.industryIdentifiers || [];
+
+
+                const isbn = industryIdentifiers.find(identifier => identifier.type === 'ISBN_13')?.identifier ||
+                    industryIdentifiers.find(identifier => identifier.type === 'ISBN_10')?.identifier || '';
+
+
+                setFormData({
+                    ...formData,
+                    isbn: isbn || formData.isbn,
+                    title: book.title || formData.title,
+                    author: book.authors ? book.authors.join(', ') : formData.author,
+                    description: book.description || formData.description,
+                    category: book.categories ? book.categories[0] : formData.category,
+                    price: formData.price,
+                    volume: book.volume || formData.volume,
+                    version: book.version || formData.version
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching book data:', error);
+        }
     };
 
     const updateDatabase = async () => {
@@ -65,13 +112,16 @@ function Add() {
 
     return (
         <>
+
             <HeaderComponent
                 id="homePageHeader" router1={"/"} Link1={"Home"}
                 router2={"/logout"} Link4={"Log Out"}
             />
+
         <div className="add_Ebook_form">
             <div className="formContainer">
                 <h2 id="add" className="outlined-text ">Add E-Book</h2>
+                <h2 style={{color:'yellow'}}>{resMessage}</h2>
                 <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
                     <div className="col-md-4">
                         <label htmlFor="validationCustom02" className="form-label">ISBN Number</label>
@@ -111,9 +161,31 @@ function Add() {
                             </div>
                         </div>
                     </div>
+                    <div className="col-md-6">
+                        <label htmlFor="validationCustom03" className="form-label">Volume</label>
+                        <input type="text" className="form-control" id="validationCustom03" name="volume"
+                               value={formData.volume} onChange={handleChange}/>
+                        {/*<div className="invalid-feedback">*/}
+                        {/*    Please provide a Author name.*/}
+                        {/*</div>*/}
+                        {/*<div className="valid-feedback">*/}
+                        {/*    Looks good!*/}
+                        {/*</div>*/}
+                    </div>
+                    <div className="col-md-6">
+                        <label htmlFor="validationCustom03" className="form-label">Version</label>
+                        <input type="text" className="form-control" id="validationCustom03" name="version"
+                               value={formData.version} onChange={handleChange}  />
+                        {/*<div className="invalid-feedback">*/}
+                        {/*    Please provide a Author name.*/}
+                        {/*</div>*/}
+                        {/*<div className="valid-feedback">*/}
+                        {/*    Looks good!*/}
+                        {/*</div>*/}
+                    </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="validationCustom03" className="form-label">Author</label>
+                        <label htmlFor="validationCustom03" className="form-label">Author(s)</label>
                         <input type="text" className="form-control" id="validationCustom03" name="author"
                                value={formData.author} onChange={handleChange} required />
                         <div className="invalid-feedback">
@@ -125,14 +197,16 @@ function Add() {
                     </div>
                     <div className="col-md-6">
                         <label htmlFor="validationCustom04" className="form-label">Category</label>
-                        <select className="form-select" required aria-label="select example" name="category"
-                                value={formData.category} onChange={handleChange}>
-                            <option value="">Open this select menu</option>
-                            <option value="Education">Education</option>
-                            <option value="Novels">Novels</option>
-                            <option value="Fantacy">Fantacy</option>
-                            <option value="Horror">Horror</option>
-                        </select>
+                        <input type="text" className="form-control" id="validationCustom04" name="category"
+                               value={formData.category} onChange={handleChange} required />
+                        {/*<select className="form-select" required aria-label="select example" name="category"*/}
+                        {/*        value={formData.category} onChange={handleChange}>*/}
+                        {/*    <option value="">Open this select menu</option>*/}
+                        {/*    <option value="Education">Education</option>*/}
+                        {/*    <option value="Novels">Novels</option>*/}
+                        {/*    <option value="Fantacy">Fantacy</option>*/}
+                        {/*    <option value="Horror">Horror</option>*/}
+                        {/*</select>*/}
                         <div className="invalid-feedback">Please select a category.</div>
                         <div className="valid-feedback">
                             Looks good!
@@ -169,12 +243,25 @@ function Add() {
                             Looks good!
                         </div>
                     </div>
+
+                    <div className="col-12">
+                        <label htmlFor="validationCustom05" className="form-label">Citations</label>
+                        <textarea cols="30" rows="5" className="form-control" id="validationCustom05" name="citations"
+                                  value={formData.citations} onChange={handleChange} />
+                        {/*<div className="invalid-feedback">*/}
+                        {/*    Please provide a description.*/}
+                        {/*</div>*/}
+                        {/*<div className="valid-feedback">*/}
+                        {/*    Looks good!*/}
+                        {/*</div>*/}
+                    </div>
                     <div className="button-container col-12">
                         <button className="btn btn-primary button" id="right-button" type="submit">Add E-Book</button>
                     </div>
                 </form>
             </div>
         </div>
+
             <FooterComponent/>
         </>
     );

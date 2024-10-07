@@ -20,9 +20,12 @@ class UpdateBookController{
             $isbn = $_POST['isbn'];
             $title = $_POST['title'];
             $price = $_POST['price'];
+            $volume = $_POST['volume'];
+            $version = $_POST['version'];
             $author = $_POST['author'];
             $category = $_POST['category'];
             $description = $_POST['description'];
+            $citations = $_POST['citations'];
 
 //            $dbCon = new database();
 //            $conn = $dbCon->dbConnect();
@@ -97,7 +100,7 @@ class UpdateBookController{
 //            }
 //
 //            $stmt->bind_param('ssssssss', $title, $price, $author, $category, $description, $newFileName, $newFileName1, $isbn);
-            $result=$this->eBookObj->UpdateBook($title, $price, $author, $category, $description, $newFileName, $newFileName1, $isbn);
+            $result=$this->eBookObj->UpdateBook($title, $price, $volume,$version,$author, $category, $description, $newFileName, $newFileName1,$citations, $isbn);
 
             if ($result) {
                 echo json_encode(['resultMessage' => 'true']);
