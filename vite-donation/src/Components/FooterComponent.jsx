@@ -18,7 +18,7 @@ function FooterComponent() {
           <img src='src/Images/askForum-logo.svg' alt='ask forum' />
           <label>Ask Forum</label>
         </div>
-      </div>
+      </div> 
       <div className='row mb-4 justify-content-center'>
         <Link to='/' className='col-6 col-md-1 mb-2 footer-link'>Home</Link>
         <Link to='/' className='col-6 col-md-1 mb-2 footer-link'>About Us</Link>

@@ -1,0 +1,76 @@
+.bookSectionCommonClass{
+    background-image:linear-gradient(rgba(182, 179, 179, 0.25), rgba(166, 166, 166, 0.27)),  url('../../../assets/images/BookSectionBG.webp') ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    min-height: 100vh;
+    height: 100%;
+    box-sizing: border-box;
+}
+.bookSectionCommonClass::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    filter: blur(3px);
+    z-index: -1;
+    opacity: 0.8;
+}
+.bookSectionCommonClass .commonHeader{
+    border-bottom: 20px white solid;
+}
+.bookSectionCommonClass .footer-container{
+    border-top: 20px white solid;
+}
+
+.bookSectionCommonFormClass {
+    margin:40px 76px;
+    height:auto;
+    max-width: 1200px;
+    background: rgba(234, 228, 228, 0.19);
+    border: 2px solid rgba(251, 251, 251, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index:1000;
+    padding: 20px 40px;
+}
+.bookSectionCommonFormClass h1{
+    text-align: center;
+    font-weight: 800;
+    font-family: 'Georgia', serif;
+}
+.bookSectionCommonFormClass label{
+    width: 280px;
+    margin-top: 16px;
+   font-weight: 800;
+    font-family: 'Arial', sans-serif;
+}
+#formDivAddNewBook{
+    margin: auto;
+    margin-top: 20px;
+}
+#formDivAddNewBook #addCategory{
+    margin-top: 10px;
+}
+.bookSectionCommonFormClass button{
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(21, 101, 202) 87%) !important;
+    border: none!important;
+    margin-top: 20px;
+    width: auto !important;
+    padding: 10px 40px !important;
+}
+
+.bookSectionCommonFormClass button a{
+    color: white!important;
+    text-decoration: none;
+}
+.bookSectionCommonFormClass #submit{
+    float: right;
+}

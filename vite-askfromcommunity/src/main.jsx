@@ -17,7 +17,7 @@ async function getUserAuthantication(){
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App user_id={"U034"} user_type={"staff"} />
+    element: <App user_id={"U034"} user_type={"reg"} />
   },
   {
     path: "/home",

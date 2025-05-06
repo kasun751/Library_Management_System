@@ -1,0 +1,22 @@
+.card-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin: 50px;
+    justify-content: center;
+    font-family: "Browallia New", sans-serif;
+}
+
+.pdf-container {
+    margin-top: 20px;
+    height: 100vh;
+    border: none;
+}
+
+/* Hide the download, print, and toolbar buttons using custom styles */
+iframe {
+    height: 100%;
+    width: 100%;
+    border: none;
+}

@@ -1,0 +1,59 @@
+.e_NewsPapers_form {
+    margin:20px 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background: url("../../../assets/images/e_newsPapers1.jpg") center center/cover no-repeat;
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Browallia New", sans-serif;
+}
+.e_NewsPapers_form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../../../assets/images/e_newsPapers1.jpg') center center/ cover no-repeat;
+    filter: blur(3px);
+    z-index: -1;
+    opacity: 0.8;
+}
+.outlined-text{
+    text-shadow:
+            -1px -1px 0 #fff,
+            1px -1px 0 #fff,
+            -1px  1px 0 #fff,
+            1px  1px 0 #fff;
+    color: black;
+}
+.formContainer{
+    width: 91%;
+    height: 90%;
+    margin: auto;
+    padding: 20px 40px;
+    border-radius: 20px;
+    background-color: rgba(161, 171, 177, 0.88);
+    position: relative;
+    z-index: 2;
+    border: white 2px solid;
+    font-size: 17px;
+    font-weight:bolder ;
+}
+@media only screen and (max-width: 1240px) {
+    .e_NewsPapers_form {
+        height: 100%;
+
+    }
+}
+@media only screen and (max-width: 765px) {
+    .e_NewsPapers_form {
+        height: 100%;
+
+    }
+}

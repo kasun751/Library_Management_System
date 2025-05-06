@@ -1,5 +1,5 @@
 /* Styles for Submit Post Form */
-.submitPostFormBox {
+.main-submit .submitPostFormBox {
     position: fixed;
     bottom: 1%;
     left: 50%;
@@ -13,10 +13,10 @@
     background: linear-gradient(0deg, rgba(5, 50, 104, 1) 16%, rgba(55, 63, 72, 0.9) 87%) !important;
     z-index: 10000;
   }
-  .form-control{
+  .main-submit .form-control{
     padding: 0;
   }
-  .submitPostFormBox textarea {
+  .main-submit .submitPostFormBox textarea {
     resize: none;
     width: 100%;
     padding: 10px;
@@ -27,7 +27,7 @@
     box-sizing: border-box;
   }
   
-  .submitPostFormBox input[type="text"], textarea {
+  .main-submit .submitPostFormBox input[type="text"], textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -37,13 +37,13 @@
     box-sizing: border-box;
   }
 
-  #warning-msg > p{
+  .main-submit #warning-msg > p{
     color: red;
     font-size: smaller;
     text-align: center;
   }
   
-  .submitPostFormBox input[type="button"] {
+  .main-submit .submitPostFormBox input[type="button"] {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -56,7 +56,7 @@
   }
   
   /* Styles for Blog Post */
-  .blogPost {
+  .main-submit .blogPost {
     margin-bottom: 20px;
     padding: 20px;
     border: 2px solid #ccc;
@@ -64,24 +64,24 @@
     background-color: #f9f9f9;
   }
   
-  .blogPost h2 {
+  .main-submit .blogPost h2 {
     font-size: 24px;
     margin-bottom: 10px;
   }
   
-  .blogPost p {
+  .main-submit .blogPost p {
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 10px;
   }
   
-  .blogPost small {
+  .main-submit .blogPost small {
     font-size: 14px;
     color: #666;
   }
   
   /* Styles for Submit Post Button */
-  .submitPostFormBtn img {
+  .main-submit .submitPostFormBtn img {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -92,31 +92,31 @@
     z-index: 100;
     cursor: pointer;
   }
-  .submitPostFormBtn img:hover{
+  .main-submit .submitPostFormBtn img:hover{
     background-color: rgb(99, 156, 189); 
     border-radius: 40px;
     padding: 0px;
     transition: 500.2ms;
   }
-  .submitPostFormBtn img:active{
+  .main-submit .submitPostFormBtn img:active{
     background-color:aqua;
     padding: 5px;
     transition: 200.2ms;
   }
-#submitForm-back-btn{
+  .main-submit #submitForm-back-btn{
   width: 55px;
   padding: 5px;
   cursor: pointer;
 }
 
-#submitForm-back-btn:hover{
+.main-submit #submitForm-back-btn:hover{
   background-color: rgb(99, 156, 189);  
   padding: 0;
     border-radius: 50px;
     transition: 500.2ms;
 }
 
-#submitForm-back-btn:active{
+.main-submit #submitForm-back-btn:active{
   background-color:aqua;
   padding: 5px;
   transition: 200.2ms;

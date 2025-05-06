@@ -9,7 +9,7 @@ function ReportPost({ post }) {
 
 
   return (
-    <>
+    <div className='main-reportPost'>
         <div className='reportPost-container'>            
             <div>
               <button onClick={()=>setOpenReportPage(openReportPage?false:true)}>View Report Details</button>
@@ -30,7 +30,7 @@ function ReportPost({ post }) {
             }
         
         </AnimatePresence>
-    </>    
+    </div>    
   )
 }
 

@@ -37,7 +37,7 @@ function DonateFundsPage() {
         amount: value,
       }));
     }
-  };
+  }; 
 
   async function paymentGateway() {
     try {
@@ -92,7 +92,7 @@ function DonateFundsPage() {
   }
 
   return (
-    <>
+    <div className='main-dFund'>
       <SearchDataContext.Provider value={{searchData, setSearchData}}>
         <SubHeader searchBar={false} />
       </SearchDataContext.Provider>
@@ -229,7 +229,7 @@ function DonateFundsPage() {
         <button className="btn btn-primary " onClick={paymentGateway}>Donate Now</button>
       </div>
       <FooterComponent />
-    </>
+    </div>
   );
 }
 

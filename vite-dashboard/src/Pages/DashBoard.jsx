@@ -67,7 +67,7 @@ function DashBoard() {
   },[])
 
   return (
-    <>
+    < div className='main-dashboard'>
       <HeaderComponent />
       {!openProfile && <div className='container dashboard-outer'>
         <div className='row dashboard'>
@@ -251,7 +251,7 @@ function DashBoard() {
         </div>
       </div>
       <FooterComponent />
-    </>
+    </div>
   );
 }
 

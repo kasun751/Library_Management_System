@@ -1,4 +1,4 @@
-.postComponent {
+.main-bodyPost .postComponent {
     margin:20px 0;
     padding: 20px;
     text-align: left;
@@ -10,48 +10,48 @@
     grid-template-columns: 40% 60%;
     grid-template-rows: 1fr;
   }
-  .post-btn-panel{
+  .main-bodyPost .post-btn-panel{
     width: 100%;
-    padding:5px;
+    padding:5px; 
     margin-bottom: 3px;
     border-radius: 10px;
   }
 
-  .imageSlider-container{
+  .main-bodyPost .imageSlider-container{
     display: flex;
     justify-content: center; 
     align-items: flex-start;      
     max-height:350px;
   }
-  #enlarge-btn{
+  .main-bodyPost #enlarge-btn{
     width:10vw;
     max-width: 50px;
     padding: 5px;
     float: left;
   }
-  #enlarge-btn:hover{
+  .main-bodyPost #enlarge-btn:hover{
     padding: 0;
     background-color: rgb(99, 156, 189);
     border-radius: 20px;
     transition: 500.2ms;
   }
-  #enlarge-btn:active{
+  .main-bodyPost #enlarge-btn:active{
     padding: 5px;
     border-radius: 20px;
     background-color: rgb(60, 104, 129);
 
   }
-  #post-title{
+  .main-bodyPost #post-title{
     padding: 0 5px;
     margin-bottom: 10px;
   }
   
-  .imageSlider-container > * {
+  .main-bodyPost .imageSlider-container > * {
     max-width: 50%;          /* Ensure child respects container's width */
     max-height: 70%;         /* Ensure child respects container's height */
   }
   
-  .contentBox{
+  .main-bodyPost .contentBox{
     /* display: grid; */
     display: inline-flex;
     max-width: 100%;
@@ -63,7 +63,7 @@
     margin: 10px;
     border-radius: 20px;
   }
-  .contentBox-outer{
+  .main-bodyPost  .contentBox-outer{
     display: flex;
     justify-content: center;
     justify-items: center;
@@ -88,11 +88,11 @@
     transition: 500.2ms;
     
   } */
-  .post-msg-btn > button{
+  .main-bodyPost  .post-msg-btn > button{
     margin-left: 10px;
     background-color: #072E5D !important;
   }
-  .title-box > input[type="text"] {
+  .main-bodyPost  .title-box > input[type="text"] {
     max-width: 100%;
     padding: 5px;
     display: block;
@@ -104,7 +104,7 @@
     box-sizing: border-box;
   }
   
-  .replyBox {
+  .main-bodyPost .replyBox {
     margin-top: 20px;
     max-height:300px;
     height: auto;
@@ -112,49 +112,49 @@
     
   }
 
-  .image-box{
+  .main-bodyPost .image-box{
     max-width: 100%;    
     display: flex;
     flex-direction: column;
   }
-.title-box{
+  .main-bodyPost .title-box{
   /* margin: 0 auto; */
   min-width: 300px;
   
 }
 
-  #savePostBtn, #editPostBtn, #reportBtn, #deletePostBtn{
+.main-bodyPost #savePostBtn, #editPostBtn, #reportBtn, #deletePostBtn{
     width:45px;
     padding: 10px;
     margin: 0 10px 2.5px 2.5px;
     float: right;
   }
-  #savePostBtn:hover, #editPostBtn:hover{
+  .main-bodyPost #savePostBtn:hover, #editPostBtn:hover{
     cursor: pointer;
     background-color: rgb(85, 119, 140);
     border-radius: 50px;
     padding: 5px;
     transition: 500.2ms;
   }
-  #savePostBtn:active, #editPostBtn:active{
+  .main-bodyPost #savePostBtn:active, #editPostBtn:active{
     background-color: rgb(60, 92, 112);
     padding: 10px;
     transition: 500.2ms;
   }
-  #reportBtn:hover, #deletePostBtn:hover{
+  .main-bodyPost #reportBtn:hover, #deletePostBtn:hover{
     cursor: pointer;
     background-color: rgb(169, 107, 107);
     border-radius: 50px;
     padding: 5px;
     transition: 500.2ms;
   }
-  #reportBtn:active, #deletePostBtn:active{
+  .main-bodyPost #reportBtn:active, #deletePostBtn:active{
     background-color: rgb(147, 73, 73);
     padding: 10px;
     transition: 500.2ms;
   }
 
-.description-container{
+  .main-bodyPost .description-container{
   border: 1px solid gray;
   padding: 10px;
   height:150px;
@@ -164,7 +164,7 @@
   overflow-y: scroll;
 }
 
-.overlay {
+.main-bodyPost .overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -174,7 +174,7 @@
   z-index: 999; /* Ensure the overlay is above other content */
 }
 
-.overlay.remove {
+.main-bodyPost .overlay.remove {
   position: fixed;
   top: 0;
   left: 0;
@@ -182,7 +182,7 @@
   height: 0%;
 }
 
-#post-title{
+.main-bodyPost #post-title{
   font-family: 'Helvetica Neue', Arial, sans-serif; /* Clean, modern font */
     font-size: 1.5em; /* Larger size for emphasis */
     font-weight: bold; /* Bold text to stand out */
@@ -194,7 +194,7 @@
 }
 
 @media only screen and (max-width: 750px){
-  .postComponent {
+  .main-bodyPost .postComponent {
     display: grid;
     grid-template-columns: repeat(1,auto);
     grid-template-rows: 1fr;
@@ -202,7 +202,7 @@
   }
 }
 @media only screen and (max-width: 1150px){
-  .contentBox{
+  .main-bodyPost .contentBox{
     display: grid;
     grid-template-columns: repeat(1,auto);
     grid-template-rows: 1fr;

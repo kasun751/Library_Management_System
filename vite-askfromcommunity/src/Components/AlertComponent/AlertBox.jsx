@@ -19,7 +19,7 @@ function AlertBox() {
   };
 
   return (
-    <>
+    <div className='main-alert'>
       <div className={submit ? 'alert-containerOuter click' : 'alert-containerOuter'}>
       <div className={submit ? 'container alert-container click col-md-5' : 'container alert-container col-md-5 col-lg-3'}>
         <img src={closeBtn} onClick={()=>setOpenAlertBox(false)} alt='close' />
@@ -28,7 +28,7 @@ function AlertBox() {
         <button onClick={()=>handleSubmit("no")}>No</button>
       </div>
     </div>
-    </>
+    </div>
   );
 }
 

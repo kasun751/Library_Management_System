@@ -14,7 +14,7 @@ const DonateConformation = ({onClickConfirm, onClickCloseConfirmation}) => {
       <Modal.Dialog>
         <Modal.Header>
           <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
+        </Modal.Header> 
 
         <Modal.Body>
           <p>Modal body text goes here.</p>

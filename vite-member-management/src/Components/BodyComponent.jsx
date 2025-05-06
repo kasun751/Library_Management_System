@@ -3,7 +3,7 @@ import './BodyComponent.css';
 import axios from 'axios';
 import { userAuthentication, userSearch } from '../App';
 import HeaderComponent from './HeaderComponent';
-
+ 
 function BodyComponent() {
     const {searchData, filter} = useContext(userSearch)
     const {current_user_id, current_user_type} = useContext(userAuthentication);
@@ -177,7 +177,7 @@ function BodyComponent() {
     }
 
     return (
-        <>
+        <div className='main-memberManage'>
             <HeaderComponent onclick={onClickSetOffSet}/>
             <button className='btn btn-primary summary-btn' data-bs-toggle="modal" data-bs-target="#summaryReport" onClick={()=>handleGetSummaryData()} >Summary</button>
             <div className='table-responsive'>
@@ -428,7 +428,7 @@ function BodyComponent() {
                     </div>
                 </div>
             }
-        </>
+        </div>
     );
 }
 

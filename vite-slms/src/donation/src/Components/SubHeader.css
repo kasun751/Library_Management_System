@@ -1,0 +1,36 @@
+.subHeader-donation{
+    height:auto;
+    width: 100%;
+    color: white;
+    background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+    padding: 10px;
+    align-items: center;
+}
+
+.subHeader-donation .navbar-light{ 
+    background: none !important;
+    
+}
+.subHeader-donation .nav-link{ 
+    color: white !important;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 10px;
+}
+.subHeader-donation .nav-link:hover{ 
+    background-color: aliceblue;
+    color: black !important;
+    transition: 500ms;
+}
+.subHeader-donation .navbar-nav{
+    vertical-align: middle;
+}
+
+.subHeader-donation #logout-icon{
+    width:10px;
+    margin-right: 2px;
+}
+.subHeader-donation #logout{
+    margin-left: 80px;
+}

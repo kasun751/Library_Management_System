@@ -1,12 +1,12 @@
-.fade{
+.main-memberManage .fade{
     width: 100%;
     height: 100%;
 }
-.summary-btn{
+.main-memberManage .summary-btn{
     background-color: rgb(7,46,93) !important;
     color: white;
     margin:10px 0 0 10px;
 }
-.table{
+.main-memberManage .table{
     min-height: 60vh;
-}
+} 

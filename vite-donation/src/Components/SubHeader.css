@@ -8,22 +8,22 @@
     align-items: center;
 }
 
-.navbar-light{ 
+.subHeader-donation .navbar-light{ 
     background: none !important;
     
 }
-.nav-link{
+.subHeader-donation .nav-link{ 
     color: white !important;
 }
-.navbar-nav{
+.subHeader-donation .navbar-nav{
     vertical-align: middle;
 }
 
-#logout-icon{
+.subHeader-donation #logout-icon{
     width:10px;
     margin-right: 2px;
 }
-#logout{
+.subHeader-donation #logout{
     font-size: 20px;
     cursor: pointer;
 }

@@ -36,60 +36,8 @@ function DonateBookComponent({ onClickConfirmBookPayment, onClickClose,  amount,
     return !(data.fname !== "" && data.lname !== "" && data.email !== "");
   }
 
-  // async function paymentGateway() {
-  //   try {
-  //     console.log("Fetching payment data...");
-  //     const res = await axios.post('http://localhost:80/project_1/DonationHandling/Controller/payHereProcessController.php', data);
-  //     const obj = res.data;
-  //     console.log("Payment data:", obj);
-
-  //     payhere.onCompleted = function onCompleted(orderId) {
-  //       console.log("Payment completed. OrderID:", orderId);
-  //     };
-
-  //     payhere.onDismissed = function onDismissed() {
-  //       console.log("Payment dismissed");
-  //     };
-
-  //     payhere.onError = function onError(error) {
-  //       console.log("Error:", error);
-  //     };
-
-  //     const payment = {
-  //       sandbox: true,
-  //       merchant_id: "1227349",
-  //       return_url: "http://localhost:5173/",
-  //       cancel_url: "http://localhost:5173/",
-  //       notify_url: "",
-  //       order_id: obj.order_id,
-  //       items: obj.items,
-  //       amount: obj.amount,
-  //       currency: obj.currency,
-  //       hash: obj.hash,
-  //       first_name: obj.first_name,
-  //       last_name: obj.last_name,
-  //       email: obj.email,
-  //       phone: obj.phone,
-  //       address: obj.address,
-  //       city: obj.city,
-  //       country: obj.country,
-  //       delivery_address: "No. 46, Galle road, Kalutara South",
-  //       delivery_city: "Kalutara",
-  //       delivery_country: "Sri Lanka",
-  //       custom_1: "",
-  //       custom_2: ""
-  //     };
-
-  //     payhere.startPayment(payment);
-  //   } catch (err) {
-  //     console.error("Error fetching payment data:", err);
-  //   }finally{
-      
-  //   onClickClose();
-  //   }
-  // }
-
   return (
+    <div className='main-donateBookComponent'>
     <div className='donate-books-outer-container'>
       <div className='container donate-books-container col-lg-6'>
         <form className="row g-3 needs-validation" noValidate onSubmit={(e) => e.preventDefault()}>
@@ -205,7 +153,7 @@ function DonateBookComponent({ onClickConfirmBookPayment, onClickClose,  amount,
               id="amount"
               value={data.amount}
               disabled
-            />
+            /> 
           </div>
           <div className="col-md-4">
             <label className="form-label">Quantity</label>
@@ -226,6 +174,7 @@ function DonateBookComponent({ onClickConfirmBookPayment, onClickClose,  amount,
         <input type='submit' className="btn btn-primary" onClick={()=>onClickConfirmBookPayment(data)} value="Donate" disabled={handleCheckFeilds()} />
         <button className="btn btn-danger" onClick={onClickClose}>Cancel</button>
       </div>          
+    </div>
     </div>
   );
 }

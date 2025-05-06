@@ -1,0 +1,129 @@
+.taskC{
+  background-color: #e0e0e0;
+  padding: 5px !important;
+}
+.taskC body {
+  
+  background-color: #8F9AA0;
+background: 'rgba(0, 0, 0, 0.5)';
+
+  margin: 10px;
+  padding: 0;
+  align-items: center;
+  height: 100vh;
+  
+} 
+
+.taskC .App {
+
+  text-align: center;
+  width:50%;
+  max-width: 1700px;
+  margin: auto;
+  margin-top: 30px !important;
+  background: #fffefe;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+
+.taskC h1 {
+    font-family: 'Browallia New' ,'bold';
+  margin-bottom: 20px;
+  color: #000000;
+  font-size: 2.5em;
+  font-weight: 600;
+  border-bottom: 2px solid #50768b;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+
+.taskC .rbc-calendar {
+  background: #fff;
+  border-radius: 8px;
+}
+
+.taskC .rbc-toolbar {
+  font-family: 'Browallia New',sans-serif;
+  font-size: 25px;
+  background:  #072E5D;
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+  padding: 10px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+ .rbc-toolbar button {
+  background: #fff;
+  color:  #072E5D;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px !important;
+}
+
+.taskC .taskC .rbc-toolbar button:hover {
+  background:  #8F9AA0;
+  color: #fff;
+}
+
+.taskC .rbc-month-view {
+  border: 1px solid #ddd;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+
+.taskC .rbc-header {
+  background:  #072E5D;
+  color: #fff;
+  padding: 10px;
+}
+
+.taskC .rbc-header + .rbc-header {
+  border-left: 1px solid #fff;
+}
+
+.taskC .rbc-date-cell {
+  color:  #072E5D;
+}
+
+.taskC .rbc-event {
+  font-family: 'Browallia New','bold','sans-serif' !important;
+  font-size:20px;
+  background:  #1eadfa;
+ 
+  border: none;
+  color: black;
+  padding: 0px 5px;
+  border-radius:0;
+  height: 60px;
+}
+
+.taskC .rbc-event:hover {
+  background: #8F9AA0;
+}
+
+.taskC .rbc-today {
+  background: #aeddf7;
+}
+
+
+@media (max-width: 600px) {
+  .taskC  .App {
+    width: 95%;
+  }
+
+  .taskC  h1 {
+    font-size: 2em;
+  }
+
+  .taskC .rbc-toolbar button {
+    padding: 5px;
+    margin: 0 2px;
+  }
+}

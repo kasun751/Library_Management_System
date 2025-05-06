@@ -1,0 +1,129 @@
+/* Styles for Submit Post Form */
+.main-submit .submitPostFormBox {
+    position: fixed;
+    bottom: 1%;
+    left: 50%;
+    color: white;
+    transform: translateX(-50%);
+    padding: 20px;    
+    max-width: 600px;
+    border: 1px solid black;
+    border-radius: 20px;
+    background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgba(5, 50, 104, 1) 16%, rgba(55, 63, 72, 0.9) 87%) !important;
+    z-index: 10000;
+  }
+  .main-submit .form-control{
+    padding: 0;
+  }
+  .main-submit .submitPostFormBox textarea {
+    resize: none;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .main-submit .submitPostFormBox input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .main-submit #warning-msg > p{
+    color: red;
+    font-size: smaller;
+    text-align: center;
+  }
+  
+  .main-submit .submitPostFormBox input[type="button"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgb(4, 110, 15) 16%, rgba(101, 223, 107, 0.9) 87%) !important;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Styles for Blog Post */
+  .main-submit .blogPost {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .main-submit .blogPost h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .main-submit .blogPost p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  
+  .main-submit .blogPost small {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Styles for Submit Post Button */
+  .main-submit .submitPostFormBtn img {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    width: 105px;
+    padding: 10px;
+    z-index: 100;
+    cursor: pointer;
+  }
+  .main-submit .submitPostFormBtn img:hover{
+    background-color: rgb(99, 156, 189); 
+    border-radius: 40px;
+    padding: 0px;
+    transition: 500.2ms;
+  }
+  .main-submit .submitPostFormBtn img:active{
+    background-color:aqua;
+    padding: 5px;
+    transition: 200.2ms;
+  }
+  .main-submit #submitForm-back-btn{
+  width: 55px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.main-submit #submitForm-back-btn:hover{
+  background-color: rgb(99, 156, 189);  
+  padding: 0;
+    border-radius: 50px;
+    transition: 500.2ms;
+}
+
+.main-submit #submitForm-back-btn:active{
+  background-color:aqua;
+  padding: 5px;
+  transition: 200.2ms;
+}
+
+/* .file-upload-container{
+  display: grid;
+  grid-template-columns:  repeat(3,auto);
+    grid-template-rows: 1fr; 
+} */

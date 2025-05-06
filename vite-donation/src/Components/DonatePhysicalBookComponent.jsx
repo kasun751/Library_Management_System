@@ -50,6 +50,7 @@ function DonatePhysicalBookComponent({ onClickClose, purpose, record_id, maxBook
 //   };
 
   return (
+    <div className='main-donateBookComponent'>
     <div id='donate-book' className='donate-books-outer-container'>
       <div className='container donate-books-container col-lg-6'>
         <form className="row g-3 needs-validation" noValidate onSubmit={(e) => e.preventDefault()}>
@@ -167,7 +168,7 @@ function DonatePhysicalBookComponent({ onClickClose, purpose, record_id, maxBook
               onChange={handleChange}
               min="0"
               max={maxBook}
-              step="1"
+              step="1" 
             />
             {data.numberInput==maxBook && <p style={{fontSize:'12px',color:'red'}}>Maxium {maxBook} Books</p>}
             <div className="invalid-feedback">Please enter a quantity.</div>
@@ -194,6 +195,7 @@ function DonatePhysicalBookComponent({ onClickClose, purpose, record_id, maxBook
           </div>
         </div>
       </div> */}
+    </div>
     </div>
   );
 }

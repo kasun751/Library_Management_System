@@ -81,7 +81,7 @@ function DonateBookPage() {
   const closeThankYouModal2 = () => {
     setShowThankYouModal2(false);
   };
-
+ 
   async function paymentGateway() {
     try {
       console.log("Fetching payment data...");
@@ -159,7 +159,7 @@ function DonateBookPage() {
   }
 
   return (
-    <>
+    <div className='main-dBookPage'>
       <SearchDataContext.Provider value={{searchData, setSearchData}}>
         <SubHeader searchBar={true} />
         <div id='page-numbers'>
@@ -249,7 +249,7 @@ function DonateBookPage() {
         </div>
       </div>    } 
       </SearchDataContext.Provider>      
-    </>
+    </div>
   );
 }
 

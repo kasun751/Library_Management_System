@@ -4,8 +4,9 @@ import DonateBook from '../Images/book-donate.jpg';
 import DonateFunds from '../Images/fund-donate.jpg';
 import { Link } from 'react-router-dom';
 
-function BodyComponent() {
+function BodyComponent() { 
   return (
+    <div className='main-donationBody'>
     <div className='container bodyComponent-donation-outer col-12'>
       <div className='row bodyComponent-donation col-12'>
         <Link to="/donatebooks" className='donate-link col-sm-12 col-lg-5'>
@@ -22,6 +23,7 @@ function BodyComponent() {
           </div>  
         </Link>
       </div>
+    </div>
     </div>
   );
 }

@@ -1,34 +1,34 @@
-.card-title{
+.main-donateBookAdmin .card-title{
     display: flex;
     justify-content: center;
 }
-.card-subtitle{
+.main-donateBookAdmin .card-subtitle{
     margin-left: 10px;
     width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.card-link{
+.main-donateBookAdmin .card-link{
     display: flex;
     justify-content: center;
 }
-.card-text{
+.main-donateBookAdmin .card-text{ 
     width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.req-field{
+.main-donateBookAdmin .req-field{
     background-color: rgb(140,230,142);
     padding: 5px 10px;
 }
-.rec-field{
+.main-donateBookAdmin .rec-field{
     background-color: rgb(255,174,88);
     padding: 5px 10px;
 }
 
-#donate-books-ad{
+.main-donateBookAdmin #donate-books-ad{
     position: fixed;
     width: 100%;
     height: 100vh;

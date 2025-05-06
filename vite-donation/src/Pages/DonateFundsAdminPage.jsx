@@ -26,7 +26,7 @@ function DonationFundsAdminPage() {
         if(donateFundsTableData.length+5>offSet || val<0)
         setOffSet(offSet+val);
       }
-    }
+    } 
 
     useEffect(()=>{
       getdonateFundsTableData();
@@ -68,7 +68,7 @@ function DonationFundsAdminPage() {
   }
 
   return (
-    <>
+    <div className='main-dFundAdmin'>
         <SearchDataContext.Provider value={{searchData, setSearchData}}>
             <SubHeader searchBar={true} />
         </SearchDataContext.Provider>
@@ -202,7 +202,7 @@ function DonationFundsAdminPage() {
         </div>
       </div>
       <FooterComponent />
-    </>
+    </div>
   )
 }
 

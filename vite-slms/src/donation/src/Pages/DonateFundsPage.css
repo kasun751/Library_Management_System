@@ -1,0 +1,23 @@
+.main-dFund .donate-funds-container{
+    margin-top: 50px;
+    background-color: rgb(217,217,217);
+    border-radius: 20px;
+    padding: 20px 50px;
+}
+.main-dFund .donate-funds-container{
+    margin-bottom: 50px;
+}
+.main-dFund #home-btn{
+    width:50px;
+    padding: 5px;
+}
+.main-dFund #home-btn:hover{
+    padding: 0;
+}
+.main-dFund #home-btn:active{
+    padding: 0;
+}
+
+.main-dFund .navbar-light{ 
+    background: none !important;    
+} 

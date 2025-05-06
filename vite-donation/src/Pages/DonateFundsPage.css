@@ -1,23 +1,23 @@
-.donate-funds-container{
+.main-dFund .donate-funds-container{
     margin-top: 50px;
     background-color: rgb(217,217,217);
     border-radius: 20px;
     padding: 20px 50px;
 }
-.donate-funds-container{
+.main-dFund .donate-funds-container{
     margin-bottom: 50px;
 }
-#home-btn{
+.main-dFund #home-btn{
     width:50px;
     padding: 5px;
 }
-#home-btn:hover{
+.main-dFund #home-btn:hover{
     padding: 0;
 }
-#home-btn:active{
+.main-dFund #home-btn:active{
     padding: 0;
 }
 
-.navbar-light{ 
+.main-dFund .navbar-light{ 
     background: none !important;    
-}
+} 

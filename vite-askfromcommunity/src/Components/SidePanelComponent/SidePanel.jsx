@@ -66,6 +66,7 @@ function SidePanel(props) {
     }
 
     return (
+        <div className='main-sidePanelCont'>
         <div className='container sidePanel_container col-lg-5 col-md-7'>
           <img id='sidePanel-back-btn' src="src\Images\arrow-right.svg" onClick={props.onClickClose}/>
             <div className='row text-center'>
@@ -90,6 +91,7 @@ function SidePanel(props) {
                     ))}
                 </div>
             </div>
+        </div>
         </div>
     );
 }

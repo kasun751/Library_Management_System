@@ -1,4 +1,4 @@
-.report-container {
+.main-reportComponent .report-container {
     border: 1px solid #ccc;
     padding: 20px;
     margin: 20px auto;
@@ -8,11 +8,11 @@
     background:linear-gradient(#eb8865, #de2929);
     border: 2px solid red;
     border-radius: 20px;
-  }
-  .report-container.click{
+  } 
+  .main-reportComponent .report-container.click{
     visibility: hidden;
   }
-  .report-containerOuter{
+  .main-reportComponent .report-containerOuter{
     position: fixed;
     top: 0;
     left: 0;
@@ -20,14 +20,14 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); 
   }
-  .report-containerOuter.click{
+  .main-reportComponent .report-containerOuter.click{
     visibility: hidden;
   }
   .report-container h4 {
     margin-top: 0;
   }
   
-  .report-container select {
+  .main-reportComponent .report-container select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -36,7 +36,7 @@
     box-sizing: border-box;
   }
   
-  .report-container button {
+  .main-reportComponent .report-container button {
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
@@ -45,27 +45,27 @@
     cursor: pointer;
   }
   
-  .report-container button:hover {
+  .main-reportComponent .report-container button:hover {
     background-color: #0056b3;
   }
   
-  .report-container p {
+  .main-reportComponent .report-container p {
     color: red;
     margin-top: 10px;
   }
-  .report-container img{
+  .main-reportComponent .report-container img{
     width: 40px;
     position: absolute;
     top:0;
     right: 0;
   }
-  .report-container img:hover{
+  .main-reportComponent .report-container img:hover{
     width: 45px;
     position: absolute;
     top:0;
     right: 0;
   }
-  .report-container img:active{
+  .main-reportComponent .report-container img:active{
     width: 40px;
     position: absolute;
     top:0;

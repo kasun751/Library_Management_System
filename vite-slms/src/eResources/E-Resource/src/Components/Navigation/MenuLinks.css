@@ -1,0 +1,13 @@
+.linksContainer{
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 10px;
+    transition: all 400ms ease-in;
+    font-family: "Browallia New", sans-serif;
+}
+
+.linksContainer:hover{
+    cursor: pointer;
+    font-size: medium;
+}

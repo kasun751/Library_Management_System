@@ -23,7 +23,7 @@ function ReplyBox({post_id2, item }) {
       data:{
         reply_id :item.reply_id
       }
-    });
+    }); 
     setIsDelete(true);
     }catch(err){
       console.error(err);
@@ -31,7 +31,7 @@ function ReplyBox({post_id2, item }) {
   }
 
   return (
-    <>
+    <div className='main-replyBox'>
     {!isDelete && <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>}
    {!isDelete && <div className='replyBoxComponent'>
       {(item.user_id==user_id?true:false) && <label className='reportBtn'  onClick={handleDelete}>Delete</label>}
@@ -41,7 +41,7 @@ function ReplyBox({post_id2, item }) {
     {isReportOpen &&
           <ReportComponent onClose={() => setIsReportOpen(isReportOpen?false:true)} openFeild1={isReportOpen} post_id={item.post_id} reportType={"reply"} reply_id={item.reply_id}/>
       }
-    </>
+    </div>
   );
 }
 

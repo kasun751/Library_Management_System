@@ -1,4 +1,4 @@
-.sidePanel_container {
+.main-sidePanelCont .sidePanel_container {
     position: fixed;
     top: 0;
     right: 0;
@@ -10,20 +10,20 @@
     z-index: 200;
   }
 
-  #sidePanel-back-btn{
+  .main-sidePanelCont #sidePanel-back-btn{
     width: 60px;
     padding: 10px;
     cursor: pointer;
   }
   
-  #sidePanel-back-btn:hover{
+  .main-sidePanelCont #sidePanel-back-btn:hover{
     background-color: aliceblue;  
     border-radius: 50px;
     padding: 5px;
     transition: 500.2ms;
   }
   
-  #sidePanel-back-btn:active{
+  .main-sidePanelCont #sidePanel-back-btn:active{
     background-color:aqua;
     padding: 10px;
   transition: 200.2ms;

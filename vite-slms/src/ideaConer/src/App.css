@@ -1,0 +1,149 @@
+/* 
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #babec1;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.App {
+  text-align: center;
+  width: 100%;
+  max-width: 1600px; 
+  background: rgba(255, 255, 255, 0.9); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 40px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+header {
+  margin-bottom: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-family: 'Times New Roman', Times, serif,Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: #4a4a4a;
+  font-size: 50px;
+  font-weight: 300;
+  border-bottom: 2px solid #50768b;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.user-selection {
+  margin-bottom: 40px;
+}
+
+.user-selection button {
+  background: #1e3541;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 40px;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 50px;
+  width: 160px;
+  font-size: 18px;
+}
+
+.user-selection button:hover {
+  background: #8f9aa0;
+}
+
+.section {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.section h2 {
+  color: #1e3541;
+  border-bottom: 2px solid #1e3541;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.post-form {
+  margin-bottom: 20px;
+}
+
+.post-form input[type="text"] {
+  padding: 10px;
+  width: calc(100% - 110px);
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.post-form input[type="file"] {
+  margin-top: 10px;
+}
+
+.post-form button {
+  padding: 10px 20px;
+  background: #1e3541;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.post-form button:hover {
+  background: #8f9aa0;
+}
+
+.creations-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.creations-list li {
+  background: #f4f4f9;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.creations-list li img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+.creations-list li img {
+  max-width: 100%;
+  max-height: 400px; 
+  width: auto; 
+  height: auto; 
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+
+@media (max-width: 600px) {
+  .App {
+    width: 95%;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .post-form input[type="text"] {
+    width: calc(100% - 90px);
+  }
+} */

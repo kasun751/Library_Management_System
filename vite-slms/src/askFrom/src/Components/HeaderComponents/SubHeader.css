@@ -1,0 +1,121 @@
+.main-header .subHeadeContainer{
+  display: flex;
+  justify-content: space-between;
+  min-height: 100px;
+  height:auto;
+  border: 2px solid black;
+  background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; */
+}
+
+.main-header .headerTitle{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.main-header .navbar-light{
+  background: none !important;  
+  
+}
+
+.main-header .nav-btn{
+ font-size: 15px;
+ font-weight: bold;
+ margin: 0 5px;
+}
+
+.main-header .nav-link{
+  color: white !important;
+  margin: 5px;
+  padding: 5px;
+}
+.main-header .nav-link:hover{
+ cursor: pointer;
+ background-color: white;
+ color: black !important;
+ transition: 500.2ms;
+}
+.main-header .headerTitle{
+    width:50%; 
+}
+.main-header .me-auto{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.main-header .headerTitle img{
+    width:70px;
+    margin-right: 50px;
+    margin-left: 10px;
+}
+.main-header .headerTitle input[type="text"]{
+    width: 80%;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.main-header .menu-btn{
+  width: 50px;  
+  padding: 10px;
+}
+.main-header .menu-btn:hover{
+  background-color:rgb(30,52,65);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 20px;
+  transition: 500.2ms;
+}
+.main-header .menu-btn:active{
+  background-color:rgb(63, 86, 100);
+  padding: 10px;
+  transition: 200.2ms;
+}
+
+.main-header .dropdown-menu{
+  background-color:rgb(12, 45, 84) !important;
+  color: white !important;
+}
+.main-header .dropdown-item{
+  color: white !important;
+}
+.main-header .dropdown-item:hover{
+  color: black !important;
+}
+
+@media only screen and (max-width: 750px){
+  .main-header .headerTitle{
+  flex-direction: column;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+.main-header .headerTitle input[type="text"]{
+  width: 80%;
+}
+.main-header .subHeadeContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+}
+@media (max-width: 650px) {
+/* Hide all li elements inside subHeaderImageBtnPannel */
+/* .subHeaderImageBtnPannel nav{
+  display: none;
+}
+
+#menu-btn{
+  width: 40px;
+  display: inline;
+} */
+
+}

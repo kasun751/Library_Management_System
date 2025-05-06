@@ -1,4 +1,4 @@
-.bodyComponent {
+.main-body .bodyComponent {
     margin: 0 10px;
     padding: 20px 10px; 
     background-color: white;
@@ -12,55 +12,55 @@
 
   }
 
-  .post-display-container{
+  .main-body .post-display-container{
     min-height: 60vh;
   }
 
-  #scroll-btn{
+  .main-body #scroll-btn{
     width:50px;
     padding: 10px;
   }
-  #scroll-btn:hover{
+  .main-body #scroll-btn:hover{
     background-color: rgb(139, 222, 196);
     border-radius: 20px;
     padding: 5px;
     transition: 500.2ms;
   }
-  #scroll-btn:active{
+  .main-body #scroll-btn:active{
     background-color: rgb(84, 184, 152);
     padding: 10px;
     transition: 500.2ms;
   }
   
-  #bodyComponent-footer{
+  .main-body #bodyComponent-footer{
     display: flex;
     justify-content: center;
     background-color: white;
   }
-  #scroll-btn-container{
+  .main-body #scroll-btn-container{
     display: flex;
     justify-content: center;
     background-color: white;
   }
-  #bodyComponent-footer>div>label{
+  .main-body #bodyComponent-footer>div>label{
     padding: 10px 20px;
     color: blck;
     font-weight: bold;
     background-color:rgb(181,206,235);
     border-radius: 10px;
   }
-  #selectList-container{
+  .main-body #selectList-container{
     margin:0 50px 0 50px;
     display: grid;
     grid-template-columns: repeat(2,auto);
     grid-template-rows: 1;
   }
 
-  #bodyComponent-footer>div{
+  .main-body #bodyComponent-footer>div{
     text-align: center;
   }
 
-  #selectList-div>select{
+  .main-body #selectList-div>select{
     font-size: medium;
     font-style: italic;
     margin-left: 10px;
@@ -69,34 +69,34 @@
     border-radius: 10px;
     border: none;
   }
-  #selectList-div>select:hover{
+  .main-body #selectList-div>select:hover{
     background-color:rgb(114, 170, 233);
     border: 1px solid rgb(98, 101, 103);
     transition: 500.2ms;
   }
 
 
-#post-numbers>img{
+  .main-body #post-numbers>img{
   width:55px;
   padding: 10px;
 }
-#post-numbers>img:hover{
+.main-body #post-numbers>img:hover{
   background-color:rgb(99, 156, 189);
   padding: 5px;
   border-radius: 20px;
   transition: 500.2ms;
 }
-#post-numbers>img:active{
+.main-body #post-numbers>img:active{
   background-color:rgb(55, 115, 149);
   padding: 10px;
   transition: 200.2ms;
 }
-#selectList-container>img{
+.main-body #selectList-container>img{
   display: flex;
   flex-direction: row;
 }
 
-  #post-numbers>p{
+.main-body #post-numbers>p{
     background-color:rgb(181,206,235);
     width:70px;
     text-align: center;
@@ -104,23 +104,23 @@
     border-radius: 10px;
     display: inline;
   }
-  #post-numbers {
+  .main-body #post-numbers {
     display: flex;
     justify-content: flex-end; /* Aligns all child elements to the right */
     align-items: center; /* Ensures the items are vertically centered */
   }
   
-  #post-numbers p {
+  .main-body #post-numbers p {
     margin: 0 2px;
     width: auto;
   }
   @media only screen and (max-width: 600px){
-    #selectList-container{
+    .main-body #selectList-container{
       grid-template-columns: repeat(1,auto);
       justify-content: center;
       grid-template-rows: 2;
     }
-    #selectList-container>div{
+    .main-body #selectList-container>div{
       justify-content: space-around;
       margin-top: 5px;
     }

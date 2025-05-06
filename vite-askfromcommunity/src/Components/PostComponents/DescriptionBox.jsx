@@ -9,7 +9,7 @@ function DescriptionBox(props) {
     }
 
     return (
-        <div>
+        <div className='main-description'>
             <div className='descriptionBox' onClick={handleOpenDescription}>
                 <h4>Description</h4>
             </div>
@@ -19,5 +19,5 @@ function DescriptionBox(props) {
         </div>
     )
 }
-
+ 
 export default DescriptionBox

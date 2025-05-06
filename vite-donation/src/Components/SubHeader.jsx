@@ -45,7 +45,7 @@ function SubHeader({ searchBar }) {
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> 
           </nav>
         </div>
       </div>

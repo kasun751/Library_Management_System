@@ -12,7 +12,7 @@ function ReportComponent({ onClose, post_id, openFeild1, reportType, reply_id  }
   const [openFeild, setOpenFeild] = useState(openFeild1);
 
   const {user_id, user_type} = useContext(userAuthentication)
-
+ 
   useEffect(() => {
     selectRef.current.focus();
   }, []);
@@ -51,7 +51,7 @@ function ReportComponent({ onClose, post_id, openFeild1, reportType, reply_id  }
   };
 
   return (
-    <>
+    <div className='main-reportComponent'>
       {openFeild&&<div className={submit ? 'report-containerOuter click' : 'report-containerOuter'}>
       <div className={submit ? 'container report-container click col-md-5' : 'container report-container col-md-5 col-lg-3'}>
         <img src={closeBtn} onClick={()=>setOpenFeild(false)} alt='close' />
@@ -79,7 +79,7 @@ function ReportComponent({ onClose, post_id, openFeild1, reportType, reply_id  }
         {Select && <p>Please Select a reason for reporting</p>}
       </div>
     </div>}
-    </>
+    </div>
   );
 }
 

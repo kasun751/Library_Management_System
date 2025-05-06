@@ -9,7 +9,7 @@ const DonateBooksAdminConformation = ({onClickConfirm, onClickCloseConfirmation,
     const[check,setCheck] = useState(false);
 
   return (
-    <>
+    <> 
         {
             action==-2 && <div
             id='donate-confirmation'

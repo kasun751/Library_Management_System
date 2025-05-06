@@ -31,17 +31,17 @@
     transition: 500.2ms;
   }
   
-  .icon-div {
+  .footer-container .icon-div {
     text-align: center;
   }
   
-  .icon-div label {
+  .footer-container .icon-div label {
     color: white;
     display: block;
     font-size: 10px;
   }
   
-  .footer-link {
+  .footer-container .footer-link {
     color: white;
     text-align: center;
     display: block;
@@ -50,11 +50,11 @@
     text-decoration: none;
   }
   
-  .footer-link:hover {
+  .footer-container .footer-link:hover {
     text-decoration: underline;
   }
   
-  .footer-text {
+  .footer-container .footer-text {
     color: rgb(103, 98, 98);
     text-align: center;
     font-size: 10px;

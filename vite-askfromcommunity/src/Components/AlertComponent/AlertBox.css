@@ -1,4 +1,4 @@
-.alert-container {
+.main-alert .alert-container {
     border: 1px solid #ccc;
     padding: 20px;
     margin: 20px auto;
@@ -9,10 +9,10 @@
     border: 2px solid red;
     border-radius: 20px;
   }
-  .alert-container.click{
+  .main-alert .alert-container.click{
     visibility: hidden;
   }
-  .alert-containerOuter{
+  .main-alert .alert-containerOuter{
     position: fixed;
     top: 0;
     left: 0;
@@ -20,14 +20,14 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); 
   }
-  .alert-containerOuter.click{
+  .main-alert .alert-containerOuter.click{
     visibility: hidden;
   }
-  .alert-container h4 {
+  .main-alert .alert-container h4 {
     margin-top: 0;
   }
     
-  .alert-container button {
+  .main-alert .alert-container button {
     background-color: #007bff;
     margin-left: 10px;
     color: #fff;
@@ -37,27 +37,27 @@
     cursor: pointer;
   }
   
-  .alert-container button:hover {
+  .main-alert .alert-container button:hover {
     background-color: #0056b3;
   }
   
-  .alert-container p {
+  .main-alert .alert-container p {
     color: red;
     margin-top: 10px;
   }
-  .alert-container img{
+  .main-alert .alert-container img{
     width: 40px;
     position: absolute;
     top:0;
     right: 0;
   }
-  .alert-container img:hover{
+  .main-alert .alert-container img:hover{
     width: 45px;
     position: absolute;
     top:0;
     right: 0;
   }
-  .alert-container img:active{
+  .main-alert .alert-container img:active{
     width: 40px;
     position: absolute;
     top:0;

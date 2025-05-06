@@ -1,4 +1,4 @@
-.replyBoxComponent {
+.main-reportReplyBox .replyBoxComponent {
     border: 1px solid #ccc;
     margin: 10px; 
     padding: 10px; 
@@ -8,17 +8,17 @@
     color: black;
   }
   
-  .replyBoxComponent p {
+  .main-reportReplyBox .replyBoxComponent p {
     margin-left: 10px; 
     margin-bottom: 5px;
   }
-  .reportBtn{
+  .main-reportReplyBox .reportBtn{
     float: right;
     cursor: pointer;
     color: gray;
     margin-left: 10px;
     margin-bottom: 10px;
   }
-  .reportBtn:hover{
+  .main-reportReplyBox .reportBtn:hover{
     color: red;
   }

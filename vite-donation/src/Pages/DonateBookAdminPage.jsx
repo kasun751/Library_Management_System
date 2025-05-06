@@ -79,9 +79,9 @@ function DonationBookAdminPage() {
   function submitRequestBook(e){
     submitRequestBookDetails(requestBook)
   }
-
+ 
   return (
-    <>
+    <div className='main-dBookAdminPage'>
       <SearchDataContext.Provider value={{ searchData, setSearchData }}>
         <SubHeader searchBar={true} />
       </SearchDataContext.Provider>
@@ -278,7 +278,7 @@ function DonationBookAdminPage() {
         } */}
       </div> 
       <FooterComponent />
-    </>
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-.sidePanelPostComponent {
+.main-sidePanel .sidePanelPostComponent {
     margin: 20px;
     width: 75%;
     padding: 5px;
@@ -10,38 +10,38 @@
     color: black;
   }
 
-  .sidePanelPostComponent img{
+  .main-sidePanel .sidePanelPostComponent img{
     width:50%;
   }
 
-  #view-post-btn > img{
+  .main-sidePanel #view-post-btn > img{
     width:40px;
     padding: 5px;
     float:right;
   }
 
-  #view-post-btn > img:hover{
+  .main-sidePanel #view-post-btn > img:hover{
     padding: 0;
     background-color: rgb(128, 181, 212);
     border-radius: 20px;
     transition: 500.2ms;
-  }
-  #view-post-btn > img:active{
+  } 
+  .main-sidePanel #view-post-btn > img:active{
     padding: 5px;
     background-color: rgb(76, 146, 186);
     transition: 200.2ms;
   }
   
   
-  .sidePanelPostComponent h2 {
+  .main-sidePanel .sidePanelPostComponent h2 {
     margin-bottom: 10px;
   }
   
-  .sidePanelPostComponent p {
+  .main-sidePanel .sidePanelPostComponent p {
     margin-bottom: 20px;
   }
   
-  .sidePanelPostComponent input[type="text"] {
+  .main-sidePanel .sidePanelPostComponent input[type="text"] {
     width: calc(100% - 80px);
     padding: 10px;
     margin-right: 10px;
@@ -50,19 +50,19 @@
     box-sizing: border-box;
   }
 
-  .accordion-item {
+  .main-sidePanel .accordion-item {
     padding: 0px !important;
   }
 
-  .accordion-header {
+  .main-sidePanel .accordion-header {
     padding: 0 !important;
   }
 
-  .accordion-body {
+  .main-sidePanel .accordion-body {
     padding: 0 !important;
   }
   
-  .sidePanelPostComponent button {
+  .main-sidePanel .sidePanelPostComponent button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -70,36 +70,36 @@
     transition: background-color 0.3s ease;
   }
   
-  .sidePanelPostComponent button:hover {
+  .main-sidePanel .sidePanelPostComponent button:hover {
     background-color: #f0f0f0;
   }
-  .sidePanelPostComponent-replyBox {
+  .main-sidePanel .sidePanelPostComponent-replyBox {
     margin-top: 20px;
   }
-  .sidePanelPostComponent-reportBtn{
+  .main-sidePanel .sidePanelPostComponent-reportBtn{
     float: right;
     cursor: pointer;
     color: gray;
   }
-  .reportBtn:hover{
+  .main-sidePanel .reportBtn:hover{
     color: red;
   }
 
-  .sidePanelPostComponent-buttonPanel{
+  .main-sidePanel .sidePanelPostComponent-buttonPanel{
     float: right;
     cursor: pointer;
     color: gray;
     margin-right: 20px;
   }
-  .sidePanelPostComponent-buttonPanel:hover{
+  .main-sidePanel .sidePanelPostComponent-buttonPanel:hover{
     color: rgb(12, 77, 198);
   }
 
-  #savePostBtn{
+  .main-sidePanel #savePostBtn{
     width:30px;
     float:right;
     margin-right: 20px;
   }
-  #savePostBtn:hover{
+  .main-sidePanel #savePostBtn:hover{
     cursor: pointer;
   }

@@ -10,24 +10,24 @@ ImageSlider.css
     position: relative;
 }
 
-#next-img, #prev-img {
+.imageSlider #next-img, #prev-img {
     width: 10vw;
     max-width: 40px;
     cursor: pointer;
 } 
-#next-img:hover, #prev-img:hover {
+.imageSlider #next-img:hover, #prev-img:hover {
     background-color: rgb(178, 204, 219);
     border-radius: 10px;
     transition: background-color 0.2s, padding 0.2s;
 }
 
-#next-img:active, #prev-img:active {
+.imageSlider #next-img:active, #prev-img:active {
     background-color: rgb(61, 112, 142);
     padding: 10px;
     transition: background-color 0.2s, padding 0.2s;
 }
 
-#slide-img {
+.imageSlider #slide-img {
     max-width: 80%;
     min-height: 250px;
     max-height: 80vh;
@@ -37,7 +37,7 @@ ImageSlider.css
 }
 
 @media (max-width: 500px) {
-    #slide-img {
+    .imageSlider #slide-img {
         max-width: 60%;
         min-height: auto;
     }

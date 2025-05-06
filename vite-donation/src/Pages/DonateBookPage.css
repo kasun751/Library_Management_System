@@ -1,4 +1,4 @@
-.donateBook-container{
+.main-dBookPage .donateBook-container{
     /* display: grid;
     grid-template-columns: repeat(3,auto);
     grid-template-rows: auto;     */
@@ -10,7 +10,7 @@
   min-height: 60vh;
 } 
 
-#Donation-con-div{
+.main-dBookPage #Donation-con-div{
   justify-content: center;
     align-items: center;
     position: fixed;
@@ -22,65 +22,65 @@
     background-color: rgba(0,0,0,0.3);
 }
 
-.card-title{
+.main-dBookPage .card-title{
   background-color: rgb(127,182,247);
   padding: 5px 0 !important;
   margin: 0 0 15px 0 !important;
   border-radius: 5px 5px 0 0;
 }
 
-P > label{
+.main-dBookPage P > label{
   font-weight: bold;
   font-style: italic;
 }
-#page-numbers > img{
+.main-dBookPage #page-numbers > img{
   width:50px;
   padding: 5px;
   margin:0 5px;
 }
-#page-numbers {
+.main-dBookPage #page-numbers {
   display: flex;
   justify-content: center;
 }
-#page-numbers > *{
+.main-dBookPage #page-numbers > *{
   align-items: center;
 }
-#book-received{
+.main-dBookPage #book-received{ 
   padding: 5px 10px;
   background-color: rgb(140,230,142);
   color: black;
 }
-#book-requied{
+.main-dBookPage #book-requied{
   padding: 5px 10px;
   background-color: rgb(255,174,88);
   color: black;
 }
-#donate-book-title{
+.main-dBookPage #donate-book-title{
   text-align: center;
   font-weight: bold;
 }
 
-.card-body{
+.main-dBookPage .card-body{
   padding: 0 0 10px 0 !important;
 }
-.card{
+.main-dBookPage .card{
   padding:0px !important;
   margin: 5px;
   border: 2px solid black !important;
 }
 
-.card-text{
+.main-dBookPage .card-text{
   display: flex;
   justify-content: left;
   margin-left: 10px;
 }
 
-.card-outer{
+.main-dBookPage .card-outer{
   background-color: rgb(241, 239, 240);
   margin: 10px;
   border-radius: 5px;
 }
-.thankyou-outer-container{
+.main-dBookPage .thankyou-outer-container{
   position: fixed;
   top:0;
   width:100%;

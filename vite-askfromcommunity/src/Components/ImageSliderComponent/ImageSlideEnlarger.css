@@ -1,6 +1,6 @@
-.ise-container {
+.main-ise .ise-container {
   padding: 50px;
-  margin: 20px auto;
+  margin: 20px auto; 
   position: fixed;
   top: 0;
   height: 90vh;
@@ -17,11 +17,11 @@
   z-index: 1000; /* Makes sure it's on top */
 }
 
-.ise-container.click {
+.main-ise .ise-container.click {
   visibility: hidden;
 }
 
-.ise-containerOuter {
+.main-ise .ise-containerOuter {
   position: fixed;
   top: 0;
   left: 0;
@@ -33,11 +33,11 @@
   z-index: 999; /* Ensures it's behind the container */
 }
 
-.ise-containerOuter.click {
+.main-ise .ise-containerOuter.click {
   visibility: hidden;
 }
 
-#imgSlider-container {
+.main-ise #imgSlider-container {
   max-width: 100%;
   height: 80vh;
   /* display: flex;
@@ -47,13 +47,13 @@
   margin: 0 auto;
 }
 
-#imgSlider-container img {
+.main-ise #imgSlider-container img {
   max-width: 100%;
   height: 80vh;
   object-fit: contain; /* Ensures the image fits within the container while maintaining its aspect ratio */
 }
 
-#ise-close-btn {
+.main-ise #ise-close-btn {
   width: 40px;
   position: absolute;
   top: 10px;
@@ -62,21 +62,21 @@
   transition: width 0.2s ease;
 }
 
-#ise-close-btn:hover {
+.main-ise #ise-close-btn:hover {
   width: 45px;
 }
 
-#ise-close-btn:active {
+.main-ise #ise-close-btn:active {
   width: 40px;
 }
 
 /* Optional: Responsive adjustments */
 @media (max-width: 768px) {
-  .ise-container {
+  .main-ise .ise-container {
     width: calc(100% - 20px);
     top: 20px;
   }
-  #imgSlider-container {
+  .main-ise #imgSlider-container {
     height: 100vh;
   }
 }

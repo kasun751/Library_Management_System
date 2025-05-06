@@ -1,17 +1,17 @@
-#donate-funds-numbers > img{
+.main-dFundAdmin #donate-funds-numbers > img{
     width:50px;
     padding: 5px;
     margin:0 5px;
   }
-  #donate-funds-numbers {
+  .main-dFundAdmin #donate-funds-numbers {
     display: flex;
     justify-content: center;
   }
-  #donate-funds-numbers > *{
+  .main-dFundAdmin #donate-funds-numbers > *{
     align-items: center;
   }
-  #summary-btn{
+  .main-dFundAdmin #summary-btn{
     float:right;
     position: relative;
     z-index: 100;
-  }
+  } 

@@ -1,4 +1,4 @@
-.subHeadeContainer{
+.main-header .subHeadeContainer{
   display: flex;
   justify-content: space-between;
   min-height: 100px;
@@ -12,41 +12,45 @@
   width: 100%; */
 }
 
-.headerTitle{
+.main-header .headerTitle{
   display: flex;
   flex-direction: row;
   align-items: center;
   text-align: center;
   justify-content: center;
 }
-.navbar-light{
-  background: none !important; 
-  
+.main-header .navbar-light{
+  background: none !important;  
   
 }
 
-#logOut-btn{
+.main-header .nav-btn{
  font-size: 20px;
 }
 
-.nav-link{
+.main-header .nav-link{
   color: white !important;
+  margin: 5px;
+  padding: 5px;
 }
-.headerTitle{
+.main-header .nav-link:hover{
+  padding: 0;
+}
+.main-header .headerTitle{
     width:50%; 
 }
-.me-auto{
+.main-header .me-auto{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
-.headerTitle img{
+.main-header .headerTitle img{
     width:70px;
     margin-right: 50px;
     margin-left: 10px;
 }
-.headerTitle input[type="text"]{
+.main-header .headerTitle input[type="text"]{
     width: 80%;
     height: 40px;
     padding: 10px;
@@ -54,34 +58,34 @@
     border-radius: 5px;
     box-sizing: border-box;
 }
-.menu-btn{
+.main-header .menu-btn{
   width: 50px;  
   padding: 10px;
 }
-.menu-btn:hover{
+.main-header .menu-btn:hover{
   background-color:rgb(30,52,65);
   cursor: pointer;
   padding: 5px;
   border-radius: 20px;
   transition: 500.2ms;
 }
-.menu-btn:active{
+.main-header .menu-btn:active{
   background-color:rgb(63, 86, 100);
   padding: 10px;
   transition: 200.2ms;
 }
 
 @media only screen and (max-width: 750px){
-.headerTitle{
+  .main-header .headerTitle{
   flex-direction: column;
   margin-bottom: 10px;
   text-align: center;
   width: 100%;
 }
-.headerTitle input[type="text"]{
+.main-header .headerTitle input[type="text"]{
   width: 80%;
 }
-.subHeadeContainer{
+.main-header .subHeadeContainer{
   display: flex;
   flex-direction: column;
 }

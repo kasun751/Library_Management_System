@@ -12,7 +12,7 @@ function DonateBookAdmin({item1, count, refreshPage}) {
 
   function changeRowColor(item){
     let sty = {}
-    if(item == -1){
+    if(item == -1){ 
       //pending
       sty = { backgroundColor: 'rgba(0,0,0,0.3)' };
     }else if(item==-2){
@@ -40,7 +40,7 @@ function DonateBookAdmin({item1, count, refreshPage}) {
   }
 
   return (
-    <div className='m-2'>
+    <div className='main-donateBookAdmin m-2'>
          <Card style={{ width: '18rem' }}>
             <Card.Body>
                 <Card.Title><h5 style={{width:'220px',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{item1[0]?.bookName}</h5></Card.Title>

@@ -3,14 +3,14 @@
     margin-bottom: 10px;
 }
 
-#slms-logo{
+.header-container #slms-logo{
     width: 70px;
 }
-.navbar-light{
+.header-container .navbar-light{
     background: rgb(69,141,224) !important; 
     background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
     
 }
-.nav-link{
+.header-container .nav-link{
     color: white !important;
 }

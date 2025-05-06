@@ -1,0 +1,135 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+.section .btn.button {
+  padding: 10px 20px;
+  background: linear-gradient(0deg, rgba(3,47,100,1) 0%, rgba(69,141,224,1) 100%);
+  cursor: pointer;
+  display: inline-block;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.section .btn.button:hover {
+  background: linear-gradient(0deg, rgba(69,141,224,1) 0%, rgba(3,47,100,1) 100%);
+  transform: scale(1.05);
+}
+
+.section input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin: 10px auto;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+.section input[type="text"]:focus {
+  box-shadow: 0 0 5px rgba(69,141,224,0.5);
+  border-color: rgba(69,141,224,0.5);
+}
+
+.section .creations-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+}
+
+.section .creations-list li {
+  margin: 30px 5px !important;
+  transition: all 0.3s ease;
+  background: #f4f4f9;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.section .creation-image {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  width: 400px;
+  height: 400px;
+}
+
+.section .creation-image:hover {
+  transform: scale(1.05);
+}
+
+.section .creation-details {
+  margin-top: 5px;
+}
+
+.section .creation-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+
+
+.section .App {
+  text-align: center;
+  width: 100%;
+  max-width: 1600px; 
+  background: rgba(255, 255, 255, 0.9); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 40px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.section .user-selection button:hover {
+  background: #8f9aa0;
+}
+
+.section .section {
+  margin-bottom: 20px;
+  width: 100%;
+ 
+}
+.section{
+  /* min-height:100vh; */
+}
+
+@media (max-width: 768px) {
+  .section .App {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .section  .btn.button {
+    width: 100%;
+  }
+
+  .section  .creations-list {
+    justify-content: center;
+  }
+}
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.section .animate__fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+}

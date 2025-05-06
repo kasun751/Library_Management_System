@@ -4,6 +4,7 @@ import SidePanel from '../SidePanelComponent/SidePanel';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { postRefresh } from '../BodyComponents/BodyComponent';
 import { userAuthentication } from '../../App';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -58,7 +59,7 @@ function SubHeader({ onChangeTitle }) {
   };
 
   return (
-    <>
+    <div className='main-header'>
       <div className='subHeadeContainer'>
         <div className='headerTitle'>
           <img src='src\Images\SLMS-logo.svg' alt="Community" />
@@ -75,7 +76,7 @@ function SubHeader({ onChangeTitle }) {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <Link className="nav-link" to="/home">
+                  {/* <Link className="nav-link" to="/home">
                     <img
                       className='menu-btn'
                       src='src/Images/home-btn.svg'
@@ -85,17 +86,24 @@ function SubHeader({ onChangeTitle }) {
                       data-bs-title="Home Button"
                       title='Home Button'
                     />
-                  </Link>
-                  <div className="nav-link">
+                  </Link> */}
+                  {/* <div className="nav-link">
                     <img
                       className='menu-btn'
                       src='src/Images/refresh-btn.svg'
                       alt="Refresh Posts"
                       onClick={handleRefresh}
                       title='Refresh Button'
-                    />
-                  </div>
-                  <div className="nav-link">
+                    />  
+                  </div> */}
+                  {/* <Nav.Link onClick={mySavedPost} >Refresh</Nav.Link> */}
+                  <Link className="nav-link" onClick={handleRefresh} >
+                        <label className="nav-btn refresh-btn">Refresh</label>
+                  </Link>
+                  <Link className="nav-link" to="/home">
+                        <label className="nav-btn">Home</label>
+                  </Link>
+                  {/* <div className="nav-link">
                     <img
                       className='menu-btn'
                       src='src/Images/message-white-heart.svg'
@@ -112,10 +120,10 @@ function SubHeader({ onChangeTitle }) {
                       onClick={myPost}
                       title='My Posts'
                     />
-                  </div>
-                  {user_type === "staff" && (
+                  </div> */}
+                  {/* {user_type === "staff" && ( */}
                     <>
-                      <div className="nav-link">
+                      {/* <div className="nav-link">
                         <img
                           className='menu-btn'
                           src='src/Images/report-post.svg'
@@ -132,12 +140,29 @@ function SubHeader({ onChangeTitle }) {
                           onClick={showReportedMsg}
                           title='Reported Messages'
                         />
-                      </div>
+                      </div> */}
+                      <NavDropdown title="More Options" id="basic-nav-dropdown" className="logOut-btn">
+                        <NavDropdown.Item href="#action/3.1" onClick={mySavedPost}>Save Posts</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#action/3.2" onClick={myPost}>
+                          My Posts
+                        </NavDropdown.Item>
+                        {user_type === "staff" && (
+                        <NavDropdown.Divider />)}
+                        {user_type === "staff" && (
+                        <NavDropdown.Item href="#action/3.3" onClick={showReportedPost} >Report Ports</NavDropdown.Item>)}
+                        {user_type === "staff" && (
+                        <NavDropdown.Divider />)}
+                        {user_type === "staff" && (
+                        <NavDropdown.Item href="#action/3.4" onClick={showReportedMsg}>
+                          Report Messages
+                        </NavDropdown.Item>)}
+                      </NavDropdown>
                       <Link className="nav-link" to="/home">
-                        <label id="logOut-btn">Log Out</label>
+                        <label className="nav-btn">Log Out</label>
                       </Link>
                     </>
-                  )}
+                  {/* )} */}
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -191,7 +216,7 @@ function SubHeader({ onChangeTitle }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
 

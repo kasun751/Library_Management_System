@@ -10,7 +10,7 @@ const DonateBookPaymentConformation = ({onClickConfirm, onClickCloseConfirmation
         id='donate-confirmation'
       className="modal show"
       style={{ display: 'block', position: 'initial' }}
-    >
+    > 
       <Modal.Dialog>
         <Modal.Header>
           <Modal.Title>Modal title</Modal.Title>

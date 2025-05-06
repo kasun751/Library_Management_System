@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 function FooterComponent() {
-  return (
+  return ( 
     <div className='footer-container'>
       <div className='row mb-4 justify-content-center'>
         <div className='col-4 col-md-1 mb-2 icon-div'>

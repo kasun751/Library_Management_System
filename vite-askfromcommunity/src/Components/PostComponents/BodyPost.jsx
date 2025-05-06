@@ -32,7 +32,7 @@ function BodyPost({ post}) {
   const {handleRefresh} = useContext(postRefresh);
   const {user_id, user_type} = useContext(userAuthentication)
 
-
+  console.log(post)
   useEffect(() => {
     getReplyMsgFromDB();
     setIsAvailable(post.user_id==user_id ? true:false);
@@ -155,6 +155,7 @@ function BodyPost({ post}) {
   const img = savePost? 'src/Images/save.svg':'src/Images/unSave.svg';
 
   return (
+    <div className='main-bodyPost'>
     <div className='container col-lg-10 col-sm-12 col-12'>
     <AnimatePresence>
       {!isDelete && 
@@ -166,15 +167,20 @@ function BodyPost({ post}) {
       <div className=' postComponent col-lg-12 col-sm-12 col-12'>
         <div className='image-box'>
           <div className='post-btn-panel'>
-              <label style={{color:'gray',fontStyle:'italic'}}>user_name</label>
+              <label style={{color:'gray',fontStyle:'italic'}}>{post.FirstName+" "+post.LastName}</label>
 
-              {!isAvailable && <img id = "reportBtn" src="src\Images\report-btn.svg" alt="report"  onClick={handleReport}/>}
+              {!isAvailable && 
+              <img id = "reportBtn" src="src\Images\report-btn.svg" alt="report"  onClick={handleReport} data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Report" 
+              title='Report'/>
+              }
 
-              {isAvailable && <img id="editPostBtn" src="src\Images\edit-btn.svg" alt="edit" onClick={handleEdit}/>}
+              {isAvailable && 
+              <img id="editPostBtn" src="src\Images\edit-btn.svg" alt="edit" onClick={handleEdit}  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Edit" title='Edit' />
+              }
 
-              {!isAvailable && <img id="savePostBtn" src={img} alt="post save button" onClick={handleSaveBtn} />}
+              {!isAvailable && <img id="savePostBtn" src={img} alt="post save button" onClick={handleSaveBtn}  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Save" title={!savePost?'Save Post' : 'UnSave Post'} />}
 
-              {isAvailable && <img id="deletePostBtn" src="src\Images\delete-btn.svg" alt="delete" onClick={handleDelete}/>}
+              {isAvailable && <img id="deletePostBtn" src="src\Images\delete-btn.svg" alt="delete" onClick={handleDelete} data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Save" title='Delete'/>}
           </div>
             <div className='imageSlider-container'>
               
@@ -182,7 +188,7 @@ function BodyPost({ post}) {
               
                   <ImageSlider post_id={post.post_id}/>
                                              
-            </div>            
+            </div>             
         </div>
         <div className='contentBox-outer'>
         <div className='contentBox'>
@@ -248,6 +254,7 @@ function BodyPost({ post}) {
         }
         </AnimatePresence>
       </imageEnlargerActivity.Provider>
+    </div>
     </div>
   );
 }

@@ -19,7 +19,7 @@ function ReportPage({item, status}) {
     }
   }, []);
   function confirmHandleDelete(para){
-    
+     
   }
   async function handleDelete(){
     setIsDelete(true);
@@ -81,7 +81,7 @@ function ReportPage({item, status}) {
     }
   }
   return (
-    <>
+    <div className='main-reportPage'>
       {isVisible&&<div className='container col-lg-10 report-page-container'>
         <div className=' post-container'>
           <div className='btn-panel'>
@@ -148,7 +148,7 @@ function ReportPage({item, status}) {
         </div>
       </div>
       }
-    </>
+    </div>
   );
 }
 

@@ -80,6 +80,7 @@ function BodyComponent() {
 };
   
   return (
+    <div className='main-body'>
     <loadPanelPost.Provider value = {{setPost_id, showPanelPost, setShowPanelPost}}>
       <postRefresh.Provider value={{refresh, handleRefresh}}>
         <SubHeader onChangeTitle={handleChangeTitle} />
@@ -127,6 +128,7 @@ function BodyComponent() {
           <FooterComponent />
       </postRefresh.Provider>
     </loadPanelPost.Provider>  
+    </div>
   );
 }
 

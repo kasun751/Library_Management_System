@@ -13,7 +13,7 @@ function PanelPost({ post, onclickClose}) {
   }
 
   return (
-    <>
+    <div className='main-sidePanel'>
       {<div className='sidePanelPostComponent'>
         <Accordion defaultActiveKey="1" >
         <Accordion.Item eventKey="0" >
@@ -25,8 +25,8 @@ function PanelPost({ post, onclickClose}) {
           </Accordion.Body>
         </Accordion.Item>
         </Accordion>
-      </div>}
-    </>
+      </div>} 
+    </div>
   );
 }
 

@@ -7,7 +7,7 @@ function HeaderComponent({onclick}) {
 
   const handleFilter =(val)=>{
     switch(val){
-      case "1":
+      case "1": 
         setFilter("staff")
         break;
       case "2":
@@ -22,6 +22,7 @@ function HeaderComponent({onclick}) {
     }
   }
   return (
+    <div className='main-headerMember'>
     <div className="header-container container">
     <div className="row pt-4 pb-3">
         <div className="col-md-8 col-10">
@@ -67,6 +68,7 @@ function HeaderComponent({onclick}) {
             <input type="text" className="search-bar form-control" name="searchBar" value={searchData} placeholder="Search" onChange={(e)=>setSearchData(e.target.value)} />
         </div>
     </div>
+</div>
 </div>
 
   )

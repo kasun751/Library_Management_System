@@ -111,7 +111,7 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
     }
 
     return (
-        <>
+        <div className='main-submit'>
             {formAvailable && (
                 <div className='container submitPostFormBox col-lg-6'>
                     <form className="was-validated">
@@ -168,7 +168,7 @@ function SubmitPostForm({ category: initialCategory = 'none', title: initialTitl
             <div className='submitPostFormBtn'>
                 {!formAvailable && initialbtn_value === 'Send Post' && <img src="src/Images/submit-post.svg" alt="submit Post" onClick={handleToCreatePost} />}
             </div>
-        </>
+        </div>
     );
 }
 
