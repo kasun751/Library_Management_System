@@ -1,0 +1,99 @@
+#loginFormMainDiv {
+    background-image: linear-gradient(
+            to bottom,
+            #021323 0%,
+            #0A3A72 28%,
+            #033060 70%,
+            #021323 100%
+    );
+    min-height: 100vh;
+    height: 100%;
+    box-sizing: border-box;
+}
+#loginFormMainDiv .commonHeader{
+    border-bottom: 20px white solid;
+}
+
+#loginFormMainDiv .footer-container{
+    border-top: 20px white solid;
+}
+
+
+#loginSideImage img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0 60px 60px 0;
+}
+
+#loginForm {
+    margin:40px 20px;
+    height: 80vh;
+    width: calc(80% - 0);
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index:1000;
+}
+
+#loginForm p {
+    color: white;
+    text-align: center;
+    font-size: 13px;
+}
+
+#loginForm h3 {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    margin-top: -20px!important;
+}
+
+#loginForm label {
+    margin-top: 20px;
+    color: white;
+    font-size: 13px;
+}
+
+#loginForm #createAccountLink {
+    color: white;
+    font-size: 16px;
+}
+
+#loginForm button {
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(14, 76, 156) 87%) !important;
+    border: none !important;
+    margin-top: 20px;
+    color: yellow;
+}
+#forgotPasswordLink{
+    color: white;
+    font-size: 13px;
+    text-decoration: none;
+}
+#createAccountLink{
+    background-color:transparent;
+}
+@media (max-width: 768px) {
+    #loginForm #createAccountLink {
+        font-size: 13px;
+    }
+}
+@media (max-width: 768px) {
+    #loginFormMainDiv{
+        background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('../../assets/images/LoginSideImage.jpg');
+    background-size: cover;
+    }
+    #loginSideImage img {
+        display: none;
+    }
+
+    #loginForm {
+        opacity: 0.94;
+
+    }
+}

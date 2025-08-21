@@ -1,0 +1,16 @@
+.header-container{
+    height:100px;
+    margin-bottom: 10px;
+}
+
+.header-container #slms-logo{
+    width: 70px;
+}
+.header-container .navbar-light{
+    background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+    
+}
+.header-container .nav-link{
+    color: white !important;
+}

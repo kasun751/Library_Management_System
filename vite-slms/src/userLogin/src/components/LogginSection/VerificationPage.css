@@ -1,0 +1,33 @@
+/* VerificationPage.css */
+#verificationPage body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #001f3f;
+    color: #fff;
+}
+
+#verificationPage .verification-container {
+    min-height: calc(100vh - 300px); /* Adjust for header and footer */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+#verificationPage .verification-text {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

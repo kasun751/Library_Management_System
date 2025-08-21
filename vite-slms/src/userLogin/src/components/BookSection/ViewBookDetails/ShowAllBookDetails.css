@@ -1,0 +1,18 @@
+#AllBookDetails h1{
+    color:#072E5D;
+    text-align: center;
+    padding: 10px!important;
+    font-family: 'Georgia', serif;
+    font-weight: 800;
+}
+
+
+#AllBookDetails #details p,#AllBookDetails textarea{
+    color: white;
+    font-weight: 600;
+    padding: 13px;
+    height: 55px;
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(21, 101, 202) 87%) !important;
+    border-radius: 10px;
+}
+

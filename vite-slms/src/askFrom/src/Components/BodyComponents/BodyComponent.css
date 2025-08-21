@@ -1,0 +1,130 @@
+.bodyComponent {
+    margin: 0 10px;
+    padding: 20px 10px; 
+    background-color: white;
+    /* display: grid;
+    grid-template-columns: repeat(3,auto);
+    grid-template-rows: auto; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+
+  }
+
+ .post-display-container{
+    min-height: 60vh;
+  }
+
+ #scroll-btn{
+    width:50px;
+    padding: 10px;
+  }
+ #scroll-btn:hover{
+    background-color: rgb(139, 222, 196);
+    border-radius: 20px;
+    padding: 5px;
+    transition: 500.2ms;
+  }
+#scroll-btn:active{
+    background-color: rgb(84, 184, 152);
+    padding: 10px;
+    transition: 500.2ms;
+  }
+  
+ #bodyComponent-footer{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+  }
+ #scroll-btn-container{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+  }
+ #bodyComponent-footer>div>label{
+    padding: 10px 20px;
+    color: blck;
+    font-weight: bold;
+    background-color:rgb(181,206,235);
+    border-radius: 10px;
+  }
+ #selectList-container{
+    margin:0 50px 0 50px;
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-template-rows: 1;
+  }
+
+ #bodyComponent-footer>div{
+    text-align: center;
+  }
+
+ #selectList-div>select{
+    font-size: medium;
+    font-style: italic;
+    margin-left: 10px;
+    background-color:rgb(181,206,235);
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: none;
+  }
+  #selectList-div>select:hover{
+    background-color:rgb(114, 170, 233);
+    border: 1px solid rgb(98, 101, 103);
+    transition: 500.2ms;
+  }
+
+
+ #post-numbers>img{
+  width:55px;
+  padding: 10px;
+}
+ #post-numbers>img:hover{
+  background-color:rgb(99, 156, 189);
+  padding: 5px;
+  border-radius: 20px;
+  transition: 500.2ms;
+}
+ #post-numbers>img:active{
+  background-color:rgb(55, 115, 149);
+  padding: 10px;
+  transition: 200.2ms;
+}
+ #selectList-container>img{
+  display: flex;
+  flex-direction: row;
+}
+
+ #post-numbers>p{
+    background-color:rgb(181,206,235);
+    width:70px;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: inline;
+  }
+  #post-numbers {
+    display: flex;
+    justify-content: flex-end; /* Aligns all child elements to the right */
+    align-items: center; /* Ensures the items are vertically centered */
+  }
+  
+ #post-numbers p {
+    margin: 0 2px;
+    width: auto;
+  }
+
+  
+
+  @media only screen and (max-width: 600px){
+  #selectList-container{
+      grid-template-columns: repeat(1,auto);
+      justify-content: center;
+      grid-template-rows: 2;
+    }
+     #selectList-container>div{
+      justify-content: space-around;
+      margin-top: 5px;
+    }
+  }

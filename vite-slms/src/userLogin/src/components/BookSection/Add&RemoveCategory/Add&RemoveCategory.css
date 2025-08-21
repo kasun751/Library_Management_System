@@ -1,0 +1,61 @@
+
+#formDivCategoryAddAndRemove {
+    margin: 5% auto;
+    height:auto;
+    width: 40%;
+    padding: 20px 40px;
+}
+
+#formDivCategoryAddAndRemove #addCategory {
+    margin-top: 10px;
+}
+#formDivCategoryAddAndRemove .add{
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(21, 101, 202) 87%) !important;
+}
+
+#formDivCategoryAddAndRemove .remove{
+    background: linear-gradient(0deg, rgb(213, 8, 32) 16%, rgb(232, 78, 78) 87%) !important;
+}
+
+#formDivCategoryAddAndRemove button a{
+    color: white!important;
+    text-decoration: none;
+}
+
+.category-dark-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+}
+
+ .category-dark-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal.fade.show {
+    opacity: 1;
+   font-size: 13px;
+}
+#categoryModel button{
+    font-size: 11px;
+}
+#categoryModel #understood{
+    background-color:  #1E3541 !important;
+}
+#categoryModel h5{
+    color: red;
+}
+#categoryModel #goToDelete{
+    color: white;
+}
+
+#categoryAddAndRemove .modal-body p{
+    color: white;
+}

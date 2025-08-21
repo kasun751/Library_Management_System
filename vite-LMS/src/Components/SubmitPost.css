@@ -1,0 +1,81 @@
+/* Styles for Submit Post Form */
+.submitPostBox {
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  width: 50%;
+  max-width: 600px;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: rgba(193, 182, 228,0.7);
+}
+
+.submitPostBox textarea {
+  resize: none;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.submitPostBox input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.submitPostBox input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Styles for Blog Post */
+.blogPost {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.blogPost h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.blogPost p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.blogPost small {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Styles for Submit Post Button */
+.submitPostBtn img {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  width: 100px;
+  cursor: pointer;
+}

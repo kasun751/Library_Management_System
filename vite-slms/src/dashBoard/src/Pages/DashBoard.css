@@ -1,0 +1,275 @@
+.main-dashboard .dashbord-btn-panel > .row-cols-12{
+    display: flex;
+    justify-items: center;
+    justify-content: space-around;
+}
+.main-dashboard .header{
+    display: flex;
+    justify-content: center;
+    color:white;
+    text-shadow: -2px -2px 0 #000,  
+                  2px -2px 0 #000,
+                  -2px 2px 0 #000,
+                  2px 2px 0 #000;
+}
+.main-dashboard .dashboard {
+    position: relative;
+    border: 1px solid black;
+    border-radius: 20px;
+    max-width: 80%;
+    margin: 0 auto;
+    min-height: 60vh;
+    padding: 20px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.main-dashboard .dashboard-outer{
+    position: relative;
+    z-index: 1
+}
+
+/* .main-dashboard .profile-container-inner{
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 50px;
+  background-color: rgb(217,217,217);
+} */
+
+.main-dashboard .edit-btn-profile{
+  width:40px;
+  padding: 10px;
+  margin-left: 10px;
+}
+/* .main-dashboard .edit-btn-profile:hover{
+  padding: 8px;
+  background-color: rgb(32, 120, 214);
+  border-radius: 20px;
+  transition: all 0.5s ease;
+} */
+
+.main-dashboard .dashboard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../Images/dashBoard_background.webp");
+    background-size: cover;
+    background-position: center;
+    filter: blur(6px);
+    z-index: -1;
+}
+
+/* .main-dashboard .profile-label{
+  font-weight: bold;
+  font-size: 1.1em;
+} */
+
+.main-dashboard .btn-primary{
+    background: linear-gradient(0deg, rgba(3,47,100,1) 25%, rgba(69,141,224,1) 95%) !important;
+    border: 1px solid white;
+  }
+  .main-dashboard .btn-secondary{
+    background: linear-gradient(0deg, rgb(55, 57, 60) 25%, rgb(140, 142, 144) 95%) !important;
+    border: 1px solid white;
+  }
+  .main-dashboard .btn-primary:hover{
+    background: linear-gradient(0deg, rgba(69,141,224,1) 25%, rgba(3,47,100,1) 95%) !important;
+    border: 1px solid white;
+    transition: all 0.5s ease;
+  }
+  .main-dashboard .btn-secondary:hover{
+    background: linear-gradient(0deg, rgb(151, 8, 23) 25%, rgb(227, 72, 72) 95%) !important;
+    border: 1px solid white;
+    transition: all 0.5s ease;
+  }
+
+  .main-dashboard #back-btn-profile{
+    width:50px;
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 50px;
+  }
+  .main-dashboard #back-btn-profile:hover{
+    padding: 0;
+    background-color: rgb(9, 107, 75);
+    transition: all 0.5s ease;
+  }
+
+.profile-container-outer {
+  height: 80vh; 
+  width: 100%;
+  background: linear-gradient(0deg, rgba(69, 141, 224, 0.626) 16%, rgba(52, 115, 192, 0.516) 87%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  overflow: hidden; 
+}
+
+/* Inner container */
+.profile-container-inner {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  max-width: 750px;
+  max-height: 500px; 
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+}
+
+
+.back-button {
+  width: 25px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+
+.profile-title {
+  text-align: center;
+  color:#0c0666d4;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+
+.profile-content {
+  width: 100%;
+  flex: 1; 
+  overflow-y: auto;
+}
+
+
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+
+.profile-table tr {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-label {
+  font-weight: bold;
+  color: #0c0666d4;
+  padding-right: 8px;
+}
+
+.profile-table td {
+  padding: 8px 5px;
+}
+
+
+.edit-btn-profile {
+  width: 22px;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: transform 0.2s;
+}
+
+.edit-btn-profile:hover {
+  transform: scale(1.1);
+}
+
+.welcome-title {
+  font-size: 3rem; 
+  font-weight: 700; 
+  text-align: left;
+  margin: 30px 40px;
+  opacity: 0; 
+  transform: translateY(-30px);
+  animation: fadeInUp 1s ease-in-out forwards;
+  background: linear-gradient(to right, #0b223c, #3b5998); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+
+.welcome-title:hover {
+  color: #f39c12; 
+  transform: scale(1.05); 
+}
+
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+#dash-main-btn{
+  background: rgb(124,7,123) !important;
+background: linear-gradient(0deg, rgba(124,7,123,1) 21%, rgba(222,88,224,1) 77%) !important;
+}
+#dash-main-btn:hover{
+  background: rgb(124,7,123) !important;
+background: linear-gradient(180deg, rgba(124,7,123,1) 21%, rgba(222,88,224,1) 77%) !important;
+}
+
+#dash-add-btn1, #dash-add-btn2, #dash-add-btn3{
+  background: rgb(4, 91, 36) !important;
+background: linear-gradient(0deg, rgb(4, 98, 38) 28%, rgba(88,224,145,1) 70%) !important;
+
+}
+#dash-add-btn1:hover, #dash-add-btn2:hover, #dash-add-btn3:hover{
+  background: rgb(4, 101, 40) !important;
+  background: linear-gradient(180deg, rgb(3, 109, 42) 28%, rgba(88,224,145,1) 70%) !important;
+
+}
+
+#dash-delete-btn1, #dash-delete-btn2{
+  background: rgb(175,9,9) !important;
+background: linear-gradient(0deg, rgba(175,9,9,1) 21%, rgba(228,99,99,1) 69%) !important;
+}
+#dash-delete-btn1:hover, #dash-delete-btn2:hover{
+  background: rgb(175,9,9) !important;
+background: linear-gradient(180deg, rgba(175,9,9,1) 21%, rgba(228,99,99,1) 69%) !important;
+}
+
+#dash-view-btn{
+background: linear-gradient(0deg, rgb(83, 101, 3) 21%, rgb(191, 223, 72) 69%) !important;
+}
+#dash-view-btn:hover{
+background: linear-gradient(180deg, rgb(83, 101, 3) 21%, rgb(191, 223, 72) 69%) !important;
+}
+
+@keyframes fadeInUp {
+  to {
+      opacity: 1; 
+      transform: translateY(0); 
+  }
+}
+
+.welcome-title:hover {
+  color: rgb(3, 47, 100); 
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+@media (max-width: 768px) {
+  .profile-container-inner {
+    width: 90%;
+    padding: 10px;
+    max-height: 400px;
+  }
+
+  .profile-table td {
+    padding: 6px 4px;
+  }
+}

@@ -1,0 +1,30 @@
+.main-dBookAdminPage #donate-book-numbers > img{
+    width:50px;
+    padding: 5px;
+    margin:0 5px;
+  }
+  .main-dBookAdminPage #donate-book-numbers {
+    display: inline-flex;
+    justify-content: center;
+    width:80%;
+  }
+  .main-dBookAdminPage #donate-book-numbers > *{
+    align-items: center;
+  }
+  .main-dBookAdminPage #summary-btn{
+    float:right;
+    margin: 10px 5px 5px 10px;
+    position: relative;
+    z-index: 100;
+  } 
+  .main-dBookAdminPage #request-books-btn{
+    float:right;
+    position: relative;
+    margin-right: 5px;
+    z-index: 100;
+  }
+
+  .main-dBookAdminPage .dbookAdmin{
+    display: flex;
+    flex-wrap: wrap;
+  }

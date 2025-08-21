@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Lusitana:wght@400;700&display=swap');
+#card{
+    height: auto;
+    background-color: rgba(160, 206, 239, 0.51);
+    border: none;
+    width: 25vw;
+    padding: 10px 20px;
+    margin:20px 20px;
+}
+
+#card .card-img-top{
+    height: 320px;
+    margin: 30px auto auto;
+    border: 1px solid black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+#card-title{
+  /*font-family: "Times New Roman", sans-serif ;*/
+    font-family: "Browallia New", sans-serif;
+   font-size: 16px;
+    font-weight: bolder;
+}
+/*.card-title span{*/
+/*    font-style: italic;*/
+/*    font-weight: normal;*/
+/*}*/
+#card-text{
+    /*font-family: "Lusitana", serif !important;*/
+    font-family: "Browallia New", sans-serif;
+    font-size: 16px !important;
+}
+.home-center-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Browallia New", sans-serif;
+
+    /*gap: 0.5rem;*/
+}
+#home-delete-button{
+    background: linear-gradient(0deg,  rgba(93,11,11,1) 5% ,rgba(195,23,23,1)87%);
+    font-family: "Browallia New", sans-serif;
+    width: 7rem;
+
+}
+#home-update-button{
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+    font-family: "Browallia New", sans-serif;
+
+    width: 7rem;
+}
+
+@media only screen and (max-width: 1045px) {
+    #card{
+        width: 35vw;
+        padding: 10px 20px;
+        margin:20px 40px;
+    }
+    #card-title{
+        /*font-family: "Times New Roman", sans-serif ;*/
+        font-size:20px;
+        font-weight: bold;
+    }
+
+    #card-text{
+        /*font-family: "Lusitana", serif !important;*/
+        font-size: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    #card{
+        width: 30vw;
+        padding: 10px 20px;
+        margin:20px 40px;
+    }
+    #card-title{
+        /*font-family: "Times New Roman", sans-serif ;*/
+        font-size:16px;
+        font-weight: bold;
+    }
+
+    #card-text{
+        /*font-family: "Lusitana", serif !important;*/
+        font-size: 16px !important;
+    }
+}
+@media only screen and (max-width: 890px) {
+    #card{
+        width: 33vw;
+        padding: 10px 20px;
+        margin:20px 40px;
+    }
+    #card-title{
+        /*font-family: "Times New Roman", sans-serif ;*/
+        font-size:16px;
+        font-weight: bold;
+    }
+
+    #card-text{
+        /*font-family: "Lusitana", serif !important;*/
+        font-size: 16px !important;
+    }
+}
+@media only screen and (max-width: 840px) {
+    #card{
+        width:70vw !important;
+        padding: 10px ;
+        margin:20px 10px;
+    }
+    #card-title{
+        /*font-family: "Times New Roman", sans-serif ;*/
+        font-size:16px !important;
+        font-weight: bold;
+    }
+
+    #card-text{
+        /*font-family: "Lusitana", serif !important;*/
+        font-size: 16px !important;
+    }
+    #card-body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+@media only screen and (max-width: 550px) {
+    #card{
+        width: 100vw !important;
+        padding: 10px 40px;
+        margin:20px 30px;
+    }
+    #card-title{
+        /*font-family: "Times New Roman", sans-serif ;*/
+        font-size:16px !important;
+        font-weight: bold;
+    }
+
+    #card-text{
+        /*font-family: "Lusitana", serif !important;*/
+        font-size: 16px !important;
+    }
+    #card-body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+@media only screen and (max-width: 410px) {
+
+    #card-body h4,h5,h6,p{
+        display: initial;
+        /*flex-direction: column;*/
+        /*align-items:self-start;*/
+
+    }
+    #card-title{
+        /*font-family: "Times New Roman", sans-serif ;*/
+        font-size:12px !important;
+        font-weight: bold;
+    }
+
+    #card-text{
+        /*font-family: "Lusitana", serif !important;*/
+        font-size: 12px !important;
+    }
+}

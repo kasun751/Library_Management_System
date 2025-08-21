@@ -1,0 +1,34 @@
+.main-dFundAdmin .table-responsive{
+  height: 50vh;
+  }
+.main-dFundAdmin #donate-funds-numbers{
+  margin:10px;
+  }
+.main-dFundAdmin #donate-funds-numbers > img{
+  width:40px;
+  padding: 10px;
+  margin:0 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+  }
+.main-dFundAdmin #donate-funds-numbers > img:hover{
+  padding: 5px;
+   background-color: rgba(129,210,227,255);
+   transition: 500ms;
+  }
+  .main-dFundAdmin #donate-funds-numbers {
+    display: flex;
+    justify-content: center;
+  }
+  .main-dFundAdmin #donate-funds-numbers > *{
+    align-items: center;
+  }
+ #summary-btn{
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+  } 
+
+#donate-funds-numbers p{
+  font-size: 20px;
+}

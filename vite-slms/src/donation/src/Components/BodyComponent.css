@@ -1,0 +1,42 @@
+.main-donationBody {
+    min-height: 85vh;
+}
+
+.bodyComponent-donation-outer {
+    background-image: url("../Images/donation-background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid black;
+    padding: 40px 0; /* Adds space around content */
+}
+
+.bodyComponent-donation {
+    text-align: center;
+    min-height: 85vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Add spacing between elements */
+}
+
+.main-donationBody a {
+    text-decoration: none !important;
+}
+
+.donate-books, .donate-funds {
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: rgb(7, 46, 93);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.donate-books:hover, .donate-funds:hover {
+    background-color: rgb(36, 99, 176);
+}
+
+.donate-link {
+    display: flex;
+    justify-content: center;
+}

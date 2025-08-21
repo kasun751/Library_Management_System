@@ -1,0 +1,52 @@
+.ePastPapers_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background: url("../../../assets/images/epast_papers.jpg") center center / cover no-repeat;
+    width: 100vw;
+    font-family: "Browallia New", sans-serif;
+}
+.ePastPapers_header h1{
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    font-family: "Browallia New", sans-serif;
+
+}
+.ePastPapers_header h1 span{
+    color: #C8F154;
+}
+
+@media only screen and (max-width: 1180px) {
+     .ePastPapers_header h1{
+         font-size: 47px;
+    }
+
+
+}
+
+@media only screen and (max-width: 980px) {
+   .ePastPapers_header{
+       display: inline-block;
+   }
+    .ePastPapers_header h1{
+        font-size: 45px;
+        text-align: center;
+        border-radius: 5px;
+        background-color:rgba(143, 154, 160, 0.5) ;
+    }
+
+    .home_heading{
+        text-shadow:
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px  2px 0 #000,
+                2px  2px 0 #000 !important;
+        color: white;
+    }
+    #ppsearchSelect{
+        width: 60vw;
+        margin: auto;
+    }
+}

@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+.body{
+    background:linear-gradient(0deg, rgb(3,57,108) 10%, rgb(142, 165, 182) 60%) !important ;
+    margin-bottom: 0;
+}
+.home{
+    background-color: white;
+    width: 92vw;
+    padding: 0 40px;
+    border: 1px solid white;
+}
+
+.main_home{
+    background:url("../../assets/images/main_home.jpg") center center / cover no-repeat;
+    padding: 40px;
+}
+.main_home h1{
+    color: white;
+    font-family: "Browallia New", sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    margin-left: 2rem;
+
+}
+#custom-button{
+    width: 10rem;
+    margin-left: 8.9rem;
+    margin-top: 0.5rem;
+    font-family: "Browallia New", sans-serif;
+    font-weight: initial;
+    font-size: 20px;
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+}
+#custom-button a{
+    color: white;
+    text-decoration: none;
+}
+.vertical-line{
+    border-left: 2px solid black;
+    height: 250px;
+    margin-top: 5px;
+
+}
+.home h2{
+    font-size:43px;
+    font-family: "Browallia New", sans-serif;
+    font-weight: bold;
+    color: #072E5D;
+}
+.home p{
+    font-family: "Browallia New", sans-serif;
+    font-size: 24px;
+    font-weight: lighter;
+}
+.card-body p small{
+    font-weight: bolder;
+}
+
+
+
+
+@media only screen and (max-width: 1190px) {
+    #custom-button{
+        font-size: 16px;
+    }
+    .home h2{
+        font-size:40px;
+    }
+    .home p{
+        font-size: 20px;
+
+    }
+
+}
+@media only screen and (max-width:1000px) {
+    .vertical-line{
+        display: none;
+    }
+    #custom-button{
+      float: right;
+    }
+    .home h2{
+        text-align: center;
+    }
+
+}
+@media only screen and (max-width:750px) {
+    .main_home h1{
+        font-size: 40px;
+        text-align: center;
+    }
+    .home h2{
+        font-size:37px;
+    }
+    .home p{
+        font-size: 18px;
+
+    }
+
+}
+
+@media only screen and (max-width:620px) {
+    .main_home h1{
+        font-size:35px;
+    }
+    .home h2{
+        font-size:32px;
+    }
+    .home p{
+        font-size: 16px;
+
+    }
+
+}
+
+@media only screen and (max-width:530px) {
+    .main_home h1{
+        font-size:30px;
+    }
+    .home h2{
+        font-size:28px;
+    }
+    .home p{
+        font-size: 16px;
+
+    }
+
+}
+@media only screen and (max-width:450px) {
+    .main_home h1{
+        font-size:28px;
+    }
+    .home h2{
+        font-size:28px;
+    }
+    .home p{
+        font-size: 16px;
+
+    }
+    #custom-button{
+        width: 8rem;
+
+    }
+
+}

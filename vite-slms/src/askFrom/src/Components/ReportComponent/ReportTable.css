@@ -1,0 +1,6 @@
+.Report-table-container table td {
+    border:1px solid white;
+}
+.Report-table-container td {
+    padding: 5px;
+}

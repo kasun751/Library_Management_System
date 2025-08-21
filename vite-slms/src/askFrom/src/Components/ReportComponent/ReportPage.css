@@ -1,0 +1,74 @@
+.main-reportPage .report-page-container{
+    position: fixed;
+    z-index: 100;
+    width: 75%;
+    top: 0%;
+    left: 0;   
+    height:100%;
+    background-color: rgb(41, 71, 88);
+    color: #fff;
+    padding: 20px;
+    overflow: auto;
+}
+  
+.main-reportPage .report-page-container button{
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+}
+ 
+.main-reportPage .btn-panel{
+    display: flex;
+    flex-direction: row;
+}
+.main-reportPage #rejectBtn{
+    background: rgb(5,26,51);
+    background: linear-gradient(0deg, rgba(5,26,51,1) 16%, rgba(60,128,208,1) 90%);
+}
+.main-reportPage #deleteBtn{
+    background:linear-gradient(#eb8865, #de2929);
+    border: 2px solid red;
+}
+.main-reportPage #rejectBtn:hover{
+    background: rgb(10, 60, 121);
+    background: linear-gradient(0deg, rgb(14, 61, 118) 16%, rgb(37, 77, 123) 90%);
+    border: 2px solid rgb(249, 248, 248);
+    transition: 200ms;
+}
+.main-reportPage #deleteBtn:hover{
+    background:linear-gradient(#7e371c, #9c4949);
+    border: 2px solid rgb(251, 246, 246);
+    transition: 200ms;
+}
+.main-reportPage #imageSlider-container{
+    width: 50%;
+    margin: 10px auto;
+
+}
+.modal-dialog{
+    position: relative;
+    z-index: 2000;
+}
+.main-reportPage .modal-title, .modal-body{
+    color:black !important;
+}
+
+ .modal-backdrop.show {
+    position: relative !important;
+}
+
+.main-reportPage .modal-backdrop.fade.show {
+    z-index: 1300; /* Set modal z-index higher than the backdrop */
+  }
+
+  #back-fade{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 1200;
+    background-color: rgba(0,0,0,0.5);
+  }

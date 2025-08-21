@@ -1,0 +1,15 @@
+
+#formDivAddExistingBook  {
+    margin:40px 170px;
+    height:auto;
+    width: auto;
+    padding: 20px 40px;
+}
+
+#formDivAddExistingBook #addCategory{
+    margin-top: 10px;
+}
+
+#formDivAddExistingBook #submit{
+    margin-top: 40px!important;
+}

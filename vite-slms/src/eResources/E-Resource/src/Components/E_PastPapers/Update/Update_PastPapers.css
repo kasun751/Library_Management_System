@@ -1,0 +1,34 @@
+.Update_pasrpapers_form{
+    margin: 20px 0;
+    padding: 0;
+    background: url("../../../assets/images/epast_papers.jpg") center center/cover no-repeat;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Browallia New", sans-serif;
+}
+
+.Update_pasrpapers_form::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../../../assets/images/epast_papers.jpg') center center/ cover no-repeat;
+    filter: blur(2px);
+    z-index: -1;
+    opacity: 0.8;
+}
+@media only screen and (max-width: 1240px) {
+    .Update_pasrpapers_form{
+
+        height: 100%;
+    ;
+    }
+}

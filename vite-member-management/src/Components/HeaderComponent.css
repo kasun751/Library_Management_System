@@ -1,0 +1,38 @@
+.main-headerMember .header-container{
+    background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+    min-width: 100%;
+    min-height:100px;
+    color: white;
+}
+ 
+.main-headerMember .prev-next-btn > .btn-primary{
+    background-color: rgb(7,46,93) !important;
+}
+.main-headerMember .prev-next-btn > button{
+    width: 100px;
+    margin-left: 10px;
+}
+.main-headerMember .prev-next-btn > img{
+    width: 30px;
+}
+.main-headerMember .filter-tag{
+    background-color: rgb(7,46,93) !important;
+    color: white;
+}
+
+.main-headerMember .navbar-light{
+    background: none !important;
+    
+}
+.main-headerMember .nav-link{
+    color: white !important;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.main-headerMember .search-bar{
+    margin-top: 20px;
+    width: 70%;
+    float: right;
+}

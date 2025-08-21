@@ -1,0 +1,50 @@
+ImageSlider.css 
+
+ .imageSlider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.imageSlider #next-img, #prev-img {
+    width: 10vw;
+    max-width: 40px;
+    cursor: pointer;
+} 
+.imageSlider #next-img:hover, #prev-img:hover {
+    background-color: rgb(178, 204, 219);
+    border-radius: 10px;
+    transition: background-color 0.2s, padding 0.2s;
+}
+
+.imageSlider #next-img:active, #prev-img:active {
+    background-color: rgb(61, 112, 142);
+    padding: 10px;
+    transition: background-color 0.2s, padding 0.2s;
+}
+
+.imageSlider #slide-img {
+    max-width: 80%;
+    min-height: 250px;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+@media (max-width: 500px) {
+    .imageSlider #slide-img {
+        max-width: 60%;
+        min-height: auto;
+    }
+  }
+
+/* .test > img {
+    max-width: 100%;
+    max-height: fit-content;
+    object-fit: contain;
+  } */

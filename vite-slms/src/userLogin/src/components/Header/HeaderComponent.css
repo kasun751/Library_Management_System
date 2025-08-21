@@ -1,0 +1,42 @@
+
+
+#slms-logo{
+   margin-left: 10px;
+    height: 67px;
+    width: 100px !important;
+}
+.navbar-light{
+    background: rgb(69,141,224) !important; 
+    background: linear-gradient(0deg, rgba(69,141,224,1) 16%, rgba(3,47,100,1) 87%) !important;
+    
+}
+.nav-link{
+    color: white !important;
+}
+.header-container.commonHeader .text-white {
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+.commonHeader a{
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.header-container.commonHeader .text-white:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black !important;
+    transition: 500.2ms;
+   }
+
+   .nav-item a:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black !important;
+    padding: 10px !important;
+    transition: 500.2ms;
+}
