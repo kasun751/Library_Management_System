@@ -32,5 +32,5 @@ Follow these steps to run the project locally:
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/SLMS.git
+git clone https://github.com/kasun751/SLMS.git
 cd SLMS
