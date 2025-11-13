@@ -1,0 +1,32 @@
+#ViewBookDetails .container input{
+    width: 250px!important;
+    margin-bottom: 20px !important;
+}
+#ViewBookDetails label{
+    font-weight: bold;
+}
+#ViewBookDetails .table th:nth-child(1),#ViewBookDetails .table td:nth-child(1) {
+    width: 8%;
+}
+
+#ViewBookDetails .table th ,#ViewBookDetails .table td{
+    width: 20%;
+}
+#ViewBookDetails #availabilityDetails{
+    background: linear-gradient(0deg, rgb(9, 53, 112) 16%, rgb(21, 101, 202) 87%) !important;
+    border: none;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#ViewBookDetails #viewDetails{
+    background: linear-gradient(0deg, rgb(9, 122, 255) 16%, rgb(55, 210, 232) 87%) !important;
+    border: none;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#ViewBookDetails .style{
+    color: white;
+    text-decoration: none;
+}

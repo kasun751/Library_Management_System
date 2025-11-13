@@ -1,0 +1,27 @@
+#formDivRestoreAllBook {
+    margin: 4% auto;
+    height:auto;
+    width:70%;
+    background: rgba(234, 228, 228, 0.19);
+    border: 2px solid rgba(251, 251, 251, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index:1000;
+    padding: 40px 40px;
+}
+
+#formDivRestoreAllBook h1{
+    color:#072E5D;
+    text-align: center;
+    padding: 10px!important;
+    font-family: 'Georgia', serif;
+    font-weight: 800;
+}
+
+#formDivRestoreAllBook #addCategory{
+    margin-top: 10px;
+}
+

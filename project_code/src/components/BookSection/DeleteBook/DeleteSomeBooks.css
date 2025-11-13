@@ -1,0 +1,12 @@
+#formDivSingleBooksDelete {
+    width: 70%;
+    margin: 8% auto;
+    padding: 40px 40px;
+}
+
+#formDivSingleBooksDelete #addCategory{
+    margin-top: 10px;
+}
+ #singleBooksDelete button{
+    background: linear-gradient(0deg, rgb(213, 8, 32) 16%, rgb(232, 78, 78) 87%) !important;
+}

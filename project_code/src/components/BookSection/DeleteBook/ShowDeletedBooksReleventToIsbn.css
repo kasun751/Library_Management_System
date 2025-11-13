@@ -1,0 +1,31 @@
+#showDeletedBooksRelevantToIsbn .container{
+    background: transparent;
+    border: none;
+}
+#displayTitle{
+    color:#072E5D;
+    text-decoration: underline;
+}
+#showDeletedBooksRelevantToIsbn table th{
+    background-color: #4A86CD;
+}
+#showDeletedBooksRelevantToIsbn .container table td .col-12 button{
+    margin-top: 0!important;
+    width: auto!important;
+    background-color:  #1E3541!important;
+    /*border: none!important;*/
+    opacity: 0.88;
+}
+#showDeletedBooksRelevantToIsbn .table th:nth-child(3),#showDeletedBooksRelevantToIsbn .table td:nth-child(3) {
+    width: 16%;
+}
+
+#showDeletedBooksRelevantToIsbn .table th:nth-child(1),#showDeletedBooksRelevantToIsbn .table td:nth-child(1),
+#showDeletedBooksRelevantToIsbn .table th:nth-child(2), #showDeletedBooksRelevantToIsbn .table td:nth-child(2) {
+    width: 20%;
+}
+
+#showDeletedBooksRelevantToIsbn .container #restoreAll{
+    background: linear-gradient(0deg, rgb(9, 122, 255) 16%, rgb(55, 210, 232) 87%) !important;
+
+}
